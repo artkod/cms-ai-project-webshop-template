@@ -1,0 +1,37 @@
+{
+  "name": "cms-ai-project-webshop-template",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@9.15.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "vendor:admin-base": "bash scripts/vendor-admin-base.sh"
+  },
+  "dependencies": {
+    "@mantine/core": "^7.0.0",
+    "@mantine/hooks": "^7.0.0",
+    "@mantine/notifications": "^7.17.8",
+    "lucide-react": "^1.14.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-router": "^7.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^4.3.0",
+    "pg": "^8.13.0",
+    "postcss": "^8.4.0",
+    "postcss-preset-mantine": "^1.0.0",
+    "postcss-simple-vars": "^7.0.0",
+    "sass": "^1.100.0",
+    "typescript": "^5.7.0",
+    "vite": "^6.0.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": ["esbuild", "@parcel/watcher"]
+  }
+}
