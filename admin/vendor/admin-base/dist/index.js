@@ -34584,7 +34584,7 @@ function D6e() {
   );
 }
 function P6e(t) {
-  const e = t.match(/^\/(activate|reset)\/([A-Za-z0-9_-]{20,})\/?$/);
+  const e = t.match(/(?:^|\/)(activate|reset)\/([A-Za-z0-9_-]{20,})\/?$/);
   return e ? { kind: e[1] === "activate" ? "activation" : "reset", token: e[2] } : null;
 }
 function R6e({ kind: t, token: e }) {
