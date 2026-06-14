@@ -157,10 +157,14 @@ fi
 rm -rf "$VITE_CACHE"
 
 # ─── 6. Start CMS API ────────────────────────────────────────────────────────
-echo "Starting CMS API..."
+# COMMERCE_ENABLED=true — this is the webshop test project, so the API mounts the
+# commerce routes and applies the commerce migration set on boot (creates the
+# categories / shop_settings tables). Must match createAdmin({ commerce: true }).
+echo "Starting CMS API (commerce enabled)..."
 cd "$CMS_CORE_DIR"
 DATABASE_URL="postgresql://$DB_USER:$DB_PASSWORD@localhost:$PORT_DB/$DB_NAME" \
   PORT="$PORT_API" \
+  COMMERCE_ENABLED=true \
   pnpm --filter @cms/api dev &
 API_PID=$!
 echo "$API_PID" > "$PID_FILE"

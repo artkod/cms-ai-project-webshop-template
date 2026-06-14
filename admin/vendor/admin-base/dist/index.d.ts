@@ -27,6 +27,13 @@ export declare interface AdminConfig {
     settingsSections?: SettingsSectionDef[];
     /** Project-specific top-level sidebar screens, appended after the built-in nav items. */
     navSections?: NavSectionDef[];
+    /**
+     * Opt-in commerce/webshop module (design §3). Defaults `false`. Must match the
+     * API-side `COMMERCE_ENABLED` flag. When on, later phases lazy-load the
+     * commerce admin (Products/Orders/Customers/… nav + settings tabs); off =
+     * zero behavioural change for content-only projects.
+     */
+    commerce?: boolean;
 }
 
 export declare function AppDrawer({ title, description, children, footer, onConfirm, confirmLabel, confirmDisabled, destructive, loading, cancelLabel, onClose, size, ...rest }: AppDrawerProps): JSX.Element;
