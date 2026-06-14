@@ -17,18 +17,18 @@ function vm() {
       t.exports = a();
     })(U3, (function() {
       var n = 1e3, a = 6e4, o = 36e5, r = "millisecond", i = "second", s = "minute", l = "hour", d = "day", p = "week", u = "month", f = "quarter", m = "year", y = "date", g = "Invalid Date", k = /^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[Tt\s]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?[.:]?(\d+)?$/, v = /\[([^\]]+)]|Y{1,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g, C = { name: "en", weekdays: "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"), months: "January_February_March_April_May_June_July_August_September_October_November_December".split("_"), ordinal: function($) {
-        var E = ["th", "st", "nd", "rd"], H = $ % 100;
-        return "[" + $ + (E[(H - 20) % 10] || E[H] || E[0]) + "]";
-      } }, S = function($, E, H) {
+        var A = ["th", "st", "nd", "rd"], H = $ % 100;
+        return "[" + $ + (A[(H - 20) % 10] || A[H] || A[0]) + "]";
+      } }, S = function($, A, H) {
         var F = String($);
-        return !F || F.length >= E ? $ : "" + Array(E + 1 - F.length).join(H) + $;
+        return !F || F.length >= A ? $ : "" + Array(A + 1 - F.length).join(H) + $;
       }, M = { s: S, z: function($) {
-        var E = -$.utcOffset(), H = Math.abs(E), F = Math.floor(H / 60), U = H % 60;
-        return (E <= 0 ? "+" : "-") + S(F, 2, "0") + ":" + S(U, 2, "0");
-      }, m: function $(E, H) {
-        if (E.date() < H.date()) return -$(H, E);
-        var F = 12 * (H.year() - E.year()) + (H.month() - E.month()), U = E.clone().add(F, u), A = H - U < 0, T = E.clone().add(F + (A ? -1 : 1), u);
-        return +(-(F + (H - U) / (A ? U - T : T - U)) || 0);
+        var A = -$.utcOffset(), H = Math.abs(A), F = Math.floor(H / 60), U = H % 60;
+        return (A <= 0 ? "+" : "-") + S(F, 2, "0") + ":" + S(U, 2, "0");
+      }, m: function $(A, H) {
+        if (A.date() < H.date()) return -$(H, A);
+        var F = 12 * (H.year() - A.year()) + (H.month() - A.month()), U = A.clone().add(F, u), E = H - U < 0, T = A.clone().add(F + (E ? -1 : 1), u);
+        return +(-(F + (H - U) / (E ? U - T : T - U)) || 0);
       }, a: function($) {
         return $ < 0 ? Math.ceil($) || 0 : Math.floor($);
       }, p: function($) {
@@ -39,35 +39,35 @@ function vm() {
       _[w] = C;
       var x = "$isDayjsObject", z = function($) {
         return $ instanceof Y || !(!$ || !$[x]);
-      }, j = function $(E, H, F) {
+      }, j = function $(A, H, F) {
         var U;
-        if (!E) return w;
-        if (typeof E == "string") {
-          var A = E.toLowerCase();
-          _[A] && (U = A), H && (_[A] = H, U = A);
-          var T = E.split("-");
+        if (!A) return w;
+        if (typeof A == "string") {
+          var E = A.toLowerCase();
+          _[E] && (U = E), H && (_[E] = H, U = E);
+          var T = A.split("-");
           if (!U && T.length > 1) return $(T[0]);
         } else {
-          var D = E.name;
-          _[D] = E, U = D;
+          var D = A.name;
+          _[D] = A, U = D;
         }
         return !F && U && (w = U), U || !F && w;
-      }, P = function($, E) {
+      }, P = function($, A) {
         if (z($)) return $.clone();
-        var H = typeof E == "object" ? E : {};
+        var H = typeof A == "object" ? A : {};
         return H.date = $, H.args = arguments, new Y(H);
       }, L = M;
-      L.l = j, L.i = z, L.w = function($, E) {
-        return P($, { locale: E.$L, utc: E.$u, x: E.$x, $offset: E.$offset });
+      L.l = j, L.i = z, L.w = function($, A) {
+        return P($, { locale: A.$L, utc: A.$u, x: A.$x, $offset: A.$offset });
       };
       var Y = (function() {
         function $(H) {
           this.$L = j(H.locale, null, !0), this.parse(H), this.$x = this.$x || H.x || {}, this[x] = !0;
         }
-        var E = $.prototype;
-        return E.parse = function(H) {
+        var A = $.prototype;
+        return A.parse = function(H) {
           this.$d = (function(F) {
-            var U = F.date, A = F.utc;
+            var U = F.date, E = F.utc;
             if (U === null) return /* @__PURE__ */ new Date(NaN);
             if (L.u(U)) return /* @__PURE__ */ new Date();
             if (U instanceof Date) return new Date(U);
@@ -75,46 +75,46 @@ function vm() {
               var T = U.match(k);
               if (T) {
                 var D = T[2] - 1 || 0, q = (T[7] || "0").substring(0, 3);
-                return A ? new Date(Date.UTC(T[1], D, T[3] || 1, T[4] || 0, T[5] || 0, T[6] || 0, q)) : new Date(T[1], D, T[3] || 1, T[4] || 0, T[5] || 0, T[6] || 0, q);
+                return E ? new Date(Date.UTC(T[1], D, T[3] || 1, T[4] || 0, T[5] || 0, T[6] || 0, q)) : new Date(T[1], D, T[3] || 1, T[4] || 0, T[5] || 0, T[6] || 0, q);
               }
             }
             return new Date(U);
           })(H), this.init();
-        }, E.init = function() {
+        }, A.init = function() {
           var H = this.$d;
           this.$y = H.getFullYear(), this.$M = H.getMonth(), this.$D = H.getDate(), this.$W = H.getDay(), this.$H = H.getHours(), this.$m = H.getMinutes(), this.$s = H.getSeconds(), this.$ms = H.getMilliseconds();
-        }, E.$utils = function() {
+        }, A.$utils = function() {
           return L;
-        }, E.isValid = function() {
+        }, A.isValid = function() {
           return this.$d.toString() !== g;
-        }, E.isSame = function(H, F) {
+        }, A.isSame = function(H, F) {
           var U = P(H);
           return this.startOf(F) <= U && U <= this.endOf(F);
-        }, E.isAfter = function(H, F) {
+        }, A.isAfter = function(H, F) {
           return P(H) < this.startOf(F);
-        }, E.isBefore = function(H, F) {
+        }, A.isBefore = function(H, F) {
           return this.endOf(F) < P(H);
-        }, E.$g = function(H, F, U) {
+        }, A.$g = function(H, F, U) {
           return L.u(H) ? this[F] : this.set(U, H);
-        }, E.unix = function() {
+        }, A.unix = function() {
           return Math.floor(this.valueOf() / 1e3);
-        }, E.valueOf = function() {
+        }, A.valueOf = function() {
           return this.$d.getTime();
-        }, E.startOf = function(H, F) {
-          var U = this, A = !!L.u(F) || F, T = L.p(H), D = function(ee, Q) {
+        }, A.startOf = function(H, F) {
+          var U = this, E = !!L.u(F) || F, T = L.p(H), D = function(ee, Q) {
             var se = L.w(U.$u ? Date.UTC(U.$y, Q, ee) : new Date(U.$y, Q, ee), U);
-            return A ? se : se.endOf(d);
+            return E ? se : se.endOf(d);
           }, q = function(ee, Q) {
-            return L.w(U.toDate()[ee].apply(U.toDate("s"), (A ? [0, 0, 0, 0] : [23, 59, 59, 999]).slice(Q)), U);
+            return L.w(U.toDate()[ee].apply(U.toDate("s"), (E ? [0, 0, 0, 0] : [23, 59, 59, 999]).slice(Q)), U);
           }, W = this.$W, X = this.$M, V = this.$D, O = "set" + (this.$u ? "UTC" : "");
           switch (T) {
             case m:
-              return A ? D(1, 0) : D(31, 11);
+              return E ? D(1, 0) : D(31, 11);
             case u:
-              return A ? D(1, X) : D(0, X + 1);
+              return E ? D(1, X) : D(0, X + 1);
             case p:
               var I = this.$locale().weekStart || 0, Z = (W < I ? W + 7 : W) - I;
-              return D(A ? V - Z : V + (6 - Z), X);
+              return D(E ? V - Z : V + (6 - Z), X);
             case d:
             case y:
               return q(O + "Hours", 0);
@@ -127,25 +127,25 @@ function vm() {
             default:
               return this.clone();
           }
-        }, E.endOf = function(H) {
+        }, A.endOf = function(H) {
           return this.startOf(H, !1);
-        }, E.$set = function(H, F) {
-          var U, A = L.p(H), T = "set" + (this.$u ? "UTC" : ""), D = (U = {}, U[d] = T + "Date", U[y] = T + "Date", U[u] = T + "Month", U[m] = T + "FullYear", U[l] = T + "Hours", U[s] = T + "Minutes", U[i] = T + "Seconds", U[r] = T + "Milliseconds", U)[A], q = A === d ? this.$D + (F - this.$W) : F;
-          if (A === u || A === m) {
+        }, A.$set = function(H, F) {
+          var U, E = L.p(H), T = "set" + (this.$u ? "UTC" : ""), D = (U = {}, U[d] = T + "Date", U[y] = T + "Date", U[u] = T + "Month", U[m] = T + "FullYear", U[l] = T + "Hours", U[s] = T + "Minutes", U[i] = T + "Seconds", U[r] = T + "Milliseconds", U)[E], q = E === d ? this.$D + (F - this.$W) : F;
+          if (E === u || E === m) {
             var W = this.clone().set(y, 1);
             W.$d[D](q), W.init(), this.$d = W.set(y, Math.min(this.$D, W.daysInMonth())).$d;
           } else D && this.$d[D](q);
           return this.init(), this;
-        }, E.set = function(H, F) {
+        }, A.set = function(H, F) {
           return this.clone().$set(H, F);
-        }, E.get = function(H) {
+        }, A.get = function(H) {
           return this[L.p(H)]();
-        }, E.add = function(H, F) {
-          var U, A = this;
+        }, A.add = function(H, F) {
+          var U, E = this;
           H = Number(H);
           var T = L.p(F), D = function(X) {
-            var V = P(A);
-            return L.w(V.date(V.date() + Math.round(X * H)), A);
+            var V = P(E);
+            return L.w(V.date(V.date() + Math.round(X * H)), E);
           };
           if (T === u) return this.set(u, this.$M + H);
           if (T === m) return this.set(m, this.$y + H);
@@ -153,20 +153,20 @@ function vm() {
           if (T === p) return D(7);
           var q = (U = {}, U[s] = a, U[l] = o, U[i] = n, U)[T] || 1, W = this.$d.getTime() + H * q;
           return L.w(W, this);
-        }, E.subtract = function(H, F) {
+        }, A.subtract = function(H, F) {
           return this.add(-1 * H, F);
-        }, E.format = function(H) {
+        }, A.format = function(H) {
           var F = this, U = this.$locale();
           if (!this.isValid()) return U.invalidDate || g;
-          var A = H || "YYYY-MM-DDTHH:mm:ssZ", T = L.z(this), D = this.$H, q = this.$m, W = this.$M, X = U.weekdays, V = U.months, O = U.meridiem, I = function(Q, se, B, K) {
-            return Q && (Q[se] || Q(F, A)) || B[se].slice(0, K);
+          var E = H || "YYYY-MM-DDTHH:mm:ssZ", T = L.z(this), D = this.$H, q = this.$m, W = this.$M, X = U.weekdays, V = U.months, O = U.meridiem, I = function(Q, se, B, K) {
+            return Q && (Q[se] || Q(F, E)) || B[se].slice(0, K);
           }, Z = function(Q) {
             return L.s(D % 12 || 12, Q, "0");
           }, ee = O || function(Q, se, B) {
             var K = Q < 12 ? "AM" : "PM";
             return B ? K.toLowerCase() : K;
           };
-          return A.replace(v, (function(Q, se) {
+          return E.replace(v, (function(Q, se) {
             return se || (function(B) {
               switch (B) {
                 case "YY":
@@ -221,67 +221,67 @@ function vm() {
               return null;
             })(Q) || T.replace(":", "");
           }));
-        }, E.utcOffset = function() {
+        }, A.utcOffset = function() {
           return 15 * -Math.round(this.$d.getTimezoneOffset() / 15);
-        }, E.diff = function(H, F, U) {
-          var A, T = this, D = L.p(F), q = P(H), W = (q.utcOffset() - this.utcOffset()) * a, X = this - q, V = function() {
+        }, A.diff = function(H, F, U) {
+          var E, T = this, D = L.p(F), q = P(H), W = (q.utcOffset() - this.utcOffset()) * a, X = this - q, V = function() {
             return L.m(T, q);
           };
           switch (D) {
             case m:
-              A = V() / 12;
+              E = V() / 12;
               break;
             case u:
-              A = V();
+              E = V();
               break;
             case f:
-              A = V() / 3;
+              E = V() / 3;
               break;
             case p:
-              A = (X - W) / 6048e5;
+              E = (X - W) / 6048e5;
               break;
             case d:
-              A = (X - W) / 864e5;
+              E = (X - W) / 864e5;
               break;
             case l:
-              A = X / o;
+              E = X / o;
               break;
             case s:
-              A = X / a;
+              E = X / a;
               break;
             case i:
-              A = X / n;
+              E = X / n;
               break;
             default:
-              A = X;
+              E = X;
           }
-          return U ? A : L.a(A);
-        }, E.daysInMonth = function() {
+          return U ? E : L.a(E);
+        }, A.daysInMonth = function() {
           return this.endOf(u).$D;
-        }, E.$locale = function() {
+        }, A.$locale = function() {
           return _[this.$L];
-        }, E.locale = function(H, F) {
+        }, A.locale = function(H, F) {
           if (!H) return this.$L;
-          var U = this.clone(), A = j(H, F, !0);
-          return A && (U.$L = A), U;
-        }, E.clone = function() {
+          var U = this.clone(), E = j(H, F, !0);
+          return E && (U.$L = E), U;
+        }, A.clone = function() {
           return L.w(this.$d, this);
-        }, E.toDate = function() {
+        }, A.toDate = function() {
           return new Date(this.valueOf());
-        }, E.toJSON = function() {
+        }, A.toJSON = function() {
           return this.isValid() ? this.toISOString() : null;
-        }, E.toISOString = function() {
+        }, A.toISOString = function() {
           return this.$d.toISOString();
-        }, E.toString = function() {
+        }, A.toString = function() {
           return this.$d.toUTCString();
         }, $;
       })(), R = Y.prototype;
       return P.prototype = R, [["$ms", r], ["$s", i], ["$m", s], ["$H", l], ["$W", d], ["$M", u], ["$y", m], ["$D", y]].forEach((function($) {
-        R[$[1]] = function(E) {
-          return this.$g(E, $[0], $[1]);
+        R[$[1]] = function(A) {
+          return this.$g(A, $[0], $[1]);
         };
-      })), P.extend = function($, E) {
-        return $.$i || ($(E, Y, P), $.$i = !0), P;
+      })), P.extend = function($, A) {
+        return $.$i || ($(A, Y, P), $.$i = !0), P;
       }, P.locale = j, P.isDayjs = z, P.unix = function($) {
         return P(1e3 * $);
       }, P.en = _[w], P.Ls = _, P.p = {}, P;
@@ -949,11 +949,11 @@ const Mb = {
     __preventFocus: Y,
     __stopPropagation: R,
     withCellSpacing: $,
-    size: E,
+    size: A,
     highlightToday: H,
     withWeekNumbers: F,
     ...U
-  } = n, A = Oa({
+  } = n, E = Oa({
     name: d || "Month",
     classes: Am,
     props: n,
@@ -987,7 +987,7 @@ const Mb = {
       return /* @__PURE__ */ c(
         "td",
         {
-          ...A("monthCell"),
+          ...E("monthCell"),
           "data-with-spacing": $ || void 0,
           children: /* @__PURE__ */ c(
             op,
@@ -1000,7 +1000,7 @@ const Mb = {
               highlightToday: H,
               renderDay: S,
               date: ee,
-              size: E,
+              size: A,
               weekend: T.getWeekendDays(y).includes(ee.getDay()),
               outside: se,
               hidden: M ? se : !1,
@@ -1032,27 +1032,27 @@ const Mb = {
         ee.toString()
       );
     });
-    return /* @__PURE__ */ b("tr", { ...A("monthRow"), children: [
-      F && /* @__PURE__ */ c("td", { ...A("weekNumber"), children: wb(O) }),
+    return /* @__PURE__ */ b("tr", { ...E("monthRow"), children: [
+      F && /* @__PURE__ */ c("td", { ...E("weekNumber"), children: wb(O) }),
       Z
     ] }, I);
   });
-  return /* @__PURE__ */ b(fe, { component: "table", ...A("month"), size: E, ref: e, ...U, children: [
-    !w && /* @__PURE__ */ c("thead", { ...A("monthThead"), children: /* @__PURE__ */ c(
+  return /* @__PURE__ */ b(fe, { component: "table", ...E("month"), size: A, ref: e, ...U, children: [
+    !w && /* @__PURE__ */ c("thead", { ...E("monthThead"), children: /* @__PURE__ */ c(
       rp,
       {
         __staticSelector: d || "Month",
         locale: p,
         firstDayOfWeek: u,
         weekdayFormat: f,
-        size: E,
+        size: A,
         classNames: W,
         styles: X,
         unstyled: s,
         withWeekNumbers: F
       }
     ) }),
-    /* @__PURE__ */ c("tbody", { ...A("monthTbody"), children: V })
+    /* @__PURE__ */ c("tbody", { ...E("monthTbody"), children: V })
   ] });
 });
 Vc.classes = Am;
@@ -1178,9 +1178,9 @@ const zb = {
     unstyled: s,
     vars: l,
     rootSelector: "yearsList"
-  }), P = Zn(), L = $m(d), Y = Sb(L, f, m, y), R = L.map(($, E) => {
+  }), P = Zn(), L = $m(d), Y = Sb(L, f, m, y), R = L.map(($, A) => {
     const H = $.map((F, U) => {
-      const A = y == null ? void 0 : y(F), T = we(F).isSame(Y, "year");
+      const E = y == null ? void 0 : y(F), T = we(F).isSame(Y, "year");
       return /* @__PURE__ */ c(
         "td",
         {
@@ -1194,23 +1194,23 @@ const zb = {
               unstyled: s,
               "data-mantine-stop-propagation": w || void 0,
               disabled: Lm(F, f, m),
-              ref: (D) => k == null ? void 0 : k(E, U, D),
-              ...A,
+              ref: (D) => k == null ? void 0 : k(A, U, D),
+              ...E,
               onKeyDown: (D) => {
                 var q;
-                (q = A == null ? void 0 : A.onKeyDown) == null || q.call(A, D), v == null || v(D, { rowIndex: E, cellIndex: U, date: F });
+                (q = E == null ? void 0 : E.onKeyDown) == null || q.call(E, D), v == null || v(D, { rowIndex: A, cellIndex: U, date: F });
               },
               onClick: (D) => {
                 var q;
-                (q = A == null ? void 0 : A.onClick) == null || q.call(A, D), C == null || C(D, F);
+                (q = E == null ? void 0 : E.onClick) == null || q.call(E, D), C == null || C(D, F);
               },
               onMouseEnter: (D) => {
                 var q;
-                (q = A == null ? void 0 : A.onMouseEnter) == null || q.call(A, D), S == null || S(D, F);
+                (q = E == null ? void 0 : E.onMouseEnter) == null || q.call(E, D), S == null || S(D, F);
               },
               onMouseDown: (D) => {
                 var q;
-                (q = A == null ? void 0 : A.onMouseDown) == null || q.call(A, D), M && D.preventDefault();
+                (q = E == null ? void 0 : E.onMouseDown) == null || q.call(E, D), M && D.preventDefault();
               },
               tabIndex: M || !T ? -1 : 0,
               children: we(F).locale(P.getLocale(u)).format(p)
@@ -1220,7 +1220,7 @@ const zb = {
         U
       );
     });
-    return /* @__PURE__ */ c("tr", { ...j("yearsListRow"), children: H }, E);
+    return /* @__PURE__ */ c("tr", { ...j("yearsListRow"), children: H }, A);
   });
   return /* @__PURE__ */ c(fe, { component: "table", ref: e, size: x, ...j("yearsList"), ...z, children: /* @__PURE__ */ c("tbody", { children: R }) });
 });
@@ -1291,9 +1291,9 @@ const Ab = {
     unstyled: s,
     vars: l,
     rootSelector: "monthsList"
-  }), P = Zn(), L = jb(p), Y = Tb(L, m, y, g), R = L.map(($, E) => {
+  }), P = Zn(), L = jb(p), Y = Tb(L, m, y, g), R = L.map(($, A) => {
     const H = $.map((F, U) => {
-      const A = g == null ? void 0 : g(F), T = we(F).isSame(Y, "month");
+      const E = g == null ? void 0 : g(F), T = we(F).isSame(Y, "month");
       return /* @__PURE__ */ c(
         "td",
         {
@@ -1308,23 +1308,23 @@ const Ab = {
               __staticSelector: d || "MonthsList",
               "data-mantine-stop-propagation": w || void 0,
               disabled: Pm(F, m, y),
-              ref: (D) => k == null ? void 0 : k(E, U, D),
-              ...A,
+              ref: (D) => k == null ? void 0 : k(A, U, D),
+              ...E,
               onKeyDown: (D) => {
                 var q;
-                (q = A == null ? void 0 : A.onKeyDown) == null || q.call(A, D), v == null || v(D, { rowIndex: E, cellIndex: U, date: F });
+                (q = E == null ? void 0 : E.onKeyDown) == null || q.call(E, D), v == null || v(D, { rowIndex: A, cellIndex: U, date: F });
               },
               onClick: (D) => {
                 var q;
-                (q = A == null ? void 0 : A.onClick) == null || q.call(A, D), C == null || C(D, F);
+                (q = E == null ? void 0 : E.onClick) == null || q.call(E, D), C == null || C(D, F);
               },
               onMouseEnter: (D) => {
                 var q;
-                (q = A == null ? void 0 : A.onMouseEnter) == null || q.call(A, D), S == null || S(D, F);
+                (q = E == null ? void 0 : E.onMouseEnter) == null || q.call(E, D), S == null || S(D, F);
               },
               onMouseDown: (D) => {
                 var q;
-                (q = A == null ? void 0 : A.onMouseDown) == null || q.call(A, D), M && D.preventDefault();
+                (q = E == null ? void 0 : E.onMouseDown) == null || q.call(E, D), M && D.preventDefault();
               },
               tabIndex: M || !T ? -1 : 0,
               children: we(F).locale(P.getLocale(f)).format(u)
@@ -1334,7 +1334,7 @@ const Ab = {
         U
       );
     });
-    return /* @__PURE__ */ c("tr", { ...j("monthsListRow"), children: H }, E);
+    return /* @__PURE__ */ c("tr", { ...j("monthsListRow"), children: H }, A);
   });
   return /* @__PURE__ */ c(fe, { component: "table", ref: e, size: x, ...j("monthsList"), ...z, children: /* @__PURE__ */ c("tbody", { children: R }) });
 });
@@ -1497,26 +1497,26 @@ const Db = {
     styles: Y,
     unstyled: R,
     __staticSelector: $,
-    __stopPropagation: E,
+    __stopPropagation: A,
     size: H,
     ...F
-  } = n, U = Zn(), [A, T] = $b(a), D = {
+  } = n, U = Zn(), [E, T] = $b(a), D = {
     __staticSelector: $ || "DecadeLevel",
     classNames: L,
     styles: Y,
     unstyled: R,
     size: H
-  }, q = typeof w == "boolean" ? w : i ? !we(T).endOf("year").isBefore(i) : !1, W = typeof _ == "boolean" ? _ : r ? !we(A).startOf("year").isAfter(r) : !1, X = (V, O) => we(V).locale(o || U.locale).format(O);
+  }, q = typeof w == "boolean" ? w : i ? !we(T).endOf("year").isBefore(i) : !1, W = typeof _ == "boolean" ? _ : r ? !we(E).startOf("year").isAfter(r) : !1, X = (V, O) => we(V).locale(o || U.locale).format(O);
   return /* @__PURE__ */ b(fe, { "data-decade-level": !0, size: H, ref: e, ...F, children: [
     /* @__PURE__ */ c(
       To,
       {
-        label: typeof P == "function" ? P(A, T) : `${X(A, P)} – ${X(
+        label: typeof P == "function" ? P(E, T) : `${X(E, P)} – ${X(
           T,
           P
         )}`,
         __preventFocus: y,
-        __stopPropagation: E,
+        __stopPropagation: A,
         nextIcon: g,
         previousIcon: k,
         nextLabel: v,
@@ -1546,7 +1546,7 @@ const Db = {
         __onControlClick: u,
         __onControlMouseEnter: f,
         __preventFocus: y,
-        __stopPropagation: E,
+        __stopPropagation: A,
         withCellSpacing: m,
         ...D
       }
@@ -1590,19 +1590,19 @@ const Pb = {
     yearLabelFormat: Y,
     __staticSelector: R,
     __stopPropagation: $,
-    size: E,
+    size: A,
     classNames: H,
     styles: F,
     unstyled: U,
-    ...A
+    ...E
   } = n, T = Zn(), D = {
     __staticSelector: R || "YearLevel",
     classNames: H,
     styles: F,
     unstyled: U,
-    size: E
+    size: A
   }, q = typeof _ == "boolean" ? _ : i ? !we(a).endOf("year").isBefore(i) : !1, W = typeof x == "boolean" ? x : r ? !we(a).startOf("year").isAfter(r) : !1;
-  return /* @__PURE__ */ b(fe, { "data-year-level": !0, size: E, ref: e, ...A, children: [
+  return /* @__PURE__ */ b(fe, { "data-year-level": !0, size: A, ref: e, ...E, children: [
     /* @__PURE__ */ c(
       To,
       {
@@ -1682,11 +1682,11 @@ const Rb = {
     previousLabel: Y,
     onNext: R,
     onPrevious: $,
-    onLevelClick: E,
+    onLevelClick: A,
     nextDisabled: H,
     previousDisabled: F,
     hasNextLevel: U,
-    levelControlAriaLabel: A,
+    levelControlAriaLabel: E,
     withNext: T,
     withPrevious: D,
     // Other props
@@ -1718,11 +1718,11 @@ const Rb = {
         previousLabel: Y,
         onNext: R,
         onPrevious: $,
-        onLevelClick: E,
+        onLevelClick: A,
         nextDisabled: B,
         previousDisabled: K,
         hasNextLevel: U,
-        levelControlAriaLabel: A,
+        levelControlAriaLabel: E,
         withNext: T,
         withPrevious: D,
         ...se
@@ -1814,29 +1814,29 @@ const Ib = {
     decadeLabelFormat: Y,
     size: R,
     vars: $,
-    ...E
-  } = n, H = Ce([]), F = Array(P).fill(0).map((U, A) => {
-    const T = we(a).add(A * 10, "years").toDate();
+    ...A
+  } = n, H = Ce([]), F = Array(P).fill(0).map((U, E) => {
+    const T = we(a).add(E * 10, "years").toDate();
     return /* @__PURE__ */ c(
       Wc,
       {
         size: R,
         yearsListFormat: s,
         decade: T,
-        withNext: A === P - 1,
-        withPrevious: A === 0,
+        withNext: E === P - 1,
+        withPrevious: E === 0,
         decadeLabelFormat: Y,
         __onControlClick: d,
         __onControlMouseEnter: p,
         __onControlKeyDown: (D, q) => np({
-          levelIndex: A,
+          levelIndex: E,
           rowIndex: q.rowIndex,
           cellIndex: q.cellIndex,
           event: D,
           controlsRef: H
         }),
         __getControlRef: (D, q, W) => {
-          Array.isArray(H.current[A]) || (H.current[A] = []), Array.isArray(H.current[A][D]) || (H.current[A][D] = []), H.current[A][D][q] = W;
+          Array.isArray(H.current[E]) || (H.current[E] = []), Array.isArray(H.current[E][D]) || (H.current[E][D] = []), H.current[E][D][q] = W;
         },
         levelControlAriaLabel: typeof L == "function" ? L(T) : L,
         locale: o,
@@ -1859,7 +1859,7 @@ const Ib = {
         unstyled: x,
         withCellSpacing: u
       },
-      A
+      E
     );
   });
   return /* @__PURE__ */ c(
@@ -1871,7 +1871,7 @@ const Ib = {
       ref: e,
       size: R,
       unstyled: x,
-      ...E,
+      ...A,
       children: F
     }
   );
@@ -1913,15 +1913,15 @@ const Hb = {
     numberOfColumns: Y,
     levelControlAriaLabel: R,
     yearLabelFormat: $,
-    size: E,
+    size: A,
     vars: H,
     ...F
-  } = n, U = Ce([]), A = Array(Y).fill(0).map((T, D) => {
+  } = n, U = Ce([]), E = Array(Y).fill(0).map((T, D) => {
     const q = we(a).add(D, "years").toDate();
     return /* @__PURE__ */ c(
       Kc,
       {
-        size: E,
+        size: A,
         monthsListFormat: s,
         year: q,
         withNext: D === Y - 1,
@@ -1972,10 +1972,10 @@ const Hb = {
       styles: z,
       __staticSelector: P || "YearLevelGroup",
       ref: e,
-      size: E,
+      size: A,
       unstyled: j,
       ...F,
-      children: A
+      children: E
     }
   );
 });
@@ -2015,12 +2015,12 @@ const qb = {
     onLevelClick: Y,
     nextDisabled: R,
     previousDisabled: $,
-    hasNextLevel: E,
+    hasNextLevel: A,
     // Other settings
     classNames: H,
     styles: F,
     unstyled: U,
-    numberOfColumns: A,
+    numberOfColumns: E,
     levelControlAriaLabel: T,
     monthLabelFormat: D,
     __staticSelector: q,
@@ -2029,13 +2029,13 @@ const qb = {
     static: V,
     vars: O,
     ...I
-  } = n, Z = Ce([]), ee = Array(A).fill(0).map((Q, se) => {
+  } = n, Z = Ce([]), ee = Array(E).fill(0).map((Q, se) => {
     const B = we(a).add(se, "months").toDate();
     return /* @__PURE__ */ c(
       Yc,
       {
         month: B,
-        withNext: se === A - 1,
+        withNext: se === E - 1,
         withPrevious: se === 0,
         monthLabelFormat: D,
         __stopPropagation: W,
@@ -2074,7 +2074,7 @@ const qb = {
         onLevelClick: Y,
         nextDisabled: R,
         previousDisabled: $,
-        hasNextLevel: E,
+        hasNextLevel: A,
         classNames: H,
         styles: F,
         unstyled: U,
@@ -2160,8 +2160,8 @@ const Vb = {}, Xc = sn((t, e) => {
         ...l,
         disabled: (l == null ? void 0 : l.disabled) || p === "modal" || w,
         onChange: ($) => {
-          var E;
-          $ || ((E = l == null ? void 0 : l.onClose) == null || E.call(l), R());
+          var A;
+          $ || ((A = l == null ? void 0 : l.onClose) == null || A.call(l), R());
         },
         children: [
           /* @__PURE__ */ c(Kd.Target, { children: /* @__PURE__ */ c(
@@ -2297,11 +2297,11 @@ const Fb = {
     renderDay: Y,
     hideOutsideDates: R,
     hideWeekdays: $,
-    getDayAriaLabel: E,
+    getDayAriaLabel: A,
     monthLabelFormat: H,
     nextIcon: F,
     previousIcon: U,
-    __onDayClick: A,
+    __onDayClick: E,
     __onDayMouseEnter: T,
     withCellSpacing: D,
     highlightToday: q,
@@ -2389,7 +2389,7 @@ const Fb = {
         renderDay: Y,
         hideOutsideDates: R,
         hideWeekdays: $,
-        getDayAriaLabel: E,
+        getDayAriaLabel: A,
         onNext: et,
         onPrevious: Fe,
         hasNextLevel: o !== "month",
@@ -2402,7 +2402,7 @@ const Fb = {
         previousLabel: (y == null ? void 0 : y.previousMonth) ?? k,
         previousIcon: U,
         monthLabelFormat: H,
-        __onDayClick: A,
+        __onDayClick: E,
         __onDayMouseEnter: T,
         __preventFocus: mt,
         __stopPropagation: st,
@@ -2511,11 +2511,11 @@ function Ub(t) {
     __updateDateOnMonthSelect: R,
     withWeekNumbers: $,
     // MonthLevelGroup props
-    firstDayOfWeek: E,
+    firstDayOfWeek: A,
     weekdayFormat: H,
     weekendDays: F,
     getDayProps: U,
-    excludeDate: A,
+    excludeDate: E,
     renderDay: T,
     hideOutsideDates: D,
     hideWeekdays: q,
@@ -2571,11 +2571,11 @@ function Ub(t) {
       __updateDateOnMonthSelect: R,
       withWeekNumbers: $,
       // MonthLevelGroup props
-      firstDayOfWeek: E,
+      firstDayOfWeek: A,
       weekdayFormat: H,
       weekendDays: F,
       getDayProps: U,
-      excludeDate: A,
+      excludeDate: E,
       renderDay: T,
       hideOutsideDates: D,
       hideWeekdays: q,
@@ -2794,13 +2794,13 @@ const Yb = {
     props: n
   }), P = i || (m ? "DD/MM/YYYY HH:mm:ss" : "DD/MM/YYYY HH:mm"), L = Ce(null), Y = H3(L, u == null ? void 0 : u.ref), {
     calendarProps: { allowSingleDateInRange: R, ...$ },
-    others: E
+    others: A
   } = Ub(_), H = Zn(), [F, U] = ip({
     type: "default",
     value: a,
     defaultValue: o,
     onChange: r
-  }), A = (K) => K ? we(K).format(m ? "HH:mm:ss" : "HH:mm") : "", [T, D] = N(A(F)), [q, W] = N(y || g || "month"), [X, V] = q3(!1), O = F ? we(F).locale(H.getLocale(s)).tz(H.getTimezone(), !0).format(P) : "", I = (K) => {
+  }), E = (K) => K ? we(K).format(m ? "HH:mm:ss" : "HH:mm") : "", [T, D] = N(E(F)), [q, W] = N(y || g || "month"), [X, V] = q3(!1), O = F ? we(F).locale(H.getLocale(s)).tz(H.getTimezone(), !0).format(P) : "", I = (K) => {
     var re;
     (re = u == null ? void 0 : u.onChange) == null || re.call(u, K);
     const ne = K.currentTarget.value;
@@ -2816,7 +2816,7 @@ const Yb = {
     (ne = u == null ? void 0 : u.onKeyDown) == null || ne.call(u, K), K.key === "Enter" && (K.preventDefault(), V.close());
   };
   G1(() => {
-    X || D(A(F));
+    X || D(E(F));
   }, [F, X]), G1(() => {
     X && W("month");
   }, [X]);
@@ -2837,7 +2837,7 @@ const Yb = {
       size: k,
       variant: v,
       dropdownType: C,
-      ...E,
+      ...A,
       type: "default",
       __staticSelector: "DateTimePicker",
       children: [
@@ -3152,8 +3152,8 @@ function r6() {
         }
       }
     }
-    var w = l, _ = d, x = s, z = i, j = e, P = p, L = a, Y = y, R = m, $ = n, E = r, H = o, F = u, U = !1;
-    function A(B) {
+    var w = l, _ = d, x = s, z = i, j = e, P = p, L = a, Y = y, R = m, $ = n, A = r, H = o, F = u, U = !1;
+    function E(B) {
       return U || (U = !0, console.warn("The ReactIs.isAsyncMode() alias has been deprecated, and will be removed in React 17+. Update your code to use ReactIs.isConcurrentMode() instead. It has the exact same API.")), T(B) || M(B) === l;
     }
     function T(B) {
@@ -3192,7 +3192,7 @@ function r6() {
     function se(B) {
       return M(B) === u;
     }
-    Ct.AsyncMode = w, Ct.ConcurrentMode = _, Ct.ContextConsumer = x, Ct.ContextProvider = z, Ct.Element = j, Ct.ForwardRef = P, Ct.Fragment = L, Ct.Lazy = Y, Ct.Memo = R, Ct.Portal = $, Ct.Profiler = E, Ct.StrictMode = H, Ct.Suspense = F, Ct.isAsyncMode = A, Ct.isConcurrentMode = T, Ct.isContextConsumer = D, Ct.isContextProvider = q, Ct.isElement = W, Ct.isForwardRef = X, Ct.isFragment = V, Ct.isLazy = O, Ct.isMemo = I, Ct.isPortal = Z, Ct.isProfiler = ee, Ct.isStrictMode = Q, Ct.isSuspense = se, Ct.isValidElementType = S, Ct.typeOf = M;
+    Ct.AsyncMode = w, Ct.ConcurrentMode = _, Ct.ContextConsumer = x, Ct.ContextProvider = z, Ct.Element = j, Ct.ForwardRef = P, Ct.Fragment = L, Ct.Lazy = Y, Ct.Memo = R, Ct.Portal = $, Ct.Profiler = A, Ct.StrictMode = H, Ct.Suspense = F, Ct.isAsyncMode = E, Ct.isConcurrentMode = T, Ct.isContextConsumer = D, Ct.isContextProvider = q, Ct.isElement = W, Ct.isForwardRef = X, Ct.isFragment = V, Ct.isLazy = O, Ct.isMemo = I, Ct.isPortal = Z, Ct.isProfiler = ee, Ct.isStrictMode = Q, Ct.isSuspense = se, Ct.isValidElementType = S, Ct.typeOf = M;
   })()), Ct;
 }
 var tu;
@@ -3445,7 +3445,7 @@ function l6() {
     function _(T) {
       function D(q, W, X, V, O) {
         if (!(q[W] instanceof T)) {
-          var I = T.name || f, Z = A(q[W]);
+          var I = T.name || f, Z = E(q[W]);
           return new g("Invalid " + V + " `" + O + "` of type " + ("`" + Z + "` supplied to `" + X + "`, expected ") + ("instance of `" + I + "`."));
         }
         return null;
@@ -3592,12 +3592,12 @@ Valid keys: ` + JSON.stringify(Object.keys(T), null, "  ")
           return !1;
       }
     }
-    function E(T, D) {
+    function A(T, D) {
       return T === "symbol" ? !0 : D ? D["@@toStringTag"] === "Symbol" || typeof Symbol == "function" && D instanceof Symbol : !1;
     }
     function H(T) {
       var D = typeof T;
-      return Array.isArray(T) ? "array" : T instanceof RegExp ? "object" : E(D, T) ? "symbol" : D;
+      return Array.isArray(T) ? "array" : T instanceof RegExp ? "object" : A(D, T) ? "symbol" : D;
     }
     function F(T) {
       if (typeof T > "u" || T === null)
@@ -3625,7 +3625,7 @@ Valid keys: ` + JSON.stringify(Object.keys(T), null, "  ")
           return D;
       }
     }
-    function A(T) {
+    function E(T) {
       return !T.constructor || !T.constructor.name ? f : T.constructor.name;
     }
     return m.checkPropTypes = o, m.resetWarningCache = o.resetWarningCache, m.PropTypes = m, m;
@@ -4341,8 +4341,8 @@ const _6 = no, C6 = {
     varsResolver: N6
   });
   pe(() => {
-    k == null || k.updateState((E) => ({
-      ...E,
+    k == null || k.updateState((A) => ({
+      ...A,
       limit: y || 5,
       defaultPosition: d
     }));
@@ -4350,13 +4350,13 @@ const _6 = no, C6 = {
     w.notifications.length > j.current && setTimeout(() => _(), 0), j.current = w.notifications.length;
   }, [w.notifications]);
   const R = b6(w.notifications, d), $ = Km.reduce(
-    (E, H) => (E[H] = R[H].map(({ style: F, ...U }) => /* @__PURE__ */ c(
+    (A, H) => (A[H] = R[H].map(({ style: F, ...U }) => /* @__PURE__ */ c(
       _6,
       {
         timeout: L,
         onEnter: () => z.current[U.id].offsetHeight,
         nodeRef: { current: z.current[U.id] },
-        children: (A) => /* @__PURE__ */ c(
+        children: (E) => /* @__PURE__ */ c(
           Ym,
           {
             ref: (T) => {
@@ -4368,7 +4368,7 @@ const _6 = no, C6 = {
             ...Y("notification", {
               style: {
                 ...w6({
-                  state: A,
+                  state: E,
                   position: H,
                   transitionDuration: L,
                   maxHeight: m
@@ -4380,7 +4380,7 @@ const _6 = no, C6 = {
         )
       },
       U.id
-    )), E),
+    )), A),
     {}
   );
   return /* @__PURE__ */ b(C3, { withinPortal: C, ...v, children: [
@@ -4961,17 +4961,17 @@ class zl extends td {
         const L = Array.isArray(z), Y = L ? [] : {}, R = L ? y : m;
         for (const $ in z)
           if (Object.prototype.hasOwnProperty.call(z, $)) {
-            const E = `${R}${r}${$}`;
-            S && !f ? Y[$] = this.translate(E, {
+            const A = `${R}${r}${$}`;
+            S && !f ? Y[$] = this.translate(A, {
               ...n,
               defaultValue: vu(x) ? x[$] : void 0,
               joinArrays: !1,
               ns: s
-            }) : Y[$] = this.translate(E, {
+            }) : Y[$] = this.translate(A, {
               ...n,
               joinArrays: !1,
               ns: s
-            }), Y[$] === E && (Y[$] = z[$]);
+            }), Y[$] === A && (Y[$] = z[$]);
           }
         f = Y;
       }
@@ -4980,30 +4980,30 @@ class zl extends td {
     else {
       let L = !1, Y = !1;
       !this.isValidLookup(f) && S && (L = !0, f = x), this.isValidLookup(f) || (Y = !0, f = i);
-      const $ = (n.missingKeyNoValueFallbackToKey || this.options.missingKeyNoValueFallbackToKey) && Y ? void 0 : f, E = S && x !== f && this.options.updateMissing;
-      if (Y || L || E) {
-        if (this.logger.log(E ? "updateKey" : "missingKey", d, l, i, E ? x : f), r) {
-          const A = this.resolve(i, {
+      const $ = (n.missingKeyNoValueFallbackToKey || this.options.missingKeyNoValueFallbackToKey) && Y ? void 0 : f, A = S && x !== f && this.options.updateMissing;
+      if (Y || L || A) {
+        if (this.logger.log(A ? "updateKey" : "missingKey", d, l, i, A ? x : f), r) {
+          const E = this.resolve(i, {
             ...n,
             keySeparator: !1
           });
-          A && A.res && this.logger.warn("Seems the loaded translations were in flat JSON format instead of nested. Either set keySeparator: false on init or make sure your translations are published in nested format.");
+          E && E.res && this.logger.warn("Seems the loaded translations were in flat JSON format instead of nested. Either set keySeparator: false on init or make sure your translations are published in nested format.");
         }
         let H = [];
         const F = this.languageUtils.getFallbackCodes(this.options.fallbackLng, n.lng || this.language);
         if (this.options.saveMissingTo === "fallback" && F && F[0])
-          for (let A = 0; A < F.length; A++)
-            H.push(F[A]);
+          for (let E = 0; E < F.length; E++)
+            H.push(F[E]);
         else this.options.saveMissingTo === "all" ? H = this.languageUtils.toResolveHierarchy(n.lng || this.language) : H.push(n.lng || this.language);
-        const U = (A, T, D) => {
+        const U = (E, T, D) => {
           var W;
           const q = S && D !== f ? D : $;
-          this.options.missingKeyHandler ? this.options.missingKeyHandler(A, l, T, q, E, n) : (W = this.backendConnector) != null && W.saveMissing && this.backendConnector.saveMissing(A, l, T, q, E, n), this.emit("missingKey", A, l, T, f);
+          this.options.missingKeyHandler ? this.options.missingKeyHandler(E, l, T, q, A, n) : (W = this.backendConnector) != null && W.saveMissing && this.backendConnector.saveMissing(E, l, T, q, A, n), this.emit("missingKey", E, l, T, f);
         };
-        this.options.saveMissing && (this.options.saveMissingPlurals && C ? H.forEach((A) => {
-          const T = this.pluralResolver.getSuffixes(A, n);
+        this.options.saveMissing && (this.options.saveMissingPlurals && C ? H.forEach((E) => {
+          const T = this.pluralResolver.getSuffixes(E, n);
           _ && n[`defaultValue${this.options.pluralSeparator}zero`] && T.indexOf(`${this.options.pluralSeparator}zero`) < 0 && T.push(`${this.options.pluralSeparator}zero`), T.forEach((D) => {
-            U([A], i + D, n[`defaultValue${D}`] || x);
+            U([E], i + D, n[`defaultValue${D}`] || x);
           });
         }) : U(H, i, x));
       }
@@ -6009,7 +6009,7 @@ function d8() {
 }
 d8();
 const h8 = { tagline: `Content at
-the right pace.`, subTagline: "Headless CMS engine for teams who care about the details.", welcomeBack: "Welcome back", signInToWorkspace: "Sign in to your workspace", email: "Email", emailPlaceholder: "you@example.com", password: "Password", passwordPlaceholder: "Your password", signIn: "Sign in", signingIn: "Signing in…", forgotHint: "Forgot your password? Contact your administrator.", error: "Invalid email or password" }, p8 = { cancel: "Cancel", save: "Save", delete: "Delete", edit: "Edit", create: "Create", close: "Close", back: "Back", loading: "Loading...", loadingEllipsis: "Loading…", copy: "Copy", copied: "Copied!", remove: "Remove", rename: "Rename", upload: "Upload", download: "Download", preview: "Preview", restore: "Restore", never: "Never", dismiss: "Dismiss", done: "Done", add: "Add", change: "Change", reset: "Reset", search: "Search", on: "on", off: "off", configure: "Configure", backToList: "Back to list", discard: "Discard", confirm: "Confirm" }, u8 = { dashboard: "Dashboard", pages: "Pages", media: "Media", menus: "Menus", settings: "Settings", users: "Users", apiKeys: "API Keys", activity: "Activity", webhooks: "Webhooks", strings: "Strings", workspace: "Workspace", system: "System", toggleSidebar: "Toggle sidebar", cmsAdmin: "ARTKOD CMS", lightMode: "Light mode", darkMode: "Dark mode", switchToLight: "Switch to light mode", switchToDark: "Switch to dark mode", signOut: "Sign out", contentLanguage: "Content language" }, f8 = { searchPages: "Search pages…", editPage: "Edit page", newPage: "New page", menuLabel: "Menu: {{label}}", backToList: "Back to list", backToMenus: "Back to menus" }, m8 = { title: "Dashboard", subtitle: "Overview of your content and recent activity.", newPage: "New page", mediaLibrary: "Media", publishedPages: "Published pages", draftPages: "Drafts", mediaFiles: "Media files", activityWeek: "Activity (7 days)", publishedThisWeek_one: "{{count}} this week", publishedThisWeek_other: "{{count}} this week", noneThisWeek: "None this week", scheduledCount_one: "{{count}} scheduled", scheduledCount_other: "{{count}} scheduled", noneScheduled: "None scheduled", storageUsed: "{{size}} used", contributorsCount_one: "{{count}} contributor", contributorsCount_other: "{{count}} contributors", translationCoverage: "Translation coverage", translationMissing_one: "{{count}} translation missing", translationMissing_other: "{{count}} translations missing", translationComplete: "Fully translated", staleContent: "Stale content", staleContentFooter: "Not updated in 3+ months", pendingDrafts: "Pending drafts", pendingDraftsFooter: "Awaiting publish", pagesByType: "Page types in use", pagesByTypeFooter: "Top: {{type}} ({{count}})", trashedPages: "Trashed pages", trashedFooter: "In trash", mediaByType: "Images", mediaByTypeFooter_one: "{{count}} document", mediaByTypeFooter_other: "{{count}} documents", team: "Active users", teamFooter: "{{pending}} pending · {{disabled}} disabled", recentActivity: "Recent activity", noActivity: "No activity yet.", viewAllActivity: "View all", recentlyEdited: "Recently edited", noRecentEdits: "No pages edited yet.", quickActions: "Quick actions", recentDrafts: "Recent drafts", noRecentDrafts: "No recent drafts.", actionNewPage: "Create new page", actionNewPageDesc: "Start a blank draft", actionUploadMedia: "Upload media", actionUploadMediaDesc: "Add images & files", actionSettings: "Site settings", actionSettingsDesc: "Configure your project", greetingMorning: "Good morning", greetingAfternoon: "Good afternoon", greetingEvening: "Good evening", greetingSubtitle: "Here's what's happening", actions: { created: "Created", updated: "Updated", deleted: "Deleted", published: "Published", restored: "Restored", permDeleted: "Perm. deleted" } }, y8 = { title: "Pages", titleTrash: "Trash", subtitle: "Manage published content and drafts.", subtitleTrash: "Deleted pages — restore or permanently remove.", newPage: "+ New Page", exitTrash: "Exit Trash", enterTrash: "Trash", options: "Options", allStatuses: "All statuses", draft: "Draft", published: "Published", allTypes: "All types", colTitle: "Title", colSlug: "Slug", colStatus: "Status", colActions: "Actions", noResults: 'No results for "{{query}}"', resultCount: '{{count}} result(s) for "{{query}}"', trashEmpty: "Trash is empty.", noMatch: "No pages match your filters.", noPages: "No pages yet", createFirst: "Create your first page", pagination: "{{from}}–{{to}} of {{total}} pages", restore: "Restore", deleteForever: "Delete forever", delete: "Delete", moveToTrash: "Move to trash", moveToTrashConfirm: "Move this page to trash? You can restore it later.", permDeleteTitle: "Permanently delete page", permDeleteBody: "This cannot be undone. The page and all its versions will be gone forever.", permDeleteConfirm: "Delete forever", scheduled: "Scheduled", draftBadge: "draft", pendingDraft: "draft pending", permDeleteSuccess: "Page permanently deleted", permDeleteFailed: "Failed to permanently delete page", trashChildCount_one: "1 child in trash", trashChildCount_other: "{{count}} children in trash", trashOrphan: "Was under: {{parent}}", trashOrphanUnknown: "deleted page", trashTruncated: "Showing first {{count}} trashed pages. Restore or permanently delete some to see more." }, g8 = { title: "New Page", description: "Choose a page type to get started.", typeSection: "Page type", chooseType: "Choose a page type:", requiresParent: "Requires a parent", parentNamed: "Parent: {{name}}", children: "Children: {{types}}", globalLimit: "Global limit reached", parentRequired: "Parent page (required)", parentOptional: "Parent page (optional)", parentPlaceholder: "Select a parent page…", perParentLimit: 'This parent already has {{limit}} pages of type "{{label}}" (per-parent limit reached).', cancel: "Cancel", createBtn: "Create {{label}}", defaultLabel: "Page" }, k8 = { title: "Page type options", description: "Override runtime policy for each page type registered by this project. Code defaults stay the source of truth — empty fields fall back to them.", loading: "Loading…", empty: "No page types registered for this project.", deletable: "Deletable", deletableHelp: "When off, the trash button is hidden for pages of this type. Default: {{default}}", canBeRoot: "Can be root", canBeRootHelp: "When off, pages of this type must have a parent. Default: {{default}}", limit: "Max items (global)", limitHelp: "Total pages of this type allowed across the whole project. Leave empty for no limit. Default: {{default}}", perParentLimit: "Max per parent", perParentLimitHelp: "Max pages of this type under a single parent. Leave empty for no limit. Default: {{default}}", noLimit: "No limit", reset: "Reset", resetTooltip: "Revert to the code-defined defaults for this type", overridden: "Overridden — differs from code defaults", loadError: "Failed to load settings", saved: "Page type options saved", saveError: "Failed to save page type options", deleted: "Page type deleted", systemBadge: "system", addType: "Add page type", createTitle: "Create page type", editTitle: "Edit page type", back: "Back", slugLabel: "Slug", slugHelp: "Lowercase letters, numbers, and hyphens. Used by your frontend to render this type.", slugLocked: "Locked after create — renaming would break your frontend's rendering switch.", slugInvalid: "Lowercase letters, numbers, and hyphens only.", slugTaken: 'Slug "{{slug}}" is already taken.', slugShadowsCodeType: 'Slug "{{slug}}" already exists.', labels: "Labels", labelFor: "Label ({{locale}})", allowedParentTypes: "Allowed parent types", allowedChildTypes: "Allowed child types", allowBlocks: "Allow content blocks", allowedBlockTypes: "Allowed block types", allowedBlockTypesHint: "Leave empty to allow all registered block types.", fields: "Fields", fieldsEmpty: "No fields yet. Add one below.", addField: "Add field", fieldName: "Name", fieldLabel: "Label", fieldType: "Type", fieldRequired: "Required", fieldPlaceholder: "Placeholder", fieldOptions: "Options", fieldOptionsHint: "Press Enter after each option.", fieldNameInvalid: "Use letters, numbers and underscore. Must start with a letter or underscore.", removeField: "Remove field", removeFieldConfirm: "Remove this field? Any page data stored under this name will become orphaned.", deleteType: "Delete page type", deleteConfirm: "Delete this page type? It can only be deleted if no pages still use it.", deleteInUseError: "Cannot delete — {{count}} page(s) still use this type. Remove or convert them first." }, v8 = { subtitle: "Manage published content, drafts, and page hierarchy.", noPages: "No pages yet. Create your first page!", newPage: "New Page", addChild: "Add child", collapse: "Collapse", expand: "Expand", dragHandle: "Drag to reorder within this level", previewPage: "Preview page", deletePage: "Delete", deleteTitle: "Delete page", deleteBody: "Delete this page? Any child pages will be moved to root.", deleteConfirm: "Delete", previewNeedsFrontend: "Configure frontendUrl in createAdmin() to enable preview.", previewFailed: "Failed to create preview token", pageDeleted: "Page deleted", deleteError: "Failed to delete page", deleteParentBlocked: "Contains child pages — ask an admin or developer to delete.", deleteCurrentLocaleInactive: "{{locale}} version is already disabled. Switch language to delete this page.", deleteTypeNotDeletable: "This page type can't be deleted.", moveError: { generic: "Couldn't move the page.", parentInSubtree: "Can't move a page under itself or one of its descendants.", parentNotFound: "Target page no longer exists.", parentTrashed: "Target page is in the trash.", invalidParentType: "This page type isn't allowed under that parent.", parentNoChildren: "“{{parent}}” pages can't contain child pages.", invalidChildType: "“{{parent}}” pages can't contain “{{child}}” pages.", perParentLimit: "Target parent already has the maximum number of pages of this type.", cannotBeRoot: "This page type can't be placed at the root.", versionConflict: "Page was modified elsewhere — reload and try again.", pageTrashed: "Page is in the trash and can't be moved.", invalidInsertBefore: "Couldn't place the page at the requested position." } }, b8 = { loading: "Checking what will be deleted…", success: "Page moved to Trash", disableSuccess: "{{locale}} version disabled", confirm: { title: "Delete page?", leaf_single: "{{title}} will be moved to Trash. You can restore it later.", leaf_multi: "All {{count}} language versions ({{locales}}) of {{title}} will be moved to Trash.", cascade_one: "{{title}} and 1 descendant page ({{translationCount}} translations across {{locales}}) will be moved to Trash.", cascade_other: "{{title}} and {{count}} descendant pages ({{translationCount}} translations across {{locales}}) will be moved to Trash.", intro_multilocale: "This page is active in {{activeLocales}}. You can delete the entire page (all locales) or just disable the {{currentLocale}} version and keep {{otherLocales}} live.", deleteButton: "Delete entire page", disableButton: "Disable {{locale}} version only", disableExplain_one: "Hides this page from {{locale}} visitors. {{otherLocales}} stays live.", disableExplain_other: "Hides this page and {{count}} descendant page(s) from {{locale}} visitors. {{otherLocales}} stays live.", presence: "Currently being edited by: {{emails}}", restoreHint: "Restorable from Trash." }, blocked: { title: "Can't delete this page", intro_one: "This page can't be deleted because 1 menu item or link widget still references it:", intro_other: "This page can't be deleted because {{count}} menu items or link widgets still reference it:", menusHeader_one: "1 menu item", menusHeader_other: "{{count}} menu items", pagesHeader_one: "1 page", pagesHeader_other: "{{count}} pages", menuRow: "{{label}} · {{location}}", pageRow: "{{title}}", hint: "Open the listed items and remove the link, then try again.", close: "Close" }, disableBlocked: { title: "Can't disable {{locale}} version", intro_one: "Disabling the {{locale}} version would break 1 reference still pointing to this content:", intro_other: "Disabling the {{locale}} version would break {{count}} references still pointing to this content:" }, forbiddenParent: "This page has child pages — only an admin or developer can delete it.", multiLocale: { activeIn: "active in {{locales}}", intro: "This page lives in more than one language. Pick how to delete:", disableLocaleTitle: "Disable {{locale}} version only", disableLocaleHelp: "Hides this page from {{locale}} visitors. {{other}} stays live. Restorable from Trash.", disableLocaleHelpDesc: "Hides this page and {{count}} descendant page(s) from {{locale}} visitors. {{other}} stays live. Restorable from Trash.", deleteEntireHelp: "{{subject}} and all its translations ({{locales}}) will be moved to Trash.", deleteEntireHelpDesc: "{{subject}} and {{count}} descendant page(s) ({{locales}}) will be moved to Trash." } }, x8 = { title: "Restore page", loading: "Checking restore options…", success: "Page restored", restoreButton: "Restore", placementLabel: "Where should this page be restored?", typeHint: "Page type: {{type}}", option: { originalParent: 'Under "{{title}}" (original parent)', root: "Move to root (top level)", rootOriginal: "At root (top level)", otherParent: "Under a different page…", pickParent: "Pick a parent page", loading: "Loading pages…", noMatches: "No matching pages" }, cascade: { label_one: "Also restore 1 trashed descendant", label_other: "Also restore {{count}} trashed descendants", hint: "Children that were trashed alongside this page will be restored back into their original positions." }, reason: { parent_trashed: "Original parent is still in trash. Restore it first or pick a different parent.", type_mismatch: "Original parent isn't a valid parent type for {{type}}.", per_parent_limit_reached: "This parent already has the maximum number of {{type}} pages ({{limit}}).", cannot_be_root: "{{type}} pages cannot live at the root.", global_limit_reached: "Project limit for {{type}} pages reached ({{limit}})." }, blocked: { title: "Cannot restore page", typeNotRegistered: 'Page type "{{type}}" is no longer registered in this project. Add the type back or permanently delete this page.', noPlacement: "There's no valid place to restore this {{type}} page right now.", suggestion: "Restore (or create) a page of type: {{parentTypes}}, then try again.", parentInTrash: 'The original parent "{{parentTitle}}" is still in trash — restoring it first will give this page a home.', globalLimit: "Project limit for {{type}} pages reached ({{limit}}). Delete or trash a live {{type}} page first." }, error: { generic: "Failed to restore page. Try again.", pickParent: "Please pick a parent page.", parentTrashed: "The chosen parent is in trash. Pick a live page or restore that parent first.", parentNotFound: "The chosen parent no longer exists.", parentInSubtree: "Cannot move a page under one of its own descendants.", invalidParentType: "The chosen parent isn't a valid parent type for {{type}}.", perParentLimitReached: "This parent already has the maximum number of {{type}} pages ({{limit}}).", cannotBeRoot: "{{type}} pages cannot live at the root.", globalLimitReached: "Project limit for {{type}} pages reached ({{limit}}).", slugTaken: 'The {{locale}} slug "{{slug}}" is already used by a live page. Rename it before restoring.' } }, w8 = { titleEdit: "Edit Page", titleNew: "New Page", tabContent: "Content", tabSeo: "SEO", fieldTitle: "Title", placeholderTitle: "Page title", fieldStatus: "Status", statusDraft: "Draft", statusPublished: "Published", statusHint: "Only admins and developers can publish or unpublish pages", schedulePublish: "Schedule publish", scheduleDescription: "The page will go live automatically at the selected time.", scheduleHint: "Leave blank to keep as draft indefinitely", schedulePlaceholder: "Pick date and time…", scheduledFor: "Scheduled for {{date}}", scheduleClear: "Clear", scheduleConfirm: "Confirm", scheduleLeaveBlank: "Leave blank to keep as draft indefinitely.", parentRequired: "Parent page (required)", parentOptional: "Parent page (optional)", parentNone: "No parent (root level)", fieldsSectionTitle: "Fields", contentSections: "Content Sections", saveAsTemplate: "Save as template", loadTemplate: "Load template", noSections: "No sections yet. Add one below.", addSection: "+ Add new section", addBlockLabel: "+ {{label}}", chooseBlockType: "Choose section type", metaTitle: "Meta title", metaDescription: "Meta description", metaDescriptionHint: "Brief description for search engines", metaTitleCount: "{{count}}/60 characters", metaTitleTooLong: "Meta title is too long", metaDescCount: "{{count}}/160 characters", metaDescTooLong: "Meta description is too long", ogImage: "OG image", pickImage: "Pick image", canonicalUrl: "Canonical URL", canonicalPlaceholder: "https://example.com/my-page", canonicalHint: "Leave blank to use the default page URL", noindex: "Hide from search engines (noindex)", googlePreview: "Google preview", noDescription: "No description set.", savePage: "Save", publishPage: "Publish page", publishSuccess: "Page published", publishError: "Failed to publish page", localeActiveCheckbox: "Active in this language", localeMissing: "No content yet for {{locale}}", localeInactive: "{{locale}} is inactive — content won't appear on the public site", deactivateError: "Couldn't check where this page is used", deactivateBlockedTitle: "This page is still linked in {{locale}}", deactivateBlockedBody: "Deactivating {{locale}} would silently break the links below. Remove them first, then come back to deactivate.", deactivateBlockedMenus: "Used in menus:", deactivateBlockedPages: "Linked from pages:", cascadeBlockedTitle: "Can't disable {{locale}} on descendants", cascadeBlockedBody: "Disabling {{locale}} on this page would also disable it on descendant pages, but some are still linked from same-locale content outside this subtree. Remove the links below, then try again.", cascadeBlockedPageLabel: "Descendant: {{title}}", cascadeDoneNotification: "Disabled {{locale}} on {{count}} descendant page(s)", cascadeConfirmTitle: "Also disable {{locale}} on descendants?", cascadeConfirmBody: "{{count}} descendant page(s) currently active in {{locale}} will also be disabled when you save. This action runs on save and can be undone by re-activating each page individually.", cascadeConfirmAction: "Disable on descendants", ancestorBlockedTitle: "Can't enable {{locale}} yet", ancestorBlockedBody: "One or more parent pages still have {{locale}} disabled. Enable {{locale}} on the parent first, then come back here. Otherwise this page would publish at a URL whose parent segment doesn't resolve.", cascadeFailedError: "Saved the page, but couldn't cascade {{locale}} to descendants", statusDraftBadge: "Draft", statusPublishedBadge: "Published", statusPendingBadge: "Published · draft pending", leaveTitle: "Leave page?", leaveBody: "You have unsaved changes. If you leave now, your changes will be lost.", leaveConfirm: "Leave", conflictTitle: "Edit conflict", conflictBody: "Someone else saved this page while you were editing. [Reload] to get the latest version.", savedNotification: "Page saved", saveError: "Failed to save page", siblingSlugTaken: "Another page under the same parent already uses this name ({{locale}}). Rename this page to save it.", previewNeedsSave: "Save the page first to enable preview", previewNeedsFrontend: "Configure frontendUrl in createAdmin() to enable preview", previewFailed: "Failed to create preview", versionHistory: "Version history", versionHistoryDescription: "Restore an earlier version of this page.", versionCount: "{{count}} saved version", versionCount_other: "{{count}} saved versions", versionCurrent: "current", noVersions: "No saved versions yet. Versions are created on every save.", restoreVersion: "Restore", restoreVersionTitle: "Restore version?", restoreVersionBody: "This will replace the current page content with this version. The current state will be saved as a new version first.", restoreVersionFailed: "Failed to restore version", unknownBlock: "Unknown block type: {{type}}", unsavedBadge: "Unsaved changes", lastSaved: "Last saved {{time}}", alsoEditing: "{{emails}} also editing", moreEditors: "+{{count}}" }, M8 = { title: "Menus", subtitle: "Manage navigation menus for your frontend.", newMenu: "New Menu", loading: "Loading…", noMenus: "No menus yet. Create your first menu!", emptyTitle: "No menus yet", emptyDescription: "Create navigation menus for your frontend header, footer, and other areas.", locationPrimary: "primary — main navigation", locationFooter: "footer — footer links", locationBadge_primary: "Main Navigation", locationBadge_footer: "Footer Navigation", edit: "Edit", delete: "Delete", modeAuto: "Auto", modeManual: "Manual", topLevelItems: "{{count}} top-level item(s)", autoInfo: "{{types}} · depth {{depth}}", deleteTitle: "Delete menu", deleteBody: "Delete this menu? This cannot be undone.", deleteConfirm: "Delete", createTitle: "Create menu", createDescription: "Navigation menus are rendered by your frontend.", modeSection: "Mode", modeManualSub: "You control every menu item", modeAutoSub: "Built from your page tree", locationSection: "Navigation slot", locationPrimaryTitle: "Primary navigation", locationPrimaryCardSub: "Main header navigation", locationFooterTitle: "Footer", locationFooterCardSub: "Footer links", alreadyAdded: "Already added", allLocationsUsed: "All menu locations are already in use.", cancel: "Cancel", createBtn: "Create menu" }, _8 = { title: "Navigation menu editor", alsoEditing: "{{emails}} also editing", moreEditors: "+{{count}}", save: "Save menu", modeLabel: "Mode", modeAuto: "Auto (Smart)", modeManual: "Manual (Custom)", modeAutoHint: "Automatically generates menu items from selected page types.", modeManualHint: "Manually arrange items with drag-and-drop.", includeTypes: "Include page types", includeTypesHint: "Only published pages of these types will appear.", includeTypesPlaceholder: "Select page types…", maxDepth: "Max depth", maxDepthHint: "Levels of children to include (0 = root only).", depth0: "0 — root only", depth1: "1 level", depth2: "2 levels", depth3: "3 levels", maxTypes: "Max selectable page types", maxTypesHint: "Limit how many types admins can pick.", previewLabel: "Preview", previewLoading: "Loading preview…", previewEmpty: "No published pages match the selected types.", itemsLabel: "Items", addItem: "Add item", dndHint: "Drag onto an item to nest it as a child · Drop above/below to reorder · Use ◀ ▶ buttons to change level", noItems: "No items yet. Add your first menu item.", indentOut: "Move to parent level", indentIn: "Make child of item above", itemLabelField: "Label", itemLabelPlaceholder: "e.g. Products", itemTypePage: "Page", itemTypeUrl: "Custom URL", itemPageLabel: "Page", itemPagePlaceholder: "Search pages…", itemUrlLabel: "URL", itemUrlPlaceholder: "https://… or /relative", itemNewTab: "Open in new tab", editItem: "Edit item", cancelItem: "Cancel", saveItem: "Save changes", saveNewItem: "Add item", removeItem: "Remove item", removeItemTitle: "Remove this item and all its children?", removeItemConfirm: "Remove", switchToAuto: "Switch to Auto mode", switchToManual: "Switch to Manual mode", switchToAutoConfirm: "Switching to Auto mode will discard your manually-configured items. Continue?", switchToManualConfirm: "Switch to Manual mode? The current auto-generated structure will be used as your starting point.", switchManualImport: "Switch & import items", switchAutoConfirm: "Switch to Auto", savedNotification: "Menu saved", conflictBody: "Someone else saved this menu while you were editing. [Reload] to get the latest version.", saveError: "Failed to save menu", itemLabelFor: "Label ({{locale}})", itemLabelFallback: "Falls back to {{locale}}", itemLabelMissing: "Missing in: {{locales}}", itemLabelAutoHint: "Leave blank to use the page's title “{{title}}”.", itemLocaleBadge: "Not in {{locale}}", itemLocaleTooltip: "This page has no active translation in {{locale}}. It will be hidden from the public menu for this language.", previewLocaleHint: "Preview for {{locale}}. Pages without an active translation in this language are hidden." }, C8 = { title: "Media", subtitle: "Upload and manage images, documents, and other files.", searchPlaceholder: "Search files…", fileCount: "{{count}} file(s)", viewLarge: "Large", viewSmall: "Small", viewList: "List", settingsBtn: "Settings", uploadBtn: "Upload", filterAll: "All", filterImages: "Images", filterDocs: "Documents", noResults: "No files match your search.", noFiles: "No files here", uploadFiles: "Upload files", foldersTitle: "Folders", allFiles: "All files", unorganized: "Unorganized", newFolder: "New Folder", confirmDelete: "Confirm delete", confirmCreate: "Create", newSubfolder: "New subfolder", rename: "Rename", delete: "Delete", expand: "Expand", collapse: "Collapse", folderActions: "Folder actions", deleteFolderTitle: "Delete folder?", deleteFolderMessage: "This cannot be undone.", renameFileTitle: "Rename file", renameFileLabel: "File name", cancel: "Cancel", save: "Save", renameFailed: "Failed to rename.", fileInfoTitle: "File info", fileInfoName: "Display name", fileInfoStorage: "Storage filename", fileInfoType: "Type", fileInfoSize: "Size", fileInfoUploaded: "Uploaded", fileInfoModified: "Last modified", fileInfoCdnUrl: "CDN URL", copy: "Copy", copied: "Copied!", download: "Download", close: "Close", copyUrl: "Copy URL", fileInfo: "File info", deleteFile: "Delete", downloadSelected: "Download {{count}} selected", deleteSelected: "Delete {{count}} selected", deleteFileTitle: "Delete file?", deleteFileBody: "Delete <strong>{{name}}</strong>? This cannot be undone.", deleteFileMessage: "This cannot be undone.", deleteSelectedTitle: "Delete selected files?", deleteSelectedBody: "Delete <strong>{{count}} selected file(s)</strong>? This cannot be undone.", deleteSelectedMessage: "Delete {{count}} selected file(s)? This cannot be undone.", deleteConfirm: "Delete {{count}} file(s)", usedOnPages: "Used on {{count}} page(s):", removeFromPagesFirst: "Remove this image from those pages first.", sortNewest: "Added (newest)", sortOldest: "Added (oldest)", sortModifiedNew: "Modified (newest)", sortModifiedOld: "Modified (oldest)", sortNameAZ: "Name (A → Z)", sortNameZA: "Name (Z → A)", sortSizeLarge: "Size (largest)", sortSizeSmall: "Size (smallest)", dropUploadTo: 'Drop to upload to "{{folder}}"', dropUpload: "Drop to upload", skippedDuplicatesTitle: "Skipped duplicates", skippedDuplicates: "Skipped {{count}} file(s) already in this folder: {{names}}", selectedCount: "{{count}} file(s) selected", selectAll: "Select all", showingRange: "{{from}}–{{to}} of {{total}}", moveToFolder: "Move to folder…", clearSelection: "Clear", settingsTitle: "Bunny CDN Storage", settingsConfigured: "Configured", settingsZoneName: "Storage Zone Name", settingsPathPrefix: "Storage Path Prefix", settingsPathHint: "Subfolder path within the zone.", settingsApiKeyEdit: "Storage API Key (leave blank to keep)", settingsApiKeyNew: "Storage API Key", settingsApiKeyPlaceholderHidden: "••••••••", settingsApiKeyPlaceholderNew: "Paste storage zone password", settingsRegion: "Storage Region", settingsCdnUrl: "CDN Pull Zone URL", settingsCdnPlaceholder: "https://myzone.b-cdn.net", settingsSave: "Save configuration", settingsSaved: "Configuration saved.", settingsHelp: "Zone name & password: Bunny CDN → Storage → [Zone] → FTP & API Access. CDN URL: Bunny CDN → Pull Zones → [Zone] → hostname." }, N8 = { title: "Users", subtitle: "Manage team members and their roles.", newUser: "New User", loading: "Loading…", noUsers: "No users found.", userCount: "{{count}} user", userCount_other: "{{count}} users", colName: "Name", colUser: "User", colEmail: "Email", colRole: "Role", colStatus: "Status", colCreated: "Created", colActions: "Actions", searchPlaceholder: "Search users…", actionsMenu: "Actions", edit: "Edit", delete: "Delete", disable: "Disable", reactivate: "Reactivate", resetPassword: "Reset password", resendInvite: "Resend invite", status: { active: "Active", pending: "Pending", disabled: "Disabled" }, createTitle: "Invite user", createDescription: "Set up the new team member's access credentials.", inviteDescription: "An activation email will be sent to this address.", inviteEmailHint: "We'll email an activation link — the user chooses their own password.", sendInvite: "Send invitation", inviteSent: "Invitation sent to {{email}}", roleSection: "Role", createFirstName: "First name", createFirstNamePlaceholder: "Jane", createLastName: "Last name", createLastNamePlaceholder: "Doe", createEmail: "Email", createEmailPlaceholder: "user@example.com", createPassword: "Password", createPasswordHint: "Min 8 characters", createRole: "Role", createRolePlaceholder: "Choose role", cancel: "Cancel", create: "Create", editTitle: "Edit {{email}}", editRole: "Role", editPasswordNote: `To change this user's password, use "Reset password" from the row menu — they'll get an email.`, editCancel: "Cancel", editSave: "Save", deleteTitle: "Delete user", deleteBody: "Delete {{email}}? This cannot be undone.", deleteMessage: "This permanently removes the user. They will not be able to log in again.", disableTitle: "Disable user", disableMessage: "Their existing session will end and they will be unable to log in until reactivated.", disableConfirm: "Disable", disableSuccess: "{{email}} disabled", reactivateTitle: "Reactivate user", reactivateMessage: "They will be able to log in again with their existing password.", reactivateConfirm: "Reactivate", reactivateSuccess: "{{email}} reactivated", resetTitle: "Reset password", resetMessage: "We'll email a reset link to this user. Their current password keeps working until they set a new one.", resetConfirm: "Send reset email", resetSuccess: "Reset email sent to {{email}}", resendTitle: "Resend invitation", resendMessage: "We'll send a fresh activation link to this user. Any previous link will stop working.", resendConfirm: "Resend invitation", resendSuccess: "Invitation resent to {{email}}", loadError: "Failed to load users", createError: "Failed to invite user", updateError: "Failed to update user", actionError: "Action failed", deleteSuccess: "{{email}} deleted", deleteError: "Failed to delete user" }, S8 = { title: "Set your password", subtitle: "Choose a password for {{email}} to activate your account.", password: "Password", passwordPlaceholder: "At least 8 characters", confirmPassword: "Confirm password", confirmPasswordPlaceholder: "Re-enter your password", submit: "Activate account", submitting: "Activating…", success: "Account activated", redirecting: "Taking you to the dashboard…", linkInvalidTitle: "Link invalid or expired", invalidLink: "This activation link is no longer valid. Ask an administrator to send a new invitation.", passwordTooShort: "Password must be at least 8 characters.", passwordMismatch: "Passwords don't match.", submitError: "Could not activate your account. Please try again." }, z8 = { title: "Reset your password", subtitle: "Choose a new password for {{email}}.", submit: "Set new password", success: "Password updated" }, T8 = { title: "API Keys", subtitle: "Manage access tokens for frontend integrations.", newKey: "New Key", loading: "Loading...", noKeys: "No API keys yet.", emptyTitle: "No API keys yet", emptyDescription: "Create access tokens for your frontend or third-party integrations.", new: "New key", colName: "Name", colPrefix: "Prefix", colRole: "Role", colLastUsed: "Last used", colActions: "Actions", revoke: "Revoke", createTitle: "Create API Key", createName: "Name", createNamePlaceholder: "e.g. project-one-frontend", createRole: "Role", roleViewer: "Viewer — read-only", roleEditor: "Editor — create & edit", roleAdmin: "Admin — full access", roleDeveloper: "Developer — developer access", createDescription: "Keys are shown once — copy immediately after creation.", roleSection: "Role", createBtn: "Create", newKeyTitle: "Key created — copy it now. It will not be shown again.", copy: "Copy", dismiss: "Dismiss", revokeTitle: "Revoke API key", revokeBody: 'Revoke "{{name}}"? Any integrations using this key will stop working.', revokeMessage: "Any integration still using this key will start failing immediately.", revokeConfirm: "Revoke", never: "Never", revokeSuccess: 'API key "{{name}}" deleted', revokeError: "Failed to delete key", keyCount: "{{count}} API key", keyCount_other: "{{count}} API keys" }, j8 = { title: "Site Settings", subtitle: "Global configuration for your project.", save: "Save settings", tabGeneral: "General", tabLocales: "Locales", tabSeo: "SEO Defaults", tabEditorPrefs: "Editor preferences", tabAnalytics: "Analytics", tabDashboard: "Dashboard", dashboardHint: "Choose which stat cards each user role sees on their dashboard. Some cards are restricted to a minimum role and can't be enabled below it.", dashboardRole_viewer: "Viewer", dashboardRole_editor: "Editor", dashboardRole_admin: "Admin", dashboardRole_developer: "Developer", dashboardMinRole: "Requires {{role}} or higher", tabApiKeys: "API keys", tabWebhooks: "Webhooks", tabAdvanced: "Advanced", tabRobots: "Robots.txt", identitySection: "Site identity", identityHint: "How your CMS appears to users and to the public.", brandSection: "Brand", brandHint: "Favicon shown in browser tabs and shared previews.", languagesHint: "Which languages this project supports.", thisDeviceNote: "(this device)", editorPrefsHint: "Personal preferences stored on this browser only.", analyticsHint: "Connect your analytics provider.", advancedHint: "Inject raw HTML into every public page.", email: { title: "Email", hint: "Configuration for invitations, password resets, and other transactional email. The same values are used in dev and production for this project — set different credentials in each environment's database.", fromLabel: 'Default "From" address', fromPlaceholder: "My CMS <noreply@example.com>", fromHint: "Plain address or RFC 5322 form. The sender domain must be verified with your email provider (e.g. Resend) — unverified domains will be rejected at send time.", transportTitle: "Transport", transportHint: "How email is actually sent. Credentials are stored per-project — paste them once here and the same values apply in dev and prod (each environment carries its own database).", transportLabel: "Transport mode", transportLabelHint: '"Auto" uses environment variables (RESEND_API_KEY / SMTP_HOST) as a fallback. The other choices use the credentials you fill in below.', transportAuto: "Auto (use environment variables)", transportResend: "Resend (HTTP API)", transportSmtp: "SMTP (nodemailer)", transportNone: "Disabled (drop all sends)", resendKeyLabel: "Resend API key", resendKeyHint: 'Get one at resend.com → API Keys. Free tier covers 100 emails/day. Keys start with "re_".', resendKeyPlaceholder: "re_xxxxxxxxxxxxxxxxxxxxxxxx", resendKeyPlaceholderStored: "Leave blank to keep the existing key", smtpHostLabel: "SMTP host", smtpPortLabel: "SMTP port", smtpUserLabel: "SMTP username", smtpPassLabel: "SMTP password", smtpPassPlaceholderStored: "Leave blank to keep the existing password", smtpSecureLabel: "Use TLS/SSL (port 465 typically requires this; port 587 typically does not)", configured: "Configured", show: "Show", hide: "Hide", clear: "Clear", saveTransport: "Save email config", saved: "Email config saved", cleared: "Credential cleared", statusResend: "Resend connected ({{source}})", statusSmtp: "SMTP connected ({{source}})", statusConsole: "No transport configured — emails will be logged to the API stdout instead of sent", statusNone: "Email is disabled — outgoing sends will be silently dropped", statusLoading: "Checking transport…", sourceProject: "this project", sourceEnv: "from env", overrideActive: "Dev override active: all sends are re-routed to {{email}}" }, noFavicon: "No favicon set", faviconReady: "Active across the site", faviconFallback: "Brand monogram fallback in use", faviconName: "favicon", siteTitle: "Site title", siteTitleHint: "Used in the browser tab and as a fallback OG title.", siteTitlePlaceholder: "My Website", tagline: "Tagline", taglineHint: "Short description shown below the site title.", taglinePlaceholder: "Building things since 2024", favicon: "Favicon", faviconHint: "Recommended: 32×32 PNG or SVG.", faviconSet: "Favicon set (media ID: {{id}}…)", faviconRemove: "Remove", faviconNone: "No favicon set.", faviconSelect: "Select favicon", faviconChange: "Change favicon", uiLanguage: "Admin UI language", uiLanguageHint: "Language used for all admin panel labels and messages.", langEn: "English", langHr: "Croatian", localeFallback: "Falls back to {{locale}} when empty", editorPrefsSection: "Editor preferences (this device)", autosaveEnabled: "Autosave every 30 seconds", autosaveEnabledHint: "Saves drafts in the background while you edit. Manual save (Ctrl+S, Save button) and Publish are unaffected.", languagesSection: "Content languages", availableLocales: "Available locales", availableLocalesHint: "Languages this project will publish content in.", defaultLocale: "Default locale", defaultLocaleHint: "Fallback locale used at the site root and when a page has no translation in the visitor's locale.", defaultLocaleNotAvailable: "Default locale must be one of the available locales.", atLeastOneLocale: "At least one locale must be available.", localeInUse: "Cannot remove locale {{locale}} — pages still have content in it. Remove that content first.", seoDefaultsHint: "These defaults are used when a page doesn't have its own SEO fields set.", defaultMetaTitle: "Default meta title", defaultMetaTitlePlaceholder: "My Website — Page Title", defaultMetaDesc: "Default meta description", defaultMetaDescPlaceholder: "A short description of your website…", defaultOgImage: "Default OG image URL", defaultOgImageHint: "Fallback Open Graph image for social sharing.", defaultOgImagePlaceholder: "https://cdn.example.com/og-default.jpg", analyticsId: "Analytics ID", analyticsIdHint: "Google Analytics measurement ID (G-XXXXXXXX) or any other analytics identifier.", analyticsIdPlaceholder: "G-XXXXXXXXXX", advancedWarning: "Raw HTML injected into every page. Use with caution — invalid HTML can break your site.", customHeadHtml: "Custom <head> HTML", customHeadHtmlHint: "Injected inside <head> before </head>.", customHeadHtmlPlaceholder: "<!-- e.g. third-party scripts, custom fonts -->", customBodyHtml: "Custom <body> HTML", customBodyHtmlHint: "Injected just before </body>.", customBodyHtmlPlaceholder: "<!-- e.g. chat widget, cookie banner -->", robotsHint: "Content returned by GET /robots.txt when the X-Project-Slug header is present.", robotsLabel: "robots.txt content", robotsResetAllow: "Reset to allow all", robotsDisallowAll: "Disallow all (maintenance)", savedNotification: "Settings saved", conflictTitle: "Edit conflict", conflictBody: "Someone else saved these settings while you were editing. [Reload] to get the latest version.", saveError: "Failed to save settings" }, A8 = { title: "Webhooks", subtitle: "Notify external services when content changes", addBtn: "Add webhook", loading: "Loading…", noWebhooks: "No webhooks configured", emptyTitle: "No webhooks yet", emptyDescription: "Notify Slack, Vercel or your build pipeline when content changes.", add: "Add webhook", addFirst: "Add your first webhook", colUrl: "URL", colEvents: "Events", colActive: "Active", colCreated: "Created", colActions: "Actions", count: "{{count}} webhook", count_other: "{{count}} webhooks", createUrlPlaceholder: "https://example.com/webhook", createEventsLabel: "Events", cancel: "Cancel", createBtn: "Create webhook", createSuccess: "Webhook created successfully", secretHint: "Copy and store this secret — it will not be shown again. Use it to verify the X-CMS-Signature header on incoming requests.", done: "Done", validationUrl: "URL must start with http:// or https://", validationEvents: "Select at least one event", createError: "Failed to create webhook", noDeliveries: "No deliveries yet", viewLog: "View delivery log", deleteWebhook: "Delete webhook", deliveryLog: "Delivery log", deleteTitle: "Delete webhook?", deleteBody: "All delivery history for this webhook will also be deleted.", deleteConfirm: "Delete", deleteSuccess: "Webhook deleted", updateError: "Failed to update webhook", deleteError: "Failed to delete webhook", loadError: "Failed to load webhooks" }, E8 = { title: "Strings", subtitle: "Edit hardcoded frontend copy without a code deploy.", colKey: "Key", colValue: "Value", addRow: "Add string", addRowBlocked: "Finish the new string first — enter a key and a value for every language.", removeRow: "Remove string", save: "Save", keyPlaceholder: "e.g. hero_title", valuePlaceholder: "Translated value", defaultBadge: "default", emptyTitle: "No strings yet", emptyState: "No strings defined for this language yet.", noLocales: "No content languages are configured. Configure them in Settings → General first.", saveSuccess: "Strings saved", saveError: "Failed to save strings", loadError: "Failed to load strings", deleteTitle: "Delete this string?", deleteBody: 'The key "{{key}}" will be removed from this language. Other languages are unaffected.', deleteMessage: "The key will be removed from all languages.", deleteConfirm: "Delete", deleteSuccess: "String deleted", deleteError: "Failed to delete string", errorKeyRequired: "Key is required", errorKeyFormat: "Letters, numbers, dot, underscore, hyphen only", errorKeyDuplicate: "Duplicate key in this language", errorFixFirst: "Fix the highlighted errors before saving", rowCount: "{{count}} string" }, L8 = { placeholder: "Search pages, or jump to…", newPage: "New page", newPageDesc: "Create a new page", mediaLibrary: "Media library", mediaLibraryDesc: "Browse and upload files", viewActivity: "View activity", viewActivityDesc: "See recent activity log", pageHint: "{{slug}} · {{status}}", noResults: "No results found" }, $8 = { title: "Activity Log", subtitle: "A record of all changes made by your team.", colWhen: "When", colUser: "User", colAction: "Action", colResource: "Resource", noActivity: "No activity yet.", loadMore: "Load more", filter: "Filter", filterAll: "All", filterPages: "Pages", filterMedia: "Media", filterUsers: "Users", rangeLabel: "Date range", rangeAll: "All time", range24h: "Last 24 hours", range7d: "Last 7 days", range30d: "Last 30 days", actions: { page_created: "Created", page_updated: "Updated", page_moved: "Moved", page_published: "Published", page_trashed: "Trashed", page_restored: "Restored", page_deleted: "Permanently deleted", page_locale_disabled: "Disabled translation", page_version_restored: "Restored a version of", menu_created: "Menu created", menu_updated: "Menu updated", menu_deleted: "Menu deleted", media_uploaded: "Media uploaded", media_deleted: "Media deleted", media_folder_created: "Folder created", media_folder_moved: "Folder moved", media_folder_renamed: "Folder renamed", media_folder_deleted: "Folder deleted", media_config_updated: "Media settings updated", block_template_created: "Template saved", block_template_deleted: "Template deleted", page_type_created: "Page type created", page_type_updated: "Page type updated", page_type_deleted: "Page type deleted", settings_updated: "Settings updated", strings_updated: "Strings updated", strings_deleted: "String deleted", user_invited: "Invited user", user_activated: "Activated account", user_updated: "User updated", user_disabled: "Disabled user", user_reactivated: "Reactivated user", user_password_reset_requested: "Sent password reset", user_password_reset_completed: "Reset their password", user_invite_resent: "Resent invite", user_deleted: "Deleted user" } }, D8 = { saveTitle: "Save as Template", saveSubtitle: "Saves the current {{count}} block(s) as a reusable template.", nameLabel: "Template name", namePlaceholder: "e.g. Hero + Two Columns", nameRequired: "Template name is required", saveFailed: "Failed to save template", saveBtn: "Save Template", loadTitle: "Load Template", loadDescription: "This will replace all existing blocks on the page.", loadWarning: "Loading a template will replace all current content blocks.", loadNoTemplates: "No saved templates yet.", blockCount: "{{count}} block(s)", loadBtn: "Load Template", crossLocaleTitle: "Cross-language template", crossLocaleBody: "This template was authored in {{source}}, but you're editing in {{target}}. Loading it will paste {{source}}-language content into the {{target}} tab. Continue?", crossLocaleConfirm: "Load anyway" }, P8 = { mixedContent: { blockLabel: "Mixed Content Block", widgetText: "Text", widgetVideo: "Video", widgetLink: "Link", widgetAccordion: "Accordion", widgetGallery: "Gallery", widgetSection: "Section", layoutFull: "Full width", layoutHalf: "Half / Half", layout13_23: "1/3 + 2/3", layout23_13: "2/3 + 1/3", layoutThree: "Three equal", layout14_34: "1/4 + 3/4", layout34_14: "3/4 + 1/4", chooseLayout: "Choose a layout for this section:", addWidget: "Add Widget", addWidgetDescription: "Choose a content widget to insert into this column.", cancelBtn: "Cancel", insertBtn: "Insert", textPlaceholder: "Type here…", textEmpty: "No text yet — click ✏ to edit", videoUrl: "Video URL", videoWidth: "Width (px)", videoHeight: "Height (px)", videoEmpty: "No video URL — click ✏ to edit", linkEmpty: "Link not configured — click ✏ to edit", accordionEmpty: "No items — click ✏ to add", accordionMainTitle: "Title (optional)", accordionMainTitlePlaceholder: "e.g. Frequently asked questions", notConfigured: "Not configured", configure: "Configure", addItem: "+ Add item", accordionItem: "Item {{num}}", accordionTitle: "Accordion title", accordionContent: "Item content…", galleryEmpty: "No images added yet.", galleryEdit: "Edit gallery", gallerySelect: "Select images", resetLayout: "Reset and choose a different layout", changeLayout: "Change", columnLabel: "Column {{num}} ({{width}}/12)", addWidgetBtn: "+ Add Widget", sectionTitle: "Section title (optional)", changeLayoutBtn: "Change layout", discardTitle: "Discard changes?", discardBody: "You have unsaved widget changes. If you close now, they will be lost.", collapseWidget: "Collapse preview", expandWidget: "Expand preview" } }, R8 = { paragraph: "Paragraph", heading: "Heading {{level}}", alignment: "Alignment", alignLeft: "Align left", alignCenter: "Center", alignRight: "Align right", alignJustify: "Justify", indent: "Indent", outdent: "Outdent", table: "Table", insertTable: "Insert {{rows}}×{{cols}} table", tableRow: "Row", addRowAbove: "Add row above", addRowBelow: "Add row below", deleteRow: "Delete row", tableColumn: "Column", addColumnLeft: "Add column left", addColumnRight: "Add column right", deleteColumn: "Delete column", deleteTable: "Delete table", addHeaderRow: "Add header row", removeHeaderRow: "Remove header row", mergeCells: "Merge cells", splitCell: "Split cell", cellOptions: "Cell options", addImage: "Add image", imageModal: { title: "Add Image", titleEdit: "Edit Image", add: "+ Add", change: "Change", imageTitle: "Image title", imageTitlePlaceholder: "Enter image title", description: "Image description", descriptionPlaceholder: "Alt text for accessibility", alignment: "Image alignment", alignDefault: "Default", alignLeft: "Left", alignCenter: "Center", alignRight: "Right", dimensions: "Image dimensions", originalDims: "Use original dimensions", customDims: "Set custom dimensions", width: "Width (px)", height: "Height (px)", lockAspect: "Lock aspect ratio", unlockAspect: "Unlock aspect ratio" } }, O8 = { nav: { store: "Store", categories: "Categories" }, categories: { new: "New category", addChild: "Add subcategory", empty: "No categories yet", emptyHint: "Create your first category to organize products.", createTitle: "New category", editTitle: "Edit category", slug: "Slug", slugHelp: "Lowercase, words separated by hyphens (e.g. power-tools).", slugRequired: "A slug is required.", parent: "Parent category", root: "— None (top level) —", label: "Label", description: "Description", metaTitle: "Meta title", metaDescription: "Meta description", heroImage: "Hero image", pickImage: "Choose image", editingLocale: "Editing {{locale}} content", labelRequired: "A label is required for at least one language.", save: "Save", create: "Create", delete: "Delete", deleteTitle: "Delete category?", deleteBody: "This permanently deletes the category.", saved: "Category saved", deleted: "Category deleted" }, errors: { slug_taken: "That slug is already used by another category.", has_children: "Move or delete its subcategories first.", cycle_detected: "A category can't be moved under its own subcategory.", cannot_parent_self: "A category can't be its own parent.", parent_not_found: "The selected parent no longer exists.", conflict: "Someone else changed this category. Reload and try again.", generic: "Something went wrong. Please try again." } }, I8 = {
+the right pace.`, subTagline: "Headless CMS engine for teams who care about the details.", welcomeBack: "Welcome back", signInToWorkspace: "Sign in to your workspace", email: "Email", emailPlaceholder: "you@example.com", password: "Password", passwordPlaceholder: "Your password", signIn: "Sign in", signingIn: "Signing in…", forgotHint: "Forgot your password? Contact your administrator.", error: "Invalid email or password" }, p8 = { cancel: "Cancel", save: "Save", delete: "Delete", edit: "Edit", create: "Create", close: "Close", back: "Back", loading: "Loading...", loadingEllipsis: "Loading…", copy: "Copy", copied: "Copied!", remove: "Remove", rename: "Rename", upload: "Upload", download: "Download", preview: "Preview", restore: "Restore", never: "Never", dismiss: "Dismiss", done: "Done", add: "Add", change: "Change", reset: "Reset", search: "Search", on: "on", off: "off", configure: "Configure", backToList: "Back to list", discard: "Discard", confirm: "Confirm" }, u8 = { dashboard: "Dashboard", pages: "Pages", media: "Media", menus: "Menus", settings: "Settings", users: "Users", apiKeys: "API Keys", activity: "Activity", webhooks: "Webhooks", strings: "Strings", workspace: "Workspace", system: "System", toggleSidebar: "Toggle sidebar", cmsAdmin: "ARTKOD CMS", lightMode: "Light mode", darkMode: "Dark mode", switchToLight: "Switch to light mode", switchToDark: "Switch to dark mode", signOut: "Sign out", contentLanguage: "Content language" }, f8 = { searchPages: "Search pages…", editPage: "Edit page", newPage: "New page", menuLabel: "Menu: {{label}}", backToList: "Back to list", backToMenus: "Back to menus" }, m8 = { title: "Dashboard", subtitle: "Overview of your content and recent activity.", newPage: "New page", mediaLibrary: "Media", publishedPages: "Published pages", draftPages: "Drafts", mediaFiles: "Media files", activityWeek: "Activity (7 days)", publishedThisWeek_one: "{{count}} this week", publishedThisWeek_other: "{{count}} this week", noneThisWeek: "None this week", scheduledCount_one: "{{count}} scheduled", scheduledCount_other: "{{count}} scheduled", noneScheduled: "None scheduled", storageUsed: "{{size}} used", contributorsCount_one: "{{count}} contributor", contributorsCount_other: "{{count}} contributors", translationCoverage: "Translation coverage", translationMissing_one: "{{count}} translation missing", translationMissing_other: "{{count}} translations missing", translationComplete: "Fully translated", staleContent: "Stale content", staleContentFooter: "Not updated in 3+ months", pendingDrafts: "Pending drafts", pendingDraftsFooter: "Awaiting publish", pagesByType: "Page types in use", pagesByTypeFooter: "Top: {{type}} ({{count}})", trashedPages: "Trashed pages", trashedFooter: "In trash", mediaByType: "Images", mediaByTypeFooter_one: "{{count}} document", mediaByTypeFooter_other: "{{count}} documents", team: "Active users", teamFooter: "{{pending}} pending · {{disabled}} disabled", recentActivity: "Recent activity", noActivity: "No activity yet.", viewAllActivity: "View all", recentlyEdited: "Recently edited", noRecentEdits: "No pages edited yet.", quickActions: "Quick actions", recentDrafts: "Recent drafts", noRecentDrafts: "No recent drafts.", actionNewPage: "Create new page", actionNewPageDesc: "Start a blank draft", actionUploadMedia: "Upload media", actionUploadMediaDesc: "Add images & files", actionSettings: "Site settings", actionSettingsDesc: "Configure your project", greetingMorning: "Good morning", greetingAfternoon: "Good afternoon", greetingEvening: "Good evening", greetingSubtitle: "Here's what's happening", actions: { created: "Created", updated: "Updated", deleted: "Deleted", published: "Published", restored: "Restored", permDeleted: "Perm. deleted" } }, y8 = { title: "Pages", titleTrash: "Trash", subtitle: "Manage published content and drafts.", subtitleTrash: "Deleted pages — restore or permanently remove.", newPage: "+ New Page", exitTrash: "Exit Trash", enterTrash: "Trash", options: "Options", allStatuses: "All statuses", draft: "Draft", published: "Published", allTypes: "All types", colTitle: "Title", colSlug: "Slug", colStatus: "Status", colActions: "Actions", noResults: 'No results for "{{query}}"', resultCount: '{{count}} result(s) for "{{query}}"', trashEmpty: "Trash is empty.", noMatch: "No pages match your filters.", noPages: "No pages yet", createFirst: "Create your first page", pagination: "{{from}}–{{to}} of {{total}} pages", restore: "Restore", deleteForever: "Delete forever", delete: "Delete", moveToTrash: "Move to trash", moveToTrashConfirm: "Move this page to trash? You can restore it later.", permDeleteTitle: "Permanently delete page", permDeleteBody: "This cannot be undone. The page and all its versions will be gone forever.", permDeleteConfirm: "Delete forever", scheduled: "Scheduled", draftBadge: "draft", pendingDraft: "draft pending", permDeleteSuccess: "Page permanently deleted", permDeleteFailed: "Failed to permanently delete page", trashChildCount_one: "1 child in trash", trashChildCount_other: "{{count}} children in trash", trashOrphan: "Was under: {{parent}}", trashOrphanUnknown: "deleted page", trashTruncated: "Showing first {{count}} trashed pages. Restore or permanently delete some to see more." }, g8 = { title: "New Page", description: "Choose a page type to get started.", typeSection: "Page type", chooseType: "Choose a page type:", requiresParent: "Requires a parent", parentNamed: "Parent: {{name}}", children: "Children: {{types}}", globalLimit: "Global limit reached", parentRequired: "Parent page (required)", parentOptional: "Parent page (optional)", parentPlaceholder: "Select a parent page…", perParentLimit: 'This parent already has {{limit}} pages of type "{{label}}" (per-parent limit reached).', cancel: "Cancel", createBtn: "Create {{label}}", defaultLabel: "Page" }, k8 = { title: "Page type options", description: "Override runtime policy for each page type registered by this project. Code defaults stay the source of truth — empty fields fall back to them.", loading: "Loading…", empty: "No page types registered for this project.", deletable: "Deletable", deletableHelp: "When off, the trash button is hidden for pages of this type. Default: {{default}}", canBeRoot: "Can be root", canBeRootHelp: "When off, pages of this type must have a parent. Default: {{default}}", limit: "Max items (global)", limitHelp: "Total pages of this type allowed across the whole project. Leave empty for no limit. Default: {{default}}", perParentLimit: "Max per parent", perParentLimitHelp: "Max pages of this type under a single parent. Leave empty for no limit. Default: {{default}}", noLimit: "No limit", reset: "Reset", resetTooltip: "Revert to the code-defined defaults for this type", overridden: "Overridden — differs from code defaults", loadError: "Failed to load settings", saved: "Page type options saved", saveError: "Failed to save page type options", deleted: "Page type deleted", systemBadge: "system", addType: "Add page type", createTitle: "Create page type", editTitle: "Edit page type", back: "Back", slugLabel: "Slug", slugHelp: "Lowercase letters, numbers, and hyphens. Used by your frontend to render this type.", slugLocked: "Locked after create — renaming would break your frontend's rendering switch.", slugInvalid: "Lowercase letters, numbers, and hyphens only.", slugTaken: 'Slug "{{slug}}" is already taken.', slugShadowsCodeType: 'Slug "{{slug}}" already exists.', labels: "Labels", labelFor: "Label ({{locale}})", allowedParentTypes: "Allowed parent types", allowedChildTypes: "Allowed child types", allowBlocks: "Allow content blocks", allowedBlockTypes: "Allowed block types", allowedBlockTypesHint: "Leave empty to allow all registered block types.", fields: "Fields", fieldsEmpty: "No fields yet. Add one below.", addField: "Add field", fieldName: "Name", fieldLabel: "Label", fieldType: "Type", fieldRequired: "Required", fieldPlaceholder: "Placeholder", fieldOptions: "Options", fieldOptionsHint: "Press Enter after each option.", fieldNameInvalid: "Use letters, numbers and underscore. Must start with a letter or underscore.", removeField: "Remove field", removeFieldConfirm: "Remove this field? Any page data stored under this name will become orphaned.", deleteType: "Delete page type", deleteConfirm: "Delete this page type? It can only be deleted if no pages still use it.", deleteInUseError: "Cannot delete — {{count}} page(s) still use this type. Remove or convert them first." }, v8 = { subtitle: "Manage published content, drafts, and page hierarchy.", noPages: "No pages yet. Create your first page!", newPage: "New Page", addChild: "Add child", collapse: "Collapse", expand: "Expand", dragHandle: "Drag to reorder within this level", previewPage: "Preview page", deletePage: "Delete", deleteTitle: "Delete page", deleteBody: "Delete this page? Any child pages will be moved to root.", deleteConfirm: "Delete", previewNeedsFrontend: "Configure frontendUrl in createAdmin() to enable preview.", previewFailed: "Failed to create preview token", pageDeleted: "Page deleted", deleteError: "Failed to delete page", deleteParentBlocked: "Contains child pages — ask an admin or developer to delete.", deleteCurrentLocaleInactive: "{{locale}} version is already disabled. Switch language to delete this page.", deleteTypeNotDeletable: "This page type can't be deleted.", moveError: { generic: "Couldn't move the page.", parentInSubtree: "Can't move a page under itself or one of its descendants.", parentNotFound: "Target page no longer exists.", parentTrashed: "Target page is in the trash.", invalidParentType: "This page type isn't allowed under that parent.", parentNoChildren: "“{{parent}}” pages can't contain child pages.", invalidChildType: "“{{parent}}” pages can't contain “{{child}}” pages.", perParentLimit: "Target parent already has the maximum number of pages of this type.", cannotBeRoot: "This page type can't be placed at the root.", versionConflict: "Page was modified elsewhere — reload and try again.", pageTrashed: "Page is in the trash and can't be moved.", invalidInsertBefore: "Couldn't place the page at the requested position." } }, b8 = { loading: "Checking what will be deleted…", success: "Page moved to Trash", disableSuccess: "{{locale}} version disabled", confirm: { title: "Delete page?", leaf_single: "{{title}} will be moved to Trash. You can restore it later.", leaf_multi: "All {{count}} language versions ({{locales}}) of {{title}} will be moved to Trash.", cascade_one: "{{title}} and 1 descendant page ({{translationCount}} translations across {{locales}}) will be moved to Trash.", cascade_other: "{{title}} and {{count}} descendant pages ({{translationCount}} translations across {{locales}}) will be moved to Trash.", intro_multilocale: "This page is active in {{activeLocales}}. You can delete the entire page (all locales) or just disable the {{currentLocale}} version and keep {{otherLocales}} live.", deleteButton: "Delete entire page", disableButton: "Disable {{locale}} version only", disableExplain_one: "Hides this page from {{locale}} visitors. {{otherLocales}} stays live.", disableExplain_other: "Hides this page and {{count}} descendant page(s) from {{locale}} visitors. {{otherLocales}} stays live.", presence: "Currently being edited by: {{emails}}", restoreHint: "Restorable from Trash." }, blocked: { title: "Can't delete this page", intro_one: "This page can't be deleted because 1 menu item or link widget still references it:", intro_other: "This page can't be deleted because {{count}} menu items or link widgets still reference it:", menusHeader_one: "1 menu item", menusHeader_other: "{{count}} menu items", pagesHeader_one: "1 page", pagesHeader_other: "{{count}} pages", menuRow: "{{label}} · {{location}}", pageRow: "{{title}}", hint: "Open the listed items and remove the link, then try again.", close: "Close" }, disableBlocked: { title: "Can't disable {{locale}} version", intro_one: "Disabling the {{locale}} version would break 1 reference still pointing to this content:", intro_other: "Disabling the {{locale}} version would break {{count}} references still pointing to this content:" }, forbiddenParent: "This page has child pages — only an admin or developer can delete it.", multiLocale: { activeIn: "active in {{locales}}", intro: "This page lives in more than one language. Pick how to delete:", disableLocaleTitle: "Disable {{locale}} version only", disableLocaleHelp: "Hides this page from {{locale}} visitors. {{other}} stays live. Restorable from Trash.", disableLocaleHelpDesc: "Hides this page and {{count}} descendant page(s) from {{locale}} visitors. {{other}} stays live. Restorable from Trash.", deleteEntireHelp: "{{subject}} and all its translations ({{locales}}) will be moved to Trash.", deleteEntireHelpDesc: "{{subject}} and {{count}} descendant page(s) ({{locales}}) will be moved to Trash." } }, x8 = { title: "Restore page", loading: "Checking restore options…", success: "Page restored", restoreButton: "Restore", placementLabel: "Where should this page be restored?", typeHint: "Page type: {{type}}", option: { originalParent: 'Under "{{title}}" (original parent)', root: "Move to root (top level)", rootOriginal: "At root (top level)", otherParent: "Under a different page…", pickParent: "Pick a parent page", loading: "Loading pages…", noMatches: "No matching pages" }, cascade: { label_one: "Also restore 1 trashed descendant", label_other: "Also restore {{count}} trashed descendants", hint: "Children that were trashed alongside this page will be restored back into their original positions." }, reason: { parent_trashed: "Original parent is still in trash. Restore it first or pick a different parent.", type_mismatch: "Original parent isn't a valid parent type for {{type}}.", per_parent_limit_reached: "This parent already has the maximum number of {{type}} pages ({{limit}}).", cannot_be_root: "{{type}} pages cannot live at the root.", global_limit_reached: "Project limit for {{type}} pages reached ({{limit}})." }, blocked: { title: "Cannot restore page", typeNotRegistered: 'Page type "{{type}}" is no longer registered in this project. Add the type back or permanently delete this page.', noPlacement: "There's no valid place to restore this {{type}} page right now.", suggestion: "Restore (or create) a page of type: {{parentTypes}}, then try again.", parentInTrash: 'The original parent "{{parentTitle}}" is still in trash — restoring it first will give this page a home.', globalLimit: "Project limit for {{type}} pages reached ({{limit}}). Delete or trash a live {{type}} page first." }, error: { generic: "Failed to restore page. Try again.", pickParent: "Please pick a parent page.", parentTrashed: "The chosen parent is in trash. Pick a live page or restore that parent first.", parentNotFound: "The chosen parent no longer exists.", parentInSubtree: "Cannot move a page under one of its own descendants.", invalidParentType: "The chosen parent isn't a valid parent type for {{type}}.", perParentLimitReached: "This parent already has the maximum number of {{type}} pages ({{limit}}).", cannotBeRoot: "{{type}} pages cannot live at the root.", globalLimitReached: "Project limit for {{type}} pages reached ({{limit}}).", slugTaken: 'The {{locale}} slug "{{slug}}" is already used by a live page. Rename it before restoring.' } }, w8 = { titleEdit: "Edit Page", titleNew: "New Page", tabContent: "Content", tabSeo: "SEO", fieldTitle: "Title", placeholderTitle: "Page title", fieldStatus: "Status", statusDraft: "Draft", statusPublished: "Published", statusHint: "Only admins and developers can publish or unpublish pages", schedulePublish: "Schedule publish", scheduleDescription: "The page will go live automatically at the selected time.", scheduleHint: "Leave blank to keep as draft indefinitely", schedulePlaceholder: "Pick date and time…", scheduledFor: "Scheduled for {{date}}", scheduleClear: "Clear", scheduleConfirm: "Confirm", scheduleLeaveBlank: "Leave blank to keep as draft indefinitely.", parentRequired: "Parent page (required)", parentOptional: "Parent page (optional)", parentNone: "No parent (root level)", fieldsSectionTitle: "Fields", contentSections: "Content Sections", saveAsTemplate: "Save as template", loadTemplate: "Load template", noSections: "No sections yet. Add one below.", addSection: "+ Add new section", addBlockLabel: "+ {{label}}", chooseBlockType: "Choose section type", metaTitle: "Meta title", metaDescription: "Meta description", metaDescriptionHint: "Brief description for search engines", metaTitleCount: "{{count}}/60 characters", metaTitleTooLong: "Meta title is too long", metaDescCount: "{{count}}/160 characters", metaDescTooLong: "Meta description is too long", ogImage: "OG image", pickImage: "Pick image", canonicalUrl: "Canonical URL", canonicalPlaceholder: "https://example.com/my-page", canonicalHint: "Leave blank to use the default page URL", noindex: "Hide from search engines (noindex)", googlePreview: "Google preview", noDescription: "No description set.", savePage: "Save", publishPage: "Publish page", publishSuccess: "Page published", publishError: "Failed to publish page", localeActiveCheckbox: "Active in this language", localeMissing: "No content yet for {{locale}}", localeInactive: "{{locale}} is inactive — content won't appear on the public site", deactivateError: "Couldn't check where this page is used", deactivateBlockedTitle: "This page is still linked in {{locale}}", deactivateBlockedBody: "Deactivating {{locale}} would silently break the links below. Remove them first, then come back to deactivate.", deactivateBlockedMenus: "Used in menus:", deactivateBlockedPages: "Linked from pages:", cascadeBlockedTitle: "Can't disable {{locale}} on descendants", cascadeBlockedBody: "Disabling {{locale}} on this page would also disable it on descendant pages, but some are still linked from same-locale content outside this subtree. Remove the links below, then try again.", cascadeBlockedPageLabel: "Descendant: {{title}}", cascadeDoneNotification: "Disabled {{locale}} on {{count}} descendant page(s)", cascadeConfirmTitle: "Also disable {{locale}} on descendants?", cascadeConfirmBody: "{{count}} descendant page(s) currently active in {{locale}} will also be disabled when you save. This action runs on save and can be undone by re-activating each page individually.", cascadeConfirmAction: "Disable on descendants", ancestorBlockedTitle: "Can't enable {{locale}} yet", ancestorBlockedBody: "One or more parent pages still have {{locale}} disabled. Enable {{locale}} on the parent first, then come back here. Otherwise this page would publish at a URL whose parent segment doesn't resolve.", cascadeFailedError: "Saved the page, but couldn't cascade {{locale}} to descendants", statusDraftBadge: "Draft", statusPublishedBadge: "Published", statusPendingBadge: "Published · draft pending", leaveTitle: "Leave page?", leaveBody: "You have unsaved changes. If you leave now, your changes will be lost.", leaveConfirm: "Leave", conflictTitle: "Edit conflict", conflictBody: "Someone else saved this page while you were editing. [Reload] to get the latest version.", savedNotification: "Page saved", saveError: "Failed to save page", siblingSlugTaken: "Another page under the same parent already uses this name ({{locale}}). Rename this page to save it.", previewNeedsSave: "Save the page first to enable preview", previewNeedsFrontend: "Configure frontendUrl in createAdmin() to enable preview", previewFailed: "Failed to create preview", versionHistory: "Version history", versionHistoryDescription: "Restore an earlier version of this page.", versionCount: "{{count}} saved version", versionCount_other: "{{count}} saved versions", versionCurrent: "current", noVersions: "No saved versions yet. Versions are created on every save.", restoreVersion: "Restore", restoreVersionTitle: "Restore version?", restoreVersionBody: "This will replace the current page content with this version. The current state will be saved as a new version first.", restoreVersionFailed: "Failed to restore version", unknownBlock: "Unknown block type: {{type}}", unsavedBadge: "Unsaved changes", lastSaved: "Last saved {{time}}", alsoEditing: "{{emails}} also editing", moreEditors: "+{{count}}" }, M8 = { title: "Menus", subtitle: "Manage navigation menus for your frontend.", newMenu: "New Menu", loading: "Loading…", noMenus: "No menus yet. Create your first menu!", emptyTitle: "No menus yet", emptyDescription: "Create navigation menus for your frontend header, footer, and other areas.", locationPrimary: "primary — main navigation", locationFooter: "footer — footer links", locationBadge_primary: "Main Navigation", locationBadge_footer: "Footer Navigation", edit: "Edit", delete: "Delete", modeAuto: "Auto", modeManual: "Manual", topLevelItems: "{{count}} top-level item(s)", autoInfo: "{{types}} · depth {{depth}}", deleteTitle: "Delete menu", deleteBody: "Delete this menu? This cannot be undone.", deleteConfirm: "Delete", createTitle: "Create menu", createDescription: "Navigation menus are rendered by your frontend.", modeSection: "Mode", modeManualSub: "You control every menu item", modeAutoSub: "Built from your page tree", locationSection: "Navigation slot", locationPrimaryTitle: "Primary navigation", locationPrimaryCardSub: "Main header navigation", locationFooterTitle: "Footer", locationFooterCardSub: "Footer links", alreadyAdded: "Already added", allLocationsUsed: "All menu locations are already in use.", cancel: "Cancel", createBtn: "Create menu" }, _8 = { title: "Navigation menu editor", alsoEditing: "{{emails}} also editing", moreEditors: "+{{count}}", save: "Save menu", modeLabel: "Mode", modeAuto: "Auto (Smart)", modeManual: "Manual (Custom)", modeAutoHint: "Automatically generates menu items from selected page types.", modeManualHint: "Manually arrange items with drag-and-drop.", includeTypes: "Include page types", includeTypesHint: "Only published pages of these types will appear.", includeTypesPlaceholder: "Select page types…", maxDepth: "Max depth", maxDepthHint: "Levels of children to include (0 = root only).", depth0: "0 — root only", depth1: "1 level", depth2: "2 levels", depth3: "3 levels", maxTypes: "Max selectable page types", maxTypesHint: "Limit how many types admins can pick.", previewLabel: "Preview", previewLoading: "Loading preview…", previewEmpty: "No published pages match the selected types.", itemsLabel: "Items", addItem: "Add item", dndHint: "Drag onto an item to nest it as a child · Drop above/below to reorder · Use ◀ ▶ buttons to change level", noItems: "No items yet. Add your first menu item.", indentOut: "Move to parent level", indentIn: "Make child of item above", itemLabelField: "Label", itemLabelPlaceholder: "e.g. Products", itemTypePage: "Page", itemTypeUrl: "Custom URL", itemPageLabel: "Page", itemPagePlaceholder: "Search pages…", itemUrlLabel: "URL", itemUrlPlaceholder: "https://… or /relative", itemNewTab: "Open in new tab", editItem: "Edit item", cancelItem: "Cancel", saveItem: "Save changes", saveNewItem: "Add item", removeItem: "Remove item", removeItemTitle: "Remove this item and all its children?", removeItemConfirm: "Remove", switchToAuto: "Switch to Auto mode", switchToManual: "Switch to Manual mode", switchToAutoConfirm: "Switching to Auto mode will discard your manually-configured items. Continue?", switchToManualConfirm: "Switch to Manual mode? The current auto-generated structure will be used as your starting point.", switchManualImport: "Switch & import items", switchAutoConfirm: "Switch to Auto", savedNotification: "Menu saved", conflictBody: "Someone else saved this menu while you were editing. [Reload] to get the latest version.", saveError: "Failed to save menu", itemLabelFor: "Label ({{locale}})", itemLabelFallback: "Falls back to {{locale}}", itemLabelMissing: "Missing in: {{locales}}", itemLabelAutoHint: "Leave blank to use the page's title “{{title}}”.", itemLocaleBadge: "Not in {{locale}}", itemLocaleTooltip: "This page has no active translation in {{locale}}. It will be hidden from the public menu for this language.", previewLocaleHint: "Preview for {{locale}}. Pages without an active translation in this language are hidden." }, C8 = { title: "Media", subtitle: "Upload and manage images, documents, and other files.", searchPlaceholder: "Search files…", fileCount: "{{count}} file(s)", viewLarge: "Large", viewSmall: "Small", viewList: "List", settingsBtn: "Settings", uploadBtn: "Upload", filterAll: "All", filterImages: "Images", filterDocs: "Documents", noResults: "No files match your search.", noFiles: "No files here", uploadFiles: "Upload files", foldersTitle: "Folders", allFiles: "All files", unorganized: "Unorganized", newFolder: "New Folder", confirmDelete: "Confirm delete", confirmCreate: "Create", newSubfolder: "New subfolder", rename: "Rename", delete: "Delete", expand: "Expand", collapse: "Collapse", folderActions: "Folder actions", deleteFolderTitle: "Delete folder?", deleteFolderMessage: "This cannot be undone.", renameFileTitle: "Rename file", renameFileLabel: "File name", cancel: "Cancel", save: "Save", renameFailed: "Failed to rename.", fileInfoTitle: "File info", fileInfoName: "Display name", fileInfoStorage: "Storage filename", fileInfoType: "Type", fileInfoSize: "Size", fileInfoUploaded: "Uploaded", fileInfoModified: "Last modified", fileInfoCdnUrl: "CDN URL", copy: "Copy", copied: "Copied!", download: "Download", close: "Close", copyUrl: "Copy URL", fileInfo: "File info", deleteFile: "Delete", downloadSelected: "Download {{count}} selected", deleteSelected: "Delete {{count}} selected", deleteFileTitle: "Delete file?", deleteFileBody: "Delete <strong>{{name}}</strong>? This cannot be undone.", deleteFileMessage: "This cannot be undone.", deleteSelectedTitle: "Delete selected files?", deleteSelectedBody: "Delete <strong>{{count}} selected file(s)</strong>? This cannot be undone.", deleteSelectedMessage: "Delete {{count}} selected file(s)? This cannot be undone.", deleteConfirm: "Delete {{count}} file(s)", usedOnPages: "Used on {{count}} page(s):", removeFromPagesFirst: "Remove this image from those pages first.", sortNewest: "Added (newest)", sortOldest: "Added (oldest)", sortModifiedNew: "Modified (newest)", sortModifiedOld: "Modified (oldest)", sortNameAZ: "Name (A → Z)", sortNameZA: "Name (Z → A)", sortSizeLarge: "Size (largest)", sortSizeSmall: "Size (smallest)", dropUploadTo: 'Drop to upload to "{{folder}}"', dropUpload: "Drop to upload", skippedDuplicatesTitle: "Skipped duplicates", skippedDuplicates: "Skipped {{count}} file(s) already in this folder: {{names}}", selectedCount: "{{count}} file(s) selected", selectAll: "Select all", showingRange: "{{from}}–{{to}} of {{total}}", moveToFolder: "Move to folder…", clearSelection: "Clear", settingsTitle: "Bunny CDN Storage", settingsConfigured: "Configured", settingsZoneName: "Storage Zone Name", settingsPathPrefix: "Storage Path Prefix", settingsPathHint: "Subfolder path within the zone.", settingsApiKeyEdit: "Storage API Key (leave blank to keep)", settingsApiKeyNew: "Storage API Key", settingsApiKeyPlaceholderHidden: "••••••••", settingsApiKeyPlaceholderNew: "Paste storage zone password", settingsRegion: "Storage Region", settingsCdnUrl: "CDN Pull Zone URL", settingsCdnPlaceholder: "https://myzone.b-cdn.net", settingsSave: "Save configuration", settingsSaved: "Configuration saved.", settingsHelp: "Zone name & password: Bunny CDN → Storage → [Zone] → FTP & API Access. CDN URL: Bunny CDN → Pull Zones → [Zone] → hostname." }, N8 = { title: "Users", subtitle: "Manage team members and their roles.", newUser: "New User", loading: "Loading…", noUsers: "No users found.", userCount: "{{count}} user", userCount_other: "{{count}} users", colName: "Name", colUser: "User", colEmail: "Email", colRole: "Role", colStatus: "Status", colCreated: "Created", colActions: "Actions", searchPlaceholder: "Search users…", actionsMenu: "Actions", edit: "Edit", delete: "Delete", disable: "Disable", reactivate: "Reactivate", resetPassword: "Reset password", resendInvite: "Resend invite", status: { active: "Active", pending: "Pending", disabled: "Disabled" }, createTitle: "Invite user", createDescription: "Set up the new team member's access credentials.", inviteDescription: "An activation email will be sent to this address.", inviteEmailHint: "We'll email an activation link — the user chooses their own password.", sendInvite: "Send invitation", inviteSent: "Invitation sent to {{email}}", roleSection: "Role", createFirstName: "First name", createFirstNamePlaceholder: "Jane", createLastName: "Last name", createLastNamePlaceholder: "Doe", createEmail: "Email", createEmailPlaceholder: "user@example.com", createPassword: "Password", createPasswordHint: "Min 8 characters", createRole: "Role", createRolePlaceholder: "Choose role", cancel: "Cancel", create: "Create", editTitle: "Edit {{email}}", editRole: "Role", editPasswordNote: `To change this user's password, use "Reset password" from the row menu — they'll get an email.`, editCancel: "Cancel", editSave: "Save", deleteTitle: "Delete user", deleteBody: "Delete {{email}}? This cannot be undone.", deleteMessage: "This permanently removes the user. They will not be able to log in again.", disableTitle: "Disable user", disableMessage: "Their existing session will end and they will be unable to log in until reactivated.", disableConfirm: "Disable", disableSuccess: "{{email}} disabled", reactivateTitle: "Reactivate user", reactivateMessage: "They will be able to log in again with their existing password.", reactivateConfirm: "Reactivate", reactivateSuccess: "{{email}} reactivated", resetTitle: "Reset password", resetMessage: "We'll email a reset link to this user. Their current password keeps working until they set a new one.", resetConfirm: "Send reset email", resetSuccess: "Reset email sent to {{email}}", resendTitle: "Resend invitation", resendMessage: "We'll send a fresh activation link to this user. Any previous link will stop working.", resendConfirm: "Resend invitation", resendSuccess: "Invitation resent to {{email}}", loadError: "Failed to load users", createError: "Failed to invite user", updateError: "Failed to update user", actionError: "Action failed", deleteSuccess: "{{email}} deleted", deleteError: "Failed to delete user" }, S8 = { title: "Set your password", subtitle: "Choose a password for {{email}} to activate your account.", password: "Password", passwordPlaceholder: "At least 8 characters", confirmPassword: "Confirm password", confirmPasswordPlaceholder: "Re-enter your password", submit: "Activate account", submitting: "Activating…", success: "Account activated", redirecting: "Taking you to the dashboard…", linkInvalidTitle: "Link invalid or expired", invalidLink: "This activation link is no longer valid. Ask an administrator to send a new invitation.", passwordTooShort: "Password must be at least 8 characters.", passwordMismatch: "Passwords don't match.", submitError: "Could not activate your account. Please try again." }, z8 = { title: "Reset your password", subtitle: "Choose a new password for {{email}}.", submit: "Set new password", success: "Password updated" }, T8 = { title: "API Keys", subtitle: "Manage access tokens for frontend integrations.", newKey: "New Key", loading: "Loading...", noKeys: "No API keys yet.", emptyTitle: "No API keys yet", emptyDescription: "Create access tokens for your frontend or third-party integrations.", new: "New key", colName: "Name", colPrefix: "Prefix", colRole: "Role", colLastUsed: "Last used", colActions: "Actions", revoke: "Revoke", createTitle: "Create API Key", createName: "Name", createNamePlaceholder: "e.g. project-one-frontend", createRole: "Role", roleViewer: "Viewer — read-only", roleEditor: "Editor — create & edit", roleAdmin: "Admin — full access", roleDeveloper: "Developer — developer access", createDescription: "Keys are shown once — copy immediately after creation.", roleSection: "Role", createBtn: "Create", newKeyTitle: "Key created — copy it now. It will not be shown again.", copy: "Copy", dismiss: "Dismiss", revokeTitle: "Revoke API key", revokeBody: 'Revoke "{{name}}"? Any integrations using this key will stop working.', revokeMessage: "Any integration still using this key will start failing immediately.", revokeConfirm: "Revoke", never: "Never", revokeSuccess: 'API key "{{name}}" deleted', revokeError: "Failed to delete key", keyCount: "{{count}} API key", keyCount_other: "{{count}} API keys" }, j8 = { title: "Site Settings", subtitle: "Global configuration for your project.", save: "Save settings", tabGeneral: "General", tabLocales: "Locales", tabSeo: "SEO Defaults", tabEditorPrefs: "Editor preferences", tabAnalytics: "Analytics", tabDashboard: "Dashboard", dashboardHint: "Choose which stat cards each user role sees on their dashboard. Some cards are restricted to a minimum role and can't be enabled below it.", dashboardRole_viewer: "Viewer", dashboardRole_editor: "Editor", dashboardRole_admin: "Admin", dashboardRole_developer: "Developer", dashboardMinRole: "Requires {{role}} or higher", tabApiKeys: "API keys", tabWebhooks: "Webhooks", tabAdvanced: "Advanced", tabRobots: "Robots.txt", identitySection: "Site identity", identityHint: "How your CMS appears to users and to the public.", brandSection: "Brand", brandHint: "Favicon shown in browser tabs and shared previews.", languagesHint: "Which languages this project supports.", thisDeviceNote: "(this device)", editorPrefsHint: "Personal preferences stored on this browser only.", analyticsHint: "Connect your analytics provider.", advancedHint: "Inject raw HTML into every public page.", email: { title: "Email", hint: "Configuration for invitations, password resets, and other transactional email. The same values are used in dev and production for this project — set different credentials in each environment's database.", fromLabel: 'Default "From" address', fromPlaceholder: "My CMS <noreply@example.com>", fromHint: "Plain address or RFC 5322 form. The sender domain must be verified with your email provider (e.g. Resend) — unverified domains will be rejected at send time.", transportTitle: "Transport", transportHint: "How email is actually sent. Credentials are stored per-project — paste them once here and the same values apply in dev and prod (each environment carries its own database).", transportLabel: "Transport mode", transportLabelHint: '"Auto" uses environment variables (RESEND_API_KEY / SMTP_HOST) as a fallback. The other choices use the credentials you fill in below.', transportAuto: "Auto (use environment variables)", transportResend: "Resend (HTTP API)", transportSmtp: "SMTP (nodemailer)", transportNone: "Disabled (drop all sends)", resendKeyLabel: "Resend API key", resendKeyHint: 'Get one at resend.com → API Keys. Free tier covers 100 emails/day. Keys start with "re_".', resendKeyPlaceholder: "re_xxxxxxxxxxxxxxxxxxxxxxxx", resendKeyPlaceholderStored: "Leave blank to keep the existing key", smtpHostLabel: "SMTP host", smtpPortLabel: "SMTP port", smtpUserLabel: "SMTP username", smtpPassLabel: "SMTP password", smtpPassPlaceholderStored: "Leave blank to keep the existing password", smtpSecureLabel: "Use TLS/SSL (port 465 typically requires this; port 587 typically does not)", configured: "Configured", show: "Show", hide: "Hide", clear: "Clear", saveTransport: "Save email config", saved: "Email config saved", cleared: "Credential cleared", statusResend: "Resend connected ({{source}})", statusSmtp: "SMTP connected ({{source}})", statusConsole: "No transport configured — emails will be logged to the API stdout instead of sent", statusNone: "Email is disabled — outgoing sends will be silently dropped", statusLoading: "Checking transport…", sourceProject: "this project", sourceEnv: "from env", overrideActive: "Dev override active: all sends are re-routed to {{email}}" }, noFavicon: "No favicon set", faviconReady: "Active across the site", faviconFallback: "Brand monogram fallback in use", faviconName: "favicon", siteTitle: "Site title", siteTitleHint: "Used in the browser tab and as a fallback OG title.", siteTitlePlaceholder: "My Website", tagline: "Tagline", taglineHint: "Short description shown below the site title.", taglinePlaceholder: "Building things since 2024", favicon: "Favicon", faviconHint: "Recommended: 32×32 PNG or SVG.", faviconSet: "Favicon set (media ID: {{id}}…)", faviconRemove: "Remove", faviconNone: "No favicon set.", faviconSelect: "Select favicon", faviconChange: "Change favicon", uiLanguage: "Admin UI language", uiLanguageHint: "Language used for all admin panel labels and messages.", langEn: "English", langHr: "Croatian", localeFallback: "Falls back to {{locale}} when empty", editorPrefsSection: "Editor preferences (this device)", autosaveEnabled: "Autosave every 30 seconds", autosaveEnabledHint: "Saves drafts in the background while you edit. Manual save (Ctrl+S, Save button) and Publish are unaffected.", languagesSection: "Content languages", availableLocales: "Available locales", availableLocalesHint: "Languages this project will publish content in.", defaultLocale: "Default locale", defaultLocaleHint: "Fallback locale used at the site root and when a page has no translation in the visitor's locale.", defaultLocaleNotAvailable: "Default locale must be one of the available locales.", atLeastOneLocale: "At least one locale must be available.", localeInUse: "Cannot remove locale {{locale}} — pages still have content in it. Remove that content first.", seoDefaultsHint: "These defaults are used when a page doesn't have its own SEO fields set.", defaultMetaTitle: "Default meta title", defaultMetaTitlePlaceholder: "My Website — Page Title", defaultMetaDesc: "Default meta description", defaultMetaDescPlaceholder: "A short description of your website…", defaultOgImage: "Default OG image URL", defaultOgImageHint: "Fallback Open Graph image for social sharing.", defaultOgImagePlaceholder: "https://cdn.example.com/og-default.jpg", analyticsId: "Analytics ID", analyticsIdHint: "Google Analytics measurement ID (G-XXXXXXXX) or any other analytics identifier.", analyticsIdPlaceholder: "G-XXXXXXXXXX", advancedWarning: "Raw HTML injected into every page. Use with caution — invalid HTML can break your site.", customHeadHtml: "Custom <head> HTML", customHeadHtmlHint: "Injected inside <head> before </head>.", customHeadHtmlPlaceholder: "<!-- e.g. third-party scripts, custom fonts -->", customBodyHtml: "Custom <body> HTML", customBodyHtmlHint: "Injected just before </body>.", customBodyHtmlPlaceholder: "<!-- e.g. chat widget, cookie banner -->", robotsHint: "Content returned by GET /robots.txt when the X-Project-Slug header is present.", robotsLabel: "robots.txt content", robotsResetAllow: "Reset to allow all", robotsDisallowAll: "Disallow all (maintenance)", savedNotification: "Settings saved", conflictTitle: "Edit conflict", conflictBody: "Someone else saved these settings while you were editing. [Reload] to get the latest version.", saveError: "Failed to save settings" }, A8 = { title: "Webhooks", subtitle: "Notify external services when content changes", addBtn: "Add webhook", loading: "Loading…", noWebhooks: "No webhooks configured", emptyTitle: "No webhooks yet", emptyDescription: "Notify Slack, Vercel or your build pipeline when content changes.", add: "Add webhook", addFirst: "Add your first webhook", colUrl: "URL", colEvents: "Events", colActive: "Active", colCreated: "Created", colActions: "Actions", count: "{{count}} webhook", count_other: "{{count}} webhooks", createUrlPlaceholder: "https://example.com/webhook", createEventsLabel: "Events", cancel: "Cancel", createBtn: "Create webhook", createSuccess: "Webhook created successfully", secretHint: "Copy and store this secret — it will not be shown again. Use it to verify the X-CMS-Signature header on incoming requests.", done: "Done", validationUrl: "URL must start with http:// or https://", validationEvents: "Select at least one event", createError: "Failed to create webhook", noDeliveries: "No deliveries yet", viewLog: "View delivery log", deleteWebhook: "Delete webhook", deliveryLog: "Delivery log", deleteTitle: "Delete webhook?", deleteBody: "All delivery history for this webhook will also be deleted.", deleteConfirm: "Delete", deleteSuccess: "Webhook deleted", updateError: "Failed to update webhook", deleteError: "Failed to delete webhook", loadError: "Failed to load webhooks" }, E8 = { title: "Strings", subtitle: "Edit hardcoded frontend copy without a code deploy.", colKey: "Key", colValue: "Value", addRow: "Add string", addRowBlocked: "Finish the new string first — enter a key and a value for every language.", removeRow: "Remove string", save: "Save", keyPlaceholder: "e.g. hero_title", valuePlaceholder: "Translated value", defaultBadge: "default", emptyTitle: "No strings yet", emptyState: "No strings defined for this language yet.", noLocales: "No content languages are configured. Configure them in Settings → General first.", saveSuccess: "Strings saved", saveError: "Failed to save strings", loadError: "Failed to load strings", deleteTitle: "Delete this string?", deleteBody: 'The key "{{key}}" will be removed from this language. Other languages are unaffected.', deleteMessage: "The key will be removed from all languages.", deleteConfirm: "Delete", deleteSuccess: "String deleted", deleteError: "Failed to delete string", errorKeyRequired: "Key is required", errorKeyFormat: "Letters, numbers, dot, underscore, hyphen only", errorKeyDuplicate: "Duplicate key in this language", errorFixFirst: "Fix the highlighted errors before saving", rowCount: "{{count}} string" }, L8 = { placeholder: "Search pages, or jump to…", newPage: "New page", newPageDesc: "Create a new page", mediaLibrary: "Media library", mediaLibraryDesc: "Browse and upload files", viewActivity: "View activity", viewActivityDesc: "See recent activity log", pageHint: "{{slug}} · {{status}}", noResults: "No results found" }, $8 = { title: "Activity Log", subtitle: "A record of all changes made by your team.", colWhen: "When", colUser: "User", colAction: "Action", colResource: "Resource", noActivity: "No activity yet.", loadMore: "Load more", filter: "Filter", filterAll: "All", filterPages: "Pages", filterMedia: "Media", filterUsers: "Users", rangeLabel: "Date range", rangeAll: "All time", range24h: "Last 24 hours", range7d: "Last 7 days", range30d: "Last 30 days", actions: { page_created: "Created", page_updated: "Updated", page_moved: "Moved", page_published: "Published", page_trashed: "Trashed", page_restored: "Restored", page_deleted: "Permanently deleted", page_locale_disabled: "Disabled translation", page_version_restored: "Restored a version of", menu_created: "Menu created", menu_updated: "Menu updated", menu_deleted: "Menu deleted", media_uploaded: "Media uploaded", media_deleted: "Media deleted", media_folder_created: "Folder created", media_folder_moved: "Folder moved", media_folder_renamed: "Folder renamed", media_folder_deleted: "Folder deleted", media_config_updated: "Media settings updated", block_template_created: "Template saved", block_template_deleted: "Template deleted", page_type_created: "Page type created", page_type_updated: "Page type updated", page_type_deleted: "Page type deleted", settings_updated: "Settings updated", strings_updated: "Strings updated", strings_deleted: "String deleted", user_invited: "Invited user", user_activated: "Activated account", user_updated: "User updated", user_disabled: "Disabled user", user_reactivated: "Reactivated user", user_password_reset_requested: "Sent password reset", user_password_reset_completed: "Reset their password", user_invite_resent: "Resent invite", user_deleted: "Deleted user" } }, D8 = { saveTitle: "Save as Template", saveSubtitle: "Saves the current {{count}} block(s) as a reusable template.", nameLabel: "Template name", namePlaceholder: "e.g. Hero + Two Columns", nameRequired: "Template name is required", saveFailed: "Failed to save template", saveBtn: "Save Template", loadTitle: "Load Template", loadDescription: "This will replace all existing blocks on the page.", loadWarning: "Loading a template will replace all current content blocks.", loadNoTemplates: "No saved templates yet.", blockCount: "{{count}} block(s)", loadBtn: "Load Template", crossLocaleTitle: "Cross-language template", crossLocaleBody: "This template was authored in {{source}}, but you're editing in {{target}}. Loading it will paste {{source}}-language content into the {{target}} tab. Continue?", crossLocaleConfirm: "Load anyway" }, P8 = { mixedContent: { blockLabel: "Mixed Content Block", widgetText: "Text", widgetVideo: "Video", widgetLink: "Link", widgetAccordion: "Accordion", widgetGallery: "Gallery", widgetSection: "Section", layoutFull: "Full width", layoutHalf: "Half / Half", layout13_23: "1/3 + 2/3", layout23_13: "2/3 + 1/3", layoutThree: "Three equal", layout14_34: "1/4 + 3/4", layout34_14: "3/4 + 1/4", chooseLayout: "Choose a layout for this section:", addWidget: "Add Widget", addWidgetDescription: "Choose a content widget to insert into this column.", cancelBtn: "Cancel", insertBtn: "Insert", textPlaceholder: "Type here…", textEmpty: "No text yet — click ✏ to edit", videoUrl: "Video URL", videoWidth: "Width (px)", videoHeight: "Height (px)", videoEmpty: "No video URL — click ✏ to edit", linkEmpty: "Link not configured — click ✏ to edit", accordionEmpty: "No items — click ✏ to add", accordionMainTitle: "Title (optional)", accordionMainTitlePlaceholder: "e.g. Frequently asked questions", notConfigured: "Not configured", configure: "Configure", addItem: "+ Add item", accordionItem: "Item {{num}}", accordionTitle: "Accordion title", accordionContent: "Item content…", galleryEmpty: "No images added yet.", galleryEdit: "Edit gallery", gallerySelect: "Select images", resetLayout: "Reset and choose a different layout", changeLayout: "Change", columnLabel: "Column {{num}} ({{width}}/12)", addWidgetBtn: "+ Add Widget", sectionTitle: "Section title (optional)", changeLayoutBtn: "Change layout", discardTitle: "Discard changes?", discardBody: "You have unsaved widget changes. If you close now, they will be lost.", collapseWidget: "Collapse preview", expandWidget: "Expand preview" } }, R8 = { paragraph: "Paragraph", heading: "Heading {{level}}", alignment: "Alignment", alignLeft: "Align left", alignCenter: "Center", alignRight: "Align right", alignJustify: "Justify", indent: "Indent", outdent: "Outdent", table: "Table", insertTable: "Insert {{rows}}×{{cols}} table", tableRow: "Row", addRowAbove: "Add row above", addRowBelow: "Add row below", deleteRow: "Delete row", tableColumn: "Column", addColumnLeft: "Add column left", addColumnRight: "Add column right", deleteColumn: "Delete column", deleteTable: "Delete table", addHeaderRow: "Add header row", removeHeaderRow: "Remove header row", mergeCells: "Merge cells", splitCell: "Split cell", cellOptions: "Cell options", addImage: "Add image", imageModal: { title: "Add Image", titleEdit: "Edit Image", add: "+ Add", change: "Change", imageTitle: "Image title", imageTitlePlaceholder: "Enter image title", description: "Image description", descriptionPlaceholder: "Alt text for accessibility", alignment: "Image alignment", alignDefault: "Default", alignLeft: "Left", alignCenter: "Center", alignRight: "Right", dimensions: "Image dimensions", originalDims: "Use original dimensions", customDims: "Set custom dimensions", width: "Width (px)", height: "Height (px)", lockAspect: "Lock aspect ratio", unlockAspect: "Unlock aspect ratio" } }, O8 = { nav: { store: "Store", categories: "Categories" }, categories: { new: "New category", addChild: "Add subcategory", empty: "No categories yet", emptyHint: "Create your first category to organize products.", createTitle: "New category", editTitle: "Edit category", slug: "Slug", slugHelp: "Lowercase, words separated by hyphens (e.g. power-tools).", slugRequired: "A slug is required.", parent: "Parent category", root: "— None (top level) —", label: "Label", description: "Description", metaTitle: "Meta title", metaDescription: "Meta description", heroImage: "Hero image", pickImage: "Choose image", editingLocale: "Editing {{locale}} content", labelRequired: "A label is required for at least one language.", save: "Save", create: "Create", delete: "Delete", deleteTitle: "Delete category?", deleteBody: "This permanently deletes the category.", saved: "Category saved", deleted: "Category deleted" }, errors: { slug_taken: "Another category here already uses this name.", has_children: "Move or delete its subcategories first.", cycle_detected: "A category can't be moved under its own subcategory.", cannot_parent_self: "A category can't be its own parent.", parent_not_found: "The selected parent no longer exists.", conflict: "Someone else changed this category. Reload and try again.", generic: "Something went wrong. Please try again." } }, I8 = {
   login: h8,
   common: p8,
   nav: u8,
@@ -6039,7 +6039,7 @@ the right pace.`, subTagline: "Headless CMS engine for teams who care about the 
   rte: R8,
   commerce: O8
 }, H8 = { tagline: `Sadržaj u
-pravom ritmu.`, subTagline: "Headless CMS za timove kojima su važni detalji.", welcomeBack: "Dobrodošli natrag", signInToWorkspace: "Prijavite se u svoj radni prostor", email: "E-pošta", emailPlaceholder: "vi@primjer.hr", password: "Lozinka", passwordPlaceholder: "Vaša lozinka", signIn: "Prijava", signingIn: "Prijava u tijeku…", forgotHint: "Zaboravili ste lozinku? Obratite se administratoru.", error: "Neispravna e-pošta ili lozinka" }, q8 = { cancel: "Odustani", save: "Spremi", delete: "Obriši", edit: "Uredi", create: "Stvori", close: "Zatvori", back: "Natrag", loading: "Učitavanje...", loadingEllipsis: "Učitavanje…", copy: "Kopiraj", copied: "Kopirano!", remove: "Ukloni", rename: "Preimenuj", upload: "Učitaj", download: "Preuzmi", preview: "Pregled", restore: "Vrati", never: "Nikad", dismiss: "Odbaci", done: "Gotovo", add: "Dodaj", change: "Promijeni", reset: "Resetiraj", search: "Pretraži", on: "uključeno", off: "isključeno", configure: "Konfiguriraj", backToList: "Natrag na popis", discard: "Odbaci", confirm: "Potvrdi" }, V8 = { dashboard: "Nadzorna ploča", pages: "Stranice", media: "Mediji", menus: "Izbornici", settings: "Postavke", users: "Korisnici", apiKeys: "API ključevi", activity: "Aktivnost", webhooks: "Webhooks", strings: "Tekstovi", workspace: "Radni prostor", system: "Sustav", toggleSidebar: "Preklopi bočnu traku", cmsAdmin: "ARTKOD CMS", lightMode: "Svijetli način", darkMode: "Tamni način", switchToLight: "Prebaci na svijetli način", switchToDark: "Prebaci na tamni način", signOut: "Odjava", contentLanguage: "Jezik sadržaja" }, B8 = { searchPages: "Pretraži stranice…", editPage: "Uredi stranicu", newPage: "Nova stranica", menuLabel: "Izbornik: {{label}}", backToList: "Natrag na popis", backToMenus: "Natrag na izbornike" }, F8 = { title: "Nadzorna ploča", subtitle: "Pregled sadržaja i nedavne aktivnosti.", newPage: "Nova stranica", mediaLibrary: "Mediji", publishedPages: "Objavljene stranice", draftPages: "Skice", mediaFiles: "Medijske datoteke", activityWeek: "Aktivnost (7 dana)", publishedThisWeek_one: "{{count}} ovaj tjedan", publishedThisWeek_few: "{{count}} ovaj tjedan", publishedThisWeek_other: "{{count}} ovaj tjedan", noneThisWeek: "Ništa ovaj tjedan", scheduledCount_one: "{{count}} u rasporedu", scheduledCount_few: "{{count}} u rasporedu", scheduledCount_other: "{{count}} u rasporedu", noneScheduled: "Ništa zakazano", storageUsed: "{{size}} iskorišteno", contributorsCount_one: "{{count}} suradnik", contributorsCount_few: "{{count}} suradnika", contributorsCount_other: "{{count}} suradnika", translationCoverage: "Pokrivenost prijevodima", translationMissing_one: "{{count}} prijevod nedostaje", translationMissing_few: "{{count}} prijevoda nedostaje", translationMissing_other: "{{count}} prijevoda nedostaje", translationComplete: "Potpuno prevedeno", staleContent: "Zastarjeli sadržaj", staleContentFooter: "Bez izmjena 3+ mjeseca", pendingDrafts: "Skice na čekanju", pendingDraftsFooter: "Čeka objavu", pagesByType: "Tipovi stranica u upotrebi", pagesByTypeFooter: "Najviše: {{type}} ({{count}})", trashedPages: "Stranice u smeću", trashedFooter: "U smeću", mediaByType: "Slike", mediaByTypeFooter_one: "{{count}} dokument", mediaByTypeFooter_few: "{{count}} dokumenta", mediaByTypeFooter_other: "{{count}} dokumenata", team: "Aktivni korisnici", teamFooter: "{{pending}} na čekanju · {{disabled}} onemogućeno", recentActivity: "Nedavna aktivnost", noActivity: "Još nema aktivnosti.", viewAllActivity: "Vidi sve", recentlyEdited: "Nedavno uređeno", noRecentEdits: "Još nema uređenih stranica.", quickActions: "Brze akcije", recentDrafts: "Nedavne skice", noRecentDrafts: "Nema nedavnih skica.", actionNewPage: "Stvori novu stranicu", actionNewPageDesc: "Počni prazan nacrt", actionUploadMedia: "Prenesi medij", actionUploadMediaDesc: "Dodaj slike i datoteke", actionSettings: "Postavke stranice", actionSettingsDesc: "Konfiguriraj projekt", greetingMorning: "Dobro jutro", greetingAfternoon: "Dobar dan", greetingEvening: "Dobra večer", greetingSubtitle: "Evo što se događa", actions: { created: "Stvoreno", updated: "Ažurirano", deleted: "Obrisano", published: "Objavljeno", restored: "Vraćeno", permDeleted: "Trajno obrisano" } }, U8 = { title: "Stranice", titleTrash: "Koš za smeće", subtitle: "Upravljajte objavljenim sadržajem i skicama.", subtitleTrash: "Obrisane stranice — vratite ih ili trajno uklonite.", newPage: "+ Nova stranica", exitTrash: "Izađi iz koša", enterTrash: "Koš za smeće", options: "Postavke", allStatuses: "Svi statusi", draft: "Skica", published: "Objavljeno", allTypes: "Svi tipovi", colTitle: "Naslov", colSlug: "Slug", colStatus: "Status", colActions: "Akcije", noResults: 'Nema rezultata za "{{query}}"', resultCount: '{{count}} rezultat(a) za "{{query}}"', trashEmpty: "Koš za smeće je prazan.", noMatch: "Nijedna stranica ne odgovara filtrima.", noPages: "Još nema stranica", createFirst: "Stvorite svoju prvu stranicu", pagination: "{{from}}–{{to}} od {{total}} stranica", restore: "Vrati", deleteForever: "Obriši zauvijek", delete: "Obriši", moveToTrash: "Premjesti u koš", moveToTrashConfirm: "Premjestiti stranicu u koš? Možete je kasnije vratiti.", permDeleteTitle: "Trajno brisanje stranice", permDeleteBody: "Ovo se ne može poništiti. Stranica i sve njene verzije bit će zauvijek izbrisane.", permDeleteConfirm: "Obriši zauvijek", scheduled: "Zakazano", draftBadge: "Nacrt", pendingDraft: "Čeka objavu", permDeleteSuccess: "Stranica trajno obrisana", permDeleteFailed: "Trajno brisanje stranice nije uspjelo", trashChildCount_one: "1 podstranica u košu", trashChildCount_few: "{{count}} podstranice u košu", trashChildCount_other: "{{count}} podstranica u košu", trashOrphan: "Bila pod: {{parent}}", trashOrphanUnknown: "obrisana stranica", trashTruncated: "Prikazano prvih {{count}} stranica iz koša. Vratite ili trajno obrišite neke da biste vidjeli ostale." }, W8 = { title: "Nova stranica", description: "Odaberite tip stranice za početak.", typeSection: "Tip stranice", chooseType: "Odaberite tip stranice:", requiresParent: "Zahtijeva nadređenu stranicu", parentNamed: "Nadređena: {{name}}", children: "Podstranice: {{types}}", globalLimit: "Dostignut globalni limit", parentRequired: "Nadređena stranica (obavezno)", parentOptional: "Nadređena stranica (neobavezno)", parentPlaceholder: "Odaberite nadređenu stranicu…", perParentLimit: 'Ova nadređena stranica već ima {{limit}} stranica tipa "{{label}}" (dostignut limit po roditelju).', cancel: "Odustani", createBtn: "Stvori {{label}}", defaultLabel: "Stranicu" }, K8 = { title: "Postavke tipa stranice", description: "Promijenite ponašanje za svaki tip stranice koji je projekt registrirao. Kodom definirane vrijednosti ostaju izvorni izvor — prazna polja se vraćaju na njih.", loading: "Učitavam…", empty: "Ovaj projekt nema registriranih tipova stranica.", deletable: "Može se obrisati", deletableHelp: "Kad je isključeno, gumb za brisanje sakriva se za stranice ovog tipa. Zadano: {{default}}", canBeRoot: "Može biti na korijenu", canBeRootHelp: "Kad je isključeno, stranice ovog tipa moraju imati nadređenu stranicu. Zadano: {{default}}", limit: "Maks. broj stranica (ukupno)", limitHelp: "Ukupno dopušteno stranica ovog tipa na cijelom projektu. Ostavite prazno za neograničeno. Zadano: {{default}}", perParentLimit: "Maks. po nadređenoj stranici", perParentLimitHelp: "Maks. broj stranica ovog tipa unutar jedne nadređene stranice. Ostavite prazno za neograničeno. Zadano: {{default}}", noLimit: "Bez ograničenja", reset: "Resetiraj", resetTooltip: "Vrati na vrijednosti definirane u kodu za ovaj tip", overridden: "Izmijenjeno — razlikuje se od zadanih vrijednosti", loadError: "Neuspjelo učitavanje postavki", saved: "Postavke tipa stranice su spremljene", saveError: "Neuspjelo spremanje postavki", deleted: "Tip stranice je obrisan", systemBadge: "sustav", addType: "Dodaj tip stranice", createTitle: "Stvori tip stranice", editTitle: "Uredi tip stranice", back: "Natrag", slugLabel: "Identifikator", slugHelp: "Mala slova, brojevi i crtice. Koristi se na frontendu za prikaz ovog tipa.", slugLocked: "Zaključano nakon stvaranja — preimenovanje bi razbilo frontend prikaz.", slugInvalid: "Samo mala slova, brojevi i crtice.", slugTaken: 'Identifikator "{{slug}}" je već zauzet.', slugShadowsCodeType: 'Identifikator "{{slug}}" već postoji.', labels: "Nazivi", labelFor: "Naziv ({{locale}})", allowedParentTypes: "Dopušteni nadređeni tipovi", allowedChildTypes: "Dopušteni podređeni tipovi", allowBlocks: "Dopusti sadržajne blokove", allowedBlockTypes: "Dopušteni tipovi blokova", allowedBlockTypesHint: "Ostavite prazno za sve registrirane tipove blokova.", fields: "Polja", fieldsEmpty: "Još nema polja. Dodajte jedno ispod.", addField: "Dodaj polje", fieldName: "Naziv (id)", fieldLabel: "Naziv", fieldType: "Tip", fieldRequired: "Obavezno", fieldPlaceholder: "Pomoćni tekst", fieldOptions: "Opcije", fieldOptionsHint: "Pritisnite Enter nakon svake opcije.", fieldNameInvalid: "Slova, brojevi i podvlaka. Mora započinjati slovom ili podvlakom.", removeField: "Ukloni polje", removeFieldConfirm: "Ukloniti ovo polje? Podaci stranica pohranjeni pod ovim nazivom postat će napušteni.", deleteType: "Obriši tip stranice", deleteConfirm: "Obrisati ovaj tip stranice? Brisanje je dopušteno samo ako ga niti jedna stranica više ne koristi.", deleteInUseError: "Nije moguće obrisati — {{count}} stranica još koristi ovaj tip. Prvo ih uklonite ili pretvorite." }, Y8 = { subtitle: "Upravljajte objavljenim sadržajem, skicama i hijerarhijom stranica.", noPages: "Još nema stranica. Stvorite svoju prvu stranicu!", newPage: "Nova stranica", addChild: "Dodaj podstranicu", collapse: "Sažmi", expand: "Proširi", dragHandle: "Povuci za promjenu redoslijeda", previewPage: "Pregled stranice", deletePage: "Obriši", deleteTitle: "Obriši stranicu", deleteBody: "Obrisati ovu stranicu? Sve podstranice bit će premještene na razinu korijena.", deleteConfirm: "Obriši", previewNeedsFrontend: "Konfigurirajte frontendUrl u createAdmin() za pregled.", previewFailed: "Greška pri stvaranju pregleda", pageDeleted: "Stranica obrisana", deleteError: "Greška pri brisanju stranice", deleteParentBlocked: "Sadrži podstranice — može obrisati samo admin ili developer.", deleteCurrentLocaleInactive: "{{locale}} verzija je već onemogućena. Promijeni jezik za brisanje stranice.", deleteTypeNotDeletable: "Ovaj tip stranice se ne može obrisati.", moveError: { generic: "Premještanje stranice nije uspjelo.", parentInSubtree: "Stranicu nije moguće premjestiti ispod same sebe ili svojih podstranica.", parentNotFound: "Odredišna stranica više ne postoji.", parentTrashed: "Odredišna stranica je u košu.", invalidParentType: "Ovaj tip stranice nije dozvoljen ispod tog roditelja.", parentNoChildren: "Stranice tipa „{{parent}}“ ne mogu sadržavati podstranice.", invalidChildType: "Stranice tipa „{{parent}}“ ne mogu sadržavati stranice tipa „{{child}}“.", perParentLimit: "Odredišni roditelj već ima maksimalan broj stranica ovog tipa.", cannotBeRoot: "Ovaj tip stranice ne može biti na vrhu.", versionConflict: "Stranica je u međuvremenu izmijenjena — osvježi i pokušaj ponovno.", pageTrashed: "Stranica je u košu i ne može se premjestiti.", invalidInsertBefore: "Stranicu nije moguće postaviti na traženu poziciju." } }, G8 = { loading: "Provjeravam što će biti obrisano…", success: "Stranica premještena u koš", disableSuccess: "Verzija {{locale}} deaktivirana", confirm: { title: "Obrisati stranicu?", leaf_single: "Stranica {{title}} bit će premještena u koš. Možete je kasnije vratiti.", leaf_multi: "Sve {{count}} jezične verzije ({{locales}}) stranice {{title}} bit će premještene u koš.", cascade_one: "Stranica {{title}} i 1 podstranica ({{translationCount}} prijevoda u jezicima {{locales}}) bit će premještene u koš.", cascade_other: "Stranica {{title}} i {{count}} podstranica ({{translationCount}} prijevoda u jezicima {{locales}}) bit će premještene u koš.", intro_multilocale: "Ova stranica je aktivna u {{activeLocales}}. Možete obrisati cijelu stranicu (sve jezike) ili samo deaktivirati verziju {{currentLocale}}, a {{otherLocales}} ostaje aktivno.", deleteButton: "Obriši cijelu stranicu", disableButton: "Deaktiviraj samo verziju {{locale}}", disableExplain_one: "Skriva ovu stranicu posjetiteljima jezika {{locale}}. {{otherLocales}} ostaje aktivno.", disableExplain_other: "Skriva ovu stranicu i {{count}} podstranica posjetiteljima jezika {{locale}}. {{otherLocales}} ostaje aktivno.", presence: "Trenutno uređuju: {{emails}}", restoreHint: "Može se vratiti iz koša." }, blocked: { title: "Stranicu nije moguće obrisati", intro_one: "Stranicu nije moguće obrisati jer je još uvijek referencira 1 stavka izbornika ili poveznica:", intro_other: "Stranicu nije moguće obrisati jer je još uvijek referencira {{count}} stavki izbornika ili poveznica:", menusHeader_one: "1 stavka izbornika", menusHeader_other: "{{count}} stavki izbornika", pagesHeader_one: "1 stranica", pagesHeader_other: "{{count}} stranica", menuRow: "{{label}} · {{location}}", pageRow: "{{title}}", hint: "Otvorite navedene stavke, uklonite poveznicu i pokušajte ponovno.", close: "Zatvori" }, disableBlocked: { title: "Nije moguće deaktivirati verziju {{locale}}", intro_one: "Deaktivacija verzije {{locale}} pokvarila bi 1 poveznicu koja još uvijek upućuje na ovaj sadržaj:", intro_other: "Deaktivacija verzije {{locale}} pokvarila bi {{count}} poveznica koje još uvijek upućuju na ovaj sadržaj:" }, forbiddenParent: "Stranica ima podstranice — može je obrisati samo admin ili developer.", multiLocale: { activeIn: "aktivno u {{locales}}", intro: "Ova stranica postoji u više jezika. Odaberite način brisanja:", disableLocaleTitle: "Deaktiviraj samo verziju {{locale}}", disableLocaleHelp: "Skriva ovu stranicu posjetiteljima {{locale}}. {{other}} ostaje aktivno. Može se vratiti iz koša.", disableLocaleHelpDesc: "Skriva ovu stranicu i {{count}} podstranica posjetiteljima {{locale}}. {{other}} ostaje aktivno. Može se vratiti iz koša.", deleteEntireHelp: "Stranica {{subject}} i svi njezini prijevodi ({{locales}}) bit će premješteni u koš.", deleteEntireHelpDesc: "Stranica {{subject}} i {{count}} podstranica ({{locales}}) bit će premješteni u koš." } }, Z8 = { title: "Vrati stranicu", loading: "Provjera mogućnosti vraćanja…", success: "Stranica vraćena", restoreButton: "Vrati", placementLabel: "Gdje vratiti ovu stranicu?", typeHint: "Tip stranice: {{type}}", option: { originalParent: 'Pod "{{title}}" (izvorni roditelj)', root: "Premjesti u korijen (najvišu razinu)", rootOriginal: "U korijen (najvišu razinu)", otherParent: "Pod drugu stranicu…", pickParent: "Odaberite roditeljsku stranicu", loading: "Učitavanje stranica…", noMatches: "Nema odgovarajućih stranica" }, cascade: { label_one: "Vrati i 1 obrisanu podstranicu", label_few: "Vrati i {{count}} obrisane podstranice", label_other: "Vrati i {{count}} obrisanih podstranica", hint: "Podstranice obrisane zajedno s ovom stranicom bit će vraćene na svoje izvorne pozicije." }, reason: { parent_trashed: "Izvorni roditelj je još u košu. Prvo ga vratite ili odaberite drugog roditelja.", type_mismatch: "Izvorni roditelj nije valjan tip roditelja za {{type}}.", per_parent_limit_reached: "Ovaj roditelj već ima maksimalan broj {{type}} stranica ({{limit}}).", cannot_be_root: "{{type}} stranice ne mogu biti na korijenskoj razini.", global_limit_reached: "Dosegnuto ograničenje broja {{type}} stranica na projektu ({{limit}})." }, blocked: { title: "Vraćanje nije moguće", typeNotRegistered: 'Tip stranice "{{type}}" više nije registriran u projektu. Vratite tip ili trajno obrišite stranicu.', noPlacement: "Trenutno nema valjanog mjesta za vraćanje ove {{type}} stranice.", suggestion: "Vratite (ili stvorite) stranicu tipa: {{parentTypes}}, a zatim pokušajte ponovno.", parentInTrash: 'Izvorni roditelj "{{parentTitle}}" je još u košu — vratite ga prvo da bi ova stranica imala dom.', globalLimit: "Dosegnuto ograničenje broja {{type}} stranica na projektu ({{limit}}). Obrišite ili premjestite u koš jednu aktivnu {{type}} stranicu." }, error: { generic: "Vraćanje stranice nije uspjelo. Pokušajte ponovno.", pickParent: "Molimo odaberite roditeljsku stranicu.", parentTrashed: "Odabrani roditelj je u košu. Odaberite aktivnu stranicu ili prvo vratite roditelja.", parentNotFound: "Odabrani roditelj više ne postoji.", parentInSubtree: "Stranica ne može biti premještena pod jednu od svojih podstranica.", invalidParentType: "Odabrani roditelj nije valjan tip roditelja za {{type}}.", perParentLimitReached: "Ovaj roditelj već ima maksimalan broj {{type}} stranica ({{limit}}).", cannotBeRoot: "{{type}} stranice ne mogu biti na korijenskoj razini.", globalLimitReached: "Dosegnuto ograničenje broja {{type}} stranica na projektu ({{limit}}).", slugTaken: '{{locale}} slug "{{slug}}" je već u upotrebi na aktivnoj stranici. Preimenujte ga prije vraćanja.' } }, J8 = { titleEdit: "Uredi stranicu", titleNew: "Nova stranica", tabContent: "Sadržaj", tabSeo: "SEO", fieldTitle: "Naslov", placeholderTitle: "Naslov stranice", fieldStatus: "Status", statusDraft: "Skica", statusPublished: "Objavljeno", statusHint: "Samo admini i programeri mogu objavljivati ili povlačiti stranice", schedulePublish: "Zakazano objavljivanje", scheduleDescription: "Stranica će se automatski objaviti u odabrano vrijeme.", scheduleHint: "Ostavite prazno za neodređenu skicu", schedulePlaceholder: "Odaberite datum i vrijeme…", scheduledFor: "Zakazano za {{date}}", scheduleClear: "Obriši", scheduleConfirm: "Potvrdi", scheduleLeaveBlank: "Ostavite prazno za zadržavanje nacrta neograničeno.", parentRequired: "Nadređena stranica (obavezno)", parentOptional: "Nadređena stranica (neobavezno)", parentNone: "Bez nadređene (korijenski nivo)", fieldsSectionTitle: "Polja", contentSections: "Sekcije sadržaja", saveAsTemplate: "Spremi kao predložak", loadTemplate: "Učitaj predložak", noSections: "Još nema sekcija. Dodajte jednu ispod.", addSection: "+ Dodaj novu sekciju", addBlockLabel: "+ {{label}}", chooseBlockType: "Odaberite vrstu odjeljka", metaTitle: "Meta naslov", metaDescription: "Meta opis", metaDescriptionHint: "Kratki opis za tražilice", metaTitleCount: "{{count}}/60 znakova", metaTitleTooLong: "Meta naslov je predug", metaDescCount: "{{count}}/160 znakova", metaDescTooLong: "Meta opis je predug", ogImage: "OG slika", pickImage: "Odaberi sliku", canonicalUrl: "Kanonski URL", canonicalPlaceholder: "https://primjer.hr/moja-stranica", canonicalHint: "Ostavite prazno za korištenje zadanog URL-a stranice", noindex: "Sakrij od tražilica (noindex)", googlePreview: "Pregled u Googleu", noDescription: "Opis nije postavljen.", savePage: "Spremi", publishPage: "Objavi stranicu", publishSuccess: "Stranica objavljena", publishError: "Nije moguće objaviti stranicu", localeActiveCheckbox: "Aktivan na ovom jeziku", localeMissing: "Još nema sadržaja za {{locale}}", localeInactive: "{{locale}} je neaktivan — sadržaj se neće prikazivati na javnom sajtu", deactivateError: "Nije moguće provjeriti gdje je ova stranica korištena", deactivateBlockedTitle: "Ova stranica je još uvijek povezana u jeziku {{locale}}", deactivateBlockedBody: "Deaktivacija jezika {{locale}} bi tiho prekinula veze ispod. Najprije ih uklonite, zatim se vratite na deaktivaciju.", deactivateBlockedMenus: "Korišteno u izbornicima:", deactivateBlockedPages: "Linkano sa stranica:", cascadeBlockedTitle: "Nije moguće deaktivirati {{locale}} na podstranicama", cascadeBlockedBody: "Deaktivacija jezika {{locale}} na ovoj stranici bi deaktivirala isti jezik i na podstranicama, ali neke su još uvijek povezane sa sadržajem izvan ovog podstabla u istom jeziku. Uklonite veze ispod pa pokušajte ponovno.", cascadeBlockedPageLabel: "Podstranica: {{title}}", cascadeDoneNotification: "Jezik {{locale}} deaktiviran na {{count}} podstranica/e", cascadeConfirmTitle: "Deaktivirati {{locale}} i na podstranicama?", cascadeConfirmBody: "{{count}} podstranica trenutno aktivnih u jeziku {{locale}} također će biti deaktivirano prilikom spremanja. Akcija se izvršava prilikom spremanja i može se poništiti ponovnim aktiviranjem svake stranice pojedinačno.", cascadeConfirmAction: "Deaktiviraj na podstranicama", ancestorBlockedTitle: "Još nije moguće aktivirati {{locale}}", ancestorBlockedBody: "Jedna ili više nadređenih stranica još uvijek ima {{locale}} deaktiviran. Najprije aktivirajte {{locale}} na nadređenoj stranici, a zatim se vratite ovamo. Inače bi se ova stranica objavila na URL-u čiji nadređeni segment ne postoji.", cascadeFailedError: "Stranica je spremljena, ali nije bilo moguće prenijeti deaktivaciju jezika {{locale}} na podstranice", statusDraftBadge: "Skica", statusPublishedBadge: "Objavljeno", statusPendingBadge: "Objavljeno · Čeka objavu", leaveTitle: "Napustiti stranicu?", leaveBody: "Imate nespremljene promjene. Ako odete sada, promjene će biti izgubljene.", leaveConfirm: "Napusti", conflictTitle: "Konflikt uređivanja", conflictBody: "Netko drugi je spremio ovu stranicu dok ste je uređivali. [Osvježi] za najnoviju verziju.", savedNotification: "Stranica spremljena", saveError: "Greška pri spremanju stranice", siblingSlugTaken: "Druga stranica pod istim roditeljem već koristi ovaj naziv ({{locale}}). Preimenujte ovu stranicu da biste je spremili.", previewNeedsSave: "Najprije spremite stranicu za pregled", previewNeedsFrontend: "Konfigurirajte frontendUrl u createAdmin() za pregled", previewFailed: "Greška pri stvaranju pregleda", versionHistory: "Povijest verzija", versionHistoryDescription: "Povratite raniju verziju ove stranice.", versionCount: "{{count}} spremljena verzija", versionCount_other: "{{count}} spremljenih verzija", versionCurrent: "trenutna", noVersions: "Još nema verzija. Verzije se stvaraju pri svakom spremanju.", restoreVersion: "Vrati", restoreVersionTitle: "Vratiti verziju?", restoreVersionBody: "Ovo će zamijeniti trenutni sadržaj stranice s ovom verzijom. Trenutno stanje bit će spremljeno kao nova verzija.", restoreVersionFailed: "Greška pri vraćanju verzije", unknownBlock: "Nepoznati tip bloka: {{type}}", unsavedBadge: "Nespremljene promjene", lastSaved: "Zadnje spremljeno {{time}}", alsoEditing: "{{emails}} također uređuje", moreEditors: "+{{count}}" }, X8 = { title: "Izbornici", subtitle: "Upravljajte navigacijskim izbornicima za vaš frontend.", newMenu: "Novi izbornik", loading: "Učitavanje…", noMenus: "Još nema izbornika. Stvorite prvi!", emptyTitle: "Još nema izbornika", emptyDescription: "Stvorite navigacijske izbornike za zaglavlje, podnožje i ostala područja frontenda.", locationPrimary: "primary — glavna navigacija", locationFooter: "footer — poveznice u podnožju", locationBadge_primary: "Glavna navigacija", locationBadge_footer: "Navigacija u podnožju", edit: "Uredi", delete: "Obriši", modeAuto: "Auto", modeManual: "Ručno", topLevelItems: "{{count}} stavka/stavki na vrhu", autoInfo: "{{types}} · dubina {{depth}}", deleteTitle: "Obriši izbornik", deleteBody: "Obrisati ovaj izbornik? Ovo se ne može poništiti.", deleteConfirm: "Obriši", createTitle: "Stvori izbornik", createDescription: "Navigacijski izbornici prikazuju se na vašem sučelju.", modeSection: "Način rada", modeManualSub: "Vi upravljate svakom stavkom", modeAutoSub: "Gradi se iz stabla stranica", locationSection: "Navigacijski slot", locationPrimaryTitle: "Primarna navigacija", locationPrimaryCardSub: "Navigacija u zaglavlju", locationFooterTitle: "Podnožje", locationFooterCardSub: "Poveznice u podnožju", alreadyAdded: "Već dodano", allLocationsUsed: "Sve lokacije izbornika su već u upotrebi.", cancel: "Odustani", createBtn: "Stvori izbornik" }, Q8 = { title: "Uređivač navigacijskog izbornika", alsoEditing: "{{emails}} također uređuje", moreEditors: "+{{count}}", save: "Spremi izbornik", modeLabel: "Način rada", modeAuto: "Auto (Pametni)", modeManual: "Ručni (Prilagođeni)", modeAutoHint: "Automatski generira stavke izbornika iz odabranih tipova stranica.", modeManualHint: "Ručno rasporedite stavke povlačenjem i ispuštanjem.", includeTypes: "Uključi tipove stranica", includeTypesHint: "Pojavit će se samo objavljene stranice ovih tipova.", includeTypesPlaceholder: "Odaberite tipove stranica…", maxDepth: "Maksimalna dubina", maxDepthHint: "Razine djece za uključiti (0 = samo korijen).", depth0: "0 — samo korijen", depth1: "1 razina", depth2: "2 razine", depth3: "3 razine", maxTypes: "Maks. odabranih tipova stranica", maxTypesHint: "Ograničite koliko tipova admini mogu odabrati.", previewLabel: "Pregled", previewLoading: "Učitavanje pregleda…", previewEmpty: "Nema objavljenih stranica koje odgovaraju odabranim tipovima.", itemsLabel: "Stavke", addItem: "Dodaj stavku", dndHint: "Povucite na stavku za ugniježđivanje · Ispustite gore/dolje za sortiranje · Koristite ◀ ▶ za promjenu razine", noItems: "Još nema stavki. Dodajte prvu stavku izbornika.", indentOut: "Premjesti na nadređenu razinu", indentIn: "Postavi kao dijete gornje stavke", itemLabelField: "Oznaka", itemLabelPlaceholder: "npr. Proizvodi", itemTypePage: "Stranica", itemTypeUrl: "Prilagođeni URL", itemPageLabel: "Stranica", itemPagePlaceholder: "Pretraži stranice…", itemUrlLabel: "URL", itemUrlPlaceholder: "https://… ili /relativno", itemNewTab: "Otvori u novoj kartici", editItem: "Uredi stavku", cancelItem: "Odustani", saveItem: "Spremi promjene", saveNewItem: "Dodaj stavku", removeItem: "Ukloni stavku", removeItemTitle: "Ukloniti ovu stavku i svu njenu djecu?", removeItemConfirm: "Ukloni", switchToAuto: "Prebaci na Auto način", switchToManual: "Prebaci na Ručni način", switchToAutoConfirm: "Prebacivanje na Auto način će odbaciti ručno konfigurirane stavke. Nastaviti?", switchToManualConfirm: "Prebaciti na Ručni način? Trenutna auto-generirana struktura koristit će se kao polazište.", switchManualImport: "Prebaci i uvezi stavke", switchAutoConfirm: "Prebaci na Auto", savedNotification: "Izbornik spremljen", conflictBody: "Netko drugi je spremio ovaj izbornik dok ste ga uređivali. [Osvježi] za najnoviju verziju.", saveError: "Greška pri spremanju izbornika", itemLabelFor: "Oznaka ({{locale}})", itemLabelFallback: "Koristi vrijednost iz {{locale}}", itemLabelMissing: "Nedostaje za: {{locales}}", itemLabelAutoHint: "Ostavite prazno za korištenje naslova stranice „{{title}}”.", itemLocaleBadge: "Nije u {{locale}}", itemLocaleTooltip: "Ova stranica nema aktivni prijevod u {{locale}}. Bit će sakrivena iz javnog izbornika za ovaj jezik.", previewLocaleHint: "Pregled za {{locale}}. Stranice bez aktivnog prijevoda u ovom jeziku su sakrivene." }, ex = { title: "Mediji", subtitle: "Učitajte i upravljajte slikama, dokumentima i ostalim datotekama.", searchPlaceholder: "Pretraži datoteke…", fileCount: "{{count}} datoteka/datoteke", viewLarge: "Veliko", viewSmall: "Malo", viewList: "Lista", settingsBtn: "Postavke", uploadBtn: "Učitaj", filterAll: "Sve", filterImages: "Slike", filterDocs: "Dokumenti", noResults: "Nema datoteka koje odgovaraju pretrazi.", noFiles: "Nema datoteka", uploadFiles: "Učitaj datoteke", foldersTitle: "Mape", allFiles: "Sve datoteke", unorganized: "Neorganizirano", newFolder: "Nova mapa", confirmDelete: "Potvrdi brisanje", confirmCreate: "Stvori", newSubfolder: "Nova podmapa", rename: "Preimenuj", delete: "Obriši", expand: "Proširi", collapse: "Skupi", folderActions: "Radnje mape", deleteFolderTitle: "Obrisati mapu?", deleteFolderMessage: "Ova radnja se ne može poništiti.", renameFileTitle: "Preimenuj datoteku", renameFileLabel: "Ime datoteke", cancel: "Odustani", save: "Spremi", renameFailed: "Greška pri preименовању.", fileInfoTitle: "Info o datoteci", fileInfoName: "Prikazano ime", fileInfoStorage: "Naziv pohrane", fileInfoType: "Tip", fileInfoSize: "Veličina", fileInfoUploaded: "Učitano", fileInfoModified: "Zadnja izmjena", fileInfoCdnUrl: "CDN URL", copy: "Kopiraj", copied: "Kopirano!", download: "Preuzmi", close: "Zatvori", copyUrl: "Kopiraj URL", fileInfo: "Info o datoteci", deleteFile: "Obriši", downloadSelected: "Preuzmi {{count}} odabranih", deleteSelected: "Obriši {{count}} odabranih", deleteFileTitle: "Obrisati datoteku?", deleteFileBody: "Obrisati <strong>{{name}}</strong>? Ovo se ne može poništiti.", deleteFileMessage: "Ovo se ne može poništiti.", deleteSelectedTitle: "Obrisati odabrane datoteke?", deleteSelectedBody: "Obrisati <strong>{{count}} odabranu/ih datoteku/a</strong>? Ovo se ne može poništiti.", deleteSelectedMessage: "Obrisati {{count}} odabranu/ih datoteku/a? Ovo se ne može poništiti.", deleteConfirm: "Obriši {{count}} datoteka/e", usedOnPages: "Koristi se na {{count}} stranici/ama:", removeFromPagesFirst: "Najprije uklonite ovu sliku s tih stranica.", sortNewest: "Dodano (najnovije)", sortOldest: "Dodano (najstarije)", sortModifiedNew: "Izmijenjeno (najnovije)", sortModifiedOld: "Izmijenjeno (najstarije)", sortNameAZ: "Ime (A → Ž)", sortNameZA: "Ime (Ž → A)", sortSizeLarge: "Veličina (najveće)", sortSizeSmall: "Veličina (najmanje)", dropUploadTo: 'Ispustite za učitavanje u "{{folder}}"', dropUpload: "Ispustite za učitavanje", skippedDuplicatesTitle: "Preskočeni duplikati", skippedDuplicates: "Preskočeno {{count}} datoteka koje već postoje u ovoj mapi: {{names}}", selectedCount: "{{count}} datoteka/e odabrano", selectAll: "Odaberi sve", showingRange: "{{from}}–{{to}} od {{total}}", moveToFolder: "Premjesti u mapu…", clearSelection: "Poništi", settingsTitle: "Bunny CDN pohrana", settingsConfigured: "Konfigurirano", settingsZoneName: "Naziv zone pohrane", settingsPathPrefix: "Prefiks putanje pohrane", settingsPathHint: "Putanja podmape unutar zone.", settingsApiKeyEdit: "API ključ pohrane (ostavite prazno za zadržavanje)", settingsApiKeyNew: "API ključ pohrane", settingsApiKeyPlaceholderHidden: "••••••••", settingsApiKeyPlaceholderNew: "Zalijepite lozinku zone pohrane", settingsRegion: "Regija pohrane", settingsCdnUrl: "URL CDN Pull Zone", settingsCdnPlaceholder: "https://mojazona.b-cdn.net", settingsSave: "Spremi konfiguraciju", settingsSaved: "Konfiguracija spremljena.", settingsHelp: "Naziv zone i lozinka: Bunny CDN → Storage → [Zona] → FTP & API Access. CDN URL: Bunny CDN → Pull Zones → [Zona] → hostname." }, tx = { title: "Korisnici", subtitle: "Upravljajte članovima tima i njihovim ulogama.", newUser: "Novi korisnik", loading: "Učitavanje…", noUsers: "Nisu pronađeni korisnici.", userCount: "{{count}} korisnik", userCount_other: "{{count}} korisnika", colName: "Ime", colUser: "Korisnik", colEmail: "E-pošta", colRole: "Uloga", colStatus: "Status", colCreated: "Stvoreno", colActions: "Akcije", searchPlaceholder: "Pretraži korisnike…", actionsMenu: "Akcije", edit: "Uredi", delete: "Obriši", disable: "Onemogući", reactivate: "Reaktiviraj", resetPassword: "Resetiraj lozinku", resendInvite: "Ponovno pošalji pozivnicu", status: { active: "Aktivan", pending: "Na čekanju", disabled: "Onemogućen" }, createTitle: "Pozovi korisnika", createDescription: "Postavite pristupne podatke novog člana tima.", inviteDescription: "Na ovu adresu bit će poslana poveznica za aktivaciju.", inviteEmailHint: "Poslat ćemo poveznicu za aktivaciju — korisnik sam odabire lozinku.", sendInvite: "Pošalji pozivnicu", inviteSent: "Pozivnica poslana na {{email}}", roleSection: "Uloga", createFirstName: "Ime", createFirstNamePlaceholder: "Ana", createLastName: "Prezime", createLastNamePlaceholder: "Horvat", createEmail: "E-pošta", createEmailPlaceholder: "korisnik@primjer.hr", createPassword: "Lozinka", createPasswordHint: "Minimalno 8 znakova", createRole: "Uloga", createRolePlaceholder: "Odaberite ulogu", cancel: "Odustani", create: "Stvori", editTitle: "Uredi {{email}}", editRole: "Uloga", editPasswordNote: 'Za promjenu lozinke ovog korisnika koristite "Resetiraj lozinku" iz izbornika retka — dobit će e-poštu.', editCancel: "Odustani", editSave: "Spremi", deleteTitle: "Obriši korisnika", deleteBody: "Obrisati {{email}}? Ovo se ne može poništiti.", deleteMessage: "Ovo trajno uklanja korisnika. Više se neće moći prijaviti.", disableTitle: "Onemogući korisnika", disableMessage: "Postojeća sesija će prestati i neće se moći prijaviti dok ne bude reaktiviran.", disableConfirm: "Onemogući", disableSuccess: "{{email}} onemogućen/a", reactivateTitle: "Reaktiviraj korisnika", reactivateMessage: "Moći će se ponovno prijaviti svojom postojećom lozinkom.", reactivateConfirm: "Reaktiviraj", reactivateSuccess: "{{email}} reaktiviran/a", resetTitle: "Resetiraj lozinku", resetMessage: "Poslat ćemo korisniku poveznicu za reset. Trenutna lozinka i dalje radi dok ne postavi novu.", resetConfirm: "Pošalji e-poštu za reset", resetSuccess: "E-pošta za reset poslana na {{email}}", resendTitle: "Ponovno pošalji pozivnicu", resendMessage: "Poslat ćemo svježu poveznicu za aktivaciju. Prethodna poveznica više neće raditi.", resendConfirm: "Pošalji ponovno", resendSuccess: "Pozivnica ponovno poslana na {{email}}", loadError: "Greška pri učitavanju korisnika", createError: "Greška pri pozivanju korisnika", updateError: "Greška pri ažuriranju korisnika", actionError: "Akcija nije uspjela", deleteSuccess: "{{email}} obrisan/a", deleteError: "Greška pri brisanju korisnika" }, nx = { title: "Postavite lozinku", subtitle: "Odaberite lozinku za {{email}} kako biste aktivirali svoj račun.", password: "Lozinka", passwordPlaceholder: "Najmanje 8 znakova", confirmPassword: "Potvrdite lozinku", confirmPasswordPlaceholder: "Ponovno unesite lozinku", submit: "Aktiviraj račun", submitting: "Aktiviranje…", success: "Račun aktiviran", redirecting: "Preusmjeravanje na nadzornu ploču…", linkInvalidTitle: "Poveznica neispravna ili istekla", invalidLink: "Ova poveznica za aktivaciju više nije važeća. Zatražite od administratora novu pozivnicu.", passwordTooShort: "Lozinka mora imati barem 8 znakova.", passwordMismatch: "Lozinke se ne podudaraju.", submitError: "Aktivacija nije uspjela. Molimo pokušajte ponovno." }, ax = { title: "Resetirajte lozinku", subtitle: "Odaberite novu lozinku za {{email}}.", submit: "Postavi novu lozinku", success: "Lozinka ažurirana" }, ox = { title: "API ključevi", subtitle: "Upravljajte pristupnim tokenima za frontend integracije.", newKey: "Novi ključ", loading: "Učitavanje...", noKeys: "Još nema API ključeva.", emptyTitle: "Još nema API ključeva", emptyDescription: "Stvorite pristupne tokene za frontend ili integracije trećih strana.", new: "Novi ključ", colName: "Ime", colPrefix: "Prefiks", colRole: "Uloga", colLastUsed: "Zadnje korištenje", colActions: "Akcije", revoke: "Opozovi", createTitle: "Stvori API ključ", createDescription: "Ključevi se prikazuju jednom — kopirajte ih odmah nakon stvaranja.", roleSection: "Uloga", createName: "Ime", createNamePlaceholder: "npr. project-one-frontend", createRole: "Uloga", roleViewer: "Viewer — samo čitanje", roleEditor: "Editor — stvaranje i uređivanje", roleAdmin: "Admin — puni pristup", roleDeveloper: "Developer — razvojni pristup", createBtn: "Stvori", newKeyTitle: "Ključ stvoren — kopirajte ga odmah. Više se neće prikazivati.", copy: "Kopiraj", dismiss: "Odbaci", revokeTitle: "Opozovi API ključ", revokeBody: 'Opozvati "{{name}}"? Sve integracije koje koriste ovaj ključ prestat će raditi.', revokeMessage: "Sve integracije koje koriste ovaj ključ prestat će raditi odmah.", revokeConfirm: "Opozovi", never: "Nikad", revokeSuccess: 'API ključ "{{name}}" obrisan', revokeError: "Greška pri brisanju ključa", keyCount: "{{count}} API ključ", keyCount_other: "{{count}} API ključeva" }, rx = { title: "Postavke stranice", subtitle: "Globalna konfiguracija vašeg projekta.", save: "Spremi postavke", tabGeneral: "Općenito", tabLocales: "Jezici", tabSeo: "SEO zadane vrijednosti", tabEditorPrefs: "Postavke uređivača", tabAnalytics: "Analitika", tabDashboard: "Nadzorna ploča", dashboardHint: "Odaberite koje statističke kartice vidi svaka korisnička uloga na svojoj nadzornoj ploči. Neke kartice zahtijevaju minimalnu ulogu i ne mogu se uključiti za niže uloge.", dashboardRole_viewer: "Pregledatelj", dashboardRole_editor: "Urednik", dashboardRole_admin: "Administrator", dashboardRole_developer: "Razvojni programer", dashboardMinRole: "Zahtijeva ulogu {{role}} ili višu", tabApiKeys: "API ključevi", tabWebhooks: "Webhookovi", tabAdvanced: "Napredno", tabRobots: "Robots.txt", identitySection: "Identitet stranice", identityHint: "Kako se vaš CMS prikazuje korisnicima i javnosti.", brandSection: "Brand", brandHint: "Favicon prikazan u karticama preglednika i podijeljenim pregledima.", languagesHint: "Koje jezike projekt podržava.", thisDeviceNote: "(ovaj uređaj)", editorPrefsHint: "Osobne postavke pohranjene samo u ovom pregledniku.", analyticsHint: "Povežite svog pružatelja analitike.", advancedHint: "Ubacite sirovi HTML u svaku javnu stranicu.", email: { title: "E-pošta", hint: "Konfiguracija za pozivnice, resetiranje lozinke i drugu transakcijsku e-poštu. Iste vrijednosti koriste se i u razvojnom i u produkcijskom okruženju za ovaj projekt — postavite različite vjerodajnice u bazi svakog okruženja.", fromLabel: 'Zadana "Od" adresa', fromPlaceholder: "Moj CMS <noreply@primjer.hr>", fromHint: "Obična adresa ili RFC 5322 zapis. Domena pošiljatelja mora biti verificirana kod davatelja e-pošte (npr. Resend) — neverificirane domene bit će odbijene pri slanju.", transportTitle: "Prijenosni sloj", transportHint: "Način na koji se e-pošta zapravo šalje. Vjerodajnice se pohranjuju po projektu — zalijepite ih jednom ovdje i iste vrijednosti vrijede u dev-u i produkciji (svako okruženje ima svoju bazu).", transportLabel: "Način slanja", transportLabelHint: '"Auto" koristi varijable okruženja (RESEND_API_KEY / SMTP_HOST) kao rezervu. Ostale opcije koriste vjerodajnice koje unesete ispod.', transportAuto: "Auto (koristi varijable okruženja)", transportResend: "Resend (HTTP API)", transportSmtp: "SMTP (nodemailer)", transportNone: "Isključeno (odbaci sva slanja)", resendKeyLabel: "Resend API ključ", resendKeyHint: 'Dohvatite ga na resend.com → API Keys. Besplatni plan pokriva 100 e-poruka/dan. Ključevi počinju s "re_".', resendKeyPlaceholder: "re_xxxxxxxxxxxxxxxxxxxxxxxx", resendKeyPlaceholderStored: "Ostavite prazno za zadržavanje postojećeg ključa", smtpHostLabel: "SMTP host", smtpPortLabel: "SMTP port", smtpUserLabel: "SMTP korisničko ime", smtpPassLabel: "SMTP lozinka", smtpPassPlaceholderStored: "Ostavite prazno za zadržavanje postojeće lozinke", smtpSecureLabel: "Koristi TLS/SSL (port 465 obično ovo zahtijeva; port 587 obično ne)", configured: "Konfigurirano", show: "Prikaži", hide: "Sakrij", clear: "Obriši", saveTransport: "Spremi konfiguraciju e-pošte", saved: "Konfiguracija e-pošte spremljena", cleared: "Vjerodajnica obrisana", statusResend: "Resend povezan ({{source}})", statusSmtp: "SMTP povezan ({{source}})", statusConsole: "Nije konfiguriran prijenosni sloj — e-pošta će biti ispisana u stdout API-ja umjesto poslana", statusNone: "E-pošta je isključena — odlazna slanja bit će tiho odbačena", statusLoading: "Provjera prijenosnog sloja…", sourceProject: "ovaj projekt", sourceEnv: "iz okruženja", overrideActive: "Dev override aktivan: sva slanja preusmjeravaju se na {{email}}" }, noFavicon: "Nije postavljen favicon", faviconReady: "Aktivan na cijeloj stranici", faviconFallback: "Koristi se monogram brenda", faviconName: "favicon", siteTitle: "Naslov stranice", siteTitleHint: "Koristi se u kartici preglednika i kao rezervni OG naslov.", siteTitlePlaceholder: "Moja web stranica", tagline: "Podnaslov", taglineHint: "Kratki opis prikazan ispod naslova stranice.", taglinePlaceholder: "Gradimo stvari od 2024.", favicon: "Favicon", faviconHint: "Preporučeno: 32×32 PNG ili SVG.", faviconSet: "Favicon postavljen (media ID: {{id}}…)", faviconRemove: "Ukloni", faviconNone: "Favicon nije postavljen.", faviconSelect: "Odaberi favicon", faviconChange: "Promijeni favicon", uiLanguage: "Jezik admin sučelja", uiLanguageHint: "Jezik koji se koristi za sve oznake i poruke admin panela.", langEn: "Engleski", langHr: "Hrvatski", localeFallback: "Prazno polje prikazuje vrijednost iz {{locale}}", editorPrefsSection: "Postavke uređivača (ovaj uređaj)", autosaveEnabled: "Automatsko spremanje svakih 30 sekundi", autosaveEnabledHint: "U pozadini sprema skice dok uređujete. Ručno spremanje (Ctrl+S, gumb Spremi) i Objavi rade neovisno o ovome.", languagesSection: "Jezici sadržaja", availableLocales: "Dostupni jezici", availableLocalesHint: "Jezici na kojima će ovaj projekt objavljivati sadržaj.", defaultLocale: "Zadani jezik", defaultLocaleHint: "Fallback jezik koji se koristi na korijenu sajta i kada stranica nema prijevod na posjetiteljev jezik.", defaultLocaleNotAvailable: "Zadani jezik mora biti jedan od dostupnih jezika.", atLeastOneLocale: "Mora biti dostupan barem jedan jezik.", localeInUse: "Ne mogu ukloniti jezik {{locale}} — stranice još uvijek imaju sadržaj na njemu. Najprije uklonite taj sadržaj.", seoDefaultsHint: "Ove zadane vrijednosti koriste se kada stranica nema vlastita SEO polja.", defaultMetaTitle: "Zadani meta naslov", defaultMetaTitlePlaceholder: "Moja web stranica — Naslov stranice", defaultMetaDesc: "Zadani meta opis", defaultMetaDescPlaceholder: "Kratki opis vaše web stranice…", defaultOgImage: "Zadani OG URL slike", defaultOgImageHint: "Rezervna Open Graph slika za dijeljenje na društvenim mrežama.", defaultOgImagePlaceholder: "https://cdn.primjer.hr/og-zadano.jpg", analyticsId: "ID analitike", analyticsIdHint: "Google Analytics mjerni ID (G-XXXXXXXX) ili drugi identifikator analitike.", analyticsIdPlaceholder: "G-XXXXXXXXXX", advancedWarning: "HTML koji se ubacuje na svaku stranicu. Koristite s oprezom — nevažeći HTML može pokvariti vaš site.", customHeadHtml: "Prilagođeni <head> HTML", customHeadHtmlHint: "Ubacuje se unutar <head> prije </head>.", customHeadHtmlPlaceholder: "<!-- npr. skripte trećih strana, prilagođeni fontovi -->", customBodyHtml: "Prilagođeni <body> HTML", customBodyHtmlHint: "Ubacuje se neposredno prije </body>.", customBodyHtmlPlaceholder: "<!-- npr. widget za chat, cookie banner -->", robotsHint: "Sadržaj koji vraća GET /robots.txt kad je prisutan zaglavlje X-Project-Slug.", robotsLabel: "robots.txt sadržaj", robotsResetAllow: "Resetiraj na dopusti sve", robotsDisallowAll: "Zabrani sve (održavanje)", savedNotification: "Postavke spremljene", conflictTitle: "Konflikt uređivanja", conflictBody: "Netko drugi je spremio ove postavke dok ste ih uređivali. [Osvježi] za najnoviju verziju.", saveError: "Greška pri spremanju postavki" }, ix = { title: "Webhooks", subtitle: "Obavještavajte vanjske servise o promjenama sadržaja", addBtn: "Dodaj webhook", loading: "Učitavanje…", noWebhooks: "Nema konfiguriranih webhookova", emptyTitle: "Još nema webhookova", emptyDescription: "Obavijestite Slack, Vercel ili build pipeline kada se sadržaj promijeni.", add: "Dodaj webhook", addFirst: "Dodajte prvi webhook", colUrl: "URL", colEvents: "Događaji", colActive: "Aktivno", colCreated: "Stvoreno", colActions: "Akcije", count: "{{count}} webhook", count_other: "{{count}} webhookova", createUrlPlaceholder: "https://primjer.hr/webhook", createEventsLabel: "Događaji", cancel: "Odustani", createBtn: "Stvori webhook", createSuccess: "Webhook uspješno stvoren", secretHint: "Kopirajte i pohranite ovaj tajni ključ — više se neće prikazivati. Koristite ga za provjeru X-CMS-Signature zaglavlja na dolaznim zahtjevima.", done: "Gotovo", validationUrl: "URL mora počinjati s http:// ili https://", validationEvents: "Odaberite barem jedan događaj", createError: "Greška pri stvaranju webhookа", noDeliveries: "Još nema isporuka", viewLog: "Prikaži zapisnik isporuke", deleteWebhook: "Obriši webhook", deliveryLog: "Zapisnik isporuke", deleteTitle: "Obrisati webhook?", deleteBody: "Sva povijest isporuke za ovaj webhook bit će također obrisana.", deleteMessage: "Sva povijest isporuke bit će također obrisana.", deleteConfirm: "Obriši", deleteSuccess: "Webhook obrisan", updateError: "Greška pri ažuriranju webhookа", deleteError: "Greška pri brisanju webhookа", loadError: "Greška pri učitavanju webhookova" }, sx = { title: "Tekstovi", subtitle: "Uređujte fiksne tekstove na frontu bez izmjene koda.", colKey: "Ključ", colValue: "Vrijednost", addRow: "Dodaj tekst", addRowBlocked: "Najprije dovršite novi tekst — unesite ključ i vrijednost za svaki jezik.", removeRow: "Ukloni tekst", save: "Spremi", keyPlaceholder: "npr. hero_title", valuePlaceholder: "Prevedena vrijednost", defaultBadge: "zadano", emptyTitle: "Još nema tekstova", emptyState: "Za ovaj jezik još nije definiran nijedan tekst.", noLocales: "Nije konfiguriran nijedan jezik sadržaja. Konfigurirajte ih u Postavke → Općenito.", saveSuccess: "Tekstovi spremljeni", saveError: "Greška pri spremanju tekstova", loadError: "Greška pri učitavanju tekstova", deleteTitle: "Obrisati ovaj tekst?", deleteBody: 'Ključ "{{key}}" bit će uklonjen iz ovog jezika. Drugi jezici ostaju nepromijenjeni.', deleteMessage: "Ključ će biti uklonjen iz svih jezika.", deleteConfirm: "Obriši", deleteSuccess: "Tekst obrisan", deleteError: "Greška pri brisanju teksta", errorKeyRequired: "Ključ je obavezan", errorKeyFormat: "Dozvoljena su samo slova, brojevi, točka, podvlaka i crtica", errorKeyDuplicate: "Duplikat ključa u ovom jeziku", errorFixFirst: "Ispravite označene pogreške prije spremanja", rowCount: "{{count}} tekst" }, lx = { placeholder: "Pretraži stranice ili skočite na…", newPage: "Nova stranica", newPageDesc: "Stvori novu stranicu", mediaLibrary: "Knjižnica medija", mediaLibraryDesc: "Pregledaj i učitaj datoteke", viewActivity: "Prikaži aktivnost", viewActivityDesc: "Pogledaj zapisnik nedavne aktivnosti", pageHint: "{{slug}} · {{status}}", noResults: "Nema rezultata" }, cx = { title: "Zapisnik aktivnosti", subtitle: "Zapis svih promjena koje je vaš tim napravio.", colWhen: "Kada", colUser: "Korisnik", colAction: "Akcija", colResource: "Resurs", noActivity: "Još nema aktivnosti.", loadMore: "Učitaj više", filter: "Filtar", filterAll: "Sve", filterPages: "Stranice", filterMedia: "Mediji", filterUsers: "Korisnici", rangeLabel: "Vremenski raspon", rangeAll: "Sve vrijeme", range24h: "Zadnja 24 sata", range7d: "Zadnjih 7 dana", range30d: "Zadnjih 30 dana", actions: { page_created: "Stvoreno", page_updated: "Ažurirano", page_moved: "Premješteno", page_published: "Objavljeno", page_trashed: "Premješteno u koš", page_restored: "Vraćeno", page_deleted: "Trajno obrisano", page_locale_disabled: "Onemogućen prijevod", page_version_restored: "Vraćena verzija", menu_created: "Izbornik stvoren", menu_updated: "Izbornik ažuriran", menu_deleted: "Izbornik obrisan", media_uploaded: "Medij prenesen", media_deleted: "Medij obrisan", media_folder_created: "Mapa stvorena", media_folder_moved: "Mapa premještena", media_folder_renamed: "Mapa preimenovana", media_folder_deleted: "Mapa obrisana", media_config_updated: "Postavke medija ažurirane", block_template_created: "Predložak spremljen", block_template_deleted: "Predložak obrisan", page_type_created: "Tip stranice stvoren", page_type_updated: "Tip stranice ažuriran", page_type_deleted: "Tip stranice obrisan", settings_updated: "Postavke ažurirane", strings_updated: "Prijevodi ažurirani", strings_deleted: "Prijevod obrisan", user_invited: "Korisnik pozvan", user_activated: "Račun aktiviran", user_updated: "Korisnik ažuriran", user_disabled: "Korisnik onemogućen", user_reactivated: "Korisnik ponovno aktiviran", user_password_reset_requested: "Poslano resetiranje lozinke", user_password_reset_completed: "Lozinka resetirana", user_invite_resent: "Pozivnica ponovno poslana", user_deleted: "Korisnik obrisan" } }, dx = { saveTitle: "Spremi kao predložak", saveSubtitle: "Sprema trenutnih {{count}} blok(ova) kao predložak za ponovnu upotrebu.", nameLabel: "Naziv predloška", namePlaceholder: "npr. Hero + Dva stupca", nameRequired: "Naziv predloška je obavezan", saveFailed: "Greška pri spremanju predloška", saveBtn: "Spremi predložak", loadTitle: "Učitaj predložak", loadDescription: "Ovo će zamijeniti sve postojeće blokove na stranici.", loadWarning: "Učitavanje predloška zamijenit će sve trenutne blokove sadržaja.", loadNoTemplates: "Još nema spremljenih predložaka.", blockCount: "{{count}} blok(ova)", loadBtn: "Učitaj predložak", crossLocaleTitle: "Predložak iz drugog jezika", crossLocaleBody: "Ovaj predložak je napisan u {{source}}, ali trenutno uređujete {{target}}. Učitavanje će zalijepiti sadržaj na {{source}} u {{target}} karticu. Nastaviti?", crossLocaleConfirm: "Ipak učitaj" }, hx = { mixedContent: { blockLabel: "Blok miješanog sadržaja", widgetText: "Tekst", widgetVideo: "Video", widgetLink: "Veza", widgetAccordion: "Harmonika", widgetGallery: "Galerija", widgetSection: "Sekcija", layoutFull: "Puna širina", layoutHalf: "Pola / Pola", layout13_23: "1/3 + 2/3", layout23_13: "2/3 + 1/3", layoutThree: "Tri jednaka", layout14_34: "1/4 + 3/4", layout34_14: "3/4 + 1/4", chooseLayout: "Odaberite raspored za ovu sekciju:", addWidget: "Dodaj widget", addWidgetDescription: "Odaberite widget za umetanje u ovaj stupac.", cancelBtn: "Odustani", insertBtn: "Ubaci", textPlaceholder: "Upišite ovdje…", textEmpty: "Još nema teksta — kliknite ✏ za uređivanje", videoUrl: "URL videa", videoWidth: "Širina (px)", videoHeight: "Visina (px)", videoEmpty: "Nema URL-a videa — kliknite ✏ za uređivanje", linkEmpty: "Poveznica nije konfigurirana — kliknite ✏ za uređivanje", accordionEmpty: "Nema stavki — kliknite ✏ za dodavanje", accordionMainTitle: "Naslov (neobavezno)", accordionMainTitlePlaceholder: "npr. Često postavljana pitanja", notConfigured: "Nije konfigurirano", configure: "Konfiguriraj", addItem: "+ Dodaj stavku", accordionItem: "Stavka {{num}}", accordionTitle: "Naslov harmonike", accordionContent: "Sadržaj stavke…", galleryEmpty: "Još nema dodanih slika.", galleryEdit: "Uredi galeriju", gallerySelect: "Odaberi slike", resetLayout: "Resetiraj i odaberi drugi raspored", changeLayout: "Promijeni", columnLabel: "Stupac {{num}} ({{width}}/12)", addWidgetBtn: "+ Dodaj widget", sectionTitle: "Naslov sekcije (neobavezno)", changeLayoutBtn: "Promijeni raspored", discardTitle: "Odbaciti promjene?", discardBody: "Imate nespremljene promjene widgeta. Ako sada zatvorite, bit će izgubljene.", collapseWidget: "Sakrij pregled", expandWidget: "Prikaži pregled" } }, px = { paragraph: "Paragraf", heading: "Naslov {{level}}", alignment: "Poravnanje", alignLeft: "Poravnaj lijevo", alignCenter: "Centriraj", alignRight: "Poravnaj desno", alignJustify: "Obostrano poravnanje", indent: "Uvuci", outdent: "Izvuci", table: "Tablica", insertTable: "Umetni tablicu {{rows}}×{{cols}}", tableRow: "Redak", addRowAbove: "Dodaj redak iznad", addRowBelow: "Dodaj redak ispod", deleteRow: "Izbriši redak", tableColumn: "Stupac", addColumnLeft: "Dodaj stupac lijevo", addColumnRight: "Dodaj stupac desno", deleteColumn: "Izbriši stupac", deleteTable: "Izbriši tablicu", addHeaderRow: "Dodaj zaglavni redak", removeHeaderRow: "Ukloni zaglavni redak", mergeCells: "Spoji ćelije", splitCell: "Razdvoji ćeliju", cellOptions: "Opcije ćelije", addImage: "Dodaj sliku", imageModal: { title: "Dodaj sliku", titleEdit: "Uredi sliku", add: "+ Dodaj", change: "Promijeni", imageTitle: "Naslov slike", imageTitlePlaceholder: "Unesite naslov slike", description: "Opis slike", descriptionPlaceholder: "Alternativni tekst za pristupačnost", alignment: "Poravnanje slike", alignDefault: "Zadano", alignLeft: "Lijevo", alignCenter: "Sredina", alignRight: "Desno", dimensions: "Dimenzije slike", originalDims: "Koristi originalne dimenzije", customDims: "Postavi prilagođene dimenzije", width: "Širina (px)", height: "Visina (px)", lockAspect: "Zaključaj omjer stranica", unlockAspect: "Otključaj omjer stranica" } }, ux = { nav: { store: "Trgovina", categories: "Kategorije" }, categories: { new: "Nova kategorija", addChild: "Dodaj potkategoriju", empty: "Još nema kategorija", emptyHint: "Izradite prvu kategoriju za organizaciju proizvoda.", createTitle: "Nova kategorija", editTitle: "Uredi kategoriju", slug: "Slug", slugHelp: "Mala slova, riječi odvojene crticom (npr. elektricni-alati).", slugRequired: "Slug je obavezan.", parent: "Nadređena kategorija", root: "— Nijedna (najviša razina) —", label: "Naziv", description: "Opis", metaTitle: "Meta naslov", metaDescription: "Meta opis", heroImage: "Naslovna slika", pickImage: "Odaberi sliku", editingLocale: "Uređivanje {{locale}} sadržaja", labelRequired: "Naziv je obavezan za barem jedan jezik.", save: "Spremi", create: "Izradi", delete: "Obriši", deleteTitle: "Obrisati kategoriju?", deleteBody: "Ovo trajno briše kategoriju.", saved: "Kategorija spremljena", deleted: "Kategorija obrisana" }, errors: { slug_taken: "Taj slug već koristi druga kategorija.", has_children: "Prvo premjestite ili obrišite njezine potkategorije.", cycle_detected: "Kategorija se ne može premjestiti u vlastitu potkategoriju.", cannot_parent_self: "Kategorija ne može biti sama sebi nadređena.", parent_not_found: "Odabrana nadređena kategorija više ne postoji.", conflict: "Netko je drugi promijenio ovu kategoriju. Osvježite i pokušajte ponovno.", generic: "Nešto je pošlo po krivu. Pokušajte ponovno." } }, fx = {
+pravom ritmu.`, subTagline: "Headless CMS za timove kojima su važni detalji.", welcomeBack: "Dobrodošli natrag", signInToWorkspace: "Prijavite se u svoj radni prostor", email: "E-pošta", emailPlaceholder: "vi@primjer.hr", password: "Lozinka", passwordPlaceholder: "Vaša lozinka", signIn: "Prijava", signingIn: "Prijava u tijeku…", forgotHint: "Zaboravili ste lozinku? Obratite se administratoru.", error: "Neispravna e-pošta ili lozinka" }, q8 = { cancel: "Odustani", save: "Spremi", delete: "Obriši", edit: "Uredi", create: "Stvori", close: "Zatvori", back: "Natrag", loading: "Učitavanje...", loadingEllipsis: "Učitavanje…", copy: "Kopiraj", copied: "Kopirano!", remove: "Ukloni", rename: "Preimenuj", upload: "Učitaj", download: "Preuzmi", preview: "Pregled", restore: "Vrati", never: "Nikad", dismiss: "Odbaci", done: "Gotovo", add: "Dodaj", change: "Promijeni", reset: "Resetiraj", search: "Pretraži", on: "uključeno", off: "isključeno", configure: "Konfiguriraj", backToList: "Natrag na popis", discard: "Odbaci", confirm: "Potvrdi" }, V8 = { dashboard: "Nadzorna ploča", pages: "Stranice", media: "Mediji", menus: "Izbornici", settings: "Postavke", users: "Korisnici", apiKeys: "API ključevi", activity: "Aktivnost", webhooks: "Webhooks", strings: "Tekstovi", workspace: "Radni prostor", system: "Sustav", toggleSidebar: "Preklopi bočnu traku", cmsAdmin: "ARTKOD CMS", lightMode: "Svijetli način", darkMode: "Tamni način", switchToLight: "Prebaci na svijetli način", switchToDark: "Prebaci na tamni način", signOut: "Odjava", contentLanguage: "Jezik sadržaja" }, B8 = { searchPages: "Pretraži stranice…", editPage: "Uredi stranicu", newPage: "Nova stranica", menuLabel: "Izbornik: {{label}}", backToList: "Natrag na popis", backToMenus: "Natrag na izbornike" }, F8 = { title: "Nadzorna ploča", subtitle: "Pregled sadržaja i nedavne aktivnosti.", newPage: "Nova stranica", mediaLibrary: "Mediji", publishedPages: "Objavljene stranice", draftPages: "Skice", mediaFiles: "Medijske datoteke", activityWeek: "Aktivnost (7 dana)", publishedThisWeek_one: "{{count}} ovaj tjedan", publishedThisWeek_few: "{{count}} ovaj tjedan", publishedThisWeek_other: "{{count}} ovaj tjedan", noneThisWeek: "Ništa ovaj tjedan", scheduledCount_one: "{{count}} u rasporedu", scheduledCount_few: "{{count}} u rasporedu", scheduledCount_other: "{{count}} u rasporedu", noneScheduled: "Ništa zakazano", storageUsed: "{{size}} iskorišteno", contributorsCount_one: "{{count}} suradnik", contributorsCount_few: "{{count}} suradnika", contributorsCount_other: "{{count}} suradnika", translationCoverage: "Pokrivenost prijevodima", translationMissing_one: "{{count}} prijevod nedostaje", translationMissing_few: "{{count}} prijevoda nedostaje", translationMissing_other: "{{count}} prijevoda nedostaje", translationComplete: "Potpuno prevedeno", staleContent: "Zastarjeli sadržaj", staleContentFooter: "Bez izmjena 3+ mjeseca", pendingDrafts: "Skice na čekanju", pendingDraftsFooter: "Čeka objavu", pagesByType: "Tipovi stranica u upotrebi", pagesByTypeFooter: "Najviše: {{type}} ({{count}})", trashedPages: "Stranice u smeću", trashedFooter: "U smeću", mediaByType: "Slike", mediaByTypeFooter_one: "{{count}} dokument", mediaByTypeFooter_few: "{{count}} dokumenta", mediaByTypeFooter_other: "{{count}} dokumenata", team: "Aktivni korisnici", teamFooter: "{{pending}} na čekanju · {{disabled}} onemogućeno", recentActivity: "Nedavna aktivnost", noActivity: "Još nema aktivnosti.", viewAllActivity: "Vidi sve", recentlyEdited: "Nedavno uređeno", noRecentEdits: "Još nema uređenih stranica.", quickActions: "Brze akcije", recentDrafts: "Nedavne skice", noRecentDrafts: "Nema nedavnih skica.", actionNewPage: "Stvori novu stranicu", actionNewPageDesc: "Počni prazan nacrt", actionUploadMedia: "Prenesi medij", actionUploadMediaDesc: "Dodaj slike i datoteke", actionSettings: "Postavke stranice", actionSettingsDesc: "Konfiguriraj projekt", greetingMorning: "Dobro jutro", greetingAfternoon: "Dobar dan", greetingEvening: "Dobra večer", greetingSubtitle: "Evo što se događa", actions: { created: "Stvoreno", updated: "Ažurirano", deleted: "Obrisano", published: "Objavljeno", restored: "Vraćeno", permDeleted: "Trajno obrisano" } }, U8 = { title: "Stranice", titleTrash: "Koš za smeće", subtitle: "Upravljajte objavljenim sadržajem i skicama.", subtitleTrash: "Obrisane stranice — vratite ih ili trajno uklonite.", newPage: "+ Nova stranica", exitTrash: "Izađi iz koša", enterTrash: "Koš za smeće", options: "Postavke", allStatuses: "Svi statusi", draft: "Skica", published: "Objavljeno", allTypes: "Svi tipovi", colTitle: "Naslov", colSlug: "Slug", colStatus: "Status", colActions: "Akcije", noResults: 'Nema rezultata za "{{query}}"', resultCount: '{{count}} rezultat(a) za "{{query}}"', trashEmpty: "Koš za smeće je prazan.", noMatch: "Nijedna stranica ne odgovara filtrima.", noPages: "Još nema stranica", createFirst: "Stvorite svoju prvu stranicu", pagination: "{{from}}–{{to}} od {{total}} stranica", restore: "Vrati", deleteForever: "Obriši zauvijek", delete: "Obriši", moveToTrash: "Premjesti u koš", moveToTrashConfirm: "Premjestiti stranicu u koš? Možete je kasnije vratiti.", permDeleteTitle: "Trajno brisanje stranice", permDeleteBody: "Ovo se ne može poništiti. Stranica i sve njene verzije bit će zauvijek izbrisane.", permDeleteConfirm: "Obriši zauvijek", scheduled: "Zakazano", draftBadge: "Nacrt", pendingDraft: "Čeka objavu", permDeleteSuccess: "Stranica trajno obrisana", permDeleteFailed: "Trajno brisanje stranice nije uspjelo", trashChildCount_one: "1 podstranica u košu", trashChildCount_few: "{{count}} podstranice u košu", trashChildCount_other: "{{count}} podstranica u košu", trashOrphan: "Bila pod: {{parent}}", trashOrphanUnknown: "obrisana stranica", trashTruncated: "Prikazano prvih {{count}} stranica iz koša. Vratite ili trajno obrišite neke da biste vidjeli ostale." }, W8 = { title: "Nova stranica", description: "Odaberite tip stranice za početak.", typeSection: "Tip stranice", chooseType: "Odaberite tip stranice:", requiresParent: "Zahtijeva nadređenu stranicu", parentNamed: "Nadređena: {{name}}", children: "Podstranice: {{types}}", globalLimit: "Dostignut globalni limit", parentRequired: "Nadređena stranica (obavezno)", parentOptional: "Nadređena stranica (neobavezno)", parentPlaceholder: "Odaberite nadređenu stranicu…", perParentLimit: 'Ova nadređena stranica već ima {{limit}} stranica tipa "{{label}}" (dostignut limit po roditelju).', cancel: "Odustani", createBtn: "Stvori {{label}}", defaultLabel: "Stranicu" }, K8 = { title: "Postavke tipa stranice", description: "Promijenite ponašanje za svaki tip stranice koji je projekt registrirao. Kodom definirane vrijednosti ostaju izvorni izvor — prazna polja se vraćaju na njih.", loading: "Učitavam…", empty: "Ovaj projekt nema registriranih tipova stranica.", deletable: "Može se obrisati", deletableHelp: "Kad je isključeno, gumb za brisanje sakriva se za stranice ovog tipa. Zadano: {{default}}", canBeRoot: "Može biti na korijenu", canBeRootHelp: "Kad je isključeno, stranice ovog tipa moraju imati nadređenu stranicu. Zadano: {{default}}", limit: "Maks. broj stranica (ukupno)", limitHelp: "Ukupno dopušteno stranica ovog tipa na cijelom projektu. Ostavite prazno za neograničeno. Zadano: {{default}}", perParentLimit: "Maks. po nadređenoj stranici", perParentLimitHelp: "Maks. broj stranica ovog tipa unutar jedne nadređene stranice. Ostavite prazno za neograničeno. Zadano: {{default}}", noLimit: "Bez ograničenja", reset: "Resetiraj", resetTooltip: "Vrati na vrijednosti definirane u kodu za ovaj tip", overridden: "Izmijenjeno — razlikuje se od zadanih vrijednosti", loadError: "Neuspjelo učitavanje postavki", saved: "Postavke tipa stranice su spremljene", saveError: "Neuspjelo spremanje postavki", deleted: "Tip stranice je obrisan", systemBadge: "sustav", addType: "Dodaj tip stranice", createTitle: "Stvori tip stranice", editTitle: "Uredi tip stranice", back: "Natrag", slugLabel: "Identifikator", slugHelp: "Mala slova, brojevi i crtice. Koristi se na frontendu za prikaz ovog tipa.", slugLocked: "Zaključano nakon stvaranja — preimenovanje bi razbilo frontend prikaz.", slugInvalid: "Samo mala slova, brojevi i crtice.", slugTaken: 'Identifikator "{{slug}}" je već zauzet.', slugShadowsCodeType: 'Identifikator "{{slug}}" već postoji.', labels: "Nazivi", labelFor: "Naziv ({{locale}})", allowedParentTypes: "Dopušteni nadređeni tipovi", allowedChildTypes: "Dopušteni podređeni tipovi", allowBlocks: "Dopusti sadržajne blokove", allowedBlockTypes: "Dopušteni tipovi blokova", allowedBlockTypesHint: "Ostavite prazno za sve registrirane tipove blokova.", fields: "Polja", fieldsEmpty: "Još nema polja. Dodajte jedno ispod.", addField: "Dodaj polje", fieldName: "Naziv (id)", fieldLabel: "Naziv", fieldType: "Tip", fieldRequired: "Obavezno", fieldPlaceholder: "Pomoćni tekst", fieldOptions: "Opcije", fieldOptionsHint: "Pritisnite Enter nakon svake opcije.", fieldNameInvalid: "Slova, brojevi i podvlaka. Mora započinjati slovom ili podvlakom.", removeField: "Ukloni polje", removeFieldConfirm: "Ukloniti ovo polje? Podaci stranica pohranjeni pod ovim nazivom postat će napušteni.", deleteType: "Obriši tip stranice", deleteConfirm: "Obrisati ovaj tip stranice? Brisanje je dopušteno samo ako ga niti jedna stranica više ne koristi.", deleteInUseError: "Nije moguće obrisati — {{count}} stranica još koristi ovaj tip. Prvo ih uklonite ili pretvorite." }, Y8 = { subtitle: "Upravljajte objavljenim sadržajem, skicama i hijerarhijom stranica.", noPages: "Još nema stranica. Stvorite svoju prvu stranicu!", newPage: "Nova stranica", addChild: "Dodaj podstranicu", collapse: "Sažmi", expand: "Proširi", dragHandle: "Povuci za promjenu redoslijeda", previewPage: "Pregled stranice", deletePage: "Obriši", deleteTitle: "Obriši stranicu", deleteBody: "Obrisati ovu stranicu? Sve podstranice bit će premještene na razinu korijena.", deleteConfirm: "Obriši", previewNeedsFrontend: "Konfigurirajte frontendUrl u createAdmin() za pregled.", previewFailed: "Greška pri stvaranju pregleda", pageDeleted: "Stranica obrisana", deleteError: "Greška pri brisanju stranice", deleteParentBlocked: "Sadrži podstranice — može obrisati samo admin ili developer.", deleteCurrentLocaleInactive: "{{locale}} verzija je već onemogućena. Promijeni jezik za brisanje stranice.", deleteTypeNotDeletable: "Ovaj tip stranice se ne može obrisati.", moveError: { generic: "Premještanje stranice nije uspjelo.", parentInSubtree: "Stranicu nije moguće premjestiti ispod same sebe ili svojih podstranica.", parentNotFound: "Odredišna stranica više ne postoji.", parentTrashed: "Odredišna stranica je u košu.", invalidParentType: "Ovaj tip stranice nije dozvoljen ispod tog roditelja.", parentNoChildren: "Stranice tipa „{{parent}}“ ne mogu sadržavati podstranice.", invalidChildType: "Stranice tipa „{{parent}}“ ne mogu sadržavati stranice tipa „{{child}}“.", perParentLimit: "Odredišni roditelj već ima maksimalan broj stranica ovog tipa.", cannotBeRoot: "Ovaj tip stranice ne može biti na vrhu.", versionConflict: "Stranica je u međuvremenu izmijenjena — osvježi i pokušaj ponovno.", pageTrashed: "Stranica je u košu i ne može se premjestiti.", invalidInsertBefore: "Stranicu nije moguće postaviti na traženu poziciju." } }, G8 = { loading: "Provjeravam što će biti obrisano…", success: "Stranica premještena u koš", disableSuccess: "Verzija {{locale}} deaktivirana", confirm: { title: "Obrisati stranicu?", leaf_single: "Stranica {{title}} bit će premještena u koš. Možete je kasnije vratiti.", leaf_multi: "Sve {{count}} jezične verzije ({{locales}}) stranice {{title}} bit će premještene u koš.", cascade_one: "Stranica {{title}} i 1 podstranica ({{translationCount}} prijevoda u jezicima {{locales}}) bit će premještene u koš.", cascade_other: "Stranica {{title}} i {{count}} podstranica ({{translationCount}} prijevoda u jezicima {{locales}}) bit će premještene u koš.", intro_multilocale: "Ova stranica je aktivna u {{activeLocales}}. Možete obrisati cijelu stranicu (sve jezike) ili samo deaktivirati verziju {{currentLocale}}, a {{otherLocales}} ostaje aktivno.", deleteButton: "Obriši cijelu stranicu", disableButton: "Deaktiviraj samo verziju {{locale}}", disableExplain_one: "Skriva ovu stranicu posjetiteljima jezika {{locale}}. {{otherLocales}} ostaje aktivno.", disableExplain_other: "Skriva ovu stranicu i {{count}} podstranica posjetiteljima jezika {{locale}}. {{otherLocales}} ostaje aktivno.", presence: "Trenutno uređuju: {{emails}}", restoreHint: "Može se vratiti iz koša." }, blocked: { title: "Stranicu nije moguće obrisati", intro_one: "Stranicu nije moguće obrisati jer je još uvijek referencira 1 stavka izbornika ili poveznica:", intro_other: "Stranicu nije moguće obrisati jer je još uvijek referencira {{count}} stavki izbornika ili poveznica:", menusHeader_one: "1 stavka izbornika", menusHeader_other: "{{count}} stavki izbornika", pagesHeader_one: "1 stranica", pagesHeader_other: "{{count}} stranica", menuRow: "{{label}} · {{location}}", pageRow: "{{title}}", hint: "Otvorite navedene stavke, uklonite poveznicu i pokušajte ponovno.", close: "Zatvori" }, disableBlocked: { title: "Nije moguće deaktivirati verziju {{locale}}", intro_one: "Deaktivacija verzije {{locale}} pokvarila bi 1 poveznicu koja još uvijek upućuje na ovaj sadržaj:", intro_other: "Deaktivacija verzije {{locale}} pokvarila bi {{count}} poveznica koje još uvijek upućuju na ovaj sadržaj:" }, forbiddenParent: "Stranica ima podstranice — može je obrisati samo admin ili developer.", multiLocale: { activeIn: "aktivno u {{locales}}", intro: "Ova stranica postoji u više jezika. Odaberite način brisanja:", disableLocaleTitle: "Deaktiviraj samo verziju {{locale}}", disableLocaleHelp: "Skriva ovu stranicu posjetiteljima {{locale}}. {{other}} ostaje aktivno. Može se vratiti iz koša.", disableLocaleHelpDesc: "Skriva ovu stranicu i {{count}} podstranica posjetiteljima {{locale}}. {{other}} ostaje aktivno. Može se vratiti iz koša.", deleteEntireHelp: "Stranica {{subject}} i svi njezini prijevodi ({{locales}}) bit će premješteni u koš.", deleteEntireHelpDesc: "Stranica {{subject}} i {{count}} podstranica ({{locales}}) bit će premješteni u koš." } }, Z8 = { title: "Vrati stranicu", loading: "Provjera mogućnosti vraćanja…", success: "Stranica vraćena", restoreButton: "Vrati", placementLabel: "Gdje vratiti ovu stranicu?", typeHint: "Tip stranice: {{type}}", option: { originalParent: 'Pod "{{title}}" (izvorni roditelj)', root: "Premjesti u korijen (najvišu razinu)", rootOriginal: "U korijen (najvišu razinu)", otherParent: "Pod drugu stranicu…", pickParent: "Odaberite roditeljsku stranicu", loading: "Učitavanje stranica…", noMatches: "Nema odgovarajućih stranica" }, cascade: { label_one: "Vrati i 1 obrisanu podstranicu", label_few: "Vrati i {{count}} obrisane podstranice", label_other: "Vrati i {{count}} obrisanih podstranica", hint: "Podstranice obrisane zajedno s ovom stranicom bit će vraćene na svoje izvorne pozicije." }, reason: { parent_trashed: "Izvorni roditelj je još u košu. Prvo ga vratite ili odaberite drugog roditelja.", type_mismatch: "Izvorni roditelj nije valjan tip roditelja za {{type}}.", per_parent_limit_reached: "Ovaj roditelj već ima maksimalan broj {{type}} stranica ({{limit}}).", cannot_be_root: "{{type}} stranice ne mogu biti na korijenskoj razini.", global_limit_reached: "Dosegnuto ograničenje broja {{type}} stranica na projektu ({{limit}})." }, blocked: { title: "Vraćanje nije moguće", typeNotRegistered: 'Tip stranice "{{type}}" više nije registriran u projektu. Vratite tip ili trajno obrišite stranicu.', noPlacement: "Trenutno nema valjanog mjesta za vraćanje ove {{type}} stranice.", suggestion: "Vratite (ili stvorite) stranicu tipa: {{parentTypes}}, a zatim pokušajte ponovno.", parentInTrash: 'Izvorni roditelj "{{parentTitle}}" je još u košu — vratite ga prvo da bi ova stranica imala dom.', globalLimit: "Dosegnuto ograničenje broja {{type}} stranica na projektu ({{limit}}). Obrišite ili premjestite u koš jednu aktivnu {{type}} stranicu." }, error: { generic: "Vraćanje stranice nije uspjelo. Pokušajte ponovno.", pickParent: "Molimo odaberite roditeljsku stranicu.", parentTrashed: "Odabrani roditelj je u košu. Odaberite aktivnu stranicu ili prvo vratite roditelja.", parentNotFound: "Odabrani roditelj više ne postoji.", parentInSubtree: "Stranica ne može biti premještena pod jednu od svojih podstranica.", invalidParentType: "Odabrani roditelj nije valjan tip roditelja za {{type}}.", perParentLimitReached: "Ovaj roditelj već ima maksimalan broj {{type}} stranica ({{limit}}).", cannotBeRoot: "{{type}} stranice ne mogu biti na korijenskoj razini.", globalLimitReached: "Dosegnuto ograničenje broja {{type}} stranica na projektu ({{limit}}).", slugTaken: '{{locale}} slug "{{slug}}" je već u upotrebi na aktivnoj stranici. Preimenujte ga prije vraćanja.' } }, J8 = { titleEdit: "Uredi stranicu", titleNew: "Nova stranica", tabContent: "Sadržaj", tabSeo: "SEO", fieldTitle: "Naslov", placeholderTitle: "Naslov stranice", fieldStatus: "Status", statusDraft: "Skica", statusPublished: "Objavljeno", statusHint: "Samo admini i programeri mogu objavljivati ili povlačiti stranice", schedulePublish: "Zakazano objavljivanje", scheduleDescription: "Stranica će se automatski objaviti u odabrano vrijeme.", scheduleHint: "Ostavite prazno za neodređenu skicu", schedulePlaceholder: "Odaberite datum i vrijeme…", scheduledFor: "Zakazano za {{date}}", scheduleClear: "Obriši", scheduleConfirm: "Potvrdi", scheduleLeaveBlank: "Ostavite prazno za zadržavanje nacrta neograničeno.", parentRequired: "Nadređena stranica (obavezno)", parentOptional: "Nadređena stranica (neobavezno)", parentNone: "Bez nadređene (korijenski nivo)", fieldsSectionTitle: "Polja", contentSections: "Sekcije sadržaja", saveAsTemplate: "Spremi kao predložak", loadTemplate: "Učitaj predložak", noSections: "Još nema sekcija. Dodajte jednu ispod.", addSection: "+ Dodaj novu sekciju", addBlockLabel: "+ {{label}}", chooseBlockType: "Odaberite vrstu odjeljka", metaTitle: "Meta naslov", metaDescription: "Meta opis", metaDescriptionHint: "Kratki opis za tražilice", metaTitleCount: "{{count}}/60 znakova", metaTitleTooLong: "Meta naslov je predug", metaDescCount: "{{count}}/160 znakova", metaDescTooLong: "Meta opis je predug", ogImage: "OG slika", pickImage: "Odaberi sliku", canonicalUrl: "Kanonski URL", canonicalPlaceholder: "https://primjer.hr/moja-stranica", canonicalHint: "Ostavite prazno za korištenje zadanog URL-a stranice", noindex: "Sakrij od tražilica (noindex)", googlePreview: "Pregled u Googleu", noDescription: "Opis nije postavljen.", savePage: "Spremi", publishPage: "Objavi stranicu", publishSuccess: "Stranica objavljena", publishError: "Nije moguće objaviti stranicu", localeActiveCheckbox: "Aktivan na ovom jeziku", localeMissing: "Još nema sadržaja za {{locale}}", localeInactive: "{{locale}} je neaktivan — sadržaj se neće prikazivati na javnom sajtu", deactivateError: "Nije moguće provjeriti gdje je ova stranica korištena", deactivateBlockedTitle: "Ova stranica je još uvijek povezana u jeziku {{locale}}", deactivateBlockedBody: "Deaktivacija jezika {{locale}} bi tiho prekinula veze ispod. Najprije ih uklonite, zatim se vratite na deaktivaciju.", deactivateBlockedMenus: "Korišteno u izbornicima:", deactivateBlockedPages: "Linkano sa stranica:", cascadeBlockedTitle: "Nije moguće deaktivirati {{locale}} na podstranicama", cascadeBlockedBody: "Deaktivacija jezika {{locale}} na ovoj stranici bi deaktivirala isti jezik i na podstranicama, ali neke su još uvijek povezane sa sadržajem izvan ovog podstabla u istom jeziku. Uklonite veze ispod pa pokušajte ponovno.", cascadeBlockedPageLabel: "Podstranica: {{title}}", cascadeDoneNotification: "Jezik {{locale}} deaktiviran na {{count}} podstranica/e", cascadeConfirmTitle: "Deaktivirati {{locale}} i na podstranicama?", cascadeConfirmBody: "{{count}} podstranica trenutno aktivnih u jeziku {{locale}} također će biti deaktivirano prilikom spremanja. Akcija se izvršava prilikom spremanja i može se poništiti ponovnim aktiviranjem svake stranice pojedinačno.", cascadeConfirmAction: "Deaktiviraj na podstranicama", ancestorBlockedTitle: "Još nije moguće aktivirati {{locale}}", ancestorBlockedBody: "Jedna ili više nadređenih stranica još uvijek ima {{locale}} deaktiviran. Najprije aktivirajte {{locale}} na nadređenoj stranici, a zatim se vratite ovamo. Inače bi se ova stranica objavila na URL-u čiji nadređeni segment ne postoji.", cascadeFailedError: "Stranica je spremljena, ali nije bilo moguće prenijeti deaktivaciju jezika {{locale}} na podstranice", statusDraftBadge: "Skica", statusPublishedBadge: "Objavljeno", statusPendingBadge: "Objavljeno · Čeka objavu", leaveTitle: "Napustiti stranicu?", leaveBody: "Imate nespremljene promjene. Ako odete sada, promjene će biti izgubljene.", leaveConfirm: "Napusti", conflictTitle: "Konflikt uređivanja", conflictBody: "Netko drugi je spremio ovu stranicu dok ste je uređivali. [Osvježi] za najnoviju verziju.", savedNotification: "Stranica spremljena", saveError: "Greška pri spremanju stranice", siblingSlugTaken: "Druga stranica pod istim roditeljem već koristi ovaj naziv ({{locale}}). Preimenujte ovu stranicu da biste je spremili.", previewNeedsSave: "Najprije spremite stranicu za pregled", previewNeedsFrontend: "Konfigurirajte frontendUrl u createAdmin() za pregled", previewFailed: "Greška pri stvaranju pregleda", versionHistory: "Povijest verzija", versionHistoryDescription: "Povratite raniju verziju ove stranice.", versionCount: "{{count}} spremljena verzija", versionCount_other: "{{count}} spremljenih verzija", versionCurrent: "trenutna", noVersions: "Još nema verzija. Verzije se stvaraju pri svakom spremanju.", restoreVersion: "Vrati", restoreVersionTitle: "Vratiti verziju?", restoreVersionBody: "Ovo će zamijeniti trenutni sadržaj stranice s ovom verzijom. Trenutno stanje bit će spremljeno kao nova verzija.", restoreVersionFailed: "Greška pri vraćanju verzije", unknownBlock: "Nepoznati tip bloka: {{type}}", unsavedBadge: "Nespremljene promjene", lastSaved: "Zadnje spremljeno {{time}}", alsoEditing: "{{emails}} također uređuje", moreEditors: "+{{count}}" }, X8 = { title: "Izbornici", subtitle: "Upravljajte navigacijskim izbornicima za vaš frontend.", newMenu: "Novi izbornik", loading: "Učitavanje…", noMenus: "Još nema izbornika. Stvorite prvi!", emptyTitle: "Još nema izbornika", emptyDescription: "Stvorite navigacijske izbornike za zaglavlje, podnožje i ostala područja frontenda.", locationPrimary: "primary — glavna navigacija", locationFooter: "footer — poveznice u podnožju", locationBadge_primary: "Glavna navigacija", locationBadge_footer: "Navigacija u podnožju", edit: "Uredi", delete: "Obriši", modeAuto: "Auto", modeManual: "Ručno", topLevelItems: "{{count}} stavka/stavki na vrhu", autoInfo: "{{types}} · dubina {{depth}}", deleteTitle: "Obriši izbornik", deleteBody: "Obrisati ovaj izbornik? Ovo se ne može poništiti.", deleteConfirm: "Obriši", createTitle: "Stvori izbornik", createDescription: "Navigacijski izbornici prikazuju se na vašem sučelju.", modeSection: "Način rada", modeManualSub: "Vi upravljate svakom stavkom", modeAutoSub: "Gradi se iz stabla stranica", locationSection: "Navigacijski slot", locationPrimaryTitle: "Primarna navigacija", locationPrimaryCardSub: "Navigacija u zaglavlju", locationFooterTitle: "Podnožje", locationFooterCardSub: "Poveznice u podnožju", alreadyAdded: "Već dodano", allLocationsUsed: "Sve lokacije izbornika su već u upotrebi.", cancel: "Odustani", createBtn: "Stvori izbornik" }, Q8 = { title: "Uređivač navigacijskog izbornika", alsoEditing: "{{emails}} također uređuje", moreEditors: "+{{count}}", save: "Spremi izbornik", modeLabel: "Način rada", modeAuto: "Auto (Pametni)", modeManual: "Ručni (Prilagođeni)", modeAutoHint: "Automatski generira stavke izbornika iz odabranih tipova stranica.", modeManualHint: "Ručno rasporedite stavke povlačenjem i ispuštanjem.", includeTypes: "Uključi tipove stranica", includeTypesHint: "Pojavit će se samo objavljene stranice ovih tipova.", includeTypesPlaceholder: "Odaberite tipove stranica…", maxDepth: "Maksimalna dubina", maxDepthHint: "Razine djece za uključiti (0 = samo korijen).", depth0: "0 — samo korijen", depth1: "1 razina", depth2: "2 razine", depth3: "3 razine", maxTypes: "Maks. odabranih tipova stranica", maxTypesHint: "Ograničite koliko tipova admini mogu odabrati.", previewLabel: "Pregled", previewLoading: "Učitavanje pregleda…", previewEmpty: "Nema objavljenih stranica koje odgovaraju odabranim tipovima.", itemsLabel: "Stavke", addItem: "Dodaj stavku", dndHint: "Povucite na stavku za ugniježđivanje · Ispustite gore/dolje za sortiranje · Koristite ◀ ▶ za promjenu razine", noItems: "Još nema stavki. Dodajte prvu stavku izbornika.", indentOut: "Premjesti na nadređenu razinu", indentIn: "Postavi kao dijete gornje stavke", itemLabelField: "Oznaka", itemLabelPlaceholder: "npr. Proizvodi", itemTypePage: "Stranica", itemTypeUrl: "Prilagođeni URL", itemPageLabel: "Stranica", itemPagePlaceholder: "Pretraži stranice…", itemUrlLabel: "URL", itemUrlPlaceholder: "https://… ili /relativno", itemNewTab: "Otvori u novoj kartici", editItem: "Uredi stavku", cancelItem: "Odustani", saveItem: "Spremi promjene", saveNewItem: "Dodaj stavku", removeItem: "Ukloni stavku", removeItemTitle: "Ukloniti ovu stavku i svu njenu djecu?", removeItemConfirm: "Ukloni", switchToAuto: "Prebaci na Auto način", switchToManual: "Prebaci na Ručni način", switchToAutoConfirm: "Prebacivanje na Auto način će odbaciti ručno konfigurirane stavke. Nastaviti?", switchToManualConfirm: "Prebaciti na Ručni način? Trenutna auto-generirana struktura koristit će se kao polazište.", switchManualImport: "Prebaci i uvezi stavke", switchAutoConfirm: "Prebaci na Auto", savedNotification: "Izbornik spremljen", conflictBody: "Netko drugi je spremio ovaj izbornik dok ste ga uređivali. [Osvježi] za najnoviju verziju.", saveError: "Greška pri spremanju izbornika", itemLabelFor: "Oznaka ({{locale}})", itemLabelFallback: "Koristi vrijednost iz {{locale}}", itemLabelMissing: "Nedostaje za: {{locales}}", itemLabelAutoHint: "Ostavite prazno za korištenje naslova stranice „{{title}}”.", itemLocaleBadge: "Nije u {{locale}}", itemLocaleTooltip: "Ova stranica nema aktivni prijevod u {{locale}}. Bit će sakrivena iz javnog izbornika za ovaj jezik.", previewLocaleHint: "Pregled za {{locale}}. Stranice bez aktivnog prijevoda u ovom jeziku su sakrivene." }, ex = { title: "Mediji", subtitle: "Učitajte i upravljajte slikama, dokumentima i ostalim datotekama.", searchPlaceholder: "Pretraži datoteke…", fileCount: "{{count}} datoteka/datoteke", viewLarge: "Veliko", viewSmall: "Malo", viewList: "Lista", settingsBtn: "Postavke", uploadBtn: "Učitaj", filterAll: "Sve", filterImages: "Slike", filterDocs: "Dokumenti", noResults: "Nema datoteka koje odgovaraju pretrazi.", noFiles: "Nema datoteka", uploadFiles: "Učitaj datoteke", foldersTitle: "Mape", allFiles: "Sve datoteke", unorganized: "Neorganizirano", newFolder: "Nova mapa", confirmDelete: "Potvrdi brisanje", confirmCreate: "Stvori", newSubfolder: "Nova podmapa", rename: "Preimenuj", delete: "Obriši", expand: "Proširi", collapse: "Skupi", folderActions: "Radnje mape", deleteFolderTitle: "Obrisati mapu?", deleteFolderMessage: "Ova radnja se ne može poništiti.", renameFileTitle: "Preimenuj datoteku", renameFileLabel: "Ime datoteke", cancel: "Odustani", save: "Spremi", renameFailed: "Greška pri preименовању.", fileInfoTitle: "Info o datoteci", fileInfoName: "Prikazano ime", fileInfoStorage: "Naziv pohrane", fileInfoType: "Tip", fileInfoSize: "Veličina", fileInfoUploaded: "Učitano", fileInfoModified: "Zadnja izmjena", fileInfoCdnUrl: "CDN URL", copy: "Kopiraj", copied: "Kopirano!", download: "Preuzmi", close: "Zatvori", copyUrl: "Kopiraj URL", fileInfo: "Info o datoteci", deleteFile: "Obriši", downloadSelected: "Preuzmi {{count}} odabranih", deleteSelected: "Obriši {{count}} odabranih", deleteFileTitle: "Obrisati datoteku?", deleteFileBody: "Obrisati <strong>{{name}}</strong>? Ovo se ne može poništiti.", deleteFileMessage: "Ovo se ne može poništiti.", deleteSelectedTitle: "Obrisati odabrane datoteke?", deleteSelectedBody: "Obrisati <strong>{{count}} odabranu/ih datoteku/a</strong>? Ovo se ne može poništiti.", deleteSelectedMessage: "Obrisati {{count}} odabranu/ih datoteku/a? Ovo se ne može poništiti.", deleteConfirm: "Obriši {{count}} datoteka/e", usedOnPages: "Koristi se na {{count}} stranici/ama:", removeFromPagesFirst: "Najprije uklonite ovu sliku s tih stranica.", sortNewest: "Dodano (najnovije)", sortOldest: "Dodano (najstarije)", sortModifiedNew: "Izmijenjeno (najnovije)", sortModifiedOld: "Izmijenjeno (najstarije)", sortNameAZ: "Ime (A → Ž)", sortNameZA: "Ime (Ž → A)", sortSizeLarge: "Veličina (najveće)", sortSizeSmall: "Veličina (najmanje)", dropUploadTo: 'Ispustite za učitavanje u "{{folder}}"', dropUpload: "Ispustite za učitavanje", skippedDuplicatesTitle: "Preskočeni duplikati", skippedDuplicates: "Preskočeno {{count}} datoteka koje već postoje u ovoj mapi: {{names}}", selectedCount: "{{count}} datoteka/e odabrano", selectAll: "Odaberi sve", showingRange: "{{from}}–{{to}} od {{total}}", moveToFolder: "Premjesti u mapu…", clearSelection: "Poništi", settingsTitle: "Bunny CDN pohrana", settingsConfigured: "Konfigurirano", settingsZoneName: "Naziv zone pohrane", settingsPathPrefix: "Prefiks putanje pohrane", settingsPathHint: "Putanja podmape unutar zone.", settingsApiKeyEdit: "API ključ pohrane (ostavite prazno za zadržavanje)", settingsApiKeyNew: "API ključ pohrane", settingsApiKeyPlaceholderHidden: "••••••••", settingsApiKeyPlaceholderNew: "Zalijepite lozinku zone pohrane", settingsRegion: "Regija pohrane", settingsCdnUrl: "URL CDN Pull Zone", settingsCdnPlaceholder: "https://mojazona.b-cdn.net", settingsSave: "Spremi konfiguraciju", settingsSaved: "Konfiguracija spremljena.", settingsHelp: "Naziv zone i lozinka: Bunny CDN → Storage → [Zona] → FTP & API Access. CDN URL: Bunny CDN → Pull Zones → [Zona] → hostname." }, tx = { title: "Korisnici", subtitle: "Upravljajte članovima tima i njihovim ulogama.", newUser: "Novi korisnik", loading: "Učitavanje…", noUsers: "Nisu pronađeni korisnici.", userCount: "{{count}} korisnik", userCount_other: "{{count}} korisnika", colName: "Ime", colUser: "Korisnik", colEmail: "E-pošta", colRole: "Uloga", colStatus: "Status", colCreated: "Stvoreno", colActions: "Akcije", searchPlaceholder: "Pretraži korisnike…", actionsMenu: "Akcije", edit: "Uredi", delete: "Obriši", disable: "Onemogući", reactivate: "Reaktiviraj", resetPassword: "Resetiraj lozinku", resendInvite: "Ponovno pošalji pozivnicu", status: { active: "Aktivan", pending: "Na čekanju", disabled: "Onemogućen" }, createTitle: "Pozovi korisnika", createDescription: "Postavite pristupne podatke novog člana tima.", inviteDescription: "Na ovu adresu bit će poslana poveznica za aktivaciju.", inviteEmailHint: "Poslat ćemo poveznicu za aktivaciju — korisnik sam odabire lozinku.", sendInvite: "Pošalji pozivnicu", inviteSent: "Pozivnica poslana na {{email}}", roleSection: "Uloga", createFirstName: "Ime", createFirstNamePlaceholder: "Ana", createLastName: "Prezime", createLastNamePlaceholder: "Horvat", createEmail: "E-pošta", createEmailPlaceholder: "korisnik@primjer.hr", createPassword: "Lozinka", createPasswordHint: "Minimalno 8 znakova", createRole: "Uloga", createRolePlaceholder: "Odaberite ulogu", cancel: "Odustani", create: "Stvori", editTitle: "Uredi {{email}}", editRole: "Uloga", editPasswordNote: 'Za promjenu lozinke ovog korisnika koristite "Resetiraj lozinku" iz izbornika retka — dobit će e-poštu.', editCancel: "Odustani", editSave: "Spremi", deleteTitle: "Obriši korisnika", deleteBody: "Obrisati {{email}}? Ovo se ne može poništiti.", deleteMessage: "Ovo trajno uklanja korisnika. Više se neće moći prijaviti.", disableTitle: "Onemogući korisnika", disableMessage: "Postojeća sesija će prestati i neće se moći prijaviti dok ne bude reaktiviran.", disableConfirm: "Onemogući", disableSuccess: "{{email}} onemogućen/a", reactivateTitle: "Reaktiviraj korisnika", reactivateMessage: "Moći će se ponovno prijaviti svojom postojećom lozinkom.", reactivateConfirm: "Reaktiviraj", reactivateSuccess: "{{email}} reaktiviran/a", resetTitle: "Resetiraj lozinku", resetMessage: "Poslat ćemo korisniku poveznicu za reset. Trenutna lozinka i dalje radi dok ne postavi novu.", resetConfirm: "Pošalji e-poštu za reset", resetSuccess: "E-pošta za reset poslana na {{email}}", resendTitle: "Ponovno pošalji pozivnicu", resendMessage: "Poslat ćemo svježu poveznicu za aktivaciju. Prethodna poveznica više neće raditi.", resendConfirm: "Pošalji ponovno", resendSuccess: "Pozivnica ponovno poslana na {{email}}", loadError: "Greška pri učitavanju korisnika", createError: "Greška pri pozivanju korisnika", updateError: "Greška pri ažuriranju korisnika", actionError: "Akcija nije uspjela", deleteSuccess: "{{email}} obrisan/a", deleteError: "Greška pri brisanju korisnika" }, nx = { title: "Postavite lozinku", subtitle: "Odaberite lozinku za {{email}} kako biste aktivirali svoj račun.", password: "Lozinka", passwordPlaceholder: "Najmanje 8 znakova", confirmPassword: "Potvrdite lozinku", confirmPasswordPlaceholder: "Ponovno unesite lozinku", submit: "Aktiviraj račun", submitting: "Aktiviranje…", success: "Račun aktiviran", redirecting: "Preusmjeravanje na nadzornu ploču…", linkInvalidTitle: "Poveznica neispravna ili istekla", invalidLink: "Ova poveznica za aktivaciju više nije važeća. Zatražite od administratora novu pozivnicu.", passwordTooShort: "Lozinka mora imati barem 8 znakova.", passwordMismatch: "Lozinke se ne podudaraju.", submitError: "Aktivacija nije uspjela. Molimo pokušajte ponovno." }, ax = { title: "Resetirajte lozinku", subtitle: "Odaberite novu lozinku za {{email}}.", submit: "Postavi novu lozinku", success: "Lozinka ažurirana" }, ox = { title: "API ključevi", subtitle: "Upravljajte pristupnim tokenima za frontend integracije.", newKey: "Novi ključ", loading: "Učitavanje...", noKeys: "Još nema API ključeva.", emptyTitle: "Još nema API ključeva", emptyDescription: "Stvorite pristupne tokene za frontend ili integracije trećih strana.", new: "Novi ključ", colName: "Ime", colPrefix: "Prefiks", colRole: "Uloga", colLastUsed: "Zadnje korištenje", colActions: "Akcije", revoke: "Opozovi", createTitle: "Stvori API ključ", createDescription: "Ključevi se prikazuju jednom — kopirajte ih odmah nakon stvaranja.", roleSection: "Uloga", createName: "Ime", createNamePlaceholder: "npr. project-one-frontend", createRole: "Uloga", roleViewer: "Viewer — samo čitanje", roleEditor: "Editor — stvaranje i uređivanje", roleAdmin: "Admin — puni pristup", roleDeveloper: "Developer — razvojni pristup", createBtn: "Stvori", newKeyTitle: "Ključ stvoren — kopirajte ga odmah. Više se neće prikazivati.", copy: "Kopiraj", dismiss: "Odbaci", revokeTitle: "Opozovi API ključ", revokeBody: 'Opozvati "{{name}}"? Sve integracije koje koriste ovaj ključ prestat će raditi.', revokeMessage: "Sve integracije koje koriste ovaj ključ prestat će raditi odmah.", revokeConfirm: "Opozovi", never: "Nikad", revokeSuccess: 'API ključ "{{name}}" obrisan', revokeError: "Greška pri brisanju ključa", keyCount: "{{count}} API ključ", keyCount_other: "{{count}} API ključeva" }, rx = { title: "Postavke stranice", subtitle: "Globalna konfiguracija vašeg projekta.", save: "Spremi postavke", tabGeneral: "Općenito", tabLocales: "Jezici", tabSeo: "SEO zadane vrijednosti", tabEditorPrefs: "Postavke uređivača", tabAnalytics: "Analitika", tabDashboard: "Nadzorna ploča", dashboardHint: "Odaberite koje statističke kartice vidi svaka korisnička uloga na svojoj nadzornoj ploči. Neke kartice zahtijevaju minimalnu ulogu i ne mogu se uključiti za niže uloge.", dashboardRole_viewer: "Pregledatelj", dashboardRole_editor: "Urednik", dashboardRole_admin: "Administrator", dashboardRole_developer: "Razvojni programer", dashboardMinRole: "Zahtijeva ulogu {{role}} ili višu", tabApiKeys: "API ključevi", tabWebhooks: "Webhookovi", tabAdvanced: "Napredno", tabRobots: "Robots.txt", identitySection: "Identitet stranice", identityHint: "Kako se vaš CMS prikazuje korisnicima i javnosti.", brandSection: "Brand", brandHint: "Favicon prikazan u karticama preglednika i podijeljenim pregledima.", languagesHint: "Koje jezike projekt podržava.", thisDeviceNote: "(ovaj uređaj)", editorPrefsHint: "Osobne postavke pohranjene samo u ovom pregledniku.", analyticsHint: "Povežite svog pružatelja analitike.", advancedHint: "Ubacite sirovi HTML u svaku javnu stranicu.", email: { title: "E-pošta", hint: "Konfiguracija za pozivnice, resetiranje lozinke i drugu transakcijsku e-poštu. Iste vrijednosti koriste se i u razvojnom i u produkcijskom okruženju za ovaj projekt — postavite različite vjerodajnice u bazi svakog okruženja.", fromLabel: 'Zadana "Od" adresa', fromPlaceholder: "Moj CMS <noreply@primjer.hr>", fromHint: "Obična adresa ili RFC 5322 zapis. Domena pošiljatelja mora biti verificirana kod davatelja e-pošte (npr. Resend) — neverificirane domene bit će odbijene pri slanju.", transportTitle: "Prijenosni sloj", transportHint: "Način na koji se e-pošta zapravo šalje. Vjerodajnice se pohranjuju po projektu — zalijepite ih jednom ovdje i iste vrijednosti vrijede u dev-u i produkciji (svako okruženje ima svoju bazu).", transportLabel: "Način slanja", transportLabelHint: '"Auto" koristi varijable okruženja (RESEND_API_KEY / SMTP_HOST) kao rezervu. Ostale opcije koriste vjerodajnice koje unesete ispod.', transportAuto: "Auto (koristi varijable okruženja)", transportResend: "Resend (HTTP API)", transportSmtp: "SMTP (nodemailer)", transportNone: "Isključeno (odbaci sva slanja)", resendKeyLabel: "Resend API ključ", resendKeyHint: 'Dohvatite ga na resend.com → API Keys. Besplatni plan pokriva 100 e-poruka/dan. Ključevi počinju s "re_".', resendKeyPlaceholder: "re_xxxxxxxxxxxxxxxxxxxxxxxx", resendKeyPlaceholderStored: "Ostavite prazno za zadržavanje postojećeg ključa", smtpHostLabel: "SMTP host", smtpPortLabel: "SMTP port", smtpUserLabel: "SMTP korisničko ime", smtpPassLabel: "SMTP lozinka", smtpPassPlaceholderStored: "Ostavite prazno za zadržavanje postojeće lozinke", smtpSecureLabel: "Koristi TLS/SSL (port 465 obično ovo zahtijeva; port 587 obično ne)", configured: "Konfigurirano", show: "Prikaži", hide: "Sakrij", clear: "Obriši", saveTransport: "Spremi konfiguraciju e-pošte", saved: "Konfiguracija e-pošte spremljena", cleared: "Vjerodajnica obrisana", statusResend: "Resend povezan ({{source}})", statusSmtp: "SMTP povezan ({{source}})", statusConsole: "Nije konfiguriran prijenosni sloj — e-pošta će biti ispisana u stdout API-ja umjesto poslana", statusNone: "E-pošta je isključena — odlazna slanja bit će tiho odbačena", statusLoading: "Provjera prijenosnog sloja…", sourceProject: "ovaj projekt", sourceEnv: "iz okruženja", overrideActive: "Dev override aktivan: sva slanja preusmjeravaju se na {{email}}" }, noFavicon: "Nije postavljen favicon", faviconReady: "Aktivan na cijeloj stranici", faviconFallback: "Koristi se monogram brenda", faviconName: "favicon", siteTitle: "Naslov stranice", siteTitleHint: "Koristi se u kartici preglednika i kao rezervni OG naslov.", siteTitlePlaceholder: "Moja web stranica", tagline: "Podnaslov", taglineHint: "Kratki opis prikazan ispod naslova stranice.", taglinePlaceholder: "Gradimo stvari od 2024.", favicon: "Favicon", faviconHint: "Preporučeno: 32×32 PNG ili SVG.", faviconSet: "Favicon postavljen (media ID: {{id}}…)", faviconRemove: "Ukloni", faviconNone: "Favicon nije postavljen.", faviconSelect: "Odaberi favicon", faviconChange: "Promijeni favicon", uiLanguage: "Jezik admin sučelja", uiLanguageHint: "Jezik koji se koristi za sve oznake i poruke admin panela.", langEn: "Engleski", langHr: "Hrvatski", localeFallback: "Prazno polje prikazuje vrijednost iz {{locale}}", editorPrefsSection: "Postavke uređivača (ovaj uređaj)", autosaveEnabled: "Automatsko spremanje svakih 30 sekundi", autosaveEnabledHint: "U pozadini sprema skice dok uređujete. Ručno spremanje (Ctrl+S, gumb Spremi) i Objavi rade neovisno o ovome.", languagesSection: "Jezici sadržaja", availableLocales: "Dostupni jezici", availableLocalesHint: "Jezici na kojima će ovaj projekt objavljivati sadržaj.", defaultLocale: "Zadani jezik", defaultLocaleHint: "Fallback jezik koji se koristi na korijenu sajta i kada stranica nema prijevod na posjetiteljev jezik.", defaultLocaleNotAvailable: "Zadani jezik mora biti jedan od dostupnih jezika.", atLeastOneLocale: "Mora biti dostupan barem jedan jezik.", localeInUse: "Ne mogu ukloniti jezik {{locale}} — stranice još uvijek imaju sadržaj na njemu. Najprije uklonite taj sadržaj.", seoDefaultsHint: "Ove zadane vrijednosti koriste se kada stranica nema vlastita SEO polja.", defaultMetaTitle: "Zadani meta naslov", defaultMetaTitlePlaceholder: "Moja web stranica — Naslov stranice", defaultMetaDesc: "Zadani meta opis", defaultMetaDescPlaceholder: "Kratki opis vaše web stranice…", defaultOgImage: "Zadani OG URL slike", defaultOgImageHint: "Rezervna Open Graph slika za dijeljenje na društvenim mrežama.", defaultOgImagePlaceholder: "https://cdn.primjer.hr/og-zadano.jpg", analyticsId: "ID analitike", analyticsIdHint: "Google Analytics mjerni ID (G-XXXXXXXX) ili drugi identifikator analitike.", analyticsIdPlaceholder: "G-XXXXXXXXXX", advancedWarning: "HTML koji se ubacuje na svaku stranicu. Koristite s oprezom — nevažeći HTML može pokvariti vaš site.", customHeadHtml: "Prilagođeni <head> HTML", customHeadHtmlHint: "Ubacuje se unutar <head> prije </head>.", customHeadHtmlPlaceholder: "<!-- npr. skripte trećih strana, prilagođeni fontovi -->", customBodyHtml: "Prilagođeni <body> HTML", customBodyHtmlHint: "Ubacuje se neposredno prije </body>.", customBodyHtmlPlaceholder: "<!-- npr. widget za chat, cookie banner -->", robotsHint: "Sadržaj koji vraća GET /robots.txt kad je prisutan zaglavlje X-Project-Slug.", robotsLabel: "robots.txt sadržaj", robotsResetAllow: "Resetiraj na dopusti sve", robotsDisallowAll: "Zabrani sve (održavanje)", savedNotification: "Postavke spremljene", conflictTitle: "Konflikt uređivanja", conflictBody: "Netko drugi je spremio ove postavke dok ste ih uređivali. [Osvježi] za najnoviju verziju.", saveError: "Greška pri spremanju postavki" }, ix = { title: "Webhooks", subtitle: "Obavještavajte vanjske servise o promjenama sadržaja", addBtn: "Dodaj webhook", loading: "Učitavanje…", noWebhooks: "Nema konfiguriranih webhookova", emptyTitle: "Još nema webhookova", emptyDescription: "Obavijestite Slack, Vercel ili build pipeline kada se sadržaj promijeni.", add: "Dodaj webhook", addFirst: "Dodajte prvi webhook", colUrl: "URL", colEvents: "Događaji", colActive: "Aktivno", colCreated: "Stvoreno", colActions: "Akcije", count: "{{count}} webhook", count_other: "{{count}} webhookova", createUrlPlaceholder: "https://primjer.hr/webhook", createEventsLabel: "Događaji", cancel: "Odustani", createBtn: "Stvori webhook", createSuccess: "Webhook uspješno stvoren", secretHint: "Kopirajte i pohranite ovaj tajni ključ — više se neće prikazivati. Koristite ga za provjeru X-CMS-Signature zaglavlja na dolaznim zahtjevima.", done: "Gotovo", validationUrl: "URL mora počinjati s http:// ili https://", validationEvents: "Odaberite barem jedan događaj", createError: "Greška pri stvaranju webhookа", noDeliveries: "Još nema isporuka", viewLog: "Prikaži zapisnik isporuke", deleteWebhook: "Obriši webhook", deliveryLog: "Zapisnik isporuke", deleteTitle: "Obrisati webhook?", deleteBody: "Sva povijest isporuke za ovaj webhook bit će također obrisana.", deleteMessage: "Sva povijest isporuke bit će također obrisana.", deleteConfirm: "Obriši", deleteSuccess: "Webhook obrisan", updateError: "Greška pri ažuriranju webhookа", deleteError: "Greška pri brisanju webhookа", loadError: "Greška pri učitavanju webhookova" }, sx = { title: "Tekstovi", subtitle: "Uređujte fiksne tekstove na frontu bez izmjene koda.", colKey: "Ključ", colValue: "Vrijednost", addRow: "Dodaj tekst", addRowBlocked: "Najprije dovršite novi tekst — unesite ključ i vrijednost za svaki jezik.", removeRow: "Ukloni tekst", save: "Spremi", keyPlaceholder: "npr. hero_title", valuePlaceholder: "Prevedena vrijednost", defaultBadge: "zadano", emptyTitle: "Još nema tekstova", emptyState: "Za ovaj jezik još nije definiran nijedan tekst.", noLocales: "Nije konfiguriran nijedan jezik sadržaja. Konfigurirajte ih u Postavke → Općenito.", saveSuccess: "Tekstovi spremljeni", saveError: "Greška pri spremanju tekstova", loadError: "Greška pri učitavanju tekstova", deleteTitle: "Obrisati ovaj tekst?", deleteBody: 'Ključ "{{key}}" bit će uklonjen iz ovog jezika. Drugi jezici ostaju nepromijenjeni.', deleteMessage: "Ključ će biti uklonjen iz svih jezika.", deleteConfirm: "Obriši", deleteSuccess: "Tekst obrisan", deleteError: "Greška pri brisanju teksta", errorKeyRequired: "Ključ je obavezan", errorKeyFormat: "Dozvoljena su samo slova, brojevi, točka, podvlaka i crtica", errorKeyDuplicate: "Duplikat ključa u ovom jeziku", errorFixFirst: "Ispravite označene pogreške prije spremanja", rowCount: "{{count}} tekst" }, lx = { placeholder: "Pretraži stranice ili skočite na…", newPage: "Nova stranica", newPageDesc: "Stvori novu stranicu", mediaLibrary: "Knjižnica medija", mediaLibraryDesc: "Pregledaj i učitaj datoteke", viewActivity: "Prikaži aktivnost", viewActivityDesc: "Pogledaj zapisnik nedavne aktivnosti", pageHint: "{{slug}} · {{status}}", noResults: "Nema rezultata" }, cx = { title: "Zapisnik aktivnosti", subtitle: "Zapis svih promjena koje je vaš tim napravio.", colWhen: "Kada", colUser: "Korisnik", colAction: "Akcija", colResource: "Resurs", noActivity: "Još nema aktivnosti.", loadMore: "Učitaj više", filter: "Filtar", filterAll: "Sve", filterPages: "Stranice", filterMedia: "Mediji", filterUsers: "Korisnici", rangeLabel: "Vremenski raspon", rangeAll: "Sve vrijeme", range24h: "Zadnja 24 sata", range7d: "Zadnjih 7 dana", range30d: "Zadnjih 30 dana", actions: { page_created: "Stvoreno", page_updated: "Ažurirano", page_moved: "Premješteno", page_published: "Objavljeno", page_trashed: "Premješteno u koš", page_restored: "Vraćeno", page_deleted: "Trajno obrisano", page_locale_disabled: "Onemogućen prijevod", page_version_restored: "Vraćena verzija", menu_created: "Izbornik stvoren", menu_updated: "Izbornik ažuriran", menu_deleted: "Izbornik obrisan", media_uploaded: "Medij prenesen", media_deleted: "Medij obrisan", media_folder_created: "Mapa stvorena", media_folder_moved: "Mapa premještena", media_folder_renamed: "Mapa preimenovana", media_folder_deleted: "Mapa obrisana", media_config_updated: "Postavke medija ažurirane", block_template_created: "Predložak spremljen", block_template_deleted: "Predložak obrisan", page_type_created: "Tip stranice stvoren", page_type_updated: "Tip stranice ažuriran", page_type_deleted: "Tip stranice obrisan", settings_updated: "Postavke ažurirane", strings_updated: "Prijevodi ažurirani", strings_deleted: "Prijevod obrisan", user_invited: "Korisnik pozvan", user_activated: "Račun aktiviran", user_updated: "Korisnik ažuriran", user_disabled: "Korisnik onemogućen", user_reactivated: "Korisnik ponovno aktiviran", user_password_reset_requested: "Poslano resetiranje lozinke", user_password_reset_completed: "Lozinka resetirana", user_invite_resent: "Pozivnica ponovno poslana", user_deleted: "Korisnik obrisan" } }, dx = { saveTitle: "Spremi kao predložak", saveSubtitle: "Sprema trenutnih {{count}} blok(ova) kao predložak za ponovnu upotrebu.", nameLabel: "Naziv predloška", namePlaceholder: "npr. Hero + Dva stupca", nameRequired: "Naziv predloška je obavezan", saveFailed: "Greška pri spremanju predloška", saveBtn: "Spremi predložak", loadTitle: "Učitaj predložak", loadDescription: "Ovo će zamijeniti sve postojeće blokove na stranici.", loadWarning: "Učitavanje predloška zamijenit će sve trenutne blokove sadržaja.", loadNoTemplates: "Još nema spremljenih predložaka.", blockCount: "{{count}} blok(ova)", loadBtn: "Učitaj predložak", crossLocaleTitle: "Predložak iz drugog jezika", crossLocaleBody: "Ovaj predložak je napisan u {{source}}, ali trenutno uređujete {{target}}. Učitavanje će zalijepiti sadržaj na {{source}} u {{target}} karticu. Nastaviti?", crossLocaleConfirm: "Ipak učitaj" }, hx = { mixedContent: { blockLabel: "Blok miješanog sadržaja", widgetText: "Tekst", widgetVideo: "Video", widgetLink: "Veza", widgetAccordion: "Harmonika", widgetGallery: "Galerija", widgetSection: "Sekcija", layoutFull: "Puna širina", layoutHalf: "Pola / Pola", layout13_23: "1/3 + 2/3", layout23_13: "2/3 + 1/3", layoutThree: "Tri jednaka", layout14_34: "1/4 + 3/4", layout34_14: "3/4 + 1/4", chooseLayout: "Odaberite raspored za ovu sekciju:", addWidget: "Dodaj widget", addWidgetDescription: "Odaberite widget za umetanje u ovaj stupac.", cancelBtn: "Odustani", insertBtn: "Ubaci", textPlaceholder: "Upišite ovdje…", textEmpty: "Još nema teksta — kliknite ✏ za uređivanje", videoUrl: "URL videa", videoWidth: "Širina (px)", videoHeight: "Visina (px)", videoEmpty: "Nema URL-a videa — kliknite ✏ za uređivanje", linkEmpty: "Poveznica nije konfigurirana — kliknite ✏ za uređivanje", accordionEmpty: "Nema stavki — kliknite ✏ za dodavanje", accordionMainTitle: "Naslov (neobavezno)", accordionMainTitlePlaceholder: "npr. Često postavljana pitanja", notConfigured: "Nije konfigurirano", configure: "Konfiguriraj", addItem: "+ Dodaj stavku", accordionItem: "Stavka {{num}}", accordionTitle: "Naslov harmonike", accordionContent: "Sadržaj stavke…", galleryEmpty: "Još nema dodanih slika.", galleryEdit: "Uredi galeriju", gallerySelect: "Odaberi slike", resetLayout: "Resetiraj i odaberi drugi raspored", changeLayout: "Promijeni", columnLabel: "Stupac {{num}} ({{width}}/12)", addWidgetBtn: "+ Dodaj widget", sectionTitle: "Naslov sekcije (neobavezno)", changeLayoutBtn: "Promijeni raspored", discardTitle: "Odbaciti promjene?", discardBody: "Imate nespremljene promjene widgeta. Ako sada zatvorite, bit će izgubljene.", collapseWidget: "Sakrij pregled", expandWidget: "Prikaži pregled" } }, px = { paragraph: "Paragraf", heading: "Naslov {{level}}", alignment: "Poravnanje", alignLeft: "Poravnaj lijevo", alignCenter: "Centriraj", alignRight: "Poravnaj desno", alignJustify: "Obostrano poravnanje", indent: "Uvuci", outdent: "Izvuci", table: "Tablica", insertTable: "Umetni tablicu {{rows}}×{{cols}}", tableRow: "Redak", addRowAbove: "Dodaj redak iznad", addRowBelow: "Dodaj redak ispod", deleteRow: "Izbriši redak", tableColumn: "Stupac", addColumnLeft: "Dodaj stupac lijevo", addColumnRight: "Dodaj stupac desno", deleteColumn: "Izbriši stupac", deleteTable: "Izbriši tablicu", addHeaderRow: "Dodaj zaglavni redak", removeHeaderRow: "Ukloni zaglavni redak", mergeCells: "Spoji ćelije", splitCell: "Razdvoji ćeliju", cellOptions: "Opcije ćelije", addImage: "Dodaj sliku", imageModal: { title: "Dodaj sliku", titleEdit: "Uredi sliku", add: "+ Dodaj", change: "Promijeni", imageTitle: "Naslov slike", imageTitlePlaceholder: "Unesite naslov slike", description: "Opis slike", descriptionPlaceholder: "Alternativni tekst za pristupačnost", alignment: "Poravnanje slike", alignDefault: "Zadano", alignLeft: "Lijevo", alignCenter: "Sredina", alignRight: "Desno", dimensions: "Dimenzije slike", originalDims: "Koristi originalne dimenzije", customDims: "Postavi prilagođene dimenzije", width: "Širina (px)", height: "Visina (px)", lockAspect: "Zaključaj omjer stranica", unlockAspect: "Otključaj omjer stranica" } }, ux = { nav: { store: "Trgovina", categories: "Kategorije" }, categories: { new: "Nova kategorija", addChild: "Dodaj potkategoriju", empty: "Još nema kategorija", emptyHint: "Izradite prvu kategoriju za organizaciju proizvoda.", createTitle: "Nova kategorija", editTitle: "Uredi kategoriju", slug: "Slug", slugHelp: "Mala slova, riječi odvojene crticom (npr. elektricni-alati).", slugRequired: "Slug je obavezan.", parent: "Nadređena kategorija", root: "— Nijedna (najviša razina) —", label: "Naziv", description: "Opis", metaTitle: "Meta naslov", metaDescription: "Meta opis", heroImage: "Naslovna slika", pickImage: "Odaberi sliku", editingLocale: "Uređivanje {{locale}} sadržaja", labelRequired: "Naziv je obavezan za barem jedan jezik.", save: "Spremi", create: "Izradi", delete: "Obriši", deleteTitle: "Obrisati kategoriju?", deleteBody: "Ovo trajno briše kategoriju.", saved: "Kategorija spremljena", deleted: "Kategorija obrisana" }, errors: { slug_taken: "Druga kategorija ovdje već koristi taj naziv.", has_children: "Prvo premjestite ili obrišite njezine potkategorije.", cycle_detected: "Kategorija se ne može premjestiti u vlastitu potkategoriju.", cannot_parent_self: "Kategorija ne može biti sama sebi nadređena.", parent_not_found: "Odabrana nadređena kategorija više ne postoji.", conflict: "Netko je drugi promijenio ovu kategoriju. Osvježite i pokušajte ponovno.", generic: "Nešto je pošlo po krivu. Pokušajte ponovno." } }, fx = {
   login: H8,
   common: q8,
   nav: V8,
@@ -33618,7 +33618,7 @@ async function Kbe(t) {
   if (!e.ok) throw new Error("Failed to fetch project settings");
   return e.json();
 }
-async function aEe(t, e, n) {
+async function oEe(t, e, n) {
   const a = await ve(`/api/project-settings/${encodeURIComponent(t)}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
@@ -35036,33 +35036,33 @@ function r8e({ pageId: t, onClose: e, onRestored: n }) {
       l(null), y(null), k(null), C("original"), M(!1), _(null), P(null);
       return;
     }
-    let A = !1;
+    let E = !1;
     return p(!0), y(null), k(null), (async () => {
       try {
         const T = await e6e(t);
-        if (A) return;
+        if (E) return;
         l(T);
       } catch (T) {
-        if (A) return;
+        if (E) return;
         y(T instanceof Error ? T.message : String(T));
       } finally {
-        A || p(!1);
+        E || p(!1);
       }
     })(), () => {
-      A = !0;
+      E = !0;
     };
   }, [t]);
   const L = We(
-    () => s ? o.find((A) => A.type === s.page.type) : void 0,
+    () => s ? o.find((E) => E.type === s.page.type) : void 0,
     [o, s]
   ), Y = We(() => L ? Qt(L.label, r) || Qt(L.label, i) : (s == null ? void 0 : s.page.type) ?? "", [L, s, r, i]), R = !!s && !L, $ = We(() => {
     if (!s || !L) return null;
-    const A = L.canBeRoot !== !1, T = L.allowedParentTypes, D = L.limit ?? null, q = L.perParentLimit ?? null;
+    const E = L.canBeRoot !== !1, T = L.allowedParentTypes, D = L.limit ?? null, q = L.perParentLimit ?? null;
     let W = !1, X = null;
     s.originalParent && (s.originalParent.available ? T && !T.includes(s.originalParent.type) ? X = "type_mismatch" : q !== null && s.originalParent.perParentCount >= q ? X = "per_parent_limit_reached" : W = !0 : X = "parent_trashed");
     const V = s.page.originalParentId === null;
     let O = !1, I = null;
-    A ? D !== null && s.counts.currentLiveCount >= D ? I = "global_limit_reached" : O = !0 : I = "cannot_be_root";
+    E ? D !== null && s.counts.currentLiveCount >= D ? I = "global_limit_reached" : O = !0 : I = "cannot_be_root";
     let Z = !1, ee = null;
     return D !== null && s.counts.currentLiveCount >= D ? ee = "global_limit_reached" : T && T.length === 0 ? Z = !1 : Z = !0, {
       original: { available: V ? !1 : W, reason: X },
@@ -35074,26 +35074,26 @@ function r8e({ pageId: t, onClose: e, onRestored: n }) {
     $ && ($.original.available ? C("original") : $.root.available ? C("root") : $.other.available && C("other"));
   }, [$]), pe(() => {
     if (v !== "other" || !s || w !== null) return;
-    let A = !1;
+    let E = !1;
     return z(!0), (async () => {
       try {
         const { data: T } = await jn({ limit: 200 });
-        if (A) return;
+        if (E) return;
         _(T);
       } catch (T) {
-        if (A) return;
+        if (E) return;
         console.error(T), _([]);
       } finally {
-        A || z(!1);
+        E || z(!1);
       }
     })(), () => {
-      A = !0;
+      E = !0;
     };
   }, [v, s, w]);
-  const E = We(() => {
+  const A = We(() => {
     if (!w || !s) return [];
-    const A = /* @__PURE__ */ new Set([s.page.id, ...s.trashedDescendants.ids]), T = L == null ? void 0 : L.allowedParentTypes, D = (L == null ? void 0 : L.perParentLimit) ?? null;
-    return w.filter((q) => !A.has(q.id)).filter((q) => !T || T.includes(q.type)).filter(() => D === null || !0).map((q) => {
+    const E = /* @__PURE__ */ new Set([s.page.id, ...s.trashedDescendants.ids]), T = L == null ? void 0 : L.allowedParentTypes, D = (L == null ? void 0 : L.perParentLimit) ?? null;
+    return w.filter((q) => !E.has(q.id)).filter((q) => !T || T.includes(q.type)).filter(() => D === null || !0).map((q) => {
       var V, O, I;
       const W = (V = q.translations) == null ? void 0 : V[r], X = (W == null ? void 0 : W.title) || ((I = (O = q.translations) == null ? void 0 : O[i]) == null ? void 0 : I.title) || "(untitled)";
       return { value: q.id, label: X };
@@ -35102,21 +35102,21 @@ function r8e({ pageId: t, onClose: e, onRestored: n }) {
     if (!(!t || !s)) {
       f(!0), k(null);
       try {
-        let A;
-        if (v === "original" ? A = void 0 : v === "root" ? A = null : A = j, v === "other" && !j) {
+        let E;
+        if (v === "original" ? E = void 0 : v === "root" ? E = null : E = j, v === "other" && !j) {
           k(a("restorePage.error.pickParent")), f(!1);
           return;
         }
         const T = await t6e(t, {
-          parentId: A,
+          parentId: E,
           cascade: S && s.trashedDescendants.count > 0
         });
         ge.ok(a("restorePage.success")), n({ cascadedDescendants: T.cascadedDescendants });
-      } catch (A) {
-        if (A instanceof pg)
-          k(o8e(a, A, Y));
+      } catch (E) {
+        if (E instanceof pg)
+          k(o8e(a, E, Y));
         else {
-          const T = A instanceof Error ? A.message : String(A);
+          const T = E instanceof Error ? E.message : String(E);
           ge.err(T), k(T);
         }
       } finally {
@@ -35172,7 +35172,7 @@ function r8e({ pageId: t, onClose: e, onRestored: n }) {
       }
     );
   if (!!$ && !$.original.available && !$.root.available && !$.other.available && $) {
-    const A = $.root.reason === "global_limit_reached" || $.other.reason === "global_limit_reached";
+    const E = $.root.reason === "global_limit_reached" || $.other.reason === "global_limit_reached";
     return /* @__PURE__ */ c(
       Xt,
       {
@@ -35184,7 +35184,7 @@ function r8e({ pageId: t, onClose: e, onRestored: n }) {
         icon: /* @__PURE__ */ c(ua, { size: 20 }),
         size: "md",
         footer: /* @__PURE__ */ c("div", { className: "cms-m-foot", children: /* @__PURE__ */ c(ue, { variant: "secondary", onClick: e, children: a("common.close") }) }),
-        children: /* @__PURE__ */ c(ke, { gap: "sm", children: A ? /* @__PURE__ */ c(te, { children: a("restorePage.blocked.globalLimit", {
+        children: /* @__PURE__ */ c(ke, { gap: "sm", children: E ? /* @__PURE__ */ c(te, { children: a("restorePage.blocked.globalLimit", {
           type: Y,
           limit: (L == null ? void 0 : L.limit) ?? 0
         }) }) : /* @__PURE__ */ b(Oe, { children: [
@@ -35267,7 +35267,7 @@ function r8e({ pageId: t, onClose: e, onRestored: n }) {
                 searchable: !0,
                 clearable: !0,
                 nothingFoundMessage: a("restorePage.option.noMatches"),
-                data: E,
+                data: A,
                 value: j,
                 onChange: P,
                 disabled: x,
@@ -35283,7 +35283,7 @@ function r8e({ pageId: t, onClose: e, onRestored: n }) {
           {
             mt: "md",
             checked: S,
-            onChange: (A) => M(A.currentTarget.checked),
+            onChange: (E) => M(E.currentTarget.checked),
             label: /* @__PURE__ */ b(ke, { gap: 2, children: [
               /* @__PURE__ */ c("span", { children: a("restorePage.cascade.label", { count: s.trashedDescendants.count }) }),
               /* @__PURE__ */ c(te, { size: "xs", c: "dimmed", children: a("restorePage.cascade.hint") })
@@ -35357,14 +35357,14 @@ function En({
         C.style.opacity = "0.7";
       }, P = () => {
         S || (C.style.opacity = "0");
-      }, L = (E) => {
+      }, L = (A) => {
         const H = k.getBoundingClientRect();
-        C.style.top = E.clientY - H.top + "px";
-      }, Y = (E) => {
-        S = !0, M = E.clientX, w = k.getBoundingClientRect().width, C.style.opacity = "1", k.style.transition = "none", document.body.style.cursor = "col-resize", document.body.style.userSelect = "none", E.preventDefault();
-      }, R = (E) => {
+        C.style.top = A.clientY - H.top + "px";
+      }, Y = (A) => {
+        S = !0, M = A.clientX, w = k.getBoundingClientRect().width, C.style.opacity = "1", k.style.transition = "none", document.body.style.cursor = "col-resize", document.body.style.userSelect = "none", A.preventDefault();
+      }, R = (A) => {
         if (!S) return;
-        const H = Math.min(z, Math.max(_, w + (M - E.clientX)));
+        const H = Math.min(z, Math.max(_, w + (M - A.clientX)));
         k.style.width = H + "px";
         const F = k.parentElement;
         F && F.style.setProperty("--drawer-size", H + "px");
@@ -35373,8 +35373,8 @@ function En({
       };
       v.addEventListener("mouseenter", j), v.addEventListener("mouseleave", P), v.addEventListener("mousemove", L), v.addEventListener("mousedown", Y), document.addEventListener("mousemove", R), document.addEventListener("mouseup", $), m.current = () => {
         v.removeEventListener("mouseenter", j), v.removeEventListener("mouseleave", P), v.removeEventListener("mousemove", L), v.removeEventListener("mousedown", Y), document.removeEventListener("mousemove", R), document.removeEventListener("mouseup", $), k.contains(v) && k.removeChild(v), k.style.position = "", k.style.width = "";
-        const E = k.parentElement;
-        E && E.style.removeProperty("--drawer-size");
+        const A = k.parentElement;
+        A && A.style.removeProperty("--drawer-size");
       };
     });
     return () => {
@@ -37560,7 +37560,7 @@ const Ug = /* @__PURE__ */ u3(function(e) {
       data: (Fe = L == null ? void 0 : L.data) != null ? Fe : hxe,
       rect: Y
     } : null;
-  }, [x, L]), $ = Ce(null), [E, H] = N(null), [F, U] = N(null), A = Yi(y, Object.values(y)), T = vs("DndDescribedBy", i), D = We(() => P.getEnabled(), [P]), q = yxe(f), {
+  }, [x, L]), $ = Ce(null), [A, H] = N(null), [F, U] = N(null), E = Yi(y, Object.values(y)), T = vs("DndDescribedBy", i), D = We(() => P.getEnabled(), [P]), q = yxe(f), {
     droppableRects: W,
     measureDroppableContainers: X,
     measuringScheduled: V
@@ -37638,7 +37638,7 @@ const Ug = /* @__PURE__ */ u3(function(e) {
             return;
           const {
             onDragAbort: Pt
-          } = A.current, it = {
+          } = E.current, it = {
             id: Ue
           };
           Pt == null || Pt(it), C({
@@ -37651,7 +37651,7 @@ const Ug = /* @__PURE__ */ u3(function(e) {
             return;
           const {
             onDragPending: At
-          } = A.current, Ze = {
+          } = E.current, Ze = {
             id: Ue,
             constraint: vt,
             initialCoordinates: Pt,
@@ -37671,7 +37671,7 @@ const Ug = /* @__PURE__ */ u3(function(e) {
             return;
           const {
             onDragStart: it
-          } = A.current, It = {
+          } = E.current, It = {
             activatorEvent: le,
             active: {
               id: vt,
@@ -37712,7 +37712,7 @@ const Ug = /* @__PURE__ */ u3(function(e) {
           if (Pt && At) {
             const {
               cancelDrop: rt
-            } = A.current;
+            } = E.current;
             Ze = {
               activatorEvent: le,
               active: Pt,
@@ -37727,7 +37727,7 @@ const Ug = /* @__PURE__ */ u3(function(e) {
             }), w(ho.Uninitialized), Qe(null), H(null), U(null), G.current = null;
             const rt = Ue === dn.DragEnd ? "onDragEnd" : "onDragCancel";
             if (Ze) {
-              const pt = A.current[rt];
+              const pt = E.current[rt];
               pt == null || pt(Ze), C({
                 type: rt,
                 event: Ze
@@ -37761,7 +37761,7 @@ const Ug = /* @__PURE__ */ u3(function(e) {
     () => {
       const {
         onDragMove: Fe
-      } = A.current, {
+      } = E.current, {
         active: gt,
         activatorEvent: jt,
         collisions: oe,
@@ -37801,7 +37801,7 @@ const Ug = /* @__PURE__ */ u3(function(e) {
         return;
       const {
         onDragOver: le
-      } = A.current, ze = oe.get(Ve), Ee = ze && ze.rect.current ? {
+      } = E.current, ze = oe.get(Ve), Ee = ze && ze.rect.current ? {
         id: ze.id,
         rect: ze.rect.current,
         data: ze.data,
@@ -37898,7 +37898,7 @@ const Ug = /* @__PURE__ */ u3(function(e) {
     hiddenTextDescribedById: T
   }));
   function et() {
-    const Fe = (E == null ? void 0 : E.autoScrollEnabled) === !1, gt = typeof l == "object" ? l.enabled === !1 : l === !1, jt = _ && !Fe && !gt;
+    const Fe = (A == null ? void 0 : A.autoScrollEnabled) === !1, gt = typeof l == "object" ? l.enabled === !1 : l === !1, jt = _ && !Fe && !gt;
     return typeof l == "object" ? {
       ...l,
       enabled: jt
@@ -38616,11 +38616,11 @@ function gd(t) {
     activatorEvent: Y,
     activeNodeRect: R,
     attributes: $,
-    setNodeRef: E,
+    setNodeRef: A,
     listeners: H,
     isDragging: F,
     over: U,
-    setActivatorNodeRef: A,
+    setActivatorNodeRef: E,
     transform: T
   } = bxe({
     id: i,
@@ -38630,7 +38630,7 @@ function gd(t) {
       ...n
     },
     disabled: S.draggable
-  }), D = s8e(P, E), q = !!L, W = q && !y && Ps(f) && Ps(k), X = !v && F, V = X && W ? T : null, I = W ? V ?? (s ?? C)({
+  }), D = s8e(P, A), q = !!L, W = q && !y && Ps(f) && Ps(k), X = !v && F, V = X && W ? T : null, I = W ? V ?? (s ?? C)({
     rects: g,
     activeNodeRect: R,
     activeIndex: f,
@@ -38695,9 +38695,9 @@ function gd(t) {
     overIndex: k,
     over: U,
     setNodeRef: D,
-    setActivatorNodeRef: A,
+    setActivatorNodeRef: E,
     setDroppableNodeRef: P,
-    setDraggableNodeRef: E,
+    setDraggableNodeRef: A,
     transform: K ?? I,
     transition: ne()
   };
@@ -39102,7 +39102,7 @@ function r7e({ opened: t, onClose: e }) {
       }
     }
   }
-  async function E() {
+  async function A() {
     if (_ && !(p.kind !== "create-runtime" && p.kind !== "edit-runtime")) {
       v(!0);
       try {
@@ -39178,7 +39178,7 @@ function r7e({ opened: t, onClose: e }) {
       ))
     ] });
   }
-  function A() {
+  function E() {
     if (p.kind !== "edit-code" || !M) return null;
     const I = p.def, Z = I.deletable ?? !0, ee = I.canBeRoot ?? !0;
     return /* @__PURE__ */ b(ke, { gap: "md", children: [
@@ -39455,7 +39455,7 @@ function r7e({ opened: t, onClose: e }) {
         variant: "primary",
         loading: k,
         disabled: !D,
-        onClick: E,
+        onClick: A,
         children: n("common.save")
       }
     )
@@ -39475,7 +39475,7 @@ function r7e({ opened: t, onClose: e }) {
             X ?? /* @__PURE__ */ c("span", {}),
             V
           ] }),
-          y ? /* @__PURE__ */ c(te, { c: "dimmed", size: "sm", children: n("pageTypeOptions.loading") }) : p.kind === "list" ? U() : p.kind === "edit-code" ? A() : T()
+          y ? /* @__PURE__ */ c(te, { c: "dimmed", size: "sm", children: n("pageTypeOptions.loading") }) : p.kind === "list" ? U() : p.kind === "edit-code" ? E() : T()
         ]
       }
     ),
@@ -39530,7 +39530,7 @@ function t2({
   );
 }
 function tk({ opened: t, onClose: e, onConfirm: n, allowedTypes: a, forceParentId: o }) {
-  var U, A;
+  var U, E;
   const { t: r } = Pe(), i = ys(), { user: s } = ca(), l = (s == null ? void 0 : s.role) === "developer", d = (a ? i.filter((T) => a.includes(T.type)) : i).filter((T) => (l || !T.system) && !T.hideFromTree), [p, u] = N(null), [f, m] = N(null), [y, g] = N({}), [k, v] = N(!1), [C, S] = N([]), [M, w] = N(0), [_, x] = N(!1);
   pe(() => {
     if (!t) return;
@@ -39577,7 +39577,7 @@ function tk({ opened: t, onClose: e, onConfirm: n, allowedTypes: a, forceParentI
   }, P = d.filter((T) => {
     const D = y[T.type] ?? null;
     return !(T.limit != null && D != null && D >= T.limit);
-  }), L = i.find((T) => T.type === p), Y = (L == null ? void 0 : L.canBeRoot) === !1, R = Y && ((U = L == null ? void 0 : L.allowedParentTypes) == null ? void 0 : U.length) === 1 && C.length === 1 ? C[0] : null, $ = (L == null ? void 0 : L.perParentLimit) != null && f != null && M >= L.perParentLimit, E = o != null || !Y || f != null, H = p != null && !$ && E, F = () => {
+  }), L = i.find((T) => T.type === p), Y = (L == null ? void 0 : L.canBeRoot) === !1, R = Y && ((U = L == null ? void 0 : L.allowedParentTypes) == null ? void 0 : U.length) === 1 && C.length === 1 ? C[0] : null, $ = (L == null ? void 0 : L.perParentLimit) != null && f != null && M >= L.perParentLimit, A = o != null || !Y || f != null, H = p != null && !$ && A, F = () => {
     p && (n(p, f), e());
   };
   return /* @__PURE__ */ c(
@@ -39622,7 +39622,7 @@ function tk({ opened: t, onClose: e, onConfirm: n, allowedTypes: a, forceParentI
             T.type
           );
         }) }),
-        o == null && p && ((A = L == null ? void 0 : L.allowedParentTypes) != null && A.length) && !R ? _ ? /* @__PURE__ */ c(hn, { children: /* @__PURE__ */ c(en, { size: "sm" }) }) : /* @__PURE__ */ c(
+        o == null && p && ((E = L == null ? void 0 : L.allowedParentTypes) != null && E.length) && !R ? _ ? /* @__PURE__ */ c(hn, { children: /* @__PURE__ */ c(en, { size: "sm" }) }) : /* @__PURE__ */ c(
           An,
           {
             label: r(Y ? "newPageModal.parentRequired" : "newPageModal.parentOptional"),
@@ -39826,16 +39826,16 @@ function s7e({ pageId: t, onClose: e, onDeleted: n, onOpenPage: a }) {
     );
   }
   if (!l) return null;
-  const R = l.translations.locales.length, $ = ph(l.translations.locales), E = Object.values(l.translations.perLocale).reduce(
+  const R = l.translations.locales.length, $ = ph(l.translations.locales), A = Object.values(l.translations.perLocale).reduce(
     (T, D) => T + D,
     0
-  ), H = l.descendants.count, F = s.length <= 1, U = !F && l.page.activeLocales.includes(i) && l.page.activeLocales.some((T) => T !== i), A = l.page.activeLocales.filter((T) => T !== i);
+  ), H = l.descendants.count, F = s.length <= 1, U = !F && l.page.activeLocales.includes(i) && l.page.activeLocales.some((T) => T !== i), E = l.page.activeLocales.filter((T) => T !== i);
   if (!U) {
     let T;
     return H > 0 ? T = o("deletePage.confirm.cascade", {
       title: l.page.title,
       count: H,
-      translationCount: E,
+      translationCount: A,
       locales: $
     }) : F || R <= 1 ? T = o("deletePage.confirm.leaf_single", { title: l.page.title }) : T = o("deletePage.confirm.leaf_multi", {
       title: l.page.title,
@@ -39863,7 +39863,7 @@ function s7e({ pageId: t, onClose: e, onDeleted: n, onOpenPage: a }) {
       onClose: e,
       impact: l,
       contentLocale: i,
-      otherActiveLocales: A,
+      otherActiveLocales: E,
       descCount: H,
       deleting: f,
       disabling: y,
@@ -40031,10 +40031,10 @@ function h7e({
   const { t: M } = Pe(), { locale: w, defaultLocale: _, availableLocales: x } = Wn(), { page: z, depth: j } = t, P = Qr(z, w, _), L = (V) => {
     const O = V.currentTarget.getBoundingClientRect(), I = V.clientY - O.top, Z = O.height;
     return I < Z * 0.3 ? "before" : I > Z * 0.7 ? "after" : "on";
-  }, Y = d === "before" ? " is-drop-before" : d === "after" ? " is-drop-after" : d === "on" ? " is-drop-on" : "", R = e.find((V) => V.type === z.type), $ = !!(R != null && R.system), E = (((q = R == null ? void 0 : R.allowedChildTypes) == null ? void 0 : q.length) ?? 0) > 0, H = Math.min(j + 1, 5), F = z.status === "published", U = F && !!z.draftSnapshot, A = x.length <= 1 || !!((X = (W = z.translations) == null ? void 0 : W[w]) != null && X.active), T = x.length > 1 && x.some((V) => {
+  }, Y = d === "before" ? " is-drop-before" : d === "after" ? " is-drop-after" : d === "on" ? " is-drop-on" : "", R = e.find((V) => V.type === z.type), $ = !!(R != null && R.system), A = (((q = R == null ? void 0 : R.allowedChildTypes) == null ? void 0 : q.length) ?? 0) > 0, H = Math.min(j + 1, 5), F = z.status === "published", U = F && !!z.draftSnapshot, E = x.length <= 1 || !!((X = (W = z.translations) == null ? void 0 : W[w]) != null && X.active), T = x.length > 1 && x.some((V) => {
     var O, I;
     return V !== w && !!((I = (O = z.translations) == null ? void 0 : O[V]) != null && I.active);
-  }), D = !A && T;
+  }), D = !E && T;
   return /* @__PURE__ */ b(
     "div",
     {
@@ -40081,7 +40081,7 @@ function h7e({
             "div",
             {
               className: "cms-card-head",
-              style: A ? void 0 : { opacity: 0.7 },
+              style: E ? void 0 : { opacity: 0.7 },
               children: [
                 /* @__PURE__ */ c(Ie, { label: M("pageTree.dragHandle"), withArrow: !0, openDelay: 400, children: /* @__PURE__ */ c("div", { className: "cms-drag-handle", children: /* @__PURE__ */ c($a, { size: 16 }) }) }),
                 /* @__PURE__ */ c("div", { className: "cms-card-head-in", onClick: () => u(z.id), children: /* @__PURE__ */ b("div", { className: "cms-title-info", children: [
@@ -40112,7 +40112,7 @@ function h7e({
         /* @__PURE__ */ c("div", { className: "cms-card-part", children: /* @__PURE__ */ c("span", { className: "cms-tag", children: Qt((R == null ? void 0 : R.label) ?? z.type, w) }) }),
         /* @__PURE__ */ c("div", { className: "cms-card-part is-spacer" }),
         /* @__PURE__ */ c("div", { className: "cms-card-part cms-card-tail", children: /* @__PURE__ */ b("div", { className: "cms-row-actions", children: [
-          n && E && /* @__PURE__ */ b(Oe, { children: [
+          n && A && /* @__PURE__ */ b(Oe, { children: [
             /* @__PURE__ */ c(Ie, { label: M("pageTree.addChild"), withArrow: !0, openDelay: 300, children: /* @__PURE__ */ c(
               "button",
               {
@@ -40190,7 +40190,7 @@ function h7e({
 }
 function p7e({ onEdit: t, onNew: e }) {
   var gt, jt;
-  const { t: n } = Pe(), { user: a } = ca(), o = ys(), { locale: r, defaultLocale: i, availableLocales: s } = Wn(), [l, d] = N([]), [p, u] = N({}), [f, m] = N(/* @__PURE__ */ new Set()), [y, g] = N(/* @__PURE__ */ new Set()), [k, v] = N(!0), [C, S] = N(!1), [M, w] = N(null), [_, x] = N(null), [z, j] = N(""), [P, L] = N(""), [Y, R] = N(!1), [$, E] = N(null), [H, F] = N(null), [U, A] = N(!1), [T, D] = N(null), [q, W] = N([]), [X, V] = N(/* @__PURE__ */ new Set()), [O, I] = N(null), Z = 0.07, ee = 0.175, Q = 10, [se, B] = N(null), K = Ce(null);
+  const { t: n } = Pe(), { user: a } = ca(), o = ys(), { locale: r, defaultLocale: i, availableLocales: s } = Wn(), [l, d] = N([]), [p, u] = N({}), [f, m] = N(/* @__PURE__ */ new Set()), [y, g] = N(/* @__PURE__ */ new Set()), [k, v] = N(!0), [C, S] = N(!1), [M, w] = N(null), [_, x] = N(null), [z, j] = N(""), [P, L] = N(""), [Y, R] = N(!1), [$, A] = N(null), [H, F] = N(null), [U, E] = N(!1), [T, D] = N(null), [q, W] = N([]), [X, V] = N(/* @__PURE__ */ new Set()), [O, I] = N(null), Z = 0.07, ee = 0.175, Q = 10, [se, B] = N(null), K = Ce(null);
   pe(() => {
     K.current = se;
   }, [se]);
@@ -40368,7 +40368,7 @@ function p7e({ onEdit: t, onNew: e }) {
     le.length !== 0 && (le.length === 1 ? e(le[0], oe.id) : (w(oe), S(!0)));
   }, G = (oe, _e) => {
     const le = $;
-    if (F(null), E(null), !le || le === oe) return;
+    if (F(null), A(null), !le || le === oe) return;
     const ze = (Ze) => {
       const rt = l.find((pt) => pt.id === Ze);
       if (rt) return rt;
@@ -40528,7 +40528,7 @@ function p7e({ onEdit: t, onNew: e }) {
             {
               variant: U ? "danger" : "secondary",
               leftSection: /* @__PURE__ */ c(dt, { size: 14 }),
-              onClick: () => A((oe) => !oe),
+              onClick: () => E((oe) => !oe),
               children: n(U ? "pageList.exitTrash" : "pageList.enterTrash")
             }
           ),
@@ -40633,10 +40633,10 @@ function p7e({ onEdit: t, onNew: e }) {
           onDelete: x,
           onPreview: Se,
           onDragStart: () => {
-            Ae(), E(oe.page.id);
+            Ae(), A(oe.page.id);
           },
           onDragEnd: () => {
-            E(null), F(null);
+            A(null), F(null);
           },
           onDragOver: (At) => F({ id: oe.page.id, zone: At }),
           onDragLeave: () => F((At) => (At == null ? void 0 : At.id) === oe.page.id ? null : At),
@@ -51831,14 +51831,14 @@ var F_e = (t, e, n, a = {}) => ({ editor: o, tr: r, state: i, dispatch: s, chain
   if ((L || Y) && P) {
     if (P.node.type === m)
       return _ && Y ? l().command(({ tr: R, dispatch: $ }) => {
-        const E = B_e(R);
-        return E ? (R.setSelection(E), $ && $(R), !0) : !1;
+        const A = B_e(R);
+        return A ? (R.setSelection(A), $ && $(R), !0) : !1;
       }).liftListItem(y).run() : d.liftListItem(y);
     if (T1(P.node.type.name, u) && m.validContent(P.node.content))
       return l().command(() => (r.setNodeMarkup(P.pos, m), !0)).command(() => j1(r, m)).command(() => A1(r, m)).run();
   }
   return !n || !M || !s ? l().command(() => p().wrapInList(m, a) ? !0 : d.clearNodes()).wrapInList(m, a).command(() => j1(r, m)).command(() => A1(r, m)).run() : l().command(() => {
-    const R = p().wrapInList(m, a), $ = M.filter((E) => f.includes(E.type.name));
+    const R = p().wrapInList(m, a), $ = M.filter((A) => f.includes(A.type.name));
     return r.ensureMarks($), R ? !0 : d.clearNodes();
   }).wrapInList(m, a).command(() => j1(r, m)).command(() => A1(r, m)).run();
 }, U_e = (t, e = {}, n = {}) => ({ state: a, commands: o }) => {
@@ -54084,11 +54084,11 @@ function xCe(t) {
               let $ = [];
               if (_)
                 if (s === "block")
-                  for ($ = m.blockTokens(Y), $.forEach((E) => {
-                    E.text && (!E.tokens || E.tokens.length === 0) && (E.tokens = m.inlineTokens(E.text));
+                  for ($ = m.blockTokens(Y), $.forEach((A) => {
+                    A.text && (!A.tokens || A.tokens.length === 0) && (A.tokens = m.inlineTokens(A.text));
                   }); $.length > 0; ) {
-                    const E = $[$.length - 1];
-                    if (E.type === "paragraph" && (!E.text || E.text.trim() === ""))
+                    const A = $[$.length - 1];
+                    if (A.type === "paragraph" && (!A.text || A.text.trim() === ""))
                       $.pop();
                     else
                       break;
@@ -56413,10 +56413,10 @@ function cSe({
   for (let L = 0; L < P.length; L++) {
     const [Y, R] = P[L], $ = ye(M, Y);
     ye(w, Y, $);
-    const E = Jn(Js);
-    ct($, e, E);
+    const A = Jn(Js);
+    ct($, e, A);
     const H = Jn();
-    ct($, n, H), ye($, R, M), ct(E, e, E), ct(E, n, H), ct(H, e, E), ct(H, n, H), ye(E, R, M), ye(H, R, M);
+    ct($, n, H), ye($, R, M), ct(A, e, A), ct(A, n, H), ct(H, e, A), ct(H, n, H), ye(A, R, M), ye(H, R, M);
   }
   return ye(o, cs, v), ye(o, p0, lSe), {
     start: o,
@@ -60820,7 +60820,7 @@ function yr({
   onConfirm: i,
   zIndex: s
 }) {
-  const l = o === "document", [d, p] = N([]), [u, f] = N([]), [m, y] = N(void 0), [g, k] = N(""), [v, C] = N(!1), [S, M] = N(/* @__PURE__ */ new Map()), [w, _] = N(/* @__PURE__ */ new Set()), [x, z] = N(null), [j, P] = N(null), L = Ce(!1), Y = Ce(null), R = Ce(null), [$, E] = N(160), H = Ce(!1), F = Ce(0), U = Ce(160);
+  const l = o === "document", [d, p] = N([]), [u, f] = N([]), [m, y] = N(void 0), [g, k] = N(""), [v, C] = N(!1), [S, M] = N(/* @__PURE__ */ new Map()), [w, _] = N(/* @__PURE__ */ new Set()), [x, z] = N(null), [j, P] = N(null), L = Ce(!1), Y = Ce(null), R = Ce(null), [$, A] = N(160), H = Ce(!1), F = Ce(0), U = Ce(160);
   pe(() => {
     t && (_(new Set(r.map((W) => W.mediaId))), y(void 0), k(""), ug().then((W) => f(W.folders)).catch(() => null));
   }, [t]), pe(() => {
@@ -60873,7 +60873,7 @@ function yr({
     const W = (V) => {
       if (!H.current) return;
       const O = V.clientX - F.current;
-      E(Math.max(120, Math.min(320, U.current + O)));
+      A(Math.max(120, Math.min(320, U.current + O)));
     }, X = () => {
       H.current && (H.current = !1, document.body.style.cursor = "", document.body.style.userSelect = "");
     };
@@ -60881,11 +60881,11 @@ function yr({
       window.removeEventListener("mousemove", W), window.removeEventListener("mouseup", X);
     };
   }, []);
-  const A = (W) => _((X) => {
+  const E = (W) => _((X) => {
     const V = new Set(X);
     return V.has(W) ? V.delete(W) : V.add(W), V;
   }), T = (W) => {
-    a === "single" ? (i([em(W)]), e()) : A(W.id);
+    a === "single" ? (i([em(W)]), e()) : E(W.id);
   }, D = () => {
     const W = r.filter((O) => w.has(O.mediaId)), X = new Set(W.map((O) => O.mediaId)), V = [...w].filter((O) => !X.has(O)).map((O) => S.get(O)).filter((O) => !!O).map(em);
     i([...W, ...V]);
@@ -61127,7 +61127,7 @@ function i5(t) {
   return t.linkType === "page" ? !!t.pageId : t.linkType === "remote" ? (((e = t.url) == null ? void 0 : e.trim().length) ?? 0) > 0 : t.linkType === "email" ? (((n = t.email) == null ? void 0 : n.trim().length) ?? 0) > 0 : t.linkType === "file" ? (((a = t.fileUrl) == null ? void 0 : a.trim().length) ?? 0) > 0 : !1;
 }
 function s5({ data: t, onChange: e, mode: n, currentLocale: a, showTextFields: o, mediaPickerZIndex: r }) {
-  const { locale: i, availableLocales: s, defaultLocale: l } = Wn(), d = a ?? (s.length > 1 ? i : void 0), p = (E) => d ? Qr(E, d, l).title : E.title, u = t, f = (E) => e({ ...u, ...E }), [m, y] = N(""), [g, k] = N([]), [v, C] = N(!1), [S, M] = N(!1), [w, _] = N(() => t.pageId && t.pageSlug && t.pageTitle ? {
+  const { locale: i, availableLocales: s, defaultLocale: l } = Wn(), d = a ?? (s.length > 1 ? i : void 0), p = (A) => d ? Qr(A, d, l).title : A.title, u = t, f = (A) => e({ ...u, ...A }), [m, y] = N(""), [g, k] = N([]), [v, C] = N(!1), [S, M] = N(!1), [w, _] = N(() => t.pageId && t.pageSlug && t.pageTitle ? {
     id: t.pageId,
     slug: t.pageSlug,
     title: t.pageTitle,
@@ -61141,7 +61141,7 @@ function s5({ data: t, onChange: e, mode: n, currentLocale: a, showTextFields: o
   } : null);
   pe(() => {
     if (u.linkType !== "page") return;
-    const E = setTimeout(async () => {
+    const A = setTimeout(async () => {
       C(!0);
       try {
         const H = await jn({
@@ -61150,8 +61150,8 @@ function s5({ data: t, onChange: e, mode: n, currentLocale: a, showTextFields: o
           locale: d,
           limit: 30
         }), F = d ? H.data.filter((U) => {
-          var A, T;
-          return !!((T = (A = U.translations) == null ? void 0 : A[d]) != null && T.active);
+          var E, T;
+          return !!((T = (E = U.translations) == null ? void 0 : E[d]) != null && T.active);
         }) : H.data;
         k(F);
       } catch {
@@ -61160,15 +61160,15 @@ function s5({ data: t, onChange: e, mode: n, currentLocale: a, showTextFields: o
         C(!1);
       }
     }, 300);
-    return () => clearTimeout(E);
+    return () => clearTimeout(A);
   }, [m, u.linkType, d]);
-  const x = (E) => {
-    var U, A;
-    _(E);
-    const H = p(E), F = d && ((A = (U = E.translations) == null ? void 0 : U[d]) == null ? void 0 : A.slug) || E.slug;
+  const x = (A) => {
+    var U, E;
+    _(A);
+    const H = p(A), F = d && ((E = (U = A.translations) == null ? void 0 : U[d]) == null ? void 0 : E.slug) || A.slug;
     e({
       ...u,
-      pageId: E.id,
+      pageId: A.id,
       pageSlug: F,
       pageTitle: H,
       // Auto-fill link text from the selected page's title only on first pick.
@@ -61180,11 +61180,11 @@ function s5({ data: t, onChange: e, mode: n, currentLocale: a, showTextFields: o
       {
         placeholder: "Search pages…",
         value: m,
-        onChange: (E) => y(E.target.value),
+        onChange: (A) => y(A.target.value),
         size: "xs"
       }
     ),
-    /* @__PURE__ */ c(Yr, { h: 160, style: { border: "1px solid #dee2e6", borderRadius: 4 }, children: v ? /* @__PURE__ */ c(fe, { ta: "center", py: "sm", children: /* @__PURE__ */ c(en, { size: "xs" }) }) : g.length === 0 ? /* @__PURE__ */ c(te, { size: "xs", c: "dimmed", ta: "center", py: "sm", children: m ? "No pages found" : "Type to search published pages" }) : g.map((E) => /* @__PURE__ */ c(
+    /* @__PURE__ */ c(Yr, { h: 160, style: { border: "1px solid #dee2e6", borderRadius: 4 }, children: v ? /* @__PURE__ */ c(fe, { ta: "center", py: "sm", children: /* @__PURE__ */ c(en, { size: "xs" }) }) : g.length === 0 ? /* @__PURE__ */ c(te, { size: "xs", c: "dimmed", ta: "center", py: "sm", children: m ? "No pages found" : "Type to search published pages" }) : g.map((A) => /* @__PURE__ */ c(
       fe,
       {
         px: "sm",
@@ -61192,20 +61192,20 @@ function s5({ data: t, onChange: e, mode: n, currentLocale: a, showTextFields: o
         style: {
           cursor: "pointer",
           borderRadius: 4,
-          background: (w == null ? void 0 : w.id) === E.id ? "var(--mantine-color-blue-light)" : "transparent",
-          borderLeft: (w == null ? void 0 : w.id) === E.id ? "3px solid var(--mantine-color-blue-filled)" : "3px solid transparent"
+          background: (w == null ? void 0 : w.id) === A.id ? "var(--mantine-color-blue-light)" : "transparent",
+          borderLeft: (w == null ? void 0 : w.id) === A.id ? "3px solid var(--mantine-color-blue-filled)" : "3px solid transparent"
         },
-        onClick: () => x(E),
-        children: /* @__PURE__ */ c(te, { size: "xs", fw: (w == null ? void 0 : w.id) === E.id ? 600 : 400, children: p(E) })
+        onClick: () => x(A),
+        children: /* @__PURE__ */ c(te, { size: "xs", fw: (w == null ? void 0 : w.id) === A.id ? 600 : 400, children: p(A) })
       },
-      E.id
+      A.id
     )) }),
     /* @__PURE__ */ c(
       Ar,
       {
         label: "Open in new window",
         checked: u.openInNewTab ?? !1,
-        onChange: (E) => f({ openInNewTab: E.currentTarget.checked }),
+        onChange: (A) => f({ openInNewTab: A.currentTarget.checked }),
         size: "xs"
       }
     )
@@ -61216,7 +61216,7 @@ function s5({ data: t, onChange: e, mode: n, currentLocale: a, showTextFields: o
         label: "* URL",
         placeholder: "https://example.com",
         value: u.url ?? "",
-        onChange: (E) => f({ url: E.target.value }),
+        onChange: (A) => f({ url: A.target.value }),
         size: "xs"
       }
     ),
@@ -61225,7 +61225,7 @@ function s5({ data: t, onChange: e, mode: n, currentLocale: a, showTextFields: o
       {
         label: "Open in new window",
         checked: u.openInNewTab ?? !1,
-        onChange: (E) => f({ openInNewTab: E.currentTarget.checked }),
+        onChange: (A) => f({ openInNewTab: A.currentTarget.checked }),
         size: "xs"
       }
     )
@@ -61236,7 +61236,7 @@ function s5({ data: t, onChange: e, mode: n, currentLocale: a, showTextFields: o
         label: "* E-mail",
         placeholder: "contact@example.com",
         value: u.email ?? "",
-        onChange: (E) => f({ email: E.target.value }),
+        onChange: (A) => f({ email: A.target.value }),
         size: "xs"
       }
     ),
@@ -61246,12 +61246,12 @@ function s5({ data: t, onChange: e, mode: n, currentLocale: a, showTextFields: o
         label: "Subject",
         placeholder: "Hello!",
         value: u.emailSubject ?? "",
-        onChange: (E) => f({ emailSubject: E.target.value }),
+        onChange: (A) => f({ emailSubject: A.target.value }),
         size: "xs"
       }
     )
-  ] }), L = (E) => {
-    const H = E[0];
+  ] }), L = (A) => {
+    const H = A[0];
     H && e({
       ...u,
       fileUrl: H.cdnUrl,
@@ -61285,7 +61285,7 @@ function s5({ data: t, onChange: e, mode: n, currentLocale: a, showTextFields: o
       {
         label: "Open in new window",
         checked: u.openInNewTab ?? !1,
-        onChange: (E) => f({ openInNewTab: E.currentTarget.checked }),
+        onChange: (A) => f({ openInNewTab: A.currentTarget.checked }),
         size: "xs"
       }
     ),
@@ -61308,7 +61308,7 @@ function s5({ data: t, onChange: e, mode: n, currentLocale: a, showTextFields: o
         label: "Link text",
         placeholder: u.linkType === "page" ? w ? p(w) : "Link text…" : u.linkType === "remote" ? u.url || "Link text…" : u.linkType === "email" && u.email || "Link text…",
         value: u.linkText ?? "",
-        onChange: (E) => f({ linkText: E.target.value }),
+        onChange: (A) => f({ linkText: A.target.value }),
         size: "xs"
       }
     ),
@@ -61318,7 +61318,7 @@ function s5({ data: t, onChange: e, mode: n, currentLocale: a, showTextFields: o
         label: "Tooltip text",
         placeholder: "Shown on hover",
         value: u.tooltip ?? "",
-        onChange: (E) => f({ tooltip: E.target.value }),
+        onChange: (A) => f({ tooltip: A.target.value }),
         size: "xs"
       }
     )
@@ -61328,7 +61328,7 @@ function s5({ data: t, onChange: e, mode: n, currentLocale: a, showTextFields: o
       {
         label: "Display as button",
         checked: u.asButton,
-        onChange: (E) => f({ asButton: E.currentTarget.checked }),
+        onChange: (A) => f({ asButton: A.currentTarget.checked }),
         mb: "sm",
         size: "sm"
       }
@@ -61341,7 +61341,7 @@ function s5({ data: t, onChange: e, mode: n, currentLocale: a, showTextFields: o
             label: "Size",
             size: "xs",
             value: u.buttonSize,
-            onChange: (E) => f({ buttonSize: E ?? "md" }),
+            onChange: (A) => f({ buttonSize: A ?? "md" }),
             data: [
               { value: "sm", label: "Small" },
               { value: "md", label: "Medium" },
@@ -61355,7 +61355,7 @@ function s5({ data: t, onChange: e, mode: n, currentLocale: a, showTextFields: o
             label: "Type",
             size: "xs",
             value: u.buttonType,
-            onChange: (E) => f({ buttonType: E ?? "primary" }),
+            onChange: (A) => f({ buttonType: A ?? "primary" }),
             data: [
               { value: "primary", label: "Primary" },
               { value: "secondary", label: "Secondary" },
@@ -61369,7 +61369,7 @@ function s5({ data: t, onChange: e, mode: n, currentLocale: a, showTextFields: o
             label: "Position",
             size: "xs",
             value: u.buttonPosition,
-            onChange: (E) => f({ buttonPosition: E ?? "left" }),
+            onChange: (A) => f({ buttonPosition: A ?? "left" }),
             data: [
               { value: "left", label: "Left" },
               { value: "center", label: "Center" },
@@ -61411,7 +61411,7 @@ function s5({ data: t, onChange: e, mode: n, currentLocale: a, showTextFields: o
       Pn,
       {
         value: u.linkType,
-        onChange: (E) => E && f({ linkType: E }),
+        onChange: (A) => A && f({ linkType: A }),
         children: [
           /* @__PURE__ */ b(Pn.List, { grow: !0, children: [
             /* @__PURE__ */ c(Pn.Tab, { value: "page", children: "Page" }),
@@ -61585,22 +61585,22 @@ function UTe({
       width: S === "custom" && w !== "" ? Number(w) : null,
       height: S === "custom" && x !== "" ? Number(x) : null
     }), e());
-  }, E = (A) => {
-    const T = A[0];
+  }, A = (E) => {
+    const T = E[0];
     T && (p(T), f(null), l(!1), L.current = null);
   };
   pe(() => {
-    const A = (d == null ? void 0 : d.cdnUrl) ?? u;
-    if (!A) return;
+    const E = (d == null ? void 0 : d.cdnUrl) ?? u;
+    if (!E) return;
     const T = new window.Image();
     T.onload = () => {
       T.naturalWidth && T.naturalHeight && (L.current = T.naturalWidth / T.naturalHeight);
-    }, T.src = A;
+    }, T.src = E;
   }, [d, u]);
-  const H = (A) => {
-    _(A), j && L.current && A !== "" && z(Math.round(Number(A) / L.current));
-  }, F = (A) => {
-    z(A), j && L.current && A !== "" && _(Math.round(Number(A) * L.current));
+  const H = (E) => {
+    _(E), j && L.current && E !== "" && z(Math.round(Number(E) / L.current));
+  }, F = (E) => {
+    z(E), j && L.current && E !== "" && _(Math.round(Number(E) * L.current));
   }, U = [
     { value: "left", icon: /* @__PURE__ */ c($l, { size: 14 }), label: o("rte.imageModal.alignLeft") },
     { value: "center", icon: /* @__PURE__ */ c(El, { size: 14 }), label: o("rte.imageModal.alignCenter") },
@@ -61659,8 +61659,8 @@ function UTe({
                       opacity: 0,
                       transition: "opacity 150ms"
                     },
-                    onMouseEnter: (A) => A.currentTarget.style.opacity = "1",
-                    onMouseLeave: (A) => A.currentTarget.style.opacity = "0",
+                    onMouseEnter: (E) => E.currentTarget.style.opacity = "1",
+                    onMouseLeave: (E) => E.currentTarget.style.opacity = "0",
                     children: /* @__PURE__ */ c(te, { c: "white", size: "xs", fw: 600, children: o("rte.imageModal.change") })
                   }
                 )
@@ -61673,7 +61673,7 @@ function UTe({
               {
                 label: `* ${o("rte.imageModal.imageTitle")}`,
                 value: m,
-                onChange: (A) => y(A.target.value),
+                onChange: (E) => y(E.target.value),
                 placeholder: o("rte.imageModal.imageTitlePlaceholder")
               }
             ),
@@ -61682,21 +61682,21 @@ function UTe({
               {
                 label: o("rte.imageModal.description"),
                 value: g,
-                onChange: (A) => k(A.target.value),
+                onChange: (E) => k(E.target.value),
                 placeholder: o("rte.imageModal.descriptionPlaceholder")
               }
             ),
             /* @__PURE__ */ b(fe, { children: [
               /* @__PURE__ */ c(te, { size: "sm", fw: 500, mb: 6, children: o("rte.imageModal.alignment") }),
-              /* @__PURE__ */ c(Le, { gap: 4, children: U.map(({ value: A, icon: T, label: D }) => /* @__PURE__ */ c(Ie, { label: D, withArrow: !0, fz: "xs", openDelay: 300, children: /* @__PURE__ */ c(
+              /* @__PURE__ */ c(Le, { gap: 4, children: U.map(({ value: E, icon: T, label: D }) => /* @__PURE__ */ c(Ie, { label: D, withArrow: !0, fz: "xs", openDelay: 300, children: /* @__PURE__ */ c(
                 Jt,
                 {
-                  variant: v === A ? "filled" : "default",
-                  color: v === A ? "blue" : "gray",
-                  onClick: () => C(v === A ? "default" : A),
+                  variant: v === E ? "filled" : "default",
+                  color: v === E ? "blue" : "gray",
+                  onClick: () => C(v === E ? "default" : E),
                   children: T
                 }
-              ) }, A)) })
+              ) }, E)) })
             ] }),
             /* @__PURE__ */ b(fe, { children: [
               /* @__PURE__ */ c(te, { size: "sm", fw: 500, mb: 6, children: o("rte.imageModal.dimensions") }),
@@ -61704,7 +61704,7 @@ function UTe({
                 Yd.Group,
                 {
                   value: S,
-                  onChange: (A) => M(A),
+                  onChange: (E) => M(E),
                   children: /* @__PURE__ */ b(ke, { gap: 6, children: [
                     /* @__PURE__ */ c(Yd, { value: "original", label: o("rte.imageModal.originalDims") }),
                     /* @__PURE__ */ c(Yd, { value: "custom", label: o("rte.imageModal.customDims") })
@@ -61734,7 +61734,7 @@ function UTe({
                     {
                       variant: "subtle",
                       color: "gray",
-                      onClick: () => P((A) => !A),
+                      onClick: () => P((E) => !E),
                       mb: 4,
                       children: j ? /* @__PURE__ */ c(fp, { size: 14 }) : /* @__PURE__ */ c(Ry, { size: 14 })
                     }
@@ -61773,7 +61773,7 @@ function UTe({
             opened: s,
             onClose: () => l(!1),
             mode: "single",
-            onConfirm: E,
+            onConfirm: A,
             zIndex: FTe
           }
         )
@@ -61916,7 +61916,7 @@ function Ld({
       u.off("selectionUpdate", V), u.off("transaction", V);
     };
   }, [u]);
-  const [f, m] = N(!1), [y, g] = N({}), [k, v] = N(!1), [C, S] = N(!1), [M, w] = N([0, 0]), [_, x] = N(null), z = Ce(null), j = Ce(null), [P, L] = N(null), [Y, R] = N(!1), $ = Ce(!1), E = () => {
+  const [f, m] = N(!1), [y, g] = N({}), [k, v] = N(!1), [C, S] = N(!1), [M, w] = N([0, 0]), [_, x] = N(null), z = Ce(null), j = Ce(null), [P, L] = N(null), [Y, R] = N(!1), $ = Ce(!1), A = () => {
     if (u) {
       if (u.isActive("link")) {
         u.chain().focus().unsetLink().run();
@@ -61957,7 +61957,7 @@ function Ld({
     for (let V = 1; V <= 6; V++)
       if (u.isActive("heading", { level: V })) return `h${V}`;
     return "p";
-  }, A = (V) => {
+  }, E = (V) => {
     if (!V || V === "p")
       u.chain().focus().setParagraph().run();
     else {
@@ -62010,7 +62010,7 @@ function Ld({
         An,
         {
           value: U(),
-          onChange: A,
+          onChange: E,
           data: T,
           size: "sm",
           w: 130,
@@ -62177,7 +62177,7 @@ function Ld({
         {
           label: "Link",
           active: u.isActive("link"),
-          onClick: E,
+          onClick: A,
           children: /* @__PURE__ */ c(Ly, { size: 16 })
         }
       ),
@@ -63370,8 +63370,8 @@ function rje({ data: t, onChange: e, blockIdx: n = 0 }) {
   const { t: a } = Pe(), o = t, r = o.layout ?? null, i = o.columns ?? [], s = t.title || "", [l, d] = N(!1), [p, u] = N(0), [f, m] = N(null), [y, g] = N(!1), k = (R, $) => {
     e({ ...t, layout: R, columns: $ });
   }, v = (R) => k(R, u5(R)), C = (R) => {
-    const $ = i.flatMap((H) => H.widgets), E = R.map((H, F) => ({ id: Ur(), width: H, widgets: F === 0 ? $ : [] }));
-    k(R, E), g(!1);
+    const $ = i.flatMap((H) => H.widgets), A = R.map((H, F) => ({ id: Ur(), width: H, widgets: F === 0 ? $ : [] }));
+    k(R, A), g(!1);
   }, S = (R) => {
     k(r, R(i));
   }, M = (R) => {
@@ -63380,14 +63380,14 @@ function rje({ data: t, onChange: e, blockIdx: n = 0 }) {
     u(R), m($), d(!0);
   }, _ = (R, $) => {
     S(
-      f ? (E) => E.map(
+      f ? (A) => A.map(
         (H, F) => F !== p ? H : {
           ...H,
           widgets: H.widgets.map(
             (U) => U.id === f ? { ...U, data: $ } : U
           )
         }
-      ) : (E) => E.map(
+      ) : (A) => A.map(
         (H, F) => F !== p ? H : {
           ...H,
           widgets: [
@@ -63397,20 +63397,20 @@ function rje({ data: t, onChange: e, blockIdx: n = 0 }) {
         }
       )
     );
-  }, x = f ? (Y = i[p]) == null ? void 0 : Y.widgets.find((R) => R.id === f) : null, z = (R, $, E) => {
+  }, x = f ? (Y = i[p]) == null ? void 0 : Y.widgets.find((R) => R.id === f) : null, z = (R, $, A) => {
     S(
       (H) => H.map(
         (F, U) => U !== R ? F : {
           ...F,
           widgets: F.widgets.map(
-            (A) => A.id === $ ? { ...A, data: E } : A
+            (E) => E.id === $ ? { ...E, data: A } : E
           )
         }
       )
     );
   }, j = (R, $) => {
     S(
-      (E) => E.map(
+      (A) => A.map(
         (H, F) => F !== R ? H : { ...H, widgets: H.widgets.filter((U) => U.id !== $) }
       )
     );
@@ -63521,11 +63521,11 @@ function rje({ data: t, onChange: e, blockIdx: n = 0 }) {
                   background: $ ? "var(--cms-teal-50)" : "transparent",
                   transition: "background .1s"
                 },
-                onMouseEnter: (E) => {
-                  $ || (E.currentTarget.style.background = "var(--cms-bg)");
+                onMouseEnter: (A) => {
+                  $ || (A.currentTarget.style.background = "var(--cms-bg)");
                 },
-                onMouseLeave: (E) => {
-                  $ || (E.currentTarget.style.background = "transparent");
+                onMouseLeave: (A) => {
+                  $ || (A.currentTarget.style.background = "transparent");
                 },
                 children: [
                   /* @__PURE__ */ c("span", { children: R.label }),
@@ -63548,9 +63548,9 @@ function rje({ data: t, onChange: e, blockIdx: n = 0 }) {
         colIdx: $,
         totalColumns: i.length,
         onAddWidget: () => M($),
-        onEditWidget: (E) => w($, E),
-        onUpdateWidget: (E, H) => z($, E, H),
-        onRemoveWidget: (E) => j($, E)
+        onEditWidget: (A) => w($, A),
+        onUpdateWidget: (A, H) => z($, A, H),
+        onRemoveWidget: (A) => j($, A)
       },
       R.id
     )) }) }),
@@ -63578,7 +63578,7 @@ const ije = {
 function $d(t) {
   return t ? bp[t] ?? null : null;
 }
-function rEe({
+function iEe({
   name: t,
   size: e = 18,
   strokeWidth: n,
@@ -64422,7 +64422,7 @@ function Tje({
 }
 function jje({ pageId: t, initialType: e, initialParentId: n, onBack: a, onDirtyChange: o }) {
   var H0, q0, V0;
-  const { t: r } = Pe(), { user: i } = ca(), s = ek(), l = ys(), { locale: d, defaultLocale: p, availableLocales: u } = Wn(), [f] = k5(), y = tp("light", { getInitialValueInEffect: !0 }) === "dark", [g, k] = N(d), [v, C] = N({}), [S, M] = N(""), [w, _] = N(void 0), [x, z] = N(""), [j, P] = N("draft"), [L, Y] = N(!1), [R, $] = N(e ?? "default"), [E, H] = N({}), [F, U] = N(n ?? null), [A, T] = N([]), [D, q] = N([]), [W, X] = N({}), [V, O] = N(/* @__PURE__ */ new Set()), [I, Z] = N(!1), [ee, Q] = N(!1), [se, B] = N(!!t), [K, ne] = N(t), [re, Ne] = N(!1), [yt, mt] = N(!1), [st, lt] = N(!1), [nn, Ft] = N(null), [Dt, St] = N(""), [ht, ce] = N(""), [Ae, De] = N(null), [Se, Ve] = N(""), [Ye, Qe] = N(!1), [Zt, Be] = N(!1), [G, Me] = N(""), [$e, ae] = N(null), [Te, je] = N("content"), [et, Fe] = N(!1), [gt, jt] = N(null), [oe, _e] = N(!1), [le, ze] = N(!1), [Ee, Ue] = N(!1), [vt, Pt] = N([]), [it, It] = N(!1), [At, Ze] = N(null), [rt, pt] = N(!1), [wt, un] = N(null), [Sn, ro] = N({}), [ri, E0] = N([]), gr = Ce(null), io = Ce(null), R5 = zg(
+  const { t: r } = Pe(), { user: i } = ca(), s = ek(), l = ys(), { locale: d, defaultLocale: p, availableLocales: u } = Wn(), [f] = k5(), y = tp("light", { getInitialValueInEffect: !0 }) === "dark", [g, k] = N(d), [v, C] = N({}), [S, M] = N(""), [w, _] = N(void 0), [x, z] = N(""), [j, P] = N("draft"), [L, Y] = N(!1), [R, $] = N(e ?? "default"), [A, H] = N({}), [F, U] = N(n ?? null), [E, T] = N([]), [D, q] = N([]), [W, X] = N({}), [V, O] = N(/* @__PURE__ */ new Set()), [I, Z] = N(!1), [ee, Q] = N(!1), [se, B] = N(!!t), [K, ne] = N(t), [re, Ne] = N(!1), [yt, mt] = N(!1), [st, lt] = N(!1), [nn, Ft] = N(null), [Dt, St] = N(""), [ht, ce] = N(""), [Ae, De] = N(null), [Se, Ve] = N(""), [Ye, Qe] = N(!1), [Zt, Be] = N(!1), [G, Me] = N(""), [$e, ae] = N(null), [Te, je] = N("content"), [et, Fe] = N(!1), [gt, jt] = N(null), [oe, _e] = N(!1), [le, ze] = N(!1), [Ee, Ue] = N(!1), [vt, Pt] = N([]), [it, It] = N(!1), [At, Ze] = N(null), [rt, pt] = N(!1), [wt, un] = N(null), [Sn, ro] = N({}), [ri, E0] = N([]), gr = Ce(null), io = Ce(null), R5 = zg(
     sh(fd, { activationConstraint: { distance: 6 } })
   ), [L0, Rd] = N(null), ln = l.find((J) => J.type === R), O5 = (ln == null ? void 0 : ln.allowBlocks) !== !1, I5 = (((H0 = ln == null ? void 0 : ln.fields) == null ? void 0 : H0.length) ?? 0) > 0, kr = ln != null && ln.allowedBlockTypes ? s.filter((J) => ln.allowedBlockTypes.includes(J.type)) : s, $0 = ((q0 = ln == null ? void 0 : ln.allowedBlockTypes) == null ? void 0 : q0.length) === 1 && !ln.multiBlock;
   pe(() => {
@@ -64490,7 +64490,7 @@ function jje({ pageId: t, initialType: e, initialParentId: n, onBack: a, onDirty
   }, [F]);
   const D0 = (() => {
     if (!F) return null;
-    const J = A.find((ie) => ie.id === F);
+    const J = E.find((ie) => ie.id === F);
     return J ? Qr(J, g, p).title : nn;
   })(), Od = () => {
     var ie;
@@ -64501,7 +64501,7 @@ function jje({ pageId: t, initialType: e, initialParentId: n, onBack: a, onDirty
       active: ((ie = v[g]) == null ? void 0 : ie.active) ?? !1,
       title: S,
       slug: x,
-      typeData: E,
+      typeData: A,
       blocks: D.map((de) => ({ type: de.type, data: de.data })),
       metaTitle: Dt,
       metaDescription: ht,
@@ -64526,7 +64526,7 @@ function jje({ pageId: t, initialType: e, initialParentId: n, onBack: a, onDirty
         active: J,
         title: S,
         slug: x,
-        typeData: E,
+        typeData: A,
         blocks: D.map((de) => ({ type: de.type, data: de.data })),
         metaTitle: Dt,
         metaDescription: ht,
@@ -65091,7 +65091,7 @@ function jje({ pageId: t, initialType: e, initialParentId: n, onBack: a, onDirty
             " ",
             r("pageEditor.fieldsSectionTitle")
           ] }),
-          /* @__PURE__ */ c(gje, { fields: ln.fields, data: E, onChange: H })
+          /* @__PURE__ */ c(gje, { fields: ln.fields, data: A, onChange: H })
         ] }),
         O5 && /* @__PURE__ */ b(Oe, { children: [
           /* @__PURE__ */ b("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 16, marginTop: 16 }, children: [
@@ -65931,7 +65931,7 @@ function Rje(t) {
   return t === "developer" ? ["developer", "admin", "editor", "viewer"] : t === "admin" ? ["editor", "viewer"] : [];
 }
 function Oje({ currentUserId: t }) {
-  const { t: e } = Pe(), { user: n } = ca(), [a, o] = N([]), [r, i] = N(!0), [s, l] = N(null), [d, p] = N(""), [u, f] = N(!1), [m, y] = N(""), [g, k] = N(""), [v, C] = N(""), [S, M] = N(null), [w, _] = N(null), [x, z] = N(!1), [j, P] = N(null), [L, Y] = N(null), [R, $] = N(""), [E, H] = N(""), [F, U] = N(null), [A, T] = N(!1), [D, q] = N(null), W = Rje((n == null ? void 0 : n.role) ?? ""), X = async () => {
+  const { t: e } = Pe(), { user: n } = ca(), [a, o] = N([]), [r, i] = N(!0), [s, l] = N(null), [d, p] = N(""), [u, f] = N(!1), [m, y] = N(""), [g, k] = N(""), [v, C] = N(""), [S, M] = N(null), [w, _] = N(null), [x, z] = N(!1), [j, P] = N(null), [L, Y] = N(null), [R, $] = N(""), [A, H] = N(""), [F, U] = N(null), [E, T] = N(!1), [D, q] = N(null), W = Rje((n == null ? void 0 : n.role) ?? ""), X = async () => {
     i(!0), l(null);
     try {
       o(await l6e());
@@ -65968,7 +65968,7 @@ function Oje({ currentUserId: t }) {
       try {
         const B = {};
         L && L !== j.role && (B.role = L);
-        const K = R.trim(), ne = E.trim();
+        const K = R.trim(), ne = A.trim();
         if (K !== (j.firstName ?? "") && (B.firstName = K), ne !== (j.lastName ?? "") && (B.lastName = ne), Object.keys(B).length === 0) {
           P(null);
           return;
@@ -66118,8 +66118,8 @@ function Oje({ currentUserId: t }) {
             {
               variant: "primary",
               onClick: I,
-              loading: A,
-              disabled: L === (j == null ? void 0 : j.role) && R.trim() === ((j == null ? void 0 : j.firstName) ?? "") && E.trim() === ((j == null ? void 0 : j.lastName) ?? ""),
+              loading: E,
+              disabled: L === (j == null ? void 0 : j.role) && R.trim() === ((j == null ? void 0 : j.firstName) ?? "") && A.trim() === ((j == null ? void 0 : j.lastName) ?? ""),
               children: e("users.editSave")
             }
           )
@@ -66128,7 +66128,7 @@ function Oje({ currentUserId: t }) {
           F && /* @__PURE__ */ c(Fn, { color: "red", children: F }),
           /* @__PURE__ */ b("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }, children: [
             /* @__PURE__ */ c(Xe, { label: e("users.createFirstName"), placeholder: e("users.createFirstNamePlaceholder"), value: R, onChange: (B) => $(B.currentTarget.value) }),
-            /* @__PURE__ */ c(Xe, { label: e("users.createLastName"), placeholder: e("users.createLastNamePlaceholder"), value: E, onChange: (B) => H(B.currentTarget.value) })
+            /* @__PURE__ */ c(Xe, { label: e("users.createLastName"), placeholder: e("users.createLastNamePlaceholder"), value: A, onChange: (B) => H(B.currentTarget.value) })
           ] }),
           /* @__PURE__ */ c("div", { className: "cms-drawer-section", children: e("users.roleSection") }),
           /* @__PURE__ */ c("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }, children: W.map((B) => /* @__PURE__ */ c(
@@ -66417,7 +66417,7 @@ function Uje({ folders: t, rootCount: e, current: n, onSelect: a, onMoveFile: o,
     O.dataTransfer.setData("text/media-folder-id", I.id), O.dataTransfer.effectAllowed = "move";
     const ee = N5(I);
     ee.add(I.id), R.current = ee, p(null);
-  }, E = () => {
+  }, A = () => {
     R.current = /* @__PURE__ */ new Set(), p(null);
   }, H = async (O, I) => {
     O.preventDefault(), O.stopPropagation(), p(null);
@@ -66448,7 +66448,7 @@ function Uje({ folders: t, rootCount: e, current: n, onSelect: a, onMoveFile: o,
   }, U = (O) => M((I) => {
     const Z = new Set(I);
     return Z.has(O) ? Z.delete(O) : Z.add(O), Z;
-  }), A = async () => {
+  }), E = async () => {
     if (!(!u || !m.trim()))
       try {
         await g6e(u, m.trim()), f(null), s();
@@ -66493,7 +66493,7 @@ function Uje({ folders: t, rootCount: e, current: n, onSelect: a, onMoveFile: o,
           onClick: () => !se && a(O.id),
           draggable: !se,
           onDragStart: (ne) => $(ne, O),
-          onDragEnd: E,
+          onDragEnd: A,
           onDragOver: (ne) => F(ne, O.id),
           onDragLeave: () => p(null),
           onDrop: (ne) => H(ne, O.id),
@@ -66518,7 +66518,7 @@ function Uje({ folders: t, rootCount: e, current: n, onSelect: a, onMoveFile: o,
                 value: m,
                 onChange: (ne) => y(ne.target.value),
                 onKeyDown: (ne) => {
-                  ne.key === "Enter" && A(), ne.key === "Escape" && f(null);
+                  ne.key === "Enter" && E(), ne.key === "Escape" && f(null);
                 },
                 onBlur: () => f(null),
                 onClick: (ne) => ne.stopPropagation(),
@@ -67066,7 +67066,7 @@ function Gje({ opened: t, onClose: e }) {
 }
 function Zje() {
   var $e;
-  const { t } = Pe(), { user: e } = ca(), [n, a] = N([]), [o, r] = N(0), [i, s] = N(1), [l, d] = N(!0), [p, u] = N(""), [f, m] = N(""), [y, g] = N("all"), [k, v] = N(!1), [C, S] = N(!1), [M, w] = N(() => localStorage.getItem("cms-media-view") ?? "large"), [_, x] = N(() => localStorage.getItem("cms-media-sort") ?? "added-desc"), [z, j] = N([]), [P, L] = N(0), [Y, R] = N(void 0), [$, E] = N(null), [H, F] = N(null), [U, A] = N(null), [T, D] = N(!1), [q, W] = N(/* @__PURE__ */ new Set()), [X, V] = N(null), O = Ce(null), I = Ce(!1), Z = Ce(null), ee = Ce(null), Q = (e == null ? void 0 : e.role) === "developer", se = Ije(t), B = nt(async () => {
+  const { t } = Pe(), { user: e } = ca(), [n, a] = N([]), [o, r] = N(0), [i, s] = N(1), [l, d] = N(!0), [p, u] = N(""), [f, m] = N(""), [y, g] = N("all"), [k, v] = N(!1), [C, S] = N(!1), [M, w] = N(() => localStorage.getItem("cms-media-view") ?? "large"), [_, x] = N(() => localStorage.getItem("cms-media-sort") ?? "added-desc"), [z, j] = N([]), [P, L] = N(0), [Y, R] = N(void 0), [$, A] = N(null), [H, F] = N(null), [U, E] = N(null), [T, D] = N(!1), [q, W] = N(/* @__PURE__ */ new Set()), [X, V] = N(null), O = Ce(null), I = Ce(!1), Z = Ce(null), ee = Ce(null), Q = (e == null ? void 0 : e.role) === "developer", se = Ije(t), B = nt(async () => {
     try {
       const ae = await ug();
       j(ae.folders), L(ae.rootCount);
@@ -67222,7 +67222,7 @@ function Zje() {
     });
   }, []), Zt = n.length > 0 && n.every((ae) => q.has(ae.id)), Be = n.some((ae) => q.has(ae.id)), G = nt(() => {
     W((ae) => n.length > 0 && n.every((je) => ae.has(je.id)) ? /* @__PURE__ */ new Set() : new Set(n.map((je) => je.id)));
-  }, [n]), Me = { onPreview: E, onInfo: F, onRename: A, onDelete: St, onDeleteMultiple: De, onDownloadMultiple: Ae, selectedIds: q, onToggleSelect: Qe };
+  }, [n]), Me = { onPreview: A, onInfo: F, onRename: E, onDelete: St, onDeleteMultiple: De, onDownloadMultiple: Ae, selectedIds: q, onToggleSelect: Qe };
   return /* @__PURE__ */ b(Oe, { children: [
     /* @__PURE__ */ c(
       wa,
@@ -67475,9 +67475,9 @@ function Zje() {
       background: "rgba(45,191,164,0.1)",
       borderRadius: 2
     } }),
-    $ && /* @__PURE__ */ c(qje, { file: $, files: Ye, onClose: () => E(null) }),
+    $ && /* @__PURE__ */ c(qje, { file: $, files: Ye, onClose: () => A(null) }),
     H && /* @__PURE__ */ c(Vje, { file: H, onClose: () => F(null) }),
-    U && /* @__PURE__ */ c(Bje, { file: U, onRename: ht, onClose: () => A(null) }),
+    U && /* @__PURE__ */ c(Bje, { file: U, onRename: ht, onClose: () => E(null) }),
     Q && /* @__PURE__ */ c(Gje, { opened: C, onClose: () => S(!1) })
   ] });
 }
@@ -67832,8 +67832,8 @@ function im({ opened: t, initial: e, pages: n, contentLocale: a, defaultLocale: 
   const S = r.length > 1, M = d[a] ?? "", w = d[o] ?? "", _ = S && !M.trim() && !!w.trim() && a !== o, x = S ? r.filter((R) => R !== a && !(d[R] ?? "").trim()) : [], z = u === "page" && m ? ((Y = n.find((R) => R.value === m)) == null ? void 0 : Y.label) ?? "" : "", j = Object.values(d).some((R) => R.trim()), P = u === "page" ? !!m : !!g.trim() && j, L = () => {
     if (!P) return;
     const R = {};
-    for (const [$, E] of Object.entries(d)) {
-      const H = E.trim();
+    for (const [$, A] of Object.entries(d)) {
+      const H = A.trim();
       H && (R[$] = H);
     }
     i({
@@ -67872,7 +67872,7 @@ function im({ opened: t, initial: e, pages: n, contentLocale: a, defaultLocale: 
             value: M,
             onChange: (R) => {
               const $ = R.currentTarget.value;
-              p((E) => ({ ...E, [a]: $ }));
+              p((A) => ({ ...A, [a]: $ }));
             },
             placeholder: z || l("menuEditor.itemLabelPlaceholder"),
             required: u === "url",
@@ -67887,7 +67887,7 @@ function im({ opened: t, initial: e, pages: n, contentLocale: a, defaultLocale: 
   );
 }
 function aAe({ menu: t, onBack: e }) {
-  const { t: n } = Pe(), a = ys(), { user: o } = ca(), r = (o == null ? void 0 : o.role) === "developer", { locale: i, defaultLocale: s, availableLocales: l } = Wn(), [d, p] = N(t), [u, f] = N(() => ep(t.items, s)), [m, y] = N(!1), [g, k] = N(!1), v = Ce(t.version ?? 1), [C, S] = N(t.autoPageTypes), [M, w] = N(String(t.autoMaxDepth)), [_, x] = N(t.autoMaxTypes ?? 10), [z, j] = N([]), [P, L] = N(!1), [Y, R] = N(!1), [$, E] = N(null), [H, F] = N(null), [U, A] = N(!1), [T, D] = N(null), [q, W] = N([]), [X, V] = N([]);
+  const { t: n } = Pe(), a = ys(), { user: o } = ca(), r = (o == null ? void 0 : o.role) === "developer", { locale: i, defaultLocale: s, availableLocales: l } = Wn(), [d, p] = N(t), [u, f] = N(() => ep(t.items, s)), [m, y] = N(!1), [g, k] = N(!1), v = Ce(t.version ?? 1), [C, S] = N(t.autoPageTypes), [M, w] = N(String(t.autoMaxDepth)), [_, x] = N(t.autoMaxTypes ?? 10), [z, j] = N([]), [P, L] = N(!1), [Y, R] = N(!1), [$, A] = N(null), [H, F] = N(null), [U, E] = N(!1), [T, D] = N(null), [q, W] = N([]), [X, V] = N([]);
   pe(() => {
     Rl({ status: "published" }).then(({ data: ce }) => {
       W(ce);
@@ -67955,13 +67955,13 @@ function aAe({ menu: t, onBack: e }) {
     d.mode === "auto" && ne(C, Number(M), i);
   }, [d.mode, C, M, i, ne]);
   const re = (ce) => {
-    ce !== d.mode && (d.mode === "manual" && u.length > 0 ? (D(ce), A(!0)) : d.mode === "auto" && z.length > 0 && ce === "manual" ? (D("manual"), A(!0)) : Ne(ce, !1));
+    ce !== d.mode && (d.mode === "manual" && u.length > 0 ? (D(ce), E(!0)) : d.mode === "auto" && z.length > 0 && ce === "manual" ? (D("manual"), E(!0)) : Ne(ce, !1));
   }, Ne = (ce, Ae) => {
     if (ce === "manual" && Ae) {
       const De = z.map((Se) => z5(Se, i));
       f(ep(De, s));
     } else ce === "auto" && f([]);
-    p((De) => ({ ...De, mode: ce })), K(), A(!1), D(null);
+    p((De) => ({ ...De, mode: ce })), K(), E(!1), D(null);
   }, yt = (ce, Ae) => {
     const De = I;
     Z(null), Q(null), !(!De || De === ce) && (f((Se) => {
@@ -68175,7 +68175,7 @@ function aAe({ menu: t, onBack: e }) {
             onDragOver: ($e) => Q({ id: ce.id, zone: $e }),
             onDragLeave: () => Q(($e) => ($e == null ? void 0 : $e.id) === ce.id ? null : $e),
             onDrop: ($e) => yt(ce.id, $e),
-            onEdit: ($e) => E($e),
+            onEdit: ($e) => A($e),
             onDelete: ($e) => F($e),
             onIndent: nn,
             onOutdent: Ft,
@@ -68207,7 +68207,7 @@ function aAe({ menu: t, onBack: e }) {
         defaultLocale: s,
         availableLocales: l,
         onSave: st,
-        onClose: () => E(null)
+        onClose: () => A(null)
       }
     ),
     /* @__PURE__ */ c(
@@ -68231,7 +68231,7 @@ function aAe({ menu: t, onBack: e }) {
         destructive: !1,
         onConfirm: () => Ne(T, T === "manual"),
         onClose: () => {
-          A(!1), D(null);
+          E(!1), D(null);
         }
       }
     )
@@ -68690,7 +68690,7 @@ function mAe() {
       localStorage.setItem("cms-ui-locale", G);
     } catch {
     }
-  }, [k, v] = N(pAe), [C, S] = N(!0), [M, w] = N(!1), [_, x] = N(!1), [z, j] = N(!1), [P, L] = N("editor"), Y = Ce(1), [R, $] = N(null), [E, H] = N(null), [F, U] = N("auto"), [A, T] = N(""), [D, q] = N(""), [W, X] = N(""), [V, O] = N(""), [I, Z] = N(""), [ee, Q] = N(!1), [se, B] = N(!1), [K, ne] = N(!1), [re, Ne] = N(!1), [yt, mt] = N(!1), st = () => {
+  }, [k, v] = N(pAe), [C, S] = N(!0), [M, w] = N(!1), [_, x] = N(!1), [z, j] = N(!1), [P, L] = N("editor"), Y = Ce(1), [R, $] = N(null), [A, H] = N(null), [F, U] = N("auto"), [E, T] = N(""), [D, q] = N(""), [W, X] = N(""), [V, O] = N(""), [I, Z] = N(""), [ee, Q] = N(!1), [se, B] = N(!1), [K, ne] = N(!1), [re, Ne] = N(!1), [yt, mt] = N(!1), st = () => {
     o && (Ds().then((G) => G && $(G)).catch(() => {
     }), V6e().then((G) => {
       G && (H(G), U(G.transport ?? "auto"), T(""), q(G.smtpHost), X(G.smtpPort != null ? String(G.smtpPort) : ""), O(G.smtpUser), Z(""), Q(G.smtpSecure), B(!1));
@@ -68732,7 +68732,7 @@ function mAe() {
         smtpUser: V,
         smtpSecure: ee
       };
-      A !== "" && (G.resendApiKey = A), I !== "" && (G.smtpPass = I);
+      E !== "" && (G.resendApiKey = E), I !== "" && (G.smtpPass = I);
       const Me = await o1(G);
       H(Me), T(""), Z(""), B(!1), ge.ok(t("settings.email.saved")), Ds().then(($e) => $e && $($e)).catch(() => {
       });
@@ -69198,7 +69198,7 @@ function mAe() {
                 F === "resend" && /* @__PURE__ */ b("div", { className: "cms-field cms-form-row-full", children: [
                   /* @__PURE__ */ b("label", { className: "cms-field-label", children: [
                     t("settings.email.resendKeyLabel"),
-                    (E == null ? void 0 : E.hasResendApiKey) && !A && /* @__PURE__ */ b("span", { style: { marginLeft: 8, fontSize: 11, color: "#198873", fontWeight: 600 }, children: [
+                    (A == null ? void 0 : A.hasResendApiKey) && !E && /* @__PURE__ */ b("span", { style: { marginLeft: 8, fontSize: 11, color: "#198873", fontWeight: 600 }, children: [
                       "✓ ",
                       t("settings.email.configured")
                     ] })
@@ -69209,11 +69209,11 @@ function mAe() {
                       {
                         type: re ? "text" : "password",
                         className: "cms-field-input",
-                        value: A,
+                        value: E,
                         onChange: (G) => {
                           T(G.currentTarget.value), lt();
                         },
-                        placeholder: E != null && E.hasResendApiKey ? t("settings.email.resendKeyPlaceholderStored") : t("settings.email.resendKeyPlaceholder"),
+                        placeholder: A != null && A.hasResendApiKey ? t("settings.email.resendKeyPlaceholderStored") : t("settings.email.resendKeyPlaceholder"),
                         autoComplete: "new-password",
                         spellCheck: !1,
                         style: { flex: 1, fontFamily: "ui-monospace, monospace", fontSize: 12 }
@@ -69229,7 +69229,7 @@ function mAe() {
                         children: t(re ? "settings.email.hide" : "settings.email.show")
                       }
                     ),
-                    (E == null ? void 0 : E.hasResendApiKey) && /* @__PURE__ */ c(
+                    (A == null ? void 0 : A.hasResendApiKey) && /* @__PURE__ */ c(
                       "button",
                       {
                         type: "button",
@@ -69295,7 +69295,7 @@ function mAe() {
                   /* @__PURE__ */ b("div", { className: "cms-field", children: [
                     /* @__PURE__ */ b("label", { className: "cms-field-label", children: [
                       t("settings.email.smtpPassLabel"),
-                      (E == null ? void 0 : E.hasSmtpPass) && !I && /* @__PURE__ */ b("span", { style: { marginLeft: 8, fontSize: 11, color: "#198873", fontWeight: 600 }, children: [
+                      (A == null ? void 0 : A.hasSmtpPass) && !I && /* @__PURE__ */ b("span", { style: { marginLeft: 8, fontSize: 11, color: "#198873", fontWeight: 600 }, children: [
                         "✓ ",
                         t("settings.email.configured")
                       ] })
@@ -69310,7 +69310,7 @@ function mAe() {
                           onChange: (G) => {
                             Z(G.currentTarget.value), lt();
                           },
-                          placeholder: E != null && E.hasSmtpPass ? t("settings.email.smtpPassPlaceholderStored") : "",
+                          placeholder: A != null && A.hasSmtpPass ? t("settings.email.smtpPassPlaceholderStored") : "",
                           autoComplete: "new-password",
                           spellCheck: !1,
                           style: { flex: 1 }
@@ -69326,7 +69326,7 @@ function mAe() {
                           children: t(yt ? "settings.email.hide" : "settings.email.show")
                         }
                       ),
-                      (E == null ? void 0 : E.hasSmtpPass) && /* @__PURE__ */ c(
+                      (A == null ? void 0 : A.hasSmtpPass) && /* @__PURE__ */ c(
                         "button",
                         {
                           type: "button",
@@ -69491,7 +69491,7 @@ function yAe() {
         const L = Array.from(P).sort().map((Y) => {
           var $;
           const R = {};
-          for (const E of j) R[E] = (($ = z[E]) == null ? void 0 : $[Y]) ?? "";
+          for (const A of j) R[A] = (($ = z[A]) == null ? void 0 : $[Y]) ?? "";
           return { rowId: lm(), key: Y, values: R, origKey: Y };
         });
         d(L);
@@ -69748,7 +69748,7 @@ function vAe(t) {
 }
 function bAe({ onNew: t, onOpenMedia: e, onOpenSettings: n, onViewActivity: a, onEditPage: o }) {
   var B;
-  const { t: r, i18n: i } = Pe(), { user: s } = ca(), [l, d] = N(!1), [p, u] = N(null), [f, m] = N(null), [y, g] = N(null), [k, v] = N(null), [C, S] = N(null), [M, w] = N(null), [_, x] = N(null), [z, j] = N(null), [P, L] = N(null), [Y, R] = N(null), [$, E] = N(null), [H, F] = N(null), [U, A] = N(null), [T, D] = N(null), q = (s == null ? void 0 : s.role) ?? "viewer", W = q === "admin" || q === "developer", X = q !== "viewer";
+  const { t: r, i18n: i } = Pe(), { user: s } = ca(), [l, d] = N(!1), [p, u] = N(null), [f, m] = N(null), [y, g] = N(null), [k, v] = N(null), [C, S] = N(null), [M, w] = N(null), [_, x] = N(null), [z, j] = N(null), [P, L] = N(null), [Y, R] = N(null), [$, A] = N(null), [H, F] = N(null), [U, E] = N(null), [T, D] = N(null), q = (s == null ? void 0 : s.role) ?? "viewer", W = q === "admin" || q === "developer", X = q !== "viewer";
   pe(() => {
     const K = new Date(Date.now() - 6048e5), ne = W ? oh(10) : Promise.resolve([]), re = W ? Tu(K) : Promise.resolve(0), Ne = W ? Tu(K, "page.published") : Promise.resolve(0), yt = W ? Vbe(K) : Promise.resolve(0), mt = W ? Promise.resolve({ data: [], total: 0 }) : jn({ sort: "updatedAt", limit: 8 }), st = X ? T6e().catch(() => null) : Promise.resolve(null);
     Promise.all([
@@ -69781,7 +69781,7 @@ function bAe({ onNew: t, onOpenMedia: e, onOpenSettings: n, onViewActivity: a, o
         Ye,
         Qe
       ]) => {
-        u(lt.total), m(nn.total + Ft.total), F(Ft.total), g(Dt.total), R(Dt.totalSize), v(ht), S(St.slice(0, 10)), w(ce.data), j(Ae), L(De.total), E(Se), x(Ve.data), D(Ye ?? {}), A(Qe);
+        u(lt.total), m(nn.total + Ft.total), F(Ft.total), g(Dt.total), R(Dt.totalSize), v(ht), S(St.slice(0, 10)), w(ce.data), j(Ae), L(De.total), A(Se), x(Ve.data), D(Ye ?? {}), E(Qe);
       }
     ).catch(console.error);
   }, []);
@@ -70137,7 +70137,7 @@ const A0 = [
     key: "commerce:categories",
     labelKey: "commerce.nav.categories",
     Icon: jl,
-    Component: y3(() => Promise.resolve().then(() => KAe))
+    Component: y3(() => Promise.resolve().then(() => YAe))
   }
 ];
 function dm(t) {
@@ -70291,8 +70291,8 @@ function SAe() {
     }
     window.history.pushState($, "");
   }, [r, s]), pe(() => {
-    const $ = (E) => {
-      const H = E.state && E.state.cms || null;
+    const $ = (A) => {
+      const H = A.state && A.state.cms || null;
       if (!H) return;
       const F = m.current;
       if (F.view.name === "editor" && k.current && H.view.name !== "editor" && !v.current) {
@@ -70323,7 +70323,7 @@ function SAe() {
     ($) => ($.roles ?? ["developer", "admin", "editor", "viewer"]).includes(e.role)
   ), L = P.find(($) => $.key === r) ?? null, Y = $5() && typeof r == "string" && r.startsWith("commerce:") ? A0.find(($) => $.key === r) ?? null : null, R = {
     openPageEditor: ($) => l({ name: "editor", pageId: $ }),
-    createPage: ($, E) => l({ name: "editor", initialType: $, initialParentId: E ?? void 0 })
+    createPage: ($, A) => l({ name: "editor", initialType: $, initialParentId: A ?? void 0 })
   };
   return /* @__PURE__ */ b("div", { className: "cms-shell", children: [
     /* @__PURE__ */ c(
@@ -70392,7 +70392,7 @@ function SAe() {
       ) : r === "dashboard" ? /* @__PURE__ */ c(
         bAe,
         {
-          onNew: ($, E) => l({ name: "editor", initialType: $, initialParentId: E ?? void 0 }),
+          onNew: ($, A) => l({ name: "editor", initialType: $, initialParentId: A ?? void 0 }),
           onOpenMedia: () => w("media"),
           onOpenSettings: () => w("settings"),
           onViewActivity: () => w("activity"),
@@ -70404,7 +70404,7 @@ function SAe() {
         p7e,
         {
           onEdit: ($) => l({ name: "editor", pageId: $ }),
-          onNew: ($, E) => l({ name: "editor", initialType: $, initialParentId: E ?? void 0 })
+          onNew: ($, A) => l({ name: "editor", initialType: $, initialParentId: A ?? void 0 })
         }
       ) : r === "media" ? /* @__PURE__ */ c(ol, { children: /* @__PURE__ */ c(Zje, {}) }) : r === "menus" ? /* @__PURE__ */ c(Jje, { onEdit: ($) => l({ name: "menu-editor", menu: $ }) }) : r === "settings" ? /* @__PURE__ */ c(mAe, {}) : r === "users" ? /* @__PURE__ */ c(Oje, { currentUserId: e.id }) : r === "strings" ? /* @__PURE__ */ c(yAe, {}) : Y ? /* @__PURE__ */ c(ol, { children: /* @__PURE__ */ c(g3, { fallback: /* @__PURE__ */ c(hn, { h: 300, children: /* @__PURE__ */ c(en, {}) }), children: /* @__PURE__ */ c(Y.Component, {}) }) }) : L ? /* @__PURE__ */ c(ol, { children: /* @__PURE__ */ c(L.component, { ...R }) }) : /* @__PURE__ */ c(Dje, {}) })
     ] }),
@@ -70477,7 +70477,7 @@ function RAe({ children: t }) {
   const { i18n: e } = Pe();
   return /* @__PURE__ */ c(rb, { settings: { locale: e.language, firstDayOfWeek: 1 }, children: t });
 }
-function iEe(t) {
+function sEe(t) {
   t != null && t.apiUrl && jbe(t.apiUrl), t != null && t.projectSlug && Abe(t.projectSlug), t != null && t.frontendUrl && Ebe(t.frontendUrl), MAe((t == null ? void 0 : t.commerce) ?? !1);
   const e = [
     ije,
@@ -70504,7 +70504,7 @@ function OAe(t) {
 function IAe(t) {
   return t === "application/pdf" ? "📄" : t.startsWith("video/") ? "🎬" : "📎";
 }
-function sEe({
+function lEe({
   opened: t,
   onClose: e,
   onSelect: n,
@@ -70648,9 +70648,14 @@ function Y1(t, e, n) {
   if ((r = a[e]) != null && r.label) return { text: a[e].label, fallback: !1 };
   if ((i = a[n]) != null && i.label) return { text: a[n].label, fallback: !0 };
   const o = (s = Object.values(a).find((l) => l == null ? void 0 : l.label)) == null ? void 0 : s.label;
-  return o ? { text: o, fallback: !0 } : { text: t.slug, fallback: !0 };
+  return o ? { text: o, fallback: !0 } : { text: "(untitled)", fallback: !0 };
 }
-function FAe(t) {
+function FAe(t, e, n) {
+  var o, r, i;
+  const a = t.translations || {};
+  return ((o = a[e]) == null ? void 0 : o.slug) || ((r = a[n]) == null ? void 0 : r.slug) || ((i = Object.values(a).find((s) => s == null ? void 0 : s.slug)) == null ? void 0 : i.slug) || "";
+}
+function UAe(t) {
   const e = /* @__PURE__ */ new Map();
   for (const a of t) e.set(a.id, { cat: a, children: [] });
   const n = [];
@@ -70660,7 +70665,7 @@ function FAe(t) {
   }
   return n;
 }
-function UAe(t, e) {
+function WAe(t, e) {
   const n = /* @__PURE__ */ new Map();
   for (const r of t)
     r.parentId && (n.get(r.parentId) ?? n.set(r.parentId, []).get(r.parentId)).push(r.id);
@@ -70670,7 +70675,7 @@ function UAe(t, e) {
   };
   return o(e), a;
 }
-function WAe() {
+function KAe() {
   const { t } = Pe(), { user: e } = ca(), { locale: n, defaultLocale: a } = Wn(), o = (e == null ? void 0 : e.role) !== "viewer", [r, i] = N(null), [s, l] = N(!1), [d, p] = N(/* @__PURE__ */ new Set()), [u, f] = N(null), [m, y] = N(null), [g, k] = N(!1), [v, C] = N(!1), [S, M] = N(null), [w, _] = N(!1), x = async () => {
     try {
       i(await HAe()), l(!1);
@@ -70681,54 +70686,49 @@ function WAe() {
   pe(() => {
     x();
   }, []);
-  const z = We(() => r ? FAe(r) : [], [r]), j = (A) => {
-    const D = `commerce.errors.${A instanceof P5 ? A.code : "generic"}`, q = t(D);
+  const z = We(() => r ? UAe(r) : [], [r]), j = (E) => {
+    const D = `commerce.errors.${E instanceof P5 ? E.code : "generic"}`, q = t(D);
     return q === D ? t("commerce.errors.generic") : q;
   };
-  function P(A) {
-    f({ mode: "create", parentId: A }), y({ slug: "", parentId: A, translations: {} });
+  function P(E) {
+    f({ mode: "create", parentId: E }), y({ parentId: E, translations: {} });
   }
-  function L(A) {
-    f({ mode: "edit", cat: A }), y({ slug: A.slug, parentId: A.parentId, translations: { ...A.translations }, version: A.version });
+  function L(E) {
+    f({ mode: "edit", cat: E }), y({ parentId: E.parentId, translations: { ...E.translations }, version: E.version });
   }
   function Y() {
     f(null), y(null), C(!1);
   }
   const R = (m == null ? void 0 : m.translations[n]) ?? { label: "" };
-  function $(A) {
+  function $(E) {
     y((T) => {
       if (!T) return T;
-      const D = { ...T.translations[n], ...A };
+      const D = { ...T.translations[n], ...E };
       return { ...T, translations: { ...T.translations, [n]: D } };
     });
   }
-  const E = We(() => {
+  const A = We(() => {
     if (!r) return [];
-    const A = (u == null ? void 0 : u.mode) === "edit" ? /* @__PURE__ */ new Set([u.cat.id, ...UAe(r, u.cat.id)]) : /* @__PURE__ */ new Set();
-    return r.filter((T) => !A.has(T.id)).map((T) => ({ value: T.id, label: Y1(T, n, a).text }));
+    const E = (u == null ? void 0 : u.mode) === "edit" ? /* @__PURE__ */ new Set([u.cat.id, ...WAe(r, u.cat.id)]) : /* @__PURE__ */ new Set();
+    return r.filter((T) => !E.has(T.id)).map((T) => ({ value: T.id, label: Y1(T, n, a).text }));
   }, [r, u, n, a]);
   async function H() {
     var T;
     if (!m) return;
-    const A = {};
+    const E = {};
     for (const [D, q] of Object.entries(m.translations))
-      (T = q == null ? void 0 : q.label) != null && T.trim() && (A[D] = { ...q, label: q.label.trim() });
-    if (Object.keys(A).length === 0) {
+      (T = q == null ? void 0 : q.label) != null && T.trim() && (E[D] = { ...q, label: q.label.trim() });
+    if (Object.keys(E).length === 0) {
       ge.err(t("commerce.categories.labelRequired"));
-      return;
-    }
-    if (!m.slug.trim()) {
-      ge.err(t("commerce.categories.slugRequired"));
       return;
     }
     k(!0);
     try {
       (u == null ? void 0 : u.mode) === "edit" ? await VAe(u.cat.id, {
-        slug: m.slug,
         parentId: m.parentId,
-        translations: A,
+        translations: E,
         version: m.version
-      }) : await qAe({ slug: m.slug, parentId: m.parentId, translations: A }), ge.ok(t("commerce.categories.saved")), Y(), await x();
+      }) : await qAe({ parentId: m.parentId, translations: E }), ge.ok(t("commerce.categories.saved")), Y(), await x();
     } catch (D) {
       ge.err(j(D));
     } finally {
@@ -70740,8 +70740,8 @@ function WAe() {
       _(!0);
       try {
         await BAe(S.id), ge.ok(t("commerce.categories.deleted")), M(null), await x();
-      } catch (A) {
-        ge.err(j(A));
+      } catch (E) {
+        ge.err(j(E));
       } finally {
         _(!1);
       }
@@ -70749,8 +70749,8 @@ function WAe() {
   }
   if (r === null && !s)
     return /* @__PURE__ */ c(hn, { h: 300, children: /* @__PURE__ */ c(en, {}) });
-  function U({ node: A, depth: T }) {
-    const { cat: D, children: q } = A, W = q.length > 0, X = d.has(D.id), { text: V, fallback: O } = Y1(D, n, a);
+  function U({ node: E, depth: T }) {
+    const { cat: D, children: q } = E, W = q.length > 0, X = d.has(D.id), { text: V, fallback: O } = Y1(D, n, a), I = FAe(D, n, a);
     return /* @__PURE__ */ b(Oe, { children: [
       /* @__PURE__ */ b(
         Le,
@@ -70760,15 +70760,15 @@ function WAe() {
           style: { paddingLeft: T * 22, height: 40, borderBottom: "1px solid var(--mantine-color-gray-2)" },
           children: [
             W ? /* @__PURE__ */ c(Jt, { variant: "subtle", color: "gray", size: "sm", onClick: () => {
-              p((I) => {
-                const Z = new Set(I);
-                return Z.has(D.id) ? Z.delete(D.id) : Z.add(D.id), Z;
+              p((Z) => {
+                const ee = new Set(Z);
+                return ee.has(D.id) ? ee.delete(D.id) : ee.add(D.id), ee;
               });
             }, children: X ? /* @__PURE__ */ c(fs, { size: 15 }) : /* @__PURE__ */ c(Ia, { size: 15 }) }) : /* @__PURE__ */ c(fe, { w: 28 }),
             /* @__PURE__ */ c(te, { size: "sm", fw: 500, fs: O ? "italic" : void 0, c: O ? "dimmed" : void 0, children: V }),
-            /* @__PURE__ */ b(sa, { variant: "light", color: "gray", size: "xs", radius: "sm", children: [
+            I && /* @__PURE__ */ b(sa, { variant: "light", color: "gray", size: "xs", radius: "sm", children: [
               "/",
-              D.slug
+              I
             ] }),
             /* @__PURE__ */ c(fe, { style: { flex: 1 } }),
             o && /* @__PURE__ */ b(Le, { gap: 2, wrap: "nowrap", children: [
@@ -70779,7 +70779,7 @@ function WAe() {
           ]
         }
       ),
-      W && X && q.map((I) => /* @__PURE__ */ c(U, { node: I, depth: T + 1 }, I.cat.id))
+      W && X && q.map((Z) => /* @__PURE__ */ c(U, { node: Z, depth: T + 1 }, Z.cat.id))
     ] });
   }
   return /* @__PURE__ */ b(fe, { p: "md", style: { maxWidth: 880, margin: "0 auto" }, children: [
@@ -70794,7 +70794,7 @@ function WAe() {
       /* @__PURE__ */ c(jl, { size: 40, opacity: 0.4 }),
       /* @__PURE__ */ c(te, { fw: 500, children: t("commerce.categories.empty") }),
       /* @__PURE__ */ c(te, { size: "sm", c: "dimmed", children: t("commerce.categories.emptyHint") })
-    ] }) }) : /* @__PURE__ */ c(fe, { style: { border: "1px solid var(--mantine-color-gray-2)", borderRadius: 8, overflow: "hidden" }, children: z.map((A) => /* @__PURE__ */ c(U, { node: A, depth: 0 }, A.cat.id)) }),
+    ] }) }) : /* @__PURE__ */ c(fe, { style: { border: "1px solid var(--mantine-color-gray-2)", borderRadius: 8, overflow: "hidden" }, children: z.map((E) => /* @__PURE__ */ c(U, { node: E, depth: 0 }, E.cat.id)) }),
     /* @__PURE__ */ c(
       En,
       {
@@ -70806,25 +70806,12 @@ function WAe() {
         loading: g,
         children: m && /* @__PURE__ */ b(ke, { gap: "sm", children: [
           /* @__PURE__ */ c(
-            Xe,
-            {
-              label: t("commerce.categories.slug"),
-              description: t("commerce.categories.slugHelp"),
-              value: m.slug,
-              onChange: (A) => {
-                const T = A.currentTarget.value;
-                y((D) => D && { ...D, slug: T });
-              },
-              placeholder: "power-tools"
-            }
-          ),
-          /* @__PURE__ */ c(
             An,
             {
               label: t("commerce.categories.parent"),
-              data: [{ value: K1, label: t("commerce.categories.root") }, ...E],
+              data: [{ value: K1, label: t("commerce.categories.root") }, ...A],
               value: m.parentId ?? K1,
-              onChange: (A) => y((T) => T && { ...T, parentId: A && A !== K1 ? A : null }),
+              onChange: (E) => y((T) => T && { ...T, parentId: E && E !== K1 ? E : null }),
               searchable: !0,
               comboboxProps: { withinPortal: !0 }
             }
@@ -70835,7 +70822,7 @@ function WAe() {
             {
               label: t("commerce.categories.label"),
               value: R.label ?? "",
-              onChange: (A) => $({ label: A.currentTarget.value }),
+              onChange: (E) => $({ label: E.currentTarget.value }),
               required: !0
             }
           ),
@@ -70844,7 +70831,7 @@ function WAe() {
             {
               label: t("commerce.categories.description"),
               value: R.description ?? "",
-              onChange: (A) => $({ description: A.currentTarget.value }),
+              onChange: (E) => $({ description: E.currentTarget.value }),
               autosize: !0,
               minRows: 2,
               maxRows: 5
@@ -70855,7 +70842,7 @@ function WAe() {
             {
               label: t("commerce.categories.metaTitle"),
               value: R.metaTitle ?? "",
-              onChange: (A) => $({ metaTitle: A.currentTarget.value })
+              onChange: (E) => $({ metaTitle: E.currentTarget.value })
             }
           ),
           /* @__PURE__ */ c(
@@ -70863,7 +70850,7 @@ function WAe() {
             {
               label: t("commerce.categories.metaDescription"),
               value: R.metaDescription ?? "",
-              onChange: (A) => $({ metaDescription: A.currentTarget.value }),
+              onChange: (E) => $({ metaDescription: E.currentTarget.value }),
               autosize: !0,
               minRows: 2,
               maxRows: 4
@@ -70885,8 +70872,8 @@ function WAe() {
         opened: v,
         mode: "single",
         onClose: () => C(!1),
-        onConfirm: (A) => {
-          const T = A[0];
+        onConfirm: (E) => {
+          const T = E[0];
           T && $({ heroImage: { mediaId: T.mediaId, cdnUrl: T.cdnUrl } }), C(!1);
         }
       }
@@ -70906,9 +70893,9 @@ function WAe() {
     )
   ] });
 }
-const KAe = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const YAe = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  default: WAe
+  default: KAe
 }, Symbol.toStringTag, { value: "Module" }));
 export {
   En as AppDrawer,
@@ -70923,18 +70910,18 @@ export {
   lje as IconPickerModal,
   yr as ImagePickerModal,
   l5 as LinkPickerModal,
-  rEe as LucideIconByName,
-  sEe as MediaPicker,
+  iEe as LucideIconByName,
+  lEe as MediaPicker,
   wa as PageHeader,
   Ld as RichTextEditor,
   fh as StatusBadge,
   r5 as computeLinkHref,
-  iEe as createAdmin,
+  sEe as createAdmin,
   Kbe as fetchProjectSettings,
   $d as getLucideIcon,
   i5 as isLinkDataValid,
   Qt as resolveLabel,
   Qr as resolvePageTitle,
-  aEe as saveProjectSettings,
+  oEe as saveProjectSettings,
   Wn as useContentLocale
 };
