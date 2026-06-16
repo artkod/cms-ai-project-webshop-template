@@ -8,3 +8,8 @@ dist
 # standalone on Vercel). Re-included despite the blanket `dist` ignore above.
 !/admin/vendor/admin-base/dist/
 !/admin/vendor/admin-base/dist/**
+
+# Vendored prebuilt @cms/storefront SDK bundle (committed so the frontend builds
+# standalone on Vercel). Re-included despite the blanket `dist` ignore above.
+!/vendor/storefront/dist/
+!/vendor/storefront/dist/**

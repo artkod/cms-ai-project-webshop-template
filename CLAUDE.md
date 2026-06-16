@@ -11,9 +11,11 @@ normal `cms-ai-project-*` consumer of the CMS engine that we grow alongside the 
 roadmap phase lands. The design + build plan live in the core repo:
 `cms-ai-core/docs/webshop-design.md` and `cms-ai-core/docs/webshop-roadmap.md` (Phase L).
 
-**Current status:** stock CMS frontend + admin only. No commerce features yet — they are wired in
-starting at roadmap task **L0.1** (`createAdmin({ commerce: true })` + commerce block/page types).
-The real storefront frontend is built from **L2** onward (consuming the `@cms/storefront` SDK).
+**Current status:** stock CMS frontend + admin, with the commerce **admin** module enabled
+(`createAdmin({ commerce: true })` + `COMMERCE_ENABLED=true`, since L0.1). Phase L2 has begun: the
+`@cms/storefront` SDK is now **vendored** here (`vendor/storefront`, see below), though the
+frontend doesn't consume it yet. The real storefront frontend (catalog pages, cart, checkout) is
+built out from **L2.2** onward against that SDK.
 
 ## Related repos
 
@@ -64,6 +66,16 @@ are added per the roadmap. When adding any project page type, follow the rules i
 `admin/src/main.tsx` is a minimal `createAdmin({ projectSlug: "project-webshop-template" })`. The
 `@cms/admin-base` bundle is vendored at `admin/vendor/admin-base` (refresh with
 `pnpm vendor:admin-base`). Commerce admin is enabled here (`commerce: true`) at task L0.1.
+
+## Storefront SDK (`@cms/storefront`, L2.1+)
+
+The frontend depends on the commerce SDK `@cms/storefront`, **vendored** at `vendor/storefront`
+(`file:` dependency) — same model as `admin/vendor/admin-base`. Rebuild + re-vendor it after any
+change in `cms-ai-core/packages/storefront` with **`pnpm vendor:storefront`**
+(`scripts/vendor-storefront.sh`), then commit the updated `vendor/storefront/` so the next Vercel
+deploy picks it up. The SDK is a self-contained single-file bundle with no runtime deps. *(L2.1 is
+the client skeleton; the frontend starts importing catalog methods at L2.2, at which point
+`start.sh` will also live-link the SDK dist for local dev, like it does for admin-base.)*
 
 ---
 
