@@ -225,6 +225,9 @@ export function CartPage() {
                     <Text fw={700} fz="lg">{formatCents(totals.grossTotal)}</Text>
                   </Group>
                   <Text c="dimmed" fz="xs">VAT included.</Text>
+                  <Button component={Link} to={`/${loc}/checkout`} mt="xs" size="md" fullWidth>
+                    Proceed to checkout
+                  </Button>
                 </>
               )}
             </Stack>

@@ -1,43 +1,43 @@
-var V = Object.defineProperty;
-var A = (r, o, c) => o in r ? V(r, o, { enumerable: !0, configurable: !0, writable: !0, value: c }) : r[o] = c;
-var T = (r, o, c) => A(r, typeof o != "symbol" ? o + "" : o, c);
-const j = 1, x = "0.0.1";
-class p extends Error {
-  constructor(c, i) {
+var A = Object.defineProperty;
+var F = (r, o, c) => o in r ? A(r, o, { enumerable: !0, configurable: !0, writable: !0, value: c }) : r[o] = c;
+var T = (r, o, c) => F(r, typeof o != "symbol" ? o + "" : o, c);
+const L = 1, Q = "0.0.1";
+class C extends Error {
+  constructor(c, s) {
     super(c);
     T(this, "status");
     T(this, "code");
     T(this, "body");
-    this.name = "StorefrontError", this.status = i.status, this.code = i.code ?? null, this.body = i.body ?? null;
+    this.name = "StorefrontError", this.status = s.status, this.code = s.code ?? null, this.body = s.body ?? null;
   }
 }
-const U = "X-Commerce-Contract-Version";
-function k(r, o, c) {
-  const i = r.replace(/\/+$/, ""), n = o.startsWith("/") ? o : `/${o}`;
-  if (!c) return `${i}${n}`;
-  const d = new URLSearchParams();
-  for (const [y, m] of Object.entries(c))
+const j = "X-Commerce-Contract-Version";
+function x(r, o, c) {
+  const s = r.replace(/\/+$/, ""), n = o.startsWith("/") ? o : `/${o}`;
+  if (!c) return `${s}${n}`;
+  const y = new URLSearchParams();
+  for (const [d, m] of Object.entries(c))
     if (m != null)
       if (Array.isArray(m))
-        for (const O of m) d.append(y, String(O));
+        for (const O of m) y.append(d, String(O));
       else
-        d.set(y, String(m));
-  const f = d.toString();
-  return f ? `${i}${n}?${f}` : `${i}${n}`;
+        y.set(d, String(m));
+  const f = y.toString();
+  return f ? `${s}${n}?${f}` : `${s}${n}`;
 }
-function D(r) {
+function H(r) {
   const o = r.fetch ?? globalThis.fetch;
   if (typeof o != "function")
     throw new Error(
       "@cms/storefront: no fetch implementation available — pass `fetch` in the config for this runtime."
     );
-  const c = r.credentials ?? "include", i = {
+  const c = r.credentials ?? "include", s = {
     "X-Project-Slug": r.projectSlug,
-    [U]: String(1),
+    [j]: String(1),
     ...r.headers
   };
   async function n(e, t = {}) {
-    const a = k(r.apiUrl, e, t.query), h = { ...i, ...t.headers };
+    const a = x(r.apiUrl, e, t.query), h = { ...s, ...t.headers };
     let S;
     t.body !== void 0 && (S = JSON.stringify(t.body), h["Content-Type"] = "application/json");
     let g;
@@ -50,40 +50,40 @@ function D(r) {
         signal: t.signal
       });
     } catch (u) {
-      throw new p(
+      throw new C(
         `Network request to ${a} failed: ${(u == null ? void 0 : u.message) ?? String(u)}`,
         { status: 0 }
       );
     }
-    const R = await g.text();
+    const p = await g.text();
     let l = null;
-    if (R)
+    if (p)
       try {
-        l = JSON.parse(R);
+        l = JSON.parse(p);
       } catch {
-        l = R;
+        l = p;
       }
     if (!g.ok) {
       const u = l && typeof l == "object" && "error" in l ? String(l.error) : null;
-      throw new p(
+      throw new C(
         `Request to ${a} failed with ${g.status}${u ? ` (${u})` : ""}`,
         { status: g.status, code: u, body: l }
       );
     }
     return l;
   }
-  async function d() {
+  async function y() {
     return n("/api/commerce/health");
   }
   async function f() {
-    const { contractVersion: e } = await d();
+    const { contractVersion: e } = await y();
     return {
       sdk: 1,
       api: e,
       compatible: e === 1
     };
   }
-  function y(e = {}) {
+  function d(e = {}) {
     const t = [];
     if (e.options)
       for (const [a, h] of Object.entries(e.options))
@@ -105,7 +105,7 @@ function D(r) {
   }
   async function m(e = {}) {
     return n("/api/commerce/catalog/products", {
-      query: y(e),
+      query: d(e),
       signal: e.signal
     });
   }
@@ -115,7 +115,7 @@ function D(r) {
       signal: t.signal
     });
   }
-  async function C(e = {}) {
+  async function R(e = {}) {
     return (await n("/api/commerce/catalog/categories", {
       query: { locale: e.locale },
       signal: e.signal
@@ -123,21 +123,21 @@ function D(r) {
   }
   async function E(e, t = {}) {
     return n(`/api/commerce/catalog/categories/${encodeURIComponent(e)}`, {
-      query: y(t),
+      query: d(t),
       signal: t.signal
     });
   }
-  function s(e) {
+  function i(e) {
     return e ? { locale: e } : void 0;
   }
-  async function N(e = {}) {
-    return n("/api/commerce/cart", { query: s(e.locale), signal: e.signal });
+  async function b(e = {}) {
+    return n("/api/commerce/cart", { query: i(e.locale), signal: e.signal });
   }
-  async function b(e, t = 1, a = {}) {
+  async function N(e, t = 1, a = {}) {
     return n("/api/commerce/cart/items", {
       method: "POST",
       body: { variantId: e, quantity: t },
-      query: s(a.locale),
+      query: i(a.locale),
       signal: a.signal
     });
   }
@@ -145,36 +145,36 @@ function D(r) {
     return n(`/api/commerce/cart/items/${encodeURIComponent(e)}`, {
       method: "PUT",
       body: { quantity: t },
-      query: s(a.locale),
+      query: i(a.locale),
       signal: a.signal
     });
   }
   async function q(e, t = {}) {
     return n(`/api/commerce/cart/items/${encodeURIComponent(e)}`, {
       method: "DELETE",
-      query: s(t.locale),
+      query: i(t.locale),
       signal: t.signal
     });
   }
   async function I(e = {}) {
-    return n("/api/commerce/cart", { method: "DELETE", query: s(e.locale), signal: e.signal });
+    return n("/api/commerce/cart", { method: "DELETE", query: i(e.locale), signal: e.signal });
   }
-  async function _(e, t = {}) {
+  async function w(e, t = {}) {
     return n("/api/commerce/cart/coupon", {
       method: "POST",
       body: { code: e },
-      query: s(t.locale),
+      query: i(t.locale),
       signal: t.signal
     });
   }
-  async function w(e = {}) {
+  async function P(e = {}) {
     return n("/api/commerce/cart/coupon", {
       method: "DELETE",
-      query: s(e.locale),
+      query: i(e.locale),
       signal: e.signal
     });
   }
-  async function P(e = {}) {
+  async function _(e = {}) {
     return n("/api/commerce/cart/shipping", {
       query: { country: e.country, locale: e.locale },
       signal: e.signal
@@ -184,34 +184,56 @@ function D(r) {
     return n("/api/commerce/cart/shipping", {
       method: "PUT",
       body: e,
-      query: s(t.locale),
+      query: i(t.locale),
+      signal: t.signal
+    });
+  }
+  async function k(e = {}) {
+    return n("/api/commerce/checkout", {
+      query: i(e.locale),
+      signal: e.signal
+    });
+  }
+  async function U(e, t = {}) {
+    return n("/api/commerce/checkout", {
+      method: "POST",
+      body: e,
+      query: i(t.locale),
+      signal: t.signal
+    });
+  }
+  async function V(e, t = {}) {
+    return n(`/api/commerce/orders/${encodeURIComponent(e)}`, {
       signal: t.signal
     });
   }
   return {
     contractVersion: 1,
     request: n,
-    health: d,
+    health: y,
     checkContract: f,
     listProducts: m,
     getProduct: O,
-    listCategories: C,
+    listCategories: R,
     getCategory: E,
-    getCart: N,
-    addCartItem: b,
+    getCart: b,
+    addCartItem: N,
     setCartItemQuantity: $,
     removeCartItem: q,
     clearCart: I,
-    applyCoupon: _,
-    removeCoupon: w,
-    getShippingMethods: P,
-    setShipping: v
+    applyCoupon: w,
+    removeCoupon: P,
+    getShippingMethods: _,
+    setShipping: v,
+    previewCheckout: k,
+    startCheckout: U,
+    getOrder: V
   };
 }
 export {
-  U as CONTRACT_VERSION_HEADER,
-  j as STOREFRONT_CONTRACT_VERSION,
-  x as STOREFRONT_SDK_VERSION,
-  p as StorefrontError,
-  D as createStorefrontClient
+  j as CONTRACT_VERSION_HEADER,
+  L as STOREFRONT_CONTRACT_VERSION,
+  Q as STOREFRONT_SDK_VERSION,
+  C as StorefrontError,
+  H as createStorefrontClient
 };

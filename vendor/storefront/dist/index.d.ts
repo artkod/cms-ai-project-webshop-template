@@ -237,6 +237,14 @@ export declare interface CategoryNode {
     metaDescription: string | null;
 }
 
+/** `GET /api/commerce/checkout` — the cart recomputed at the destination tax. */
+export declare interface CheckoutPreview {
+    /** True when any item is inquiry-only → the cart is placed as a quote request. */
+    isQuote: boolean;
+    /** The full cart view, with totals taxed at the ship-to destination. */
+    cart: Cart;
+}
+
 /** Response of `GET /api/commerce/health` (the public gating probe). */
 export declare interface CommerceHealth {
     status: string;
@@ -272,6 +280,75 @@ export declare interface OptionFacet {
         value: string;
         count: number;
     }[];
+}
+
+/** A placed order — returned by `startCheckout` and `getOrder`. */
+export declare interface Order {
+    id: string;
+    orderNumber: number;
+    token: string;
+    email: string;
+    locale: string;
+    status: OrderStatus;
+    isQuote: boolean;
+    currency: "EUR";
+    shippingAddress: OrderAddress | null;
+    billingAddress: OrderAddress | null;
+    shippingMethod: {
+        id: string | null;
+        code: string;
+        name: string;
+        kind: ShippingKind;
+    } | null;
+    pickupPoint: unknown | null;
+    codSelected: boolean;
+    taxDestination: string | null;
+    items: OrderItem[];
+    itemCount: number;
+    /** The single money authority's full breakdown (same shape as the cart). */
+    totals: CartTotals;
+    note: string | null;
+    placedAt: string;
+}
+
+/** A postal address captured at checkout (snapshotted on the order). */
+export declare interface OrderAddress {
+    name: string;
+    line1: string;
+    line2?: string;
+    city: string;
+    postalCode: string;
+    /** ISO-3166 alpha-2 — drives destination VAT (OSS) + the shipping zone. */
+    country: string;
+    phone?: string;
+}
+
+/** One snapshotted order line. */
+export declare interface OrderItem {
+    id: string;
+    variantId: string | null;
+    productId: string | null;
+    sku: string | null;
+    name: string;
+    optionsLabel: string | null;
+    quantity: number;
+    taxClass: string;
+    rateBps: number;
+    unitPrice: number;
+    discount: number;
+    net: number;
+    vat: number;
+    gross: number;
+    position: number;
+}
+
+export declare interface OrderStatus {
+    /** draft | awaiting_payment | authorized | paid | partially_refunded | refunded | voided */
+    paymentStatus: string;
+    /** unfulfilled | reserved | preparing | (partially_)shipped | delivered | returned */
+    fulfillmentStatus: string;
+    /** open | completed | cancelled | quote */
+    lifecycle: string;
 }
 
 /** A chosen parcel-locker / pickup point stored on the cart (carrier-defined). */
@@ -380,6 +457,15 @@ export declare interface ShippingRate {
 
 export declare type ShippingZone = "HR" | "EU" | "INT";
 
+/** Body for `POST /api/commerce/checkout`. */
+export declare interface StartCheckoutInput {
+    email: string;
+    shippingAddress: OrderAddress;
+    /** Falls back to the shipping address when omitted. */
+    billingAddress?: OrderAddress;
+    note?: string;
+}
+
 export declare const STOREFRONT_CONTRACT_VERSION: 1;
 
 export declare const STOREFRONT_SDK_VERSION: "0.0.1";
@@ -463,6 +549,20 @@ export declare interface StorefrontClient {
         locale?: string;
         signal?: AbortSignal;
     }): Promise<Cart>;
+    /** Preview totals at the destination tax + the quote flag. `GET /api/commerce/checkout`. */
+    previewCheckout(opts?: {
+        locale?: string;
+        signal?: AbortSignal;
+    }): Promise<CheckoutPreview>;
+    /** Place a pending order (before payment). `POST /api/commerce/checkout`. */
+    startCheckout(input: StartCheckoutInput, opts?: {
+        locale?: string;
+        signal?: AbortSignal;
+    }): Promise<Order>;
+    /** Fetch an order by its public token (the pending-order page). `GET /api/commerce/orders/:token`. */
+    getOrder(token: string, opts?: {
+        signal?: AbortSignal;
+    }): Promise<Order>;
 }
 
 /** Configuration for {@link createStorefrontClient}. */
