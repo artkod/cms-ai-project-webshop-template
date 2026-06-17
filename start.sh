@@ -219,6 +219,13 @@ WATCHER_PID=$!
 echo "$WATCHER_PID" >> "$PID_FILE"
 
 # ─── 8. Start frontend ──────────────────────────────────────────────────────
+# Clear the frontend's Vite optimized-deps cache so a re-vendored @cms/storefront
+# (file:./vendor/storefront — refreshed by `pnpm vendor:storefront` / a git pull)
+# is re-bundled. Without this, Vite keeps serving the previous pre-bundle and new
+# SDK methods (e.g. the L4.4 shipping calls) are missing at runtime → silent
+# failures. Same reason §5 clears the admin's .vite cache after syncing admin-base.
+rm -rf "$PROJECT_DIR/node_modules/.vite"
+
 echo "Starting frontend..."
 cd "$PROJECT_DIR"
 VITE_CMS_API_URL="http://localhost:$PORT_API" \
