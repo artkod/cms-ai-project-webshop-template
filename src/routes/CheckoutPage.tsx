@@ -86,8 +86,13 @@ export function CheckoutPage() {
     await setShipping({ country }); // re-zones shipping + re-taxes the preview
   };
 
-  const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-    setForm((f) => ({ ...f, [k]: e.currentTarget.value }));
+  // Capture the value BEFORE setForm — React nulls out `e.currentTarget` after the
+  // event dispatch, and the functional updater can run later (and twice in
+  // StrictMode), so reading it inside the updater throws "reading 'value' of null".
+  const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const value = e.currentTarget.value;
+    setForm((f) => ({ ...f, [k]: value }));
+  };
 
   const totals = preview?.cart.totals;
   const isQuote = preview?.isQuote ?? false;
