@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
-import { Container, Group, Anchor, Box, Text } from "@mantine/core";
+import { Container, Group, Anchor, Box, Text, Indicator } from "@mantine/core";
 import { Outlet, Link, useParams } from "react-router";
+import { ShoppingCart } from "lucide-react";
 import { getMenu, type MenuItem } from "@/lib/api";
 import { useLocaleConfig, PageAlternatesProvider, StringsProvider } from "@/lib/locale";
+import { CartProvider, useCart } from "@/lib/cart";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 
 // Minimal shared layout for the test project: a header (site title + primary
@@ -25,6 +27,18 @@ function NavItem({ item }: { item: MenuItem }) {
     <Anchor component={Link} to={href}>
       {item.label}
     </Anchor>
+  );
+}
+
+// Cart link with a live item-count badge (reads the server-side cart).
+function CartNav({ locale }: { locale: string }) {
+  const { itemCount } = useCart();
+  return (
+    <Indicator label={itemCount} size={18} disabled={itemCount === 0} color="teal" offset={4}>
+      <Anchor component={Link} to={`/${locale}/cart`} c="dark" aria-label="Cart" style={{ display: "flex" }}>
+        <ShoppingCart size={20} />
+      </Anchor>
+    </Indicator>
   );
 }
 
@@ -83,6 +97,7 @@ export function RootLayout() {
   return (
     <PageAlternatesProvider>
       <StringsProvider locale={activeLocale}>
+        <CartProvider>
         <Box style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
           <Box component="header" style={{ borderBottom: "1px solid var(--mantine-color-gray-3)" }}>
             <Container size={1140} py="md">
@@ -94,7 +109,9 @@ export function RootLayout() {
                   {primaryItems.map((item) => (
                     <NavItem key={item.id} item={item} />
                   ))}
+                  <Anchor component={Link} to={`/${activeLocale}/shop`}>Shop</Anchor>
                   <LanguageSwitcher />
+                  <CartNav locale={activeLocale} />
                 </Group>
               </Group>
             </Container>
@@ -121,6 +138,7 @@ export function RootLayout() {
             </Container>
           </Box>
         </Box>
+        </CartProvider>
       </StringsProvider>
     </PageAlternatesProvider>
   );
