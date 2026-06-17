@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
-import { ActionIcon, Anchor, Box, Button, Checkbox, Divider, Group, Image, Loader, Paper, Radio, Select, Stack, Text, TextInput, Title } from "@mantine/core";
+import { ActionIcon, Anchor, Box, Button, Divider, Group, Image, Loader, Paper, Radio, Select, Stack, Text, TextInput, Title } from "@mantine/core";
 import { Minus, Plus, Trash2, X } from "lucide-react";
 import type { ShippingRate } from "@cms/storefront";
 import { useCart } from "@/lib/cart";
@@ -196,14 +196,9 @@ export function CartPage() {
                 <Text c="dimmed" fz="xs">Pickup: {(shipping.pickupPoint as { name?: string }).name}</Text>
               )}
 
-              {shipping?.codEnabled && (
-                <Checkbox
-                  mt={4}
-                  label={`Cash on delivery (+${formatCents(shipping.codSurcharge || 200)})`}
-                  checked={shipping.codSelected}
-                  onChange={(e) => setShipping({ codSelected: e.currentTarget.checked })}
-                />
-              )}
+              {/* Payment method (incl. Cash on Delivery + its surcharge) is chosen
+                  in checkout, not here — see L4.5/L7.4. The COD surcharge engine
+                  already feeds the totals; this cart stage only picks shipping. */}
 
               <Divider my="xs" />
 

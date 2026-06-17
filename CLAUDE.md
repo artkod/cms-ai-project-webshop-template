@@ -16,9 +16,11 @@ roadmap phase lands. The design + build plan live in the core repo:
 **vendored** `@cms/storefront` SDK (`vendor/storefront`, see below). It now covers browse → product
 → cart: `src/routes/CatalogPage.tsx` / `ProductPage.tsx` / `CartPage.tsx` + `lib/cart.tsx`
 (`CartProvider`) + `lib/storefront.ts` (the client). The cart page includes a **shipping picker**
-(ship-to country, method selection with live rates, pickup-point, COD toggle — L4.4) with totals
-recomputed server-side. **Re-vendor (`pnpm vendor:storefront`) after any SDK change.** Checkout +
-payments land in later phases (L4.5+/L6).
+(ship-to country, method selection with live rates, pickup-point — L4.4) with totals recomputed
+server-side. **COD** has no cart UI (it's a payment method → chosen at checkout, L4.5/L7.4; the
+surcharge engine exists). **Re-vendor (`pnpm vendor:storefront`) after any SDK change**, and
+`start.sh` now clears the frontend Vite dep cache on boot so the re-vendored bundle is picked up.
+Checkout + payments land in later phases (L4.5+/L6).
 
 ## Related repos
 
