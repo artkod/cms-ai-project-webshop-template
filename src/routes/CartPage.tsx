@@ -166,17 +166,22 @@ export function CartPage() {
                 comboboxProps={{ withinPortal: true }}
               />
               {shippingOptions && shippingOptions.methods.length > 0 ? (
-                <Radio.Group value={shipping?.method?.id ?? ""} onChange={() => { /* selection handled per-option below */ }}>
+                // The group's value reflects the committed selection OR a pending
+                // pickup-point pick (so the radio highlights immediately, before the
+                // point is entered). Selection is driven by the group's onChange —
+                // never per-Radio (that fights Radio.Group's own control).
+                <Radio.Group
+                  value={pickupForMethod ?? shipping?.method?.id ?? ""}
+                  onChange={(methodId) => {
+                    const m = shippingOptions.methods.find((x) => x.methodId === methodId);
+                    if (m) onPickMethod(m);
+                  }}
+                >
                   <Stack gap={6} mt={4}>
                     {shippingOptions.methods.map((m) => (
                       <Box key={m.methodId}>
                         <Group justify="space-between" wrap="nowrap">
-                          <Radio
-                            value={m.methodId}
-                            checked={shipping?.method?.id === m.methodId}
-                            onChange={() => onPickMethod(m)}
-                            label={m.name + (m.requiresPickupPoint ? " (pickup point)" : "")}
-                          />
+                          <Radio value={m.methodId} label={m.name + (m.requiresPickupPoint ? " (pickup point)" : "")} />
                           <Text fz="sm" c={m.free ? "teal" : undefined}>{m.free ? "Free" : formatCents(m.amount)}</Text>
                         </Group>
                         {pickupForMethod === m.methodId && (
