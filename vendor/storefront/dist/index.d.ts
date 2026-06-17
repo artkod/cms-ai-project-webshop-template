@@ -7,6 +7,8 @@ export declare interface Cart {
     items: CartLine[];
     itemCount: number;
     coupon: CartCoupon | null;
+    /** Chosen shipping method + resolved cost + COD (L4.4). */
+    shipping: CartShipping;
     totals: CartTotals;
     /** e.g. `"coupon_removed"` when an applied coupon lapsed since it was added. */
     warnings: string[];
@@ -38,10 +40,34 @@ export declare interface CartLine {
     inventoryTracked: boolean;
     backorder: boolean;
     onHand: number;
+    weightGrams: number;
     available: number | null;
     inStock: boolean;
     sellable: boolean;
     maxQuantity: number | null;
+}
+
+export declare interface CartShipping {
+    country: string;
+    zone: ShippingZone;
+    method: CartShippingMethod | null;
+    amount: number;
+    free: boolean;
+    freeByCoupon: boolean;
+    pickupPoint: PickupPoint | null;
+    codEnabled: boolean;
+    codSelected: boolean;
+    codSurcharge: number;
+}
+
+/** The cart's resolved shipping selection (on every cart response). */
+export declare interface CartShippingMethod {
+    id: string;
+    code: string;
+    name: string;
+    kind: ShippingKind;
+    requiresPickupPoint: boolean;
+    taxClass: string;
 }
 
 /** One row of the per-rate VAT summary (the legally-relevant grouping). */
@@ -248,6 +274,15 @@ export declare interface OptionFacet {
     }[];
 }
 
+/** A chosen parcel-locker / pickup point stored on the cart (carrier-defined). */
+export declare interface PickupPoint {
+    id?: string;
+    name?: string;
+    address?: string;
+    provider?: string;
+    [k: string]: unknown;
+}
+
 /** One product as it appears in a listing/grid. */
 export declare interface ProductCard {
     id: string;
@@ -308,6 +343,42 @@ export declare interface SearchFacets {
     } | null;
     inStock: number;
 }
+
+/** Body for `PUT /api/commerce/cart/shipping`. Only present fields are applied. */
+export declare interface SetShippingInput {
+    methodId?: string | null;
+    country?: string | null;
+    pickupPoint?: PickupPoint | null;
+    codSelected?: boolean;
+}
+
+export declare type ShippingKind = "flat" | "weight" | "pickup_point" | "store_pickup";
+
+/** `GET /api/commerce/cart/shipping` — offerable methods + COD config for a zone. */
+export declare interface ShippingOptions {
+    country: string;
+    zone: ShippingZone;
+    methods: ShippingRate[];
+    cod: {
+        enabled: boolean;
+        surcharge: number;
+    };
+}
+
+/** One offerable shipping option with its computed rate for the current cart. */
+export declare interface ShippingRate {
+    methodId: string;
+    code: string;
+    name: string;
+    kind: ShippingKind;
+    requiresPickupPoint: boolean;
+    taxClass: string;
+    zone: ShippingZone;
+    amount: number;
+    free: boolean;
+}
+
+export declare type ShippingZone = "HR" | "EU" | "INT";
 
 export declare const STOREFRONT_CONTRACT_VERSION: 1;
 
@@ -378,6 +449,17 @@ export declare interface StorefrontClient {
     }): Promise<Cart>;
     /** Remove the applied coupon. `DELETE /api/commerce/cart/coupon`. */
     removeCoupon(opts?: {
+        locale?: string;
+        signal?: AbortSignal;
+    }): Promise<Cart>;
+    /** Offerable shipping methods + rates for the cart in a zone. `GET …/cart/shipping`. */
+    getShippingMethods(opts?: {
+        country?: string;
+        locale?: string;
+        signal?: AbortSignal;
+    }): Promise<ShippingOptions>;
+    /** Set the chosen method / country / pickup point / COD. `PUT …/cart/shipping`. */
+    setShipping(input: SetShippingInput, opts?: {
         locale?: string;
         signal?: AbortSignal;
     }): Promise<Cart>;

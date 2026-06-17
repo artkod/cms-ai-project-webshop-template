@@ -11,11 +11,14 @@ normal `cms-ai-project-*` consumer of the CMS engine that we grow alongside the 
 roadmap phase lands. The design + build plan live in the core repo:
 `cms-ai-core/docs/webshop-design.md` and `cms-ai-core/docs/webshop-roadmap.md` (Phase L).
 
-**Current status:** stock CMS frontend + admin, with the commerce **admin** module enabled
-(`createAdmin({ commerce: true })` + `COMMERCE_ENABLED=true`, since L0.1). Phase L2 has begun: the
-`@cms/storefront` SDK is now **vendored** here (`vendor/storefront`, see below), though the
-frontend doesn't consume it yet. The real storefront frontend (catalog pages, cart, checkout) is
-built out from **L2.2** onward against that SDK.
+**Current status:** the commerce **admin** module is enabled (`createAdmin({ commerce: true })` +
+`COMMERCE_ENABLED=true`, since L0.1) and a real storefront frontend is being grown against the
+**vendored** `@cms/storefront` SDK (`vendor/storefront`, see below). It now covers browse → product
+→ cart: `src/routes/CatalogPage.tsx` / `ProductPage.tsx` / `CartPage.tsx` + `lib/cart.tsx`
+(`CartProvider`) + `lib/storefront.ts` (the client). The cart page includes a **shipping picker**
+(ship-to country, method selection with live rates, pickup-point, COD toggle — L4.4) with totals
+recomputed server-side. **Re-vendor (`pnpm vendor:storefront`) after any SDK change.** Checkout +
+payments land in later phases (L4.5+/L6).
 
 ## Related repos
 

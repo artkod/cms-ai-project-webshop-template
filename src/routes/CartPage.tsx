@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
-import { ActionIcon, Anchor, Box, Button, Divider, Group, Image, Loader, Paper, Stack, Text, TextInput, Title } from "@mantine/core";
+import { ActionIcon, Anchor, Box, Button, Checkbox, Divider, Group, Image, Loader, Paper, Radio, Select, Stack, Text, TextInput, Title } from "@mantine/core";
 import { Minus, Plus, Trash2, X } from "lucide-react";
+import type { ShippingRate } from "@cms/storefront";
 import { useCart } from "@/lib/cart";
 import { useLocaleConfig } from "@/lib/locale";
 import { formatCents } from "@/lib/money";
@@ -11,18 +12,38 @@ function ratePct(bps: number): string {
   return `${bps / 100}%`;
 }
 
+// A small sample of destinations spanning the three shipping zones (HR / EU / INT)
+// so the rate-per-zone behaviour is clickable without a full address form (L5.4).
+const COUNTRY_OPTIONS = [
+  { value: "HR", label: "Croatia (HR)" },
+  { value: "DE", label: "Germany (EU)" },
+  { value: "IT", label: "Italy (EU)" },
+  { value: "US", label: "United States (intl.)" },
+];
+
 export function CartPage() {
   const { locale } = useParams<{ locale: string }>();
   const { defaultLocale } = useLocaleConfig();
   const loc = locale ?? defaultLocale;
-  const { cart, loading, setQuantity, remove, clear, applyCoupon, removeCoupon } = useCart();
+  const { cart, loading, shippingOptions, setQuantity, remove, clear, applyCoupon, removeCoupon, loadShipping, setShipping } = useCart();
   const [code, setCode] = useState("");
   const [applying, setApplying] = useState(false);
+  // Inline pickup-point entry: when a pickup-point method is chosen we reveal a
+  // field (standing in for the carrier's locker picker) before applying it.
+  const [pickupForMethod, setPickupForMethod] = useState<string | null>(null);
+  const [pickupName, setPickupName] = useState("");
+
+  const empty = !cart || cart.items.length === 0;
+
+  // Load shipping options whenever the cart gains contents / its destination changes.
+  useEffect(() => {
+    if (!empty) void loadShipping(cart?.shipping.country);
+  }, [empty, cart?.shipping.country, loadShipping]);
 
   if (loading && !cart) return <Loader />;
 
-  const empty = !cart || cart.items.length === 0;
   const totals = cart?.totals;
+  const shipping = cart?.shipping;
 
   const onApply = async () => {
     if (!code.trim()) return;
@@ -30,6 +51,23 @@ export function CartPage() {
     const ok = await applyCoupon(code.trim());
     setApplying(false);
     if (ok) setCode("");
+  };
+
+  const onPickMethod = async (m: ShippingRate) => {
+    if (m.requiresPickupPoint) {
+      // Reveal the pickup-point field; apply only once a point is entered.
+      setPickupForMethod(m.methodId);
+      setPickupName("");
+      return;
+    }
+    setPickupForMethod(null);
+    await setShipping({ methodId: m.methodId });
+  };
+
+  const onConfirmPickup = async () => {
+    if (!pickupForMethod || !pickupName.trim()) return;
+    await setShipping({ methodId: pickupForMethod, pickupPoint: { name: pickupName.trim() } });
+    setPickupForMethod(null);
   };
 
   return (
@@ -93,7 +131,7 @@ export function CartPage() {
           </Stack>
 
           {/* Summary */}
-          <Paper withBorder p="md" radius="md" style={{ flex: "1 1 280px", maxWidth: 360 }}>
+          <Paper withBorder p="md" radius="md" style={{ flex: "1 1 280px", maxWidth: 380 }}>
             <Stack gap="xs">
               <Title order={4}>Summary</Title>
 
@@ -117,10 +155,66 @@ export function CartPage() {
 
               <Divider my="xs" />
 
+              {/* Shipping */}
+              <Title order={5}>Shipping</Title>
+              <Select
+                label="Ship to"
+                data={COUNTRY_OPTIONS}
+                value={shipping?.country ?? "HR"}
+                onChange={(v) => v && setShipping({ country: v })}
+                allowDeselect={false}
+                comboboxProps={{ withinPortal: true }}
+              />
+              {shippingOptions && shippingOptions.methods.length > 0 ? (
+                <Radio.Group value={shipping?.method?.id ?? ""} onChange={() => { /* selection handled per-option below */ }}>
+                  <Stack gap={6} mt={4}>
+                    {shippingOptions.methods.map((m) => (
+                      <Box key={m.methodId}>
+                        <Group justify="space-between" wrap="nowrap">
+                          <Radio
+                            value={m.methodId}
+                            checked={shipping?.method?.id === m.methodId}
+                            onChange={() => onPickMethod(m)}
+                            label={m.name + (m.requiresPickupPoint ? " (pickup point)" : "")}
+                          />
+                          <Text fz="sm" c={m.free ? "teal" : undefined}>{m.free ? "Free" : formatCents(m.amount)}</Text>
+                        </Group>
+                        {pickupForMethod === m.methodId && (
+                          <Group gap="xs" align="flex-end" mt={4} pl={28}>
+                            <TextInput label="Pickup point" placeholder="e.g. BoxNow Zagreb Centar" value={pickupName} onChange={(e) => setPickupName(e.currentTarget.value)} style={{ flex: 1 }} />
+                            <Button size="xs" onClick={onConfirmPickup} disabled={!pickupName.trim()}>Use</Button>
+                          </Group>
+                        )}
+                      </Box>
+                    ))}
+                  </Stack>
+                </Radio.Group>
+              ) : (
+                <Text c="dimmed" fz="xs">No shipping methods available for this destination.</Text>
+              )}
+              {shipping?.method?.requiresPickupPoint && shipping.pickupPoint && (
+                <Text c="dimmed" fz="xs">Pickup: {(shipping.pickupPoint as { name?: string }).name}</Text>
+              )}
+
+              {shipping?.codEnabled && (
+                <Checkbox
+                  mt={4}
+                  label={`Cash on delivery (+${formatCents(shipping.codSurcharge || 200)})`}
+                  checked={shipping.codSelected}
+                  onChange={(e) => setShipping({ codSelected: e.currentTarget.checked })}
+                />
+              )}
+
+              <Divider my="xs" />
+
               {totals && (
                 <>
                   <Row label="Subtotal" value={formatCents(totals.itemsSubtotal)} />
                   {totals.discountTotal > 0 && <Row label="Discount" value={`−${formatCents(totals.discountTotal)}`} accent />}
+                  {shipping?.method && (
+                    <Row label={`Shipping (${shipping.method.name})`} value={shipping.freeByCoupon || shipping.free ? "Free" : formatCents(totals.shipping?.gross ?? 0)} />
+                  )}
+                  {totals.surcharge && <Row label="Cash on delivery" value={formatCents(totals.surcharge.gross)} />}
                   <Row label="Net" value={formatCents(totals.netTotal)} dim />
                   {totals.taxSummary.map((t) => (
                     <Row key={t.rateBps} label={`VAT ${ratePct(t.rateBps)}`} value={formatCents(t.vat)} dim />
@@ -130,7 +224,7 @@ export function CartPage() {
                     <Text fw={700}>Total</Text>
                     <Text fw={700} fz="lg">{formatCents(totals.grossTotal)}</Text>
                   </Group>
-                  <Text c="dimmed" fz="xs">VAT included. Shipping calculated at checkout.</Text>
+                  <Text c="dimmed" fz="xs">VAT included.</Text>
                 </>
               )}
             </Stack>

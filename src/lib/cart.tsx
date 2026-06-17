@@ -1,7 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from "react";
 import { useParams } from "react-router";
 import { notifications } from "@mantine/notifications";
-import { StorefrontError, type Cart } from "@cms/storefront";
+import { StorefrontError, type Cart, type ShippingOptions, type SetShippingInput } from "@cms/storefront";
 import { storefront } from "./storefront";
 import { useLocaleConfig } from "./locale";
 
@@ -19,12 +19,15 @@ interface CartValue {
   cart: Cart | null;
   loading: boolean;
   itemCount: number;
+  shippingOptions: ShippingOptions | null;
   add: (variantId: string, quantity?: number) => Promise<void>;
   setQuantity: (variantId: string, quantity: number) => Promise<void>;
   remove: (variantId: string) => Promise<void>;
   clear: () => Promise<void>;
   applyCoupon: (code: string) => Promise<boolean>;
   removeCoupon: () => Promise<void>;
+  loadShipping: (country?: string) => Promise<void>;
+  setShipping: (input: SetShippingInput) => Promise<void>;
   refresh: () => Promise<void>;
 }
 
@@ -40,6 +43,10 @@ function cartErrorMessage(err: StorefrontError): string {
       return "That coupon code wasn't found.";
     case "coupon_not_applicable":
       return "That coupon can't be applied to your cart.";
+    case "pickup_point_required":
+      return "Please pick a pickup point for this method.";
+    case "shipping_method_not_found":
+      return "That shipping method is no longer available.";
     default:
       return "Something went wrong with your cart. Please try again.";
   }
@@ -51,6 +58,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const loc = locale ?? defaultLocale;
   const [cart, setCart] = useState<Cart | null>(null);
   const [loading, setLoading] = useState(true);
+  const [shippingOptions, setShippingOptions] = useState<ShippingOptions | null>(null);
 
   const apply = useCallback((next: Cart) => {
     setCart(next);
@@ -94,6 +102,27 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const clear = useCallback(() => guard(() => storefront.clearCart({ locale: loc })), [guard, loc]);
   const removeCoupon = useCallback(() => guard(() => storefront.removeCoupon({ locale: loc })), [guard, loc]);
 
+  // Shipping: fetch the offerable methods for a destination (defaults to the
+  // cart's stored country), and apply a selection (method/country/pickup/COD).
+  const loadShipping = useCallback(
+    async (country?: string) => {
+      try {
+        setShippingOptions(await storefront.getShippingMethods({ country, locale: loc }));
+      } catch {
+        /* a network hiccup shouldn't blank the options */
+      }
+    },
+    [loc],
+  );
+  const setShipping = useCallback(
+    async (input: SetShippingInput) => {
+      await guard(() => storefront.setShipping(input, { locale: loc }));
+      // Re-fetch options for the (possibly changed) destination so rates refresh.
+      await loadShipping(input.country ?? undefined);
+    },
+    [guard, loc, loadShipping],
+  );
+
   const applyCoupon = useCallback(
     async (code: string): Promise<boolean> => {
       try {
@@ -112,12 +141,15 @@ export function CartProvider({ children }: { children: ReactNode }) {
     cart,
     loading,
     itemCount: cart?.itemCount ?? 0,
+    shippingOptions,
     add,
     setQuantity,
     remove,
     clear,
     applyCoupon,
     removeCoupon,
+    loadShipping,
+    setShipping,
     refresh,
   };
 
