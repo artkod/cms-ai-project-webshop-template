@@ -1,73 +1,54 @@
-import { useEffect, useState } from "react";
+import { useCallback } from "react";
 import { Link, useParams } from "react-router";
-import { Anchor, Badge, Box, Button, Card, Group, Image, Loader, SimpleGrid, Stack, Text, Title } from "@mantine/core";
-import type { ProductCard } from "@cms/storefront";
+import { Anchor, Badge, Group, Stack, Text, Title } from "@mantine/core";
+import type { ProductListParams } from "@cms/storefront";
 import { storefront } from "@/lib/storefront";
 import { useLocaleConfig } from "@/lib/locale";
-import { formatCents } from "@/lib/money";
+import { CatalogBrowser, type CatalogFetchResult } from "@/components/shop/CatalogBrowser";
+import { useCategoryTree, childCategories, categoryHref } from "@/components/shop/catalogUrls";
 
-// Storefront catalog grid (reads the public /api/commerce/catalog/products via the
-// SDK). Cards link to the product detail page where you pick a variant + add to
-// cart. Only active, locale-named products come back (design §17).
+// Main storefront catalog (/shop) — search + facet filters + sort over the public
+// catalog read API (L2.2–L2.5). The product cards link to each product's real
+// canonical URL (resolved by the by-slug commerce resolver), not the /shop/:id
+// shortcut. Top-level categories link to their canonical landing pages (CategoryPage).
 export function CatalogPage() {
   const { locale } = useParams<{ locale: string }>();
   const { defaultLocale } = useLocaleConfig();
   const loc = locale ?? defaultLocale;
-  const [products, setProducts] = useState<ProductCard[] | null>(null);
+  const categories = useCategoryTree(loc);
+  const topCategories = childCategories(null, categories);
 
-  useEffect(() => {
-    let alive = true;
-    setProducts(null);
-    storefront
-      .listProducts({ locale: loc, limit: 48, sort: "newest" })
-      .then((r) => alive && setProducts(r.data))
-      .catch(() => alive && setProducts([]));
-    return () => {
-      alive = false;
-    };
-  }, [loc]);
-
-  if (products === null) return <Loader />;
+  const fetchPage = useCallback(
+    async (params: ProductListParams): Promise<CatalogFetchResult> => {
+      const r = await storefront.listProducts({ ...params, locale: loc });
+      return { data: r.data, total: r.total, facets: r.facets };
+    },
+    [loc],
+  );
 
   return (
     <Stack gap="lg">
       <Title order={1}>Shop</Title>
-      {products.length === 0 ? (
-        <Text c="dimmed">No products yet — create an active product (with a name in this language) in the admin.</Text>
-      ) : (
-        <SimpleGrid cols={{ base: 1, xs: 2, sm: 3, md: 4 }} spacing="lg">
-          {products.map((p) => (
-            <Card key={p.id} component={Link} to={`/${loc}/shop/${p.slug || p.id}`} withBorder padding="md" radius="md" style={{ textDecoration: "none" }}>
-              <Card.Section>
-                <Box style={{ aspectRatio: "1 / 1", background: "var(--mantine-color-gray-1)" }}>
-                  {p.image ? (
-                    <Image src={p.image.cdnUrl} alt={p.name} h="100%" w="100%" fit="cover" />
-                  ) : (
-                    <Group justify="center" align="center" h="100%">
-                      <Text c="dimmed" fz="sm">No image</Text>
-                    </Group>
-                  )}
-                </Box>
-              </Card.Section>
-              <Stack gap={4} mt="sm">
-                <Text fw={600} lineClamp={2} c="dark">{p.name}</Text>
-                <Group gap="xs" align="baseline">
-                  <Text fw={700}>{formatCents(p.price)}</Text>
-                  {p.priceMax > p.price && <Text c="dimmed" fz="sm">– {formatCents(p.priceMax)}</Text>}
-                  {p.onSale && p.compareAt && (
-                    <Text c="dimmed" fz="sm" td="line-through">{formatCents(p.compareAt)}</Text>
-                  )}
-                </Group>
-                <Group gap="xs">
-                  {p.onSale && <Badge color="red" size="sm">Sale</Badge>}
-                  {p.inStock ? <Badge color="teal" variant="light" size="sm">In stock</Badge> : p.sellable ? <Badge color="yellow" variant="light" size="sm">Backorder</Badge> : <Badge color="gray" variant="light" size="sm">Out of stock</Badge>}
-                </Group>
-              </Stack>
-            </Card>
-          ))}
-        </SimpleGrid>
+
+      {topCategories.length > 0 && (
+        <Group gap="xs">
+          <Text fz="sm" c="dimmed" mr={4}>
+            Browse:
+          </Text>
+          {topCategories.map((c) => {
+            const href = categoryHref(loc, c.id, categories);
+            return href ? (
+              <Anchor key={c.id} component={Link} to={href} underline="never">
+                <Badge variant="light" color="teal" style={{ cursor: "pointer" }}>
+                  {c.label}
+                </Badge>
+              </Anchor>
+            ) : null;
+          })}
+        </Group>
       )}
-      <Anchor component={Link} to={`/${loc}/cart`} fz="sm">Go to cart →</Anchor>
+
+      <CatalogBrowser locale={loc} categories={categories} showCategoryFacet fetchPage={fetchPage} />
     </Stack>
   );
 }

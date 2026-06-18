@@ -14,16 +14,29 @@ roadmap phase lands. The design + build plan live in the core repo:
 **Current status:** the commerce **admin** module is enabled (`createAdmin({ commerce: true })` +
 `COMMERCE_ENABLED=true`, since L0.1) and a real storefront frontend is being grown against the
 **vendored** `@cms/storefront` SDK (`vendor/storefront`, see below). It now covers browse → product
-→ cart → **checkout → order**: `src/routes/CatalogPage.tsx` / `ProductPage.tsx` / `CartPage.tsx` /
-`CheckoutPage.tsx` / `OrderPage.tsx` + `lib/cart.tsx` (`CartProvider`) + `lib/storefront.ts` (the
-client). The cart page includes a **shipping picker** (ship-to country, method selection with live
-rates, pickup-point — L4.4) with totals recomputed server-side, and a "Proceed to checkout" button.
-**Checkout (L4.5)**: `CheckoutPage` (address form + email; the country select re-taxes the live
-summary at the destination; a quote cart shows quote messaging) → places a **pending order** (no
-payment yet — L6) → `OrderPage` (`/order/:token`, the pending-order page). **COD** has no cart UI
-(it's a payment method → chosen at the payment step, L7.4; the surcharge engine exists). **Re-vendor
-(`pnpm vendor:storefront`) after any SDK change**, and `start.sh` clears the frontend Vite dep cache
-on boot so the re-vendored bundle is picked up. Payments land in L6.
+→ cart → **checkout → order**: `src/routes/CatalogPage.tsx` / `CategoryPage.tsx` / `ProductPage.tsx` /
+`CartPage.tsx` / `CheckoutPage.tsx` / `OrderPage.tsx` + `lib/cart.tsx` (`CartProvider`) +
+`lib/storefront.ts` (the client). The cart page includes a **shipping picker** (ship-to country,
+method selection with live rates, pickup-point — L4.4) with totals recomputed server-side, and a
+"Proceed to checkout" button. **Checkout (L4.5)**: `CheckoutPage` (address form + email; the country
+select re-taxes the live summary at the destination; a quote cart shows quote messaging) → places a
+**pending order** (no payment yet — L6) → `OrderPage` (`/order/:token`, the pending-order page).
+**COD** has no cart UI (it's a payment method → chosen at the payment step, L7.4; the surcharge
+engine exists). **Re-vendor (`pnpm vendor:storefront`) after any SDK change**, and `start.sh` clears
+the frontend Vite dep cache on boot so the re-vendored bundle is picked up. Payments land in L6.
+
+**Catalog browsing UI (L4.6):** the storefront UI for the L2.2–L2.5 engines. `CatalogPage` (`/shop`)
+has a **search box** (FTS relevance), a **facet sidebar** (category / type / option / price /
+in-stock with live counts + "Clear all"), a **sort** control, paginated grid, and a top-level
+**Browse:** category-nav row. Product cards link to each product's **real canonical URL** (resolved
+by the by-slug commerce resolver — `/{locale}/{categoryChain}/{slug}`), not `/shop/:id`.
+`CategoryPage` is the **category landing** (breadcrumb + subcategory chips + a faceted/sorted grid
+scoped to the category), reached at the category's canonical URL. Both share
+`src/components/shop/CatalogBrowser.tsx` (+ `FacetSidebar.tsx`, `ProductGrid.tsx`, `catalogUrls.ts`).
+**`PageView` is now a dispatcher**: the splat route resolves any path in one by-slug call and renders
+a CMS page (`PageDocument`), a product (`ProductPage`), or a category landing (`CategoryPage`) by the
+`kind` discriminator. Product/category pages set their own SEO + inject the API's schema.org JSON-LD
+(`useJsonLd` in `lib/seo.ts`). The dev `/shop` + `/shop/:idOrSlug` routes are kept as conveniences.
 
 ## Related repos
 

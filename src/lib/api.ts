@@ -1,3 +1,5 @@
+import type { CatalogProduct, CategoryNode } from "@cms/storefront";
+
 const API_URL = import.meta.env.VITE_CMS_API_URL || "http://localhost:3001";
 const PROJECT_SLUG = "project-webshop-template";
 
@@ -143,9 +145,28 @@ export async function getAllPages(type: string, locale: string): Promise<Page[]>
   return out;
 }
 
+// When commerce is on (L2.5), the same by-slug resolver also matches commerce
+// URLs after page resolution (page tree → category → product) and returns the
+// entity inline with a `kind` discriminator. Page responses carry no `kind`.
+export interface CommerceProductRoute extends CatalogProduct {
+  kind: "product";
+}
+export interface CommerceCategoryRoute {
+  kind: "category";
+  category: CategoryNode;
+  breadcrumb: { id: string; slug: string | null; label: string | null }[]; // root→self
+  children: CategoryNode[];
+  jsonLd: Record<string, unknown>;
+}
+export type ResolvedRoute = Page | CommerceProductRoute | CommerceCategoryRoute;
+
+export function isCommerceRoute(r: ResolvedRoute): r is CommerceProductRoute | CommerceCategoryRoute {
+  return "kind" in r && (r.kind === "product" || r.kind === "category");
+}
+
 // `path` is the full hierarchical slug path (e.g. "proizvodi/busilice/x").
 // Each segment is encoded individually so the "/" separators survive.
-export async function getPageBySlug(locale: string, path: string, previewToken?: string): Promise<Page | null> {
+export async function getPageBySlug(locale: string, path: string, previewToken?: string): Promise<ResolvedRoute | null> {
   const headers: Record<string, string> = { ...cmsHeaders };
   if (previewToken) headers["X-Preview-Token"] = previewToken;
   const encodedPath = path.split("/").filter(Boolean).map(encodeURIComponent).join("/");
@@ -155,6 +176,11 @@ export async function getPageBySlug(locale: string, path: string, previewToken?:
   );
   if (!res.ok) return null;
   const data = await res.json();
+  // Commerce match → return the inline payload verbatim (no locale promotion;
+  // it has no `translations` map). The caller branches on `data.kind`.
+  if (data && (data.kind === "product" || data.kind === "category")) {
+    return data as CommerceProductRoute | CommerceCategoryRoute;
+  }
   // The API mirrors flat fields from defaultLocale for legacy clients. Promote
   // the requested locale's translation into the flat fields so consumers can
   // read `page.title` / `page.blocks` / `page.typeData` without thinking about

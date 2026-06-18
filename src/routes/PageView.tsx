@@ -2,11 +2,13 @@ import { createContext, useContext, useEffect, useState, type CSSProperties } fr
 import { useParams, useSearchParams, Link } from "react-router";
 import { Loader, Box } from "@mantine/core";
 import { ChevronDown, X, ChevronLeft, ChevronRight, ZoomIn } from "lucide-react";
-import { getPageBySlug, type Page, type Block, type LinkPagesMap } from "@/lib/api";
+import { getPageBySlug, isCommerceRoute, type Page, type Block, type LinkPagesMap, type ResolvedRoute } from "@/lib/api";
 import { tiptapToHtml } from "@/lib/tiptapRenderer";
 import { usePageAlternates, useLocaleConfig } from "@/lib/locale";
-import { useDocumentSeo } from "@/lib/seo";
+import { useDocumentSeo, useJsonLd } from "@/lib/seo";
 import { NotFound } from "./NotFound";
+import { ProductPage } from "./ProductPage";
+import { CategoryPage } from "./CategoryPage";
 import "@/styles/pages/mixed.scss";
 
 // ─── Render context (locale + linkPages, for nested renderers) ────────────────
@@ -332,62 +334,32 @@ function DefaultView({ page }: { page: Page }) {
   );
 }
 
-// ─── Main export ──────────────────────────────────────────────────────────────
+// ─── CMS page document (SEO + alternates + render) ────────────────────────────
 
-export function PageView() {
+function PageDocument({ page, previewToken }: { page: Page; previewToken?: string }) {
   const params = useParams();
-  const locale = params.locale;
-  // Splat = the full hierarchical path after the locale (e.g. "about/team").
-  const path = params["*"] ?? "";
-  const [searchParams] = useSearchParams();
-  const previewToken = searchParams.get("previewToken") ?? undefined;
-  const [page, setPage] = useState<Page | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [notFound, setNotFound] = useState(false);
   const { setAlternates } = usePageAlternates();
   const { settings } = useLocaleConfig();
 
   useDocumentSeo(
-    page
-      ? {
-          title: page.title,
-          metaTitle: page.metaTitle,
-          metaDescription: page.metaDescription,
-          ogImageUrl: page.ogImageUrl,
-          canonicalUrl: page.canonicalUrl,
-          noindex: page.noindex || !!previewToken,
-        }
-      : null,
+    {
+      title: page.title,
+      metaTitle: page.metaTitle,
+      metaDescription: page.metaDescription,
+      ogImageUrl: page.ogImageUrl,
+      canonicalUrl: page.canonicalUrl,
+      noindex: page.noindex || !!previewToken,
+    },
     settings,
   );
+  useJsonLd(null); // CMS pages carry no structured data here
 
   useEffect(() => {
-    if (!path || !locale) return;
-    setLoading(true);
-    setNotFound(false);
-    getPageBySlug(locale, path, previewToken)
-      .then((data) => {
-        if (!data || (!previewToken && data.status !== "published")) {
-          setPage(null);
-          setNotFound(true);
-        } else {
-          setPage(data);
-          setAlternates(data.alternates ?? null);
-        }
-      })
-      .catch(() => setNotFound(true))
-      .finally(() => setLoading(false));
-  }, [locale, path, previewToken, setAlternates]);
-
-  useEffect(() => {
+    setAlternates(page.alternates ?? null);
     return () => setAlternates(null);
-  }, [setAlternates]);
+  }, [page, setAlternates]);
 
-  if (loading) return <Loader />;
-  if (notFound) return <NotFound />;
-  if (!page) return null;
-
-  const activeLocale = locale ?? page.locale ?? "hr";
+  const activeLocale = params.locale ?? page.locale ?? "hr";
   const linkPages = page.linkPages ?? {};
 
   const previewBanner = previewToken ? (
@@ -414,4 +386,50 @@ export function PageView() {
       {page.type === "404" ? <NotFound /> : <DefaultView page={page} />}
     </RenderContext.Provider>
   );
+}
+
+// ─── Main export — the canonical URL dispatcher ───────────────────────────────
+// The splat route resolves any hierarchical path in one by-slug call (design §21:
+// page tree → category → product). A page renders as a CMS document; a commerce
+// match (L2.5) renders the product / category landing at its REAL canonical URL.
+
+export function PageView() {
+  const params = useParams();
+  const locale = params.locale;
+  // Splat = the full hierarchical path after the locale (e.g. "about/team").
+  const path = params["*"] ?? "";
+  const [searchParams] = useSearchParams();
+  const previewToken = searchParams.get("previewToken") ?? undefined;
+  const [resolved, setResolved] = useState<ResolvedRoute | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [notFound, setNotFound] = useState(false);
+
+  useEffect(() => {
+    if (!path || !locale) return;
+    setLoading(true);
+    setNotFound(false);
+    setResolved(null);
+    getPageBySlug(locale, path, previewToken)
+      .then((data) => {
+        if (!data) {
+          setNotFound(true);
+        } else if (isCommerceRoute(data)) {
+          setResolved(data);
+        } else if (!previewToken && data.status !== "published") {
+          setNotFound(true);
+        } else {
+          setResolved(data);
+        }
+      })
+      .catch(() => setNotFound(true))
+      .finally(() => setLoading(false));
+  }, [locale, path, previewToken]);
+
+  if (loading) return <Loader />;
+  if (notFound || !resolved) return <NotFound />;
+
+  if (isCommerceRoute(resolved)) {
+    return resolved.kind === "product" ? <ProductPage product={resolved} /> : <CategoryPage landing={resolved} />;
+  }
+  return <PageDocument page={resolved} previewToken={previewToken} />;
 }

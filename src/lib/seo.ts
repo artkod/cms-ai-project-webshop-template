@@ -93,3 +93,28 @@ export function useDocumentSeo(page: PageSeo | null, settings: SiteSettings | nu
     upsertMeta("name", "robots", noindex ? "noindex, nofollow" : null);
   }, [metaTitle, description, ogImage, canonical, noindex, siteTitle]);
 }
+
+/**
+ * Inject (and keep updated) a single `<script type="application/ld+json">` block
+ * for the current route. The commerce catalog API ships ready-made schema.org
+ * JSON-LD (Product / CollectionPage — L2.5); pass it through verbatim. `null`
+ * removes the script (e.g. a CMS page with no structured data).
+ */
+export function useJsonLd(data: Record<string, unknown> | null | undefined): void {
+  useEffect(() => {
+    const id = "cms-jsonld";
+    const existing = document.getElementById(id);
+    if (!data || Object.keys(data).length === 0) {
+      existing?.remove();
+      return;
+    }
+    const el = existing ?? document.createElement("script");
+    el.id = id;
+    (el as HTMLScriptElement).type = "application/ld+json";
+    el.textContent = JSON.stringify(data);
+    if (!existing) document.head.appendChild(el);
+    return () => {
+      document.getElementById(id)?.remove();
+    };
+  }, [data]);
+}
