@@ -88,6 +88,14 @@ are added per the roadmap. When adding any project page type, follow the rules i
 `@cms/admin-base` bundle is vendored at `admin/vendor/admin-base` (refresh with
 `pnpm vendor:admin-base`). Commerce admin is enabled here (`commerce: true`) at task L0.1.
 
+**Commerce admin (Store nav group):** Products + Categories, plus a **Settings** screen (L4.7,
+admin/developer only) — Tax & VAT (`vatRegistered`, OSS registration, default tax class), Inventory
+(provider: local / ERP), and Shipping & COD (COD surcharge + full shipping-method CRUD: kind,
+per-zone base/per-kg/free-over, pickup-point + COD eligibility, active/position). The product editor's
+General tab has a **tax-class** picker. These drive the storefront/cart/checkout VAT + availability +
+shipping rates. **Re-vendor (`pnpm vendor:admin-base`) + restart `./start.sh`** after any admin-base
+change, or the admin Vite serves the stale bundle.
+
 ## Storefront SDK (`@cms/storefront`, L2.1+)
 
 The frontend depends on the commerce SDK `@cms/storefront`, **vendored** at `vendor/storefront`
