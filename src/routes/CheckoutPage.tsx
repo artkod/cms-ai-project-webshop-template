@@ -188,16 +188,24 @@ export function CheckoutPage() {
                   />
                 )}
                 {totals.surcharge && <Row label="Cash on delivery" value={formatCents(totals.surcharge.gross)} />}
-                <Row label="Net" value={formatCents(totals.netTotal)} dim />
-                {totals.taxSummary.map((t) => (
-                  <Row key={t.rateBps} label={`VAT ${ratePct(t.rateBps)} (${preview!.cart.shipping.country})`} value={formatCents(t.vat)} dim />
-                ))}
+                {totals.taxTotal > 0 && <Row label="Net" value={formatCents(totals.netTotal)} dim />}
+                {totals.taxSummary
+                  .filter((t) => t.vat > 0)
+                  .map((t) => (
+                    <Row key={t.rateBps} label={`VAT ${ratePct(t.rateBps)} (${preview!.cart.shipping.country})`} value={formatCents(t.vat)} dim />
+                  ))}
                 <Divider my="xs" />
                 <Group justify="space-between">
                   <Text fw={700}>{isQuote ? "Estimated total" : "Total"}</Text>
                   <Text fw={700} fz="lg">{formatCents(totals.grossTotal)}</Text>
                 </Group>
-                <Text c="dimmed" fz="xs">VAT shown for {preview!.cart.shipping.country}.</Text>
+                {preview!.cart.vatRegistered === false ? (
+                  <Text c="dimmed" fz="xs">Prices are VAT-exempt — the shop is not in the VAT system.</Text>
+                ) : totals.taxTotal > 0 ? (
+                  <Text c="dimmed" fz="xs">VAT shown for {preview!.cart.shipping.country}.</Text>
+                ) : (
+                  <Text c="dimmed" fz="xs">No VAT applies to these items.</Text>
+                )}
               </>
             )}
             <Button mt="sm" size="md" onClick={place} loading={placing} disabled={!canPlace}>

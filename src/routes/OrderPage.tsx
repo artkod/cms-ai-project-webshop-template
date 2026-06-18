@@ -82,15 +82,18 @@ export function OrderPage() {
           {t.discountTotal > 0 && <Row label="Discount" value={`−${formatCents(t.discountTotal)}`} accent />}
           {order.shippingMethod && <Row label={`Shipping (${order.shippingMethod.name})`} value={formatCents(t.shipping?.gross ?? 0)} />}
           {t.surcharge && <Row label="Cash on delivery" value={formatCents(t.surcharge.gross)} />}
-          <Row label="Net" value={formatCents(t.netTotal)} dim />
-          {t.taxSummary.map((r) => (
-            <Row key={r.rateBps} label={`VAT ${ratePct(r.rateBps)}${order.taxDestination ? ` (${order.taxDestination})` : ""}`} value={formatCents(r.vat)} dim />
-          ))}
+          {t.taxTotal > 0 && <Row label="Net" value={formatCents(t.netTotal)} dim />}
+          {t.taxSummary
+            .filter((r) => r.vat > 0)
+            .map((r) => (
+              <Row key={r.rateBps} label={`VAT ${ratePct(r.rateBps)}${order.taxDestination ? ` (${order.taxDestination})` : ""}`} value={formatCents(r.vat)} dim />
+            ))}
           <Divider my="xs" />
           <Group justify="space-between">
             <Text fw={700}>{order.isQuote ? "Estimated total" : "Total"}</Text>
             <Text fw={700} fz="lg">{formatCents(t.grossTotal)}</Text>
           </Group>
+          {t.taxTotal === 0 && <Text c="dimmed" fz="xs" mt={4}>No VAT was charged on this order.</Text>}
         </Stack>
       </Paper>
 

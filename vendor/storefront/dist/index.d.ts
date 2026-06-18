@@ -10,6 +10,10 @@ export declare interface Cart {
     /** Chosen shipping method + resolved cost + COD (L4.4). */
     shipping: CartShipping;
     totals: CartTotals;
+    /** ISO-2 country the totals were taxed at (the cart's ship-to, or "HR" home). */
+    taxDestination: string;
+    /** false when the shop isn't VAT-registered → no VAT charged (prices are VAT-exempt). */
+    vatRegistered: boolean;
     /** e.g. `"coupon_removed"` when an applied coupon lapsed since it was added. */
     warnings: string[];
 }

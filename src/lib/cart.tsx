@@ -85,6 +85,15 @@ export function CartProvider({ children }: { children: ReactNode }) {
     void refresh();
   }, [refresh]);
 
+  // Re-fetch when the tab regains focus, so a server-side change made elsewhere
+  // (e.g. an admin editing a product's tax class / shop settings in another tab)
+  // is reflected without a hard reload — the cart is always recomputed server-side.
+  useEffect(() => {
+    const onFocus = () => void refresh();
+    window.addEventListener("focus", onFocus);
+    return () => window.removeEventListener("focus", onFocus);
+  }, [refresh]);
+
   const guard = useCallback(
     async (fn: () => Promise<Cart>) => {
       try {

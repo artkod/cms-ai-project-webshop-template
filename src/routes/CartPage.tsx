@@ -44,6 +44,9 @@ export function CartPage() {
 
   const totals = cart?.totals;
   const shipping = cart?.shipping;
+  // Tag VAT rows/note with the ship-to country when it isn't home (HR) — under OSS
+  // the cart is taxed at the destination rate, so make that visible.
+  const destLabel = cart && cart.taxDestination && cart.taxDestination !== "HR" ? ` (${cart.taxDestination})` : "";
 
   const onApply = async () => {
     if (!code.trim()) return;
@@ -215,16 +218,28 @@ export function CartPage() {
                     <Row label={`Shipping (${shipping.method.name})`} value={shipping.freeByCoupon || shipping.free ? "Free" : formatCents(totals.shipping?.gross ?? 0)} />
                   )}
                   {totals.surcharge && <Row label="Cash on delivery" value={formatCents(totals.surcharge.gross)} />}
-                  <Row label="Net" value={formatCents(totals.netTotal)} dim />
-                  {totals.taxSummary.map((t) => (
-                    <Row key={t.rateBps} label={`VAT ${ratePct(t.rateBps)}`} value={formatCents(t.vat)} dim />
-                  ))}
+                  {/* VAT breakdown. When the shop isn't VAT-registered (or nothing is
+                      taxed) there's no VAT at all — say so plainly instead of a
+                      misleading "VAT 0% / VAT included". Otherwise show one row per
+                      real rate group, tagged with the destination when it's not home. */}
+                  {totals.taxTotal > 0 && <Row label="Net" value={formatCents(totals.netTotal)} dim />}
+                  {totals.taxSummary
+                    .filter((t) => t.vat > 0)
+                    .map((t) => (
+                      <Row key={t.rateBps} label={`VAT ${ratePct(t.rateBps)}${destLabel}`} value={formatCents(t.vat)} dim />
+                    ))}
                   <Divider my="xs" />
                   <Group justify="space-between">
                     <Text fw={700}>Total</Text>
                     <Text fw={700} fz="lg">{formatCents(totals.grossTotal)}</Text>
                   </Group>
-                  <Text c="dimmed" fz="xs">VAT included.</Text>
+                  {cart?.vatRegistered === false ? (
+                    <Text c="dimmed" fz="xs">Prices are VAT-exempt — the shop is not in the VAT system.</Text>
+                  ) : totals.taxTotal > 0 ? (
+                    <Text c="dimmed" fz="xs">VAT included{destLabel}.</Text>
+                  ) : (
+                    <Text c="dimmed" fz="xs">No VAT applies to these items.</Text>
+                  )}
                   <Button component={Link} to={`/${loc}/checkout`} mt="xs" size="md" fullWidth>
                     Proceed to checkout
                   </Button>
