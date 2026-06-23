@@ -23,9 +23,14 @@ export function AccountPage() {
   // Form state.
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirm, setConfirm] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [busy, setBusy] = useState(false);
+
+  // Confirm-password is a client-side typo guard only (never sent to the API).
+  const passwordsMatch = password === confirm;
+  const canRegister = !!email && password.length >= 8 && passwordsMatch;
 
   if (loading) {
     return (
@@ -88,6 +93,7 @@ export function AccountPage() {
     setBusy(false);
     if (ok) {
       setPassword("");
+      setConfirm("");
     }
   };
 
@@ -148,7 +154,15 @@ export function AccountPage() {
               onChange={(e) => setPassword(e.currentTarget.value)}
               autoComplete="new-password"
             />
-            <Button onClick={() => void onRegister()} loading={busy} disabled={!email || password.length < 8}>
+            <TextInput
+              label="Confirm password"
+              type="password"
+              value={confirm}
+              onChange={(e) => setConfirm(e.currentTarget.value)}
+              autoComplete="new-password"
+              error={confirm.length > 0 && !passwordsMatch ? "Passwords don't match" : undefined}
+            />
+            <Button onClick={() => void onRegister()} loading={busy} disabled={!canRegister}>
               Create account
             </Button>
           </Stack>
