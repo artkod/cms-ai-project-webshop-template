@@ -8,6 +8,9 @@ import { CartPage } from "./routes/CartPage";
 import { CheckoutPage } from "./routes/CheckoutPage";
 import { OrderPage } from "./routes/OrderPage";
 import { AccountPage } from "./routes/AccountPage";
+import { VerifyEmailPage } from "./routes/VerifyEmailPage";
+import { ForgotPasswordPage } from "./routes/ForgotPasswordPage";
+import { ResetPasswordPage } from "./routes/ResetPasswordPage";
 import { LocaleConfigProvider, isKnownLocale, useLocaleConfig } from "./lib/locale";
 
 // Routes nested under `/:locale/` only render when `:locale` is one of the
@@ -52,6 +55,10 @@ export default function App() {
             <Route path="checkout" element={<CheckoutPage />} />
             <Route path="order/:token" element={<OrderPage />} />
             <Route path="account" element={<AccountPage />} />
+            {/* Customer email-verification + password-reset landings (L5.2). */}
+            <Route path="account/forgot-password" element={<ForgotPasswordPage />} />
+            <Route path="account/verify-email/:token" element={<VerifyEmailPage />} />
+            <Route path="account/reset-password/:token" element={<ResetPasswordPage />} />
             {/* Splat captures the full hierarchical path (e.g. proizvodi/busilice/x).
                 PageView resolves it and redirects home when unmatched. */}
             <Route path="*" element={<PageView />} />

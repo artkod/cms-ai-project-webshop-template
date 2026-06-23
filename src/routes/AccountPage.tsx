@@ -1,23 +1,24 @@
 import { useState } from "react";
 import { Link, useParams } from "react-router";
-import { Alert, Anchor, Badge, Button, Group, Loader, Paper, Stack, Tabs, Text, TextInput, Title } from "@mantine/core";
-import { LogOut, ShoppingCart } from "lucide-react";
+import { Alert, Anchor, Badge, Button, Divider, Group, Loader, Paper, Stack, Tabs, Text, TextInput, Title } from "@mantine/core";
+import { LogOut, MailCheck, ShoppingCart } from "lucide-react";
 import { useCustomer } from "@/lib/customer";
 import { useCart } from "@/lib/cart";
 import { useLocaleConfig } from "@/lib/locale";
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Account page (Phase L5.1) — the clickable surface for the customer auth realm:
-// register / login / logout, plus a live note about the guest-cart merge so it's
-// observable. Logged out → Sign in / Create account tabs. Logged in → profile +
-// sign out. Verification, address book, B2B, wishlist land in L5.2–L5.6.
+// Account page (Phase L5.1 + L5.2) — the clickable surface for the customer auth
+// realm: register / login / logout, the guest-cart-merge note, PLUS (L5.2) the
+// email-verification banner + resend, a verification-gated Change password form,
+// and a Forgot-password link. Logged out → Sign in / Create account tabs. Logged
+// in → profile + verify state + change password + sign out.
 // ─────────────────────────────────────────────────────────────────────────────
 
 export function AccountPage() {
   const { locale } = useParams<{ locale: string }>();
   const { defaultLocale } = useLocaleConfig();
   const loc = locale ?? defaultLocale;
-  const { customer, loading, register, login, logout } = useCustomer();
+  const { customer, loading, register, login, logout, resendVerification, changePassword } = useCustomer();
   const { itemCount } = useCart();
 
   // Form state.
@@ -27,6 +28,15 @@ export function AccountPage() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [busy, setBusy] = useState(false);
+
+  // Change-password form (logged-in, verified only).
+  const [curPw, setCurPw] = useState("");
+  const [newPw, setNewPw] = useState("");
+  const [newPw2, setNewPw2] = useState("");
+  const [pwBusy, setPwBusy] = useState(false);
+  const [resendBusy, setResendBusy] = useState(false);
+  const newPwMatch = newPw === newPw2;
+  const canChangePw = curPw.length > 0 && newPw.length >= 8 && newPwMatch;
 
   // Confirm-password is a client-side typo guard only (never sent to the API).
   const passwordsMatch = password === confirm;
@@ -43,6 +53,21 @@ export function AccountPage() {
   // ── Logged in ──────────────────────────────────────────────────────────────
   if (customer) {
     const name = [customer.firstName, customer.lastName].filter(Boolean).join(" ") || customer.email;
+    const onResend = async () => {
+      setResendBusy(true);
+      await resendVerification();
+      setResendBusy(false);
+    };
+    const onChangePassword = async () => {
+      setPwBusy(true);
+      const ok = await changePassword(curPw, newPw);
+      setPwBusy(false);
+      if (ok) {
+        setCurPw("");
+        setNewPw("");
+        setNewPw2("");
+      }
+    };
     return (
       <Stack maw={560} mx="auto" gap="lg">
         <Title order={2}>My account</Title>
@@ -64,6 +89,60 @@ export function AccountPage() {
           </Stack>
         </Paper>
 
+        {!customer.emailVerified && (
+          <Alert color="yellow" variant="light" icon={<MailCheck size={18} />} title="Verify your email">
+            <Stack gap="xs" align="flex-start">
+              <Text fz="sm">
+                We sent a verification link to <b>{customer.email}</b>. Verifying unlocks account features like
+                changing your password — but you can keep shopping and checking out in the meantime.
+              </Text>
+              <Button size="xs" variant="light" color="yellow" loading={resendBusy} onClick={() => void onResend()}>
+                Resend verification email
+              </Button>
+            </Stack>
+          </Alert>
+        )}
+
+        {/* Change password — a verification-gated account feature (L5.2). */}
+        <Paper withBorder p="lg" radius="md">
+          <Stack gap="sm">
+            <Text fw={600}>Change password</Text>
+            {customer.emailVerified ? (
+              <>
+                <TextInput
+                  label="Current password"
+                  type="password"
+                  value={curPw}
+                  onChange={(e) => setCurPw(e.currentTarget.value)}
+                  autoComplete="current-password"
+                />
+                <TextInput
+                  label="New password"
+                  type="password"
+                  description="At least 8 characters"
+                  value={newPw}
+                  onChange={(e) => setNewPw(e.currentTarget.value)}
+                  autoComplete="new-password"
+                />
+                <TextInput
+                  label="Confirm new password"
+                  type="password"
+                  value={newPw2}
+                  onChange={(e) => setNewPw2(e.currentTarget.value)}
+                  autoComplete="new-password"
+                  error={newPw2.length > 0 && !newPwMatch ? "Passwords don't match" : undefined}
+                />
+                <Button onClick={() => void onChangePassword()} loading={pwBusy} disabled={!canChangePw} w="fit-content">
+                  Update password
+                </Button>
+              </>
+            ) : (
+              <Text c="dimmed" fz="sm">Verify your email to change your password.</Text>
+            )}
+          </Stack>
+        </Paper>
+
+        <Divider />
         <Group>
           <Button
             component={Link}
@@ -130,6 +209,9 @@ export function AccountPage() {
             <Button onClick={() => void onLogin()} loading={busy} disabled={!email || !password}>
               Sign in
             </Button>
+            <Anchor component={Link} to={`/${loc}/account/forgot-password`} fz="sm" ta="center">
+              Forgot your password?
+            </Anchor>
           </Stack>
         </Tabs.Panel>
 

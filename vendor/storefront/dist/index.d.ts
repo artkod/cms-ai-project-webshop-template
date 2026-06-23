@@ -288,6 +288,13 @@ export declare interface CustomerResponse {
     customer: StorefrontCustomer;
 }
 
+/** Public token-lookup result (storefront renders the email before acting). */
+export declare interface CustomerTokenInfo {
+    type: "verification" | "reset";
+    email: string;
+    expiresAt: string;
+}
+
 /** Input for `POST /api/commerce/customers/login`. */
 export declare interface LoginInput {
     email: string;
@@ -436,6 +443,12 @@ export declare interface RegisterInput {
     password: string;
     firstName?: string;
     lastName?: string;
+}
+
+/** Result of `POST /resend-verification`. */
+export declare interface ResendVerificationResult {
+    ok: boolean;
+    alreadyVerified?: boolean;
 }
 
 export declare interface SearchFacets {
@@ -611,6 +624,30 @@ export declare interface StorefrontClient {
     getCustomer(opts?: {
         signal?: AbortSignal;
     }): Promise<StorefrontCustomer | null>;
+    /** Look up a verification/reset token (renders the email before acting). `GET …/customers/token/:token`. */
+    getTokenInfo(token: string, opts?: {
+        signal?: AbortSignal;
+    }): Promise<CustomerTokenInfo>;
+    /** Confirm an email-verification token (token-authed, no login needed). `POST …/verify-email`. */
+    verifyEmail(token: string, opts?: {
+        signal?: AbortSignal;
+    }): Promise<VerifyEmailResult>;
+    /** Resend the verification email to the logged-in customer. `POST …/resend-verification`. */
+    resendVerification(opts?: {
+        signal?: AbortSignal;
+    }): Promise<ResendVerificationResult>;
+    /** Request a password-reset email. Always resolves (anti-enumeration). `POST …/forgot-password`. */
+    forgotPassword(email: string, opts?: {
+        signal?: AbortSignal;
+    }): Promise<void>;
+    /** Complete a password reset; auto-logs-in + marks the email verified. `POST …/reset-password`. */
+    resetPassword(token: string, password: string, opts?: {
+        signal?: AbortSignal;
+    }): Promise<StorefrontCustomer>;
+    /** Change the logged-in customer's password (requires a verified email). `POST …/change-password`. */
+    changePassword(currentPassword: string, newPassword: string, opts?: {
+        signal?: AbortSignal;
+    }): Promise<void>;
 }
 
 /** Configuration for {@link createStorefrontClient}. */
@@ -686,6 +723,12 @@ export declare interface StorefrontRequestInit {
 export declare interface TypeFacet {
     type: string;
     count: number;
+}
+
+/** Result of `POST /verify-email`. */
+export declare interface VerifyEmailResult {
+    ok: boolean;
+    email: string;
 }
 
 export { }

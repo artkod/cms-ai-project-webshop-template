@@ -21,6 +21,16 @@ interface CustomerValue {
   register: (input: RegisterInput) => Promise<boolean>;
   login: (input: LoginInput) => Promise<boolean>;
   logout: () => Promise<void>;
+  /** Re-fetch the current customer (e.g. after verifying email). */
+  refresh: () => Promise<void>;
+  /** Resend the verification email to the logged-in customer (L5.2). */
+  resendVerification: () => Promise<boolean>;
+  /** Confirm an email-verification token; refreshes `me` on success (L5.2). */
+  verifyEmail: (token: string) => Promise<boolean>;
+  /** Complete a password reset; auto-logs-in + merges the cart (L5.2). */
+  resetPassword: (token: string, password: string) => Promise<boolean>;
+  /** Change the logged-in customer's password (requires a verified email). */
+  changePassword: (currentPassword: string, newPassword: string) => Promise<boolean>;
 }
 
 const Ctx = createContext<CustomerValue | null>(null);
@@ -31,6 +41,12 @@ function authErrorMessage(err: StorefrontError): string {
       return "Incorrect email or password.";
     case "account_disabled":
       return "This account has been disabled.";
+    case "email_not_verified":
+      return "Verify your email first to use this feature.";
+    case "no_password_set":
+      return "This account has no password yet — use “Forgot password” to set one.";
+    case "invalid_or_expired":
+      return "This link is invalid or has expired. Please request a new one.";
     case "validation_error":
       return "Please check your details and try again (password must be at least 8 characters).";
     case "csrf_invalid":
@@ -107,7 +123,85 @@ export function CustomerProvider({ children }: { children: ReactNode }) {
     notifications.show({ color: "gray", message: "Signed out." });
   }, [refreshCart]);
 
-  const value: CustomerValue = { customer, loading, register, login, logout };
+  const refresh = useCallback(async () => {
+    try {
+      const me = await storefront.getCustomer();
+      setCustomer(me);
+    } catch {
+      /* leave state as-is */
+    }
+  }, []);
+
+  const resendVerification = useCallback(async (): Promise<boolean> => {
+    try {
+      const res = await storefront.resendVerification();
+      notifications.show({
+        color: "teal",
+        message: res.alreadyVerified ? "Your email is already verified." : "Verification email sent — check your inbox.",
+      });
+      return true;
+    } catch (e) {
+      notifications.show({ color: "red", message: authErrorMessage(e as StorefrontError) });
+      return false;
+    }
+  }, []);
+
+  const verifyEmail = useCallback(
+    async (token: string): Promise<boolean> => {
+      try {
+        await storefront.verifyEmail(token);
+        await refresh(); // a logged-in session now reflects verified status
+        return true;
+      } catch (e) {
+        notifications.show({ color: "red", message: authErrorMessage(e as StorefrontError) });
+        return false;
+      }
+    },
+    [refresh],
+  );
+
+  const resetPassword = useCallback(
+    async (token: string, password: string): Promise<boolean> => {
+      try {
+        const c = await storefront.resetPassword(token, password);
+        setCustomer(c); // reset auto-logs-in
+        await refreshCart();
+        notifications.show({ color: "teal", message: "Password updated — you're signed in." });
+        return true;
+      } catch (e) {
+        notifications.show({ color: "red", message: authErrorMessage(e as StorefrontError) });
+        return false;
+      }
+    },
+    [refreshCart],
+  );
+
+  const changePassword = useCallback(
+    async (currentPassword: string, newPassword: string): Promise<boolean> => {
+      try {
+        await storefront.changePassword(currentPassword, newPassword);
+        notifications.show({ color: "teal", message: "Password changed." });
+        return true;
+      } catch (e) {
+        notifications.show({ color: "red", message: authErrorMessage(e as StorefrontError) });
+        return false;
+      }
+    },
+    [],
+  );
+
+  const value: CustomerValue = {
+    customer,
+    loading,
+    register,
+    login,
+    logout,
+    refresh,
+    resendVerification,
+    verifyEmail,
+    resetPassword,
+    changePassword,
+  };
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }
 
