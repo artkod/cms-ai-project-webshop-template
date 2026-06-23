@@ -1,93 +1,107 @@
-var A = Object.defineProperty;
-var F = (r, o, c) => o in r ? A(r, o, { enumerable: !0, configurable: !0, writable: !0, value: c }) : r[o] = c;
-var T = (r, o, c) => F(r, typeof o != "symbol" ? o + "" : o, c);
-const L = 1, Q = "0.0.1";
-class C extends Error {
-  constructor(c, s) {
-    super(c);
+var G = Object.defineProperty;
+var Q = (r, o, a) => o in r ? G(r, o, { enumerable: !0, configurable: !0, writable: !0, value: a }) : r[o] = a;
+var T = (r, o, a) => Q(r, typeof o != "symbol" ? o + "" : o, a);
+const z = 1, B = "0.0.1";
+class O extends Error {
+  constructor(a, l) {
+    super(a);
     T(this, "status");
     T(this, "code");
     T(this, "body");
-    this.name = "StorefrontError", this.status = s.status, this.code = s.code ?? null, this.body = s.body ?? null;
+    this.name = "StorefrontError", this.status = l.status, this.code = l.code ?? null, this.body = l.body ?? null;
   }
 }
-const j = "X-Commerce-Contract-Version";
-function x(r, o, c) {
-  const s = r.replace(/\/+$/, ""), n = o.startsWith("/") ? o : `/${o}`;
-  if (!c) return `${s}${n}`;
-  const y = new URLSearchParams();
-  for (const [d, m] of Object.entries(c))
+const X = "X-Commerce-Contract-Version", E = "X-CSRF-Token", J = "cms_csrf";
+function K() {
+  if (typeof document > "u" || typeof document.cookie != "string") return null;
+  for (const r of document.cookie.split(";")) {
+    const o = r.indexOf("=");
+    if (o !== -1 && r.slice(0, o).trim() === J)
+      return decodeURIComponent(r.slice(o + 1).trim());
+  }
+  return null;
+}
+function M(r, o, a) {
+  const l = r.replace(/\/+$/, ""), n = o.startsWith("/") ? o : `/${o}`;
+  if (!a) return `${l}${n}`;
+  const d = new URLSearchParams();
+  for (const [f, m] of Object.entries(a))
     if (m != null)
       if (Array.isArray(m))
-        for (const O of m) y.append(d, String(O));
+        for (const C of m) d.append(f, String(C));
       else
-        y.set(d, String(m));
-  const f = y.toString();
-  return f ? `${s}${n}?${f}` : `${s}${n}`;
+        d.set(f, String(m));
+  const h = d.toString();
+  return h ? `${l}${n}?${h}` : `${l}${n}`;
 }
-function H(r) {
+function Y(r) {
   const o = r.fetch ?? globalThis.fetch;
   if (typeof o != "function")
     throw new Error(
       "@cms/storefront: no fetch implementation available — pass `fetch` in the config for this runtime."
     );
-  const c = r.credentials ?? "include", s = {
+  const a = r.credentials ?? "include", l = {
     "X-Project-Slug": r.projectSlug,
-    [j]: String(1),
+    [X]: String(1),
     ...r.headers
   };
   async function n(e, t = {}) {
-    const a = x(r.apiUrl, e, t.query), h = { ...s, ...t.headers };
-    let S;
-    t.body !== void 0 && (S = JSON.stringify(t.body), h["Content-Type"] = "application/json");
-    let g;
+    const c = M(r.apiUrl, e, t.query), g = { ...l, ...t.headers };
+    let p;
+    t.body !== void 0 && (p = JSON.stringify(t.body), g["Content-Type"] = "application/json");
+    const R = (t.method ?? (t.body !== void 0 ? "POST" : "GET")).toUpperCase();
+    if (R !== "GET" && R !== "HEAD" && !(E in g)) {
+      const s = K();
+      s && (g[E] = s);
+    }
+    let y;
     try {
-      g = await o(a, {
+      y = await o(c, {
         method: t.method ?? (t.body !== void 0 ? "POST" : "GET"),
-        headers: h,
-        body: S,
-        credentials: t.credentials ?? c,
+        headers: g,
+        body: p,
+        credentials: t.credentials ?? a,
         signal: t.signal
       });
-    } catch (u) {
-      throw new C(
-        `Network request to ${a} failed: ${(u == null ? void 0 : u.message) ?? String(u)}`,
+    } catch (s) {
+      throw new O(
+        `Network request to ${c} failed: ${(s == null ? void 0 : s.message) ?? String(s)}`,
         { status: 0 }
       );
     }
-    const p = await g.text();
-    let l = null;
-    if (p)
+    const S = await y.text();
+    let u = null;
+    if (S)
       try {
-        l = JSON.parse(p);
+        u = JSON.parse(S);
       } catch {
-        l = p;
+        u = S;
       }
-    if (!g.ok) {
-      const u = l && typeof l == "object" && "error" in l ? String(l.error) : null;
-      throw new C(
-        `Request to ${a} failed with ${g.status}${u ? ` (${u})` : ""}`,
-        { status: g.status, code: u, body: l }
+    if (!y.ok) {
+      const s = u && typeof u == "object" && "error" in u ? String(u.error) : null;
+      throw new O(
+        `Request to ${c} failed with ${y.status}${s ? ` (${s})` : ""}`,
+        { status: y.status, code: s, body: u }
       );
     }
-    return l;
+    return u;
   }
-  async function y() {
+  async function d() {
     return n("/api/commerce/health");
   }
-  async function f() {
-    const { contractVersion: e } = await y();
+  async function h() {
+    const { contractVersion: e } = await d();
     return {
       sdk: 1,
       api: e,
       compatible: e === 1
     };
   }
-  function d(e = {}) {
+  function f(e = {}) {
     const t = [];
     if (e.options)
-      for (const [a, h] of Object.entries(e.options))
-        for (const S of h) t.push(`${a}:${S}`);
+      for (const [c, g] of Object.entries(e.options))
+        for (const p of g) t.push(`${c}:${p}`);
     return {
       locale: e.locale,
       category: e.category,
@@ -105,61 +119,61 @@ function H(r) {
   }
   async function m(e = {}) {
     return n("/api/commerce/catalog/products", {
-      query: d(e),
+      query: f(e),
       signal: e.signal
     });
   }
-  async function O(e, t = {}) {
+  async function C(e, t = {}) {
     return n(`/api/commerce/catalog/products/${encodeURIComponent(e)}`, {
       query: { locale: t.locale },
       signal: t.signal
     });
   }
-  async function R(e = {}) {
+  async function b(e = {}) {
     return (await n("/api/commerce/catalog/categories", {
       query: { locale: e.locale },
       signal: e.signal
     })).data;
   }
-  async function E(e, t = {}) {
+  async function q(e, t = {}) {
     return n(`/api/commerce/catalog/categories/${encodeURIComponent(e)}`, {
-      query: d(t),
+      query: f(t),
       signal: t.signal
     });
   }
   function i(e) {
     return e ? { locale: e } : void 0;
   }
-  async function b(e = {}) {
+  async function N(e = {}) {
     return n("/api/commerce/cart", { query: i(e.locale), signal: e.signal });
   }
-  async function N(e, t = 1, a = {}) {
+  async function $(e, t = 1, c = {}) {
     return n("/api/commerce/cart/items", {
       method: "POST",
       body: { variantId: e, quantity: t },
-      query: i(a.locale),
-      signal: a.signal
+      query: i(c.locale),
+      signal: c.signal
     });
   }
-  async function $(e, t, a = {}) {
+  async function w(e, t, c = {}) {
     return n(`/api/commerce/cart/items/${encodeURIComponent(e)}`, {
       method: "PUT",
       body: { quantity: t },
-      query: i(a.locale),
-      signal: a.signal
+      query: i(c.locale),
+      signal: c.signal
     });
   }
-  async function q(e, t = {}) {
+  async function P(e, t = {}) {
     return n(`/api/commerce/cart/items/${encodeURIComponent(e)}`, {
       method: "DELETE",
       query: i(t.locale),
       signal: t.signal
     });
   }
-  async function I(e = {}) {
+  async function k(e = {}) {
     return n("/api/commerce/cart", { method: "DELETE", query: i(e.locale), signal: e.signal });
   }
-  async function w(e, t = {}) {
+  async function I(e, t = {}) {
     return n("/api/commerce/cart/coupon", {
       method: "POST",
       body: { code: e },
@@ -167,20 +181,20 @@ function H(r) {
       signal: t.signal
     });
   }
-  async function P(e = {}) {
+  async function _(e = {}) {
     return n("/api/commerce/cart/coupon", {
       method: "DELETE",
       query: i(e.locale),
       signal: e.signal
     });
   }
-  async function _(e = {}) {
+  async function v(e = {}) {
     return n("/api/commerce/cart/shipping", {
       query: { country: e.country, locale: e.locale },
       signal: e.signal
     });
   }
-  async function v(e, t = {}) {
+  async function U(e, t = {}) {
     return n("/api/commerce/cart/shipping", {
       method: "PUT",
       body: e,
@@ -188,13 +202,13 @@ function H(r) {
       signal: t.signal
     });
   }
-  async function k(e = {}) {
+  async function A(e = {}) {
     return n("/api/commerce/checkout", {
       query: i(e.locale),
       signal: e.signal
     });
   }
-  async function U(e, t = {}) {
+  async function F(e, t = {}) {
     return n("/api/commerce/checkout", {
       method: "POST",
       body: e,
@@ -207,33 +221,69 @@ function H(r) {
       signal: t.signal
     });
   }
+  async function x(e = {}) {
+    return (await n("/api/commerce/customers/csrf", { signal: e.signal })).token;
+  }
+  async function D(e, t = {}) {
+    return (await n("/api/commerce/customers/register", {
+      method: "POST",
+      body: e,
+      signal: t.signal
+    })).customer;
+  }
+  async function j(e, t = {}) {
+    return (await n("/api/commerce/customers/login", {
+      method: "POST",
+      body: e,
+      signal: t.signal
+    })).customer;
+  }
+  async function H(e = {}) {
+    await n("/api/commerce/customers/logout", {
+      method: "POST",
+      signal: e.signal
+    });
+  }
+  async function L(e = {}) {
+    try {
+      return (await n("/api/commerce/customers/me", { signal: e.signal })).customer;
+    } catch (t) {
+      if (t instanceof O && t.status === 401) return null;
+      throw t;
+    }
+  }
   return {
     contractVersion: 1,
     request: n,
-    health: y,
-    checkContract: f,
+    health: d,
+    checkContract: h,
     listProducts: m,
-    getProduct: O,
-    listCategories: R,
-    getCategory: E,
-    getCart: b,
-    addCartItem: N,
-    setCartItemQuantity: $,
-    removeCartItem: q,
-    clearCart: I,
-    applyCoupon: w,
-    removeCoupon: P,
-    getShippingMethods: _,
-    setShipping: v,
-    previewCheckout: k,
-    startCheckout: U,
-    getOrder: V
+    getProduct: C,
+    listCategories: b,
+    getCategory: q,
+    getCart: N,
+    addCartItem: $,
+    setCartItemQuantity: w,
+    removeCartItem: P,
+    clearCart: k,
+    applyCoupon: I,
+    removeCoupon: _,
+    getShippingMethods: v,
+    setShipping: U,
+    previewCheckout: A,
+    startCheckout: F,
+    getOrder: V,
+    getCsrfToken: x,
+    register: D,
+    login: j,
+    logout: H,
+    getCustomer: L
   };
 }
 export {
-  j as CONTRACT_VERSION_HEADER,
-  L as STOREFRONT_CONTRACT_VERSION,
-  Q as STOREFRONT_SDK_VERSION,
-  C as StorefrontError,
-  H as createStorefrontClient
+  X as CONTRACT_VERSION_HEADER,
+  z as STOREFRONT_CONTRACT_VERSION,
+  B as STOREFRONT_SDK_VERSION,
+  O as StorefrontError,
+  Y as createStorefrontClient
 };

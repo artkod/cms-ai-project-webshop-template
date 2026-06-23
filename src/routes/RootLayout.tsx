@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { Container, Group, Anchor, Box, Text, Indicator } from "@mantine/core";
 import { Outlet, Link, useParams } from "react-router";
-import { ShoppingCart } from "lucide-react";
+import { ShoppingCart, User } from "lucide-react";
 import { getMenu, type MenuItem } from "@/lib/api";
 import { useLocaleConfig, PageAlternatesProvider, StringsProvider } from "@/lib/locale";
 import { CartProvider, useCart } from "@/lib/cart";
+import { CustomerProvider, useCustomer } from "@/lib/customer";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 
 // Minimal shared layout for the test project: a header (site title + primary
@@ -26,6 +27,18 @@ function NavItem({ item }: { item: MenuItem }) {
   return (
     <Anchor component={Link} to={href}>
       {item.label}
+    </Anchor>
+  );
+}
+
+// Account link — shows the customer's first name (or "Sign in") + a user icon.
+function AccountNav({ locale }: { locale: string }) {
+  const { customer } = useCustomer();
+  const label = customer ? customer.firstName || "Account" : "Sign in";
+  return (
+    <Anchor component={Link} to={`/${locale}/account`} c="dark" aria-label="Account" style={{ display: "flex", alignItems: "center", gap: 4 }}>
+      <User size={20} />
+      <Text fz="sm" visibleFrom="sm">{label}</Text>
     </Anchor>
   );
 }
@@ -98,6 +111,7 @@ export function RootLayout() {
     <PageAlternatesProvider>
       <StringsProvider locale={activeLocale}>
         <CartProvider>
+        <CustomerProvider>
         <Box style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
           <Box component="header" style={{ borderBottom: "1px solid var(--mantine-color-gray-3)" }}>
             <Container size={1140} py="md">
@@ -111,6 +125,7 @@ export function RootLayout() {
                   ))}
                   <Anchor component={Link} to={`/${activeLocale}/shop`}>Shop</Anchor>
                   <LanguageSwitcher />
+                  <AccountNav locale={activeLocale} />
                   <CartNav locale={activeLocale} />
                 </Group>
               </Group>
@@ -138,6 +153,7 @@ export function RootLayout() {
             </Container>
           </Box>
         </Box>
+        </CustomerProvider>
         </CartProvider>
       </StringsProvider>
     </PageAlternatesProvider>

@@ -14,9 +14,9 @@ roadmap phase lands. The design + build plan live in the core repo:
 **Current status:** the commerce **admin** module is enabled (`createAdmin({ commerce: true })` +
 `COMMERCE_ENABLED=true`, since L0.1) and a real storefront frontend is being grown against the
 **vendored** `@cms/storefront` SDK (`vendor/storefront`, see below). It now covers browse → product
-→ cart → **checkout → order**: `src/routes/CatalogPage.tsx` / `CategoryPage.tsx` / `ProductPage.tsx` /
-`CartPage.tsx` / `CheckoutPage.tsx` / `OrderPage.tsx` + `lib/cart.tsx` (`CartProvider`) +
-`lib/storefront.ts` (the client). The cart page includes a **shipping picker** (ship-to country,
+→ cart → **checkout → order** + **customer accounts**: `src/routes/CatalogPage.tsx` / `CategoryPage.tsx` / `ProductPage.tsx` /
+`CartPage.tsx` / `CheckoutPage.tsx` / `OrderPage.tsx` / `AccountPage.tsx` + `lib/cart.tsx` (`CartProvider`) +
+`lib/customer.tsx` (`CustomerProvider`) + `lib/storefront.ts` (the client). The cart page includes a **shipping picker** (ship-to country,
 method selection with live rates, pickup-point — L4.4) with totals recomputed server-side, and a
 "Proceed to checkout" button. **Checkout (L4.5)**: `CheckoutPage` (address form + email; the country
 select re-taxes the live summary at the destination; a quote cart shows quote messaging) → places a
@@ -37,6 +37,15 @@ scoped to the category), reached at the category's canonical URL. Both share
 a CMS page (`PageDocument`), a product (`ProductPage`), or a category landing (`CategoryPage`) by the
 `kind` discriminator. Product/category pages set their own SEO + inject the API's schema.org JSON-LD
 (`useJsonLd` in `lib/seo.ts`). The dev `/shop` + `/shop/:idOrSlug` routes are kept as conveniences.
+
+**Customer accounts (L5.1):** `lib/customer.tsx` (`CustomerProvider` + `useCustomer()`) wraps the
+SDK's separate customer-auth realm (`register`/`login`/`logout`/`getCustomer`/`getCsrfToken`). It's
+mounted **inside `CartProvider`** (in `RootLayout`) so login/logout call `cart.refresh()` — the guest
+cart is merged into the account cart server-side, and the header badge reflects it immediately. The
+header gains an **Account** nav item (shows the customer's first name or "Sign in"); `AccountPage.tsx`
+(`/{locale}/account`) is **Sign in / Create account** tabs when logged out (with a banner noting the
+guest cart will move on sign-in) and a profile + **Sign out** when logged in. Guest checkout is never
+blocked — an account is optional. Email verification / address book / B2B land in L5.2–L5.5.
 
 ## Related repos
 

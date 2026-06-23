@@ -278,6 +278,22 @@ export declare interface ContractCheck {
  */
 export declare function createStorefrontClient(config: StorefrontConfig): StorefrontClient;
 
+/** Response of the CSRF endpoint. */
+export declare interface CsrfResponse {
+    token: string;
+}
+
+/** Response wrapper for register/login/me. */
+export declare interface CustomerResponse {
+    customer: StorefrontCustomer;
+}
+
+/** Input for `POST /api/commerce/customers/login`. */
+export declare interface LoginInput {
+    email: string;
+    password: string;
+}
+
 export declare interface OptionFacet {
     name: string;
     values: {
@@ -412,6 +428,14 @@ export declare interface ProductListResult {
     limit: number;
     offset: number;
     facets: SearchFacets;
+}
+
+/** Input for `POST /api/commerce/customers/register`. */
+export declare interface RegisterInput {
+    email: string;
+    password: string;
+    firstName?: string;
+    lastName?: string;
 }
 
 export declare interface SearchFacets {
@@ -567,6 +591,26 @@ export declare interface StorefrontClient {
     getOrder(token: string, opts?: {
         signal?: AbortSignal;
     }): Promise<Order>;
+    /** Fetch a CSRF token (double-submit cookie). Call on boot or before mutations. */
+    getCsrfToken(opts?: {
+        signal?: AbortSignal;
+    }): Promise<string>;
+    /** Register a new customer. Auto-logs-in on success. */
+    register(input: RegisterInput, opts?: {
+        signal?: AbortSignal;
+    }): Promise<StorefrontCustomer>;
+    /** Log in an existing customer. Sets cookies + merges guest cart. */
+    login(input: LoginInput, opts?: {
+        signal?: AbortSignal;
+    }): Promise<StorefrontCustomer>;
+    /** Log out. Clears the auth cookie. */
+    logout(opts?: {
+        signal?: AbortSignal;
+    }): Promise<void>;
+    /** Get the current customer, or `null` if not logged in. */
+    getCustomer(opts?: {
+        signal?: AbortSignal;
+    }): Promise<StorefrontCustomer | null>;
 }
 
 /** Configuration for {@link createStorefrontClient}. */
@@ -593,6 +637,17 @@ export declare interface StorefrontConfig {
     credentials?: RequestCredentials;
     /** Extra headers merged into every request. */
     headers?: Record<string, string>;
+}
+
+/** Wire shape of a customer in API responses. */
+export declare interface StorefrontCustomer {
+    id: string;
+    email: string;
+    firstName: string;
+    lastName: string;
+    type: "personal" | "business";
+    emailVerified: boolean;
+    createdAt: string;
 }
 
 /**

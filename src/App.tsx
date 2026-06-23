@@ -7,6 +7,7 @@ import { ProductPage } from "./routes/ProductPage";
 import { CartPage } from "./routes/CartPage";
 import { CheckoutPage } from "./routes/CheckoutPage";
 import { OrderPage } from "./routes/OrderPage";
+import { AccountPage } from "./routes/AccountPage";
 import { LocaleConfigProvider, isKnownLocale, useLocaleConfig } from "./lib/locale";
 
 // Routes nested under `/:locale/` only render when `:locale` is one of the
@@ -50,6 +51,7 @@ export default function App() {
             <Route path="cart" element={<CartPage />} />
             <Route path="checkout" element={<CheckoutPage />} />
             <Route path="order/:token" element={<OrderPage />} />
+            <Route path="account" element={<AccountPage />} />
             {/* Splat captures the full hierarchical path (e.g. proizvodi/busilice/x).
                 PageView resolves it and redirects home when unmatched. */}
             <Route path="*" element={<PageView />} />
