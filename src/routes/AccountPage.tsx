@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useParams, useSearchParams } from "react-router";
 import { Alert, Anchor, Badge, Button, Divider, Group, Loader, Paper, Stack, Tabs, Text, TextInput, Title } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
@@ -41,11 +41,17 @@ export function AccountPage() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   // Surface the social-login callback result (?error / ?connected / ?created /
-  // ?linked) once, then strip it from the URL.
+  // ?linked) once, then strip it from the URL. The `handledRef` guard keys on the
+  // exact query string so React StrictMode's dev double-invoke of this effect (both
+  // runs see the same not-yet-stripped params) shows the toast only ONCE.
+  const handledRef = useRef<string | null>(null);
   useEffect(() => {
     const error = searchParams.get("error");
     const ok = searchParams.get("connected") || searchParams.get("created") || searchParams.get("linked");
     if (!error && !ok) return;
+    const key = searchParams.toString();
+    if (handledRef.current === key) return;
+    handledRef.current = key;
     if (error) {
       notifications.show({ color: "red", message: OAUTH_ERRORS[error] ?? OAUTH_ERRORS.oauth_failed });
     } else if (searchParams.get("linked")) {
