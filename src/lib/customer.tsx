@@ -47,6 +47,8 @@ function authErrorMessage(err: StorefrontError): string {
       return "This account has no password yet — use “Forgot password” to set one.";
     case "invalid_or_expired":
       return "This link is invalid or has expired. Please request a new one.";
+    case "email_taken":
+      return "An account with this email already exists. Please sign in or reset your password.";
     case "validation_error":
       return "Please check your details and try again (password must be at least 8 characters).";
     case "csrf_invalid":
@@ -89,6 +91,15 @@ export function CustomerProvider({ children }: { children: ReactNode }) {
         notifications.show({ color: "teal", message: "Welcome! Your account is ready." });
         return true;
       } catch (e) {
+        // Existing-but-unverified email: the server silently re-sent a fresh
+        // verification link. Not an error — guide the user to their inbox.
+        if ((e as StorefrontError)?.code === "verification_resent") {
+          notifications.show({
+            color: "blue",
+            message: "This email is already registered but not yet verified — we've sent a fresh verification link. Please check your inbox.",
+          });
+          return false;
+        }
         notifications.show({ color: "red", message: authErrorMessage(e as StorefrontError) });
         return false;
       }
