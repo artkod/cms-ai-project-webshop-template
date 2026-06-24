@@ -301,6 +301,20 @@ export declare interface LoginInput {
     password: string;
 }
 
+/** A social-login provider id the storefront can render a button for. */
+export declare type OAuthProviderId = "google" | "apple" | "stub";
+
+/** Response of `GET …/customers/oauth/providers`. */
+export declare interface OAuthProvidersResponse {
+    providers: OAuthProviderId[];
+}
+
+/** Options for {@link StorefrontClient.oauthStartUrl}. */
+export declare interface OAuthStartOptions {
+    /** Locale to return to after the round-trip (lands on `/{locale}/account`). */
+    returnLocale?: string;
+}
+
 export declare interface OptionFacet {
     name: string;
     values: {
@@ -648,6 +662,16 @@ export declare interface StorefrontClient {
     changePassword(currentPassword: string, newPassword: string, opts?: {
         signal?: AbortSignal;
     }): Promise<void>;
+    /** Provider ids with a configured + enabled button. `GET …/customers/oauth/providers`. */
+    listOAuthProviders(opts?: {
+        signal?: AbortSignal;
+    }): Promise<OAuthProviderId[]>;
+    /**
+     * Build the OAuth start URL to navigate the browser to (a full-page redirect,
+     * NOT a fetch — cookies + the provider round-trip need a top-level navigation).
+     * `GET …/customers/oauth/:provider/start`.
+     */
+    oauthStartUrl(provider: OAuthProviderId, opts?: OAuthStartOptions): string;
 }
 
 /** Configuration for {@link createStorefrontClient}. */

@@ -1,10 +1,28 @@
-import { useState } from "react";
-import { Link, useParams } from "react-router";
+import { useEffect, useState } from "react";
+import { Link, useParams, useSearchParams } from "react-router";
 import { Alert, Anchor, Badge, Button, Divider, Group, Loader, Paper, Stack, Tabs, Text, TextInput, Title } from "@mantine/core";
-import { LogOut, MailCheck, ShoppingCart } from "lucide-react";
+import { notifications } from "@mantine/notifications";
+import { LogIn, LogOut, MailCheck, ShoppingCart } from "lucide-react";
 import { useCustomer } from "@/lib/customer";
 import { useCart } from "@/lib/cart";
 import { useLocaleConfig } from "@/lib/locale";
+import type { OAuthProviderId } from "@cms/storefront";
+
+// Labels for the social-login buttons (L5.3).
+const OAUTH_LABELS: Record<OAuthProviderId, string> = {
+  google: "Continue with Google",
+  apple: "Continue with Apple",
+  stub: "Dev sign-in (stub)",
+};
+
+// Friendly copy for the callback's `?error=` codes.
+const OAUTH_ERRORS: Record<string, string> = {
+  oauth_failed: "Sign-in didn't complete. Please try again.",
+  oauth_account_exists:
+    "An account with this email already exists. Sign in with your password (or reset it), then you can connect this provider.",
+  oauth_email_unverified: "The provider didn't share a verified email, so we couldn't sign you in.",
+  account_disabled: "This account has been disabled.",
+};
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Account page (Phase L5.1 + L5.2) — the clickable surface for the customer auth
@@ -18,8 +36,27 @@ export function AccountPage() {
   const { locale } = useParams<{ locale: string }>();
   const { defaultLocale } = useLocaleConfig();
   const loc = locale ?? defaultLocale;
-  const { customer, loading, register, login, logout, resendVerification, changePassword } = useCustomer();
+  const { customer, loading, register, login, logout, resendVerification, changePassword, oauthProviders, startOAuth } = useCustomer();
   const { itemCount } = useCart();
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  // Surface the social-login callback result (?error / ?connected / ?created /
+  // ?linked) once, then strip it from the URL.
+  useEffect(() => {
+    const error = searchParams.get("error");
+    const ok = searchParams.get("connected") || searchParams.get("created") || searchParams.get("linked");
+    if (!error && !ok) return;
+    if (error) {
+      notifications.show({ color: "red", message: OAUTH_ERRORS[error] ?? OAUTH_ERRORS.oauth_failed });
+    } else if (searchParams.get("linked")) {
+      notifications.show({ color: "teal", message: "Signed in — this provider is now linked to your account." });
+    } else {
+      notifications.show({ color: "teal", message: "Signed in." });
+    }
+    const next = new URLSearchParams(searchParams);
+    ["error", "connected", "created", "linked"].forEach((k) => next.delete(k));
+    setSearchParams(next, { replace: true });
+  }, [searchParams, setSearchParams]);
 
   // Form state.
   const [email, setEmail] = useState("");
@@ -250,6 +287,22 @@ export function AccountPage() {
           </Stack>
         </Tabs.Panel>
       </Tabs>
+
+      {oauthProviders.length > 0 && (
+        <Stack gap="sm">
+          <Divider label="or" labelPosition="center" />
+          {oauthProviders.map((p) => (
+            <Button
+              key={p}
+              variant="default"
+              leftSection={<LogIn size={16} />}
+              onClick={() => startOAuth(p, loc)}
+            >
+              {OAUTH_LABELS[p]}
+            </Button>
+          ))}
+        </Stack>
+      )}
 
       <Text c="dimmed" fz="xs" ta="center">
         Guest checkout is always available — an account is optional.{" "}

@@ -1,6 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from "react";
 import { notifications } from "@mantine/notifications";
-import { StorefrontError, type StorefrontCustomer, type RegisterInput, type LoginInput } from "@cms/storefront";
+import { StorefrontError, type StorefrontCustomer, type RegisterInput, type LoginInput, type OAuthProviderId } from "@cms/storefront";
 import { storefront } from "./storefront";
 import { useCart } from "./cart";
 
@@ -31,6 +31,10 @@ interface CustomerValue {
   resetPassword: (token: string, password: string) => Promise<boolean>;
   /** Change the logged-in customer's password (requires a verified email). */
   changePassword: (currentPassword: string, newPassword: string) => Promise<boolean>;
+  /** Social-login providers with a configured button (L5.3). */
+  oauthProviders: OAuthProviderId[];
+  /** Begin a social-login round-trip (full-page redirect to the provider). */
+  startOAuth: (provider: OAuthProviderId, returnLocale?: string) => void;
 }
 
 const Ctx = createContext<CustomerValue | null>(null);
@@ -62,15 +66,24 @@ export function CustomerProvider({ children }: { children: ReactNode }) {
   const { refresh: refreshCart } = useCart();
   const [customer, setCustomer] = useState<StorefrontCustomer | null>(null);
   const [loading, setLoading] = useState(true);
+  const [oauthProviders, setOauthProviders] = useState<OAuthProviderId[]>([]);
 
-  // Boot: resolve the current customer (if any) and seed the CSRF cookie so a
-  // later logout (a CSRF-gated mutation) has its double-submit token ready.
+  // Boot: resolve the current customer (if any), seed the CSRF cookie so a later
+  // logout (a CSRF-gated mutation) has its double-submit token ready, and learn
+  // which social-login providers are enabled (L5.3).
   useEffect(() => {
     let alive = true;
     (async () => {
       try {
-        const [me] = await Promise.all([storefront.getCustomer(), storefront.getCsrfToken().catch(() => "")]);
-        if (alive) setCustomer(me);
+        const [me, providers] = await Promise.all([
+          storefront.getCustomer(),
+          storefront.getCsrfToken().catch(() => ""),
+          storefront.listOAuthProviders().catch(() => [] as OAuthProviderId[]),
+        ]).then(([m, , p]) => [m, p] as const);
+        if (alive) {
+          setCustomer(me);
+          setOauthProviders(providers);
+        }
       } catch {
         /* not logged in / network — leave as null */
       } finally {
@@ -80,6 +93,11 @@ export function CustomerProvider({ children }: { children: ReactNode }) {
     return () => {
       alive = false;
     };
+  }, []);
+
+  const startOAuth = useCallback((provider: OAuthProviderId, returnLocale?: string) => {
+    // Full-page navigation — the provider round-trip + cookie need a top-level load.
+    window.location.href = storefront.oauthStartUrl(provider, { returnLocale });
   }, []);
 
   const register = useCallback(
@@ -212,6 +230,8 @@ export function CustomerProvider({ children }: { children: ReactNode }) {
     verifyEmail,
     resetPassword,
     changePassword,
+    oauthProviders,
+    startOAuth,
   };
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }

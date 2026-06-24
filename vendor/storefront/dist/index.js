@@ -1,29 +1,29 @@
-var W = Object.defineProperty;
-var z = (r, o, s) => o in r ? W(r, o, { enumerable: !0, configurable: !0, writable: !0, value: s }) : r[o] = s;
-var T = (r, o, s) => z(r, typeof o != "symbol" ? o + "" : o, s);
-const ne = 1, oe = "0.0.1";
+var Y = Object.defineProperty;
+var Z = (o, r, s) => r in o ? Y(o, r, { enumerable: !0, configurable: !0, writable: !0, value: s }) : o[r] = s;
+var T = (o, r, s) => Z(o, typeof r != "symbol" ? r + "" : r, s);
+const re = 1, ce = "0.0.1";
 class C extends Error {
-  constructor(s, l) {
+  constructor(s, u) {
     super(s);
     T(this, "status");
     T(this, "code");
     T(this, "body");
-    this.name = "StorefrontError", this.status = l.status, this.code = l.code ?? null, this.body = l.body ?? null;
+    this.name = "StorefrontError", this.status = u.status, this.code = u.code ?? null, this.body = u.body ?? null;
   }
 }
-const B = "X-Commerce-Contract-Version", E = "X-CSRF-Token", Y = "cms_csrf";
-function Z() {
+const ee = "X-Commerce-Contract-Version", E = "X-CSRF-Token", te = "cms_csrf";
+function ne() {
   if (typeof document > "u" || typeof document.cookie != "string") return null;
-  for (const r of document.cookie.split(";")) {
-    const o = r.indexOf("=");
-    if (o !== -1 && r.slice(0, o).trim() === Y)
-      return decodeURIComponent(r.slice(o + 1).trim());
+  for (const o of document.cookie.split(";")) {
+    const r = o.indexOf("=");
+    if (r !== -1 && o.slice(0, r).trim() === te)
+      return decodeURIComponent(o.slice(r + 1).trim());
   }
   return null;
 }
-function ee(r, o, s) {
-  const l = r.replace(/\/+$/, ""), n = o.startsWith("/") ? o : `/${o}`;
-  if (!s) return `${l}${n}`;
+function w(o, r, s) {
+  const u = o.replace(/\/+$/, ""), n = r.startsWith("/") ? r : `/${r}`;
+  if (!s) return `${u}${n}`;
   const g = new URLSearchParams();
   for (const [f, m] of Object.entries(s))
     if (m != null)
@@ -32,31 +32,31 @@ function ee(r, o, s) {
       else
         g.set(f, String(m));
   const h = g.toString();
-  return h ? `${l}${n}?${h}` : `${l}${n}`;
+  return h ? `${u}${n}?${h}` : `${u}${n}`;
 }
-function re(r) {
-  const o = r.fetch ?? globalThis.fetch;
-  if (typeof o != "function")
+function se(o) {
+  const r = o.fetch ?? globalThis.fetch;
+  if (typeof r != "function")
     throw new Error(
       "@cms/storefront: no fetch implementation available — pass `fetch` in the config for this runtime."
     );
-  const s = r.credentials ?? "include", l = {
-    "X-Project-Slug": r.projectSlug,
-    [B]: String(1),
-    ...r.headers
+  const s = o.credentials ?? "include", u = {
+    "X-Project-Slug": o.projectSlug,
+    [ee]: String(1),
+    ...o.headers
   };
   async function n(e, t = {}) {
-    const c = ee(r.apiUrl, e, t.query), d = { ...l, ...t.headers };
+    const c = w(o.apiUrl, e, t.query), d = { ...u, ...t.headers };
     let p;
     t.body !== void 0 && (p = JSON.stringify(t.body), d["Content-Type"] = "application/json");
     const R = (t.method ?? (t.body !== void 0 ? "POST" : "GET")).toUpperCase();
     if (R !== "GET" && R !== "HEAD" && !(E in d)) {
-      const a = Z();
+      const a = ne();
       a && (d[E] = a);
     }
     let y;
     try {
-      y = await o(c, {
+      y = await r(c, {
         method: t.method ?? (t.body !== void 0 ? "POST" : "GET"),
         headers: d,
         body: p,
@@ -70,21 +70,21 @@ function re(r) {
       );
     }
     const O = await y.text();
-    let u = null;
+    let l = null;
     if (O)
       try {
-        u = JSON.parse(O);
+        l = JSON.parse(O);
       } catch {
-        u = O;
+        l = O;
       }
     if (!y.ok) {
-      const a = u && typeof u == "object" && "error" in u ? String(u.error) : null;
+      const a = l && typeof l == "object" && "error" in l ? String(l.error) : null;
       throw new C(
         `Request to ${c} failed with ${y.status}${a ? ` (${a})` : ""}`,
-        { status: y.status, code: a, body: u }
+        { status: y.status, code: a, body: l }
       );
     }
-    return u;
+    return l;
   }
   async function g() {
     return n("/api/commerce/health");
@@ -135,7 +135,7 @@ function re(r) {
       signal: e.signal
     })).data;
   }
-  async function w(e, t = {}) {
+  async function P(e, t = {}) {
     return n(`/api/commerce/catalog/categories/${encodeURIComponent(e)}`, {
       query: f(t),
       signal: t.signal
@@ -144,10 +144,10 @@ function re(r) {
   function i(e) {
     return e ? { locale: e } : void 0;
   }
-  async function P(e = {}) {
+  async function $(e = {}) {
     return n("/api/commerce/cart", { query: i(e.locale), signal: e.signal });
   }
-  async function $(e, t = 1, c = {}) {
+  async function q(e, t = 1, c = {}) {
     return n("/api/commerce/cart/items", {
       method: "POST",
       body: { variantId: e, quantity: t },
@@ -155,7 +155,7 @@ function re(r) {
       signal: c.signal
     });
   }
-  async function q(e, t, c = {}) {
+  async function N(e, t, c = {}) {
     return n(`/api/commerce/cart/items/${encodeURIComponent(e)}`, {
       method: "PUT",
       body: { quantity: t },
@@ -163,17 +163,17 @@ function re(r) {
       signal: c.signal
     });
   }
-  async function N(e, t = {}) {
+  async function v(e, t = {}) {
     return n(`/api/commerce/cart/items/${encodeURIComponent(e)}`, {
       method: "DELETE",
       query: i(t.locale),
       signal: t.signal
     });
   }
-  async function k(e = {}) {
+  async function I(e = {}) {
     return n("/api/commerce/cart", { method: "DELETE", query: i(e.locale), signal: e.signal });
   }
-  async function I(e, t = {}) {
+  async function k(e, t = {}) {
     return n("/api/commerce/cart/coupon", {
       method: "POST",
       body: { code: e },
@@ -181,20 +181,20 @@ function re(r) {
       signal: t.signal
     });
   }
-  async function v(e = {}) {
+  async function _(e = {}) {
     return n("/api/commerce/cart/coupon", {
       method: "DELETE",
       query: i(e.locale),
       signal: e.signal
     });
   }
-  async function _(e = {}) {
+  async function U(e = {}) {
     return n("/api/commerce/cart/shipping", {
       query: { country: e.country, locale: e.locale },
       signal: e.signal
     });
   }
-  async function U(e, t = {}) {
+  async function A(e, t = {}) {
     return n("/api/commerce/cart/shipping", {
       method: "PUT",
       body: e,
@@ -202,13 +202,13 @@ function re(r) {
       signal: t.signal
     });
   }
-  async function A(e = {}) {
+  async function V(e = {}) {
     return n("/api/commerce/checkout", {
       query: i(e.locale),
       signal: e.signal
     });
   }
-  async function V(e, t = {}) {
+  async function F(e, t = {}) {
     return n("/api/commerce/checkout", {
       method: "POST",
       body: e,
@@ -216,22 +216,22 @@ function re(r) {
       signal: t.signal
     });
   }
-  async function F(e, t = {}) {
+  async function x(e, t = {}) {
     return n(`/api/commerce/orders/${encodeURIComponent(e)}`, {
       signal: t.signal
     });
   }
-  async function x(e = {}) {
+  async function D(e = {}) {
     return (await n("/api/commerce/customers/csrf", { signal: e.signal })).token;
   }
-  async function D(e, t = {}) {
+  async function j(e, t = {}) {
     return (await n("/api/commerce/customers/register", {
       method: "POST",
       body: e,
       signal: t.signal
     })).customer;
   }
-  async function j(e, t = {}) {
+  async function L(e, t = {}) {
     return (await n("/api/commerce/customers/login", {
       method: "POST",
       body: e,
@@ -244,7 +244,7 @@ function re(r) {
       signal: e.signal
     });
   }
-  async function L(e = {}) {
+  async function G(e = {}) {
     try {
       return (await n("/api/commerce/customers/me", { signal: e.signal })).customer;
     } catch (t) {
@@ -252,44 +252,54 @@ function re(r) {
       throw t;
     }
   }
-  async function G(e, t = {}) {
+  async function Q(e, t = {}) {
     return n(
       `/api/commerce/customers/token/${encodeURIComponent(e)}`,
       { signal: t.signal }
     );
   }
-  async function Q(e, t = {}) {
+  async function X(e, t = {}) {
     return n("/api/commerce/customers/verify-email", {
       method: "POST",
       body: { token: e },
       signal: t.signal
     });
   }
-  async function X(e = {}) {
+  async function J(e = {}) {
     return n("/api/commerce/customers/resend-verification", {
       method: "POST",
       signal: e.signal
     });
   }
-  async function J(e, t = {}) {
+  async function K(e, t = {}) {
     await n("/api/commerce/customers/forgot-password", {
       method: "POST",
       body: { email: e },
       signal: t.signal
     });
   }
-  async function K(e, t, c = {}) {
+  async function M(e, t, c = {}) {
     return (await n("/api/commerce/customers/reset-password", {
       method: "POST",
       body: { token: e, password: t },
       signal: c.signal
     })).customer;
   }
-  async function M(e, t, c = {}) {
+  async function W(e, t, c = {}) {
     await n("/api/commerce/customers/change-password", {
       method: "POST",
       body: { currentPassword: e, newPassword: t },
       signal: c.signal
+    });
+  }
+  async function z(e = {}) {
+    return (await n("/api/commerce/customers/oauth/providers", {
+      signal: e.signal
+    })).providers ?? [];
+  }
+  function B(e, t = {}) {
+    return w(o.apiUrl, `/api/commerce/customers/oauth/${encodeURIComponent(e)}/start`, {
+      returnLocale: t.returnLocale
     });
   }
   return {
@@ -300,36 +310,38 @@ function re(r) {
     listProducts: m,
     getProduct: S,
     listCategories: b,
-    getCategory: w,
-    getCart: P,
-    addCartItem: $,
-    setCartItemQuantity: q,
-    removeCartItem: N,
-    clearCart: k,
-    applyCoupon: I,
-    removeCoupon: v,
-    getShippingMethods: _,
-    setShipping: U,
-    previewCheckout: A,
-    startCheckout: V,
-    getOrder: F,
-    getCsrfToken: x,
-    register: D,
-    login: j,
+    getCategory: P,
+    getCart: $,
+    addCartItem: q,
+    setCartItemQuantity: N,
+    removeCartItem: v,
+    clearCart: I,
+    applyCoupon: k,
+    removeCoupon: _,
+    getShippingMethods: U,
+    setShipping: A,
+    previewCheckout: V,
+    startCheckout: F,
+    getOrder: x,
+    getCsrfToken: D,
+    register: j,
+    login: L,
     logout: H,
-    getCustomer: L,
-    getTokenInfo: G,
-    verifyEmail: Q,
-    resendVerification: X,
-    forgotPassword: J,
-    resetPassword: K,
-    changePassword: M
+    getCustomer: G,
+    getTokenInfo: Q,
+    verifyEmail: X,
+    resendVerification: J,
+    forgotPassword: K,
+    resetPassword: M,
+    changePassword: W,
+    listOAuthProviders: z,
+    oauthStartUrl: B
   };
 }
 export {
-  B as CONTRACT_VERSION_HEADER,
-  ne as STOREFRONT_CONTRACT_VERSION,
-  oe as STOREFRONT_SDK_VERSION,
+  ee as CONTRACT_VERSION_HEADER,
+  re as STOREFRONT_CONTRACT_VERSION,
+  ce as STOREFRONT_SDK_VERSION,
   C as StorefrontError,
-  re as createStorefrontClient
+  se as createStorefrontClient
 };
