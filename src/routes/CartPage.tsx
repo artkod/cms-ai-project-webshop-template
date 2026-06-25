@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
-import { ActionIcon, Anchor, Box, Button, Divider, Group, Image, Loader, Paper, Radio, Select, Stack, Text, TextInput, Title } from "@mantine/core";
+import { ActionIcon, Anchor, Badge, Box, Button, Divider, Group, Image, Loader, Paper, Radio, Select, Stack, Text, TextInput, Title } from "@mantine/core";
 import { Minus, Plus, Trash2, X } from "lucide-react";
 import type { ShippingRate } from "@cms/storefront";
 import { useCart } from "@/lib/cart";
@@ -136,7 +136,11 @@ export function CartPage() {
           {/* Summary */}
           <Paper withBorder p="md" radius="md" style={{ flex: "1 1 280px", maxWidth: 380 }}>
             <Stack gap="xs">
-              <Title order={4}>Summary</Title>
+              <Group justify="space-between" align="center">
+                <Title order={4}>Summary</Title>
+                {/* B2B net pricing indicator (L5.5) — shown for an approved business. */}
+                {cart?.b2b && <Badge variant="light" color="grape" size="sm">Business pricing (net)</Badge>}
+              </Group>
 
               {/* Coupon */}
               {cart!.coupon ? (
@@ -235,6 +239,8 @@ export function CartPage() {
                   </Group>
                   {cart?.vatRegistered === false ? (
                     <Text c="dimmed" fz="xs">Prices are VAT-exempt — the shop is not in the VAT system.</Text>
+                  ) : cart?.b2b ? (
+                    <Text c="dimmed" fz="xs">Business pricing — net prices, VAT added{destLabel}.</Text>
                   ) : totals.taxTotal > 0 ? (
                     <Text c="dimmed" fz="xs">VAT included{destLabel}.</Text>
                   ) : (

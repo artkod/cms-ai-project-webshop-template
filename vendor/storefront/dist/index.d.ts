@@ -14,6 +14,8 @@ export declare interface Cart {
     taxDestination: string;
     /** false when the shop isn't VAT-registered → no VAT charged (prices are VAT-exempt). */
     vatRegistered: boolean;
+    /** true when an APPROVED business customer is logged in → line prices/totals are NET (B2B, L5.5). */
+    b2b: boolean;
     /** e.g. `"coupon_removed"` when an applied coupon lapsed since it was added. */
     warnings: string[];
 }
@@ -297,6 +299,9 @@ export declare interface CsrfResponse {
     token: string;
 }
 
+/** Approval gate for B2B accounts (L5.5). Only an `approved` business is on B2B terms. */
+declare type CustomerApprovalStatus = "none" | "pending" | "approved" | "rejected";
+
 /** Response wrapper for register/login/me. */
 export declare interface CustomerResponse {
     customer: StorefrontCustomer;
@@ -465,12 +470,20 @@ export declare interface ProductListResult {
     facets: SearchFacets;
 }
 
-/** Input for `POST /api/commerce/customers/register`. */
+/**
+ * Input for `POST /api/commerce/customers/register`. A `business` registration
+ * must carry `company` + at least one tax id (`oib` or `vatId`); it is created
+ * pending approval and buys at B2C terms until an admin approves it (L5.5).
+ */
 export declare interface RegisterInput {
     email: string;
     password: string;
     firstName?: string;
     lastName?: string;
+    type?: "personal" | "business";
+    company?: string;
+    oib?: string;
+    vatId?: string;
 }
 
 /** Result of `POST /resend-verification`. */
@@ -754,6 +767,11 @@ export declare interface StorefrontCustomer {
     firstName: string;
     lastName: string;
     type: "personal" | "business";
+    company: string | null;
+    oib: string | null;
+    vatId: string | null;
+    approvalStatus: CustomerApprovalStatus;
+    b2bApproved: boolean;
     emailVerified: boolean;
     createdAt: string;
 }

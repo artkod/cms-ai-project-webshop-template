@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useParams, useSearchParams } from "react-router";
-import { Alert, Anchor, Badge, Button, Divider, Group, Loader, Paper, Stack, Tabs, Text, TextInput, Title } from "@mantine/core";
+import { Alert, Anchor, Badge, Button, Divider, Group, Loader, Paper, SegmentedControl, Stack, Tabs, Text, TextInput, Title } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import { LogIn, LogOut, MailCheck, MapPin, ShoppingCart } from "lucide-react";
 import { useCustomer } from "@/lib/customer";
@@ -71,6 +71,12 @@ export function AccountPage() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [busy, setBusy] = useState(false);
+  // B2B registration (L5.5). A business needs a company + at least one tax id;
+  // it's created pending approval and buys at B2C terms until an admin approves.
+  const [accountType, setAccountType] = useState<"personal" | "business">("personal");
+  const [company, setCompany] = useState("");
+  const [oib, setOib] = useState("");
+  const [vatId, setVatId] = useState("");
 
   // Change-password form (logged-in, verified only).
   const [curPw, setCurPw] = useState("");
@@ -83,7 +89,8 @@ export function AccountPage() {
 
   // Confirm-password is a client-side typo guard only (never sent to the API).
   const passwordsMatch = password === confirm;
-  const canRegister = !!email && password.length >= 8 && passwordsMatch;
+  const businessOk = accountType !== "business" || (!!company.trim() && (!!oib.trim() || !!vatId.trim()));
+  const canRegister = !!email && password.length >= 8 && passwordsMatch && businessOk;
 
   if (loading) {
     return (
@@ -123,14 +130,33 @@ export function AccountPage() {
               </Badge>
             </Group>
             <Text c="dimmed" fz="sm">{customer.email}</Text>
+            {customer.company && <Text fz="sm">{customer.company}</Text>}
             <Group gap="xs">
               <Text fz="sm">Email verified:</Text>
               <Badge size="sm" variant="light" color={customer.emailVerified ? "teal" : "yellow"}>
                 {customer.emailVerified ? "verified" : "not verified"}
               </Badge>
             </Group>
+            {/* B2B approval state (L5.5) — only an approved business is on B2B terms. */}
+            {customer.type === "business" && (
+              <Group gap="xs">
+                <Text fz="sm">Business pricing:</Text>
+                <Badge size="sm" variant="light" color={customer.b2bApproved ? "teal" : customer.approvalStatus === "rejected" ? "red" : "yellow"}>
+                  {customer.b2bApproved ? "active (net)" : customer.approvalStatus === "rejected" ? "not approved" : "pending approval"}
+                </Badge>
+              </Group>
+            )}
           </Stack>
         </Paper>
+
+        {customer.type === "business" && !customer.b2bApproved && customer.approvalStatus !== "rejected" && (
+          <Alert color="blue" variant="light" title="Business account pending approval">
+            <Text fz="sm">
+              Your business account is awaiting approval. You can shop now at standard prices — once approved,
+              net pricing and any assigned price list apply automatically at checkout.
+            </Text>
+          </Alert>
+        )}
 
         {!customer.emailVerified && (
           <Alert color="yellow" variant="light" icon={<MailCheck size={18} />} title="Verify your email">
@@ -219,7 +245,15 @@ export function AccountPage() {
   };
   const onRegister = async () => {
     setBusy(true);
-    const ok = await register({ email, password, firstName: firstName || undefined, lastName: lastName || undefined });
+    const ok = await register({
+      email,
+      password,
+      firstName: firstName || undefined,
+      lastName: lastName || undefined,
+      ...(accountType === "business"
+        ? { type: "business" as const, company: company.trim(), oib: oib.trim() || undefined, vatId: vatId.trim() || undefined }
+        : {}),
+    });
     setBusy(false);
     if (ok) {
       setPassword("");
@@ -268,6 +302,43 @@ export function AccountPage() {
 
         <Tabs.Panel value="register" pt="md">
           <Stack>
+            <SegmentedControl
+              fullWidth
+              value={accountType}
+              onChange={(v) => setAccountType(v as "personal" | "business")}
+              data={[
+                { label: "Personal", value: "personal" },
+                { label: "Business (B2B)", value: "business" },
+              ]}
+            />
+            {accountType === "business" && (
+              <>
+                <TextInput
+                  label="Company"
+                  required
+                  value={company}
+                  onChange={(e) => setCompany(e.currentTarget.value)}
+                  autoComplete="organization"
+                />
+                <Group grow>
+                  <TextInput
+                    label="OIB"
+                    description="11 digits"
+                    value={oib}
+                    onChange={(e) => setOib(e.currentTarget.value)}
+                  />
+                  <TextInput
+                    label="VAT ID"
+                    description="e.g. HR12345678901"
+                    value={vatId}
+                    onChange={(e) => setVatId(e.currentTarget.value)}
+                  />
+                </Group>
+                <Text c="dimmed" fz="xs">
+                  Business accounts are reviewed before B2B pricing applies — you can shop at standard prices in the meantime.
+                </Text>
+              </>
+            )}
             <Group grow>
               <TextInput label="First name" value={firstName} onChange={(e) => setFirstName(e.currentTarget.value)} autoComplete="given-name" />
               <TextInput label="Last name" value={lastName} onChange={(e) => setLastName(e.currentTarget.value)} autoComplete="family-name" />
