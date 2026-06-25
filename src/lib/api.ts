@@ -172,7 +172,11 @@ export async function getPageBySlug(locale: string, path: string, previewToken?:
   const encodedPath = path.split("/").filter(Boolean).map(encodeURIComponent).join("/");
   const res = await fetch(
     `${API_URL}/api/pages/by-slug/${encodeURIComponent(locale)}/${encodedPath}`,
-    { headers }
+    // credentials:"include" so the cms_customer cookie rides along — the by-slug
+    // resolver applies an approved business's price list to the inline commerce
+    // (product/category) payload (L5.5). Pages aren't personalized; this is inert
+    // for them. The SDK already sends credentials on /catalog/* + cart/checkout.
+    { headers, credentials: "include" }
   );
   if (!res.ok) return null;
   const data = await res.json();

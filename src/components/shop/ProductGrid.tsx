@@ -46,17 +46,9 @@ export function ProductGrid({
               {p.name}
             </Text>
             <Group gap="xs" align="baseline">
+              {/* Show only the current price — no struck-through "was" price and no
+                  price-range max (user preference, L5.5). */}
               <Text fw={700}>{formatCents(p.price)}</Text>
-              {p.priceMax > p.price && (
-                <Text c="dimmed" fz="sm">
-                  – {formatCents(p.priceMax)}
-                </Text>
-              )}
-              {p.onSale && p.compareAt && (
-                <Text c="dimmed" fz="sm" td="line-through">
-                  {formatCents(p.compareAt)}
-                </Text>
-              )}
             </Group>
             <Group gap="xs">
               {p.onSale && (
