@@ -275,7 +275,13 @@ export function AddressBookPage() {
             required
             list="address-countries"
             value={form.country}
-            onChange={(e) => setForm((f) => ({ ...f, country: e.currentTarget.value.toUpperCase().slice(0, 2) }))}
+            onChange={(e) => {
+              // Capture BEFORE setForm — React nulls e.currentTarget once the event
+              // dispatch returns, and the functional updater can run later (twice in
+              // StrictMode), so reading it inside the updater throws on null.
+              const country = e.currentTarget.value.toUpperCase().slice(0, 2);
+              setForm((f) => ({ ...f, country }));
+            }}
           />
           <datalist id="address-countries">
             {COUNTRY_OPTIONS.map((c) => (
@@ -286,12 +292,18 @@ export function AddressBookPage() {
           <Checkbox
             label="Default shipping address"
             checked={form.isDefaultShipping}
-            onChange={(e) => setForm((f) => ({ ...f, isDefaultShipping: e.currentTarget.checked }))}
+            onChange={(e) => {
+              const checked = e.currentTarget.checked;
+              setForm((f) => ({ ...f, isDefaultShipping: checked }));
+            }}
           />
           <Checkbox
             label="Default billing address"
             checked={form.isDefaultBilling}
-            onChange={(e) => setForm((f) => ({ ...f, isDefaultBilling: e.currentTarget.checked }))}
+            onChange={(e) => {
+              const checked = e.currentTarget.checked;
+              setForm((f) => ({ ...f, isDefaultBilling: checked }));
+            }}
           />
           <Group justify="flex-end" mt="xs">
             <Button variant="default" onClick={modal.close}>Cancel</Button>
