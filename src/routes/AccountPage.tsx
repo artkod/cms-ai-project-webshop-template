@@ -6,7 +6,7 @@ import { LogIn, LogOut, MailCheck, MapPin, ShoppingCart } from "lucide-react";
 import { useCustomer } from "@/lib/customer";
 import { useCart } from "@/lib/cart";
 import { useLocaleConfig } from "@/lib/locale";
-import type { OAuthProviderId } from "@cms/storefront";
+import { isValidOib, type OAuthProviderId } from "@cms/storefront";
 
 // Labels for the social-login buttons (L5.3).
 const OAUTH_LABELS: Record<OAuthProviderId, string> = {
@@ -77,6 +77,8 @@ export function AccountPage() {
   const [company, setCompany] = useState("");
   const [oib, setOib] = useState("");
   const [vatId, setVatId] = useState("");
+  const [authTab, setAuthTab] = useState<string | null>("login");
+  const [attempted, setAttempted] = useState(false); // show required-field errors only after a submit attempt
 
   // Change-password form (logged-in, verified only).
   const [curPw, setCurPw] = useState("");
@@ -89,7 +91,16 @@ export function AccountPage() {
 
   // Confirm-password is a client-side typo guard only (never sent to the API).
   const passwordsMatch = password === confirm;
-  const businessOk = accountType !== "business" || (!!company.trim() && (!!oib.trim() || !!vatId.trim()));
+  // B2B field validation (L5.5) — validate the OIB checksum INLINE (same check the
+  // API runs) so the user gets immediate, specific feedback instead of guessing.
+  const isBusiness = accountType === "business";
+  const oibFilled = oib.trim() !== "";
+  const vatFilled = vatId.trim() !== "";
+  const oibBadFormat = oibFilled && !isValidOib(oib.trim());
+  const oibError = oibBadFormat ? "Invalid OIB — must be 11 digits with a valid checksum." : undefined;
+  const companyError = attempted && isBusiness && company.trim() === "" ? "Company name is required." : undefined;
+  const taxIdError = attempted && isBusiness && !oibFilled && !vatFilled ? "Provide an OIB or a VAT ID." : undefined;
+  const businessOk = !isBusiness || (!!company.trim() && (oibFilled || vatFilled) && !oibBadFormat);
   const canRegister = !!email && password.length >= 8 && passwordsMatch && businessOk;
 
   if (loading) {
@@ -244,6 +255,8 @@ export function AccountPage() {
     setBusy(false);
   };
   const onRegister = async () => {
+    setAttempted(true);
+    if (!canRegister) return;
     setBusy(true);
     const ok = await register({
       email,
@@ -269,7 +282,7 @@ export function AccountPage() {
           You have {itemCount} item{itemCount === 1 ? "" : "s"} in your cart — sign in or create an account and it will move with you.
         </Alert>
       )}
-      <Tabs defaultValue="login">
+      <Tabs value={authTab} onChange={setAuthTab}>
         <Tabs.List grow>
           <Tabs.Tab value="login">Sign in</Tabs.Tab>
           <Tabs.Tab value="register">Create account</Tabs.Tab>
@@ -319,13 +332,16 @@ export function AccountPage() {
                   value={company}
                   onChange={(e) => setCompany(e.currentTarget.value)}
                   autoComplete="organization"
+                  error={companyError}
                 />
-                <Group grow>
+                <Group grow align="flex-start">
                   <TextInput
                     label="OIB"
                     description="11 digits"
                     value={oib}
                     onChange={(e) => setOib(e.currentTarget.value)}
+                    error={oibError ?? taxIdError}
+                    inputMode="numeric"
                   />
                   <TextInput
                     label="VAT ID"
@@ -335,7 +351,8 @@ export function AccountPage() {
                   />
                 </Group>
                 <Text c="dimmed" fz="xs">
-                  Business accounts are reviewed before B2B pricing applies — you can shop at standard prices in the meantime.
+                  Provide an OIB (11 digits) or an EU VAT ID. Business accounts are reviewed before B2B pricing
+                  applies — you can shop at standard prices in the meantime.
                 </Text>
               </>
             )}
@@ -373,7 +390,11 @@ export function AccountPage() {
         </Tabs.Panel>
       </Tabs>
 
-      {oauthProviders.length > 0 && (
+      {/* Social login is for personal accounts only — a B2B account needs the
+          company/OIB/VAT-ID + approval flow, so it must be created via the form. */}
+      {authTab === "register" && accountType === "business" ? (
+        <Text c="dimmed" fz="xs" ta="center">Business accounts must be created with the form above.</Text>
+      ) : oauthProviders.length > 0 && (
         <Stack gap="sm">
           <Divider label="or" labelPosition="center" />
           {oauthProviders.map((p) => (

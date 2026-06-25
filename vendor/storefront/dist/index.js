@@ -1,71 +1,71 @@
 var ne = Object.defineProperty;
-var oe = (r, s, c) => s in r ? ne(r, s, { enumerable: !0, configurable: !0, writable: !0, value: c }) : r[s] = c;
-var T = (r, s, c) => oe(r, typeof s != "symbol" ? s + "" : s, c);
+var re = (o, r, a) => r in o ? ne(o, r, { enumerable: !0, configurable: !0, writable: !0, value: a }) : o[r] = a;
+var T = (o, r, a) => re(o, typeof r != "symbol" ? r + "" : r, a);
 const ie = 1, ue = "0.0.1";
 class C extends Error {
-  constructor(c, u) {
-    super(c);
+  constructor(a, c) {
+    super(a);
     T(this, "status");
     T(this, "code");
     T(this, "body");
-    this.name = "StorefrontError", this.status = u.status, this.code = u.code ?? null, this.body = u.body ?? null;
+    this.name = "StorefrontError", this.status = c.status, this.code = c.code ?? null, this.body = c.body ?? null;
   }
 }
-const re = "X-Commerce-Contract-Version", E = "X-CSRF-Token", se = "cms_csrf";
+const oe = "X-Commerce-Contract-Version", E = "X-CSRF-Token", se = "cms_csrf";
 function ce() {
   if (typeof document > "u" || typeof document.cookie != "string") return null;
-  for (const r of document.cookie.split(";")) {
-    const s = r.indexOf("=");
-    if (s !== -1 && r.slice(0, s).trim() === se)
-      return decodeURIComponent(r.slice(s + 1).trim());
+  for (const o of document.cookie.split(";")) {
+    const r = o.indexOf("=");
+    if (r !== -1 && o.slice(0, r).trim() === se)
+      return decodeURIComponent(o.slice(r + 1).trim());
   }
   return null;
 }
-function w(r, s, c) {
-  const u = r.replace(/\/+$/, ""), n = s.startsWith("/") ? s : `/${s}`;
-  if (!c) return `${u}${n}`;
+function w(o, r, a) {
+  const c = o.replace(/\/+$/, ""), n = r.startsWith("/") ? r : `/${r}`;
+  if (!a) return `${c}${n}`;
   const g = new URLSearchParams();
-  for (const [f, d] of Object.entries(c))
+  for (const [f, d] of Object.entries(a))
     if (d != null)
       if (Array.isArray(d))
         for (const S of d) g.append(f, String(S));
       else
         g.set(f, String(d));
   const h = g.toString();
-  return h ? `${u}${n}?${h}` : `${u}${n}`;
+  return h ? `${c}${n}?${h}` : `${c}${n}`;
 }
-function le(r) {
-  const s = r.fetch ?? globalThis.fetch;
-  if (typeof s != "function")
+function le(o) {
+  const r = o.fetch ?? globalThis.fetch;
+  if (typeof r != "function")
     throw new Error(
       "@cms/storefront: no fetch implementation available — pass `fetch` in the config for this runtime."
     );
-  const c = r.credentials ?? "include", u = {
-    "X-Project-Slug": r.projectSlug,
-    [re]: String(1),
-    ...r.headers
+  const a = o.credentials ?? "include", c = {
+    "X-Project-Slug": o.projectSlug,
+    [oe]: String(1),
+    ...o.headers
   };
   async function n(e, t = {}) {
-    const o = w(r.apiUrl, e, t.query), l = { ...u, ...t.headers };
+    const s = w(o.apiUrl, e, t.query), l = { ...c, ...t.headers };
     let p;
     t.body !== void 0 && (p = JSON.stringify(t.body), l["Content-Type"] = "application/json");
     const R = (t.method ?? (t.body !== void 0 ? "POST" : "GET")).toUpperCase();
     if (R !== "GET" && R !== "HEAD" && !(E in l)) {
-      const a = ce();
-      a && (l[E] = a);
+      const i = ce();
+      i && (l[E] = i);
     }
     let y;
     try {
-      y = await s(o, {
+      y = await r(s, {
         method: t.method ?? (t.body !== void 0 ? "POST" : "GET"),
         headers: l,
         body: p,
-        credentials: t.credentials ?? c,
+        credentials: t.credentials ?? a,
         signal: t.signal
       });
-    } catch (a) {
+    } catch (i) {
       throw new C(
-        `Network request to ${o} failed: ${(a == null ? void 0 : a.message) ?? String(a)}`,
+        `Network request to ${s} failed: ${(i == null ? void 0 : i.message) ?? String(i)}`,
         { status: 0 }
       );
     }
@@ -78,10 +78,10 @@ function le(r) {
         m = O;
       }
     if (!y.ok) {
-      const a = m && typeof m == "object" && "error" in m ? String(m.error) : null;
+      const i = m && typeof m == "object" && "error" in m ? String(m.error) : null;
       throw new C(
-        `Request to ${o} failed with ${y.status}${a ? ` (${a})` : ""}`,
-        { status: y.status, code: a, body: m }
+        `Request to ${s} failed with ${y.status}${i ? ` (${i})` : ""}`,
+        { status: y.status, code: i, body: m }
       );
     }
     return m;
@@ -100,8 +100,8 @@ function le(r) {
   function f(e = {}) {
     const t = [];
     if (e.options)
-      for (const [o, l] of Object.entries(e.options))
-        for (const p of l) t.push(`${o}:${p}`);
+      for (const [s, l] of Object.entries(e.options))
+        for (const p of l) t.push(`${s}:${p}`);
     return {
       locale: e.locale,
       category: e.category,
@@ -141,50 +141,50 @@ function le(r) {
       signal: t.signal
     });
   }
-  function i(e) {
+  function u(e) {
     return e ? { locale: e } : void 0;
   }
   async function $(e = {}) {
-    return n("/api/commerce/cart", { query: i(e.locale), signal: e.signal });
+    return n("/api/commerce/cart", { query: u(e.locale), signal: e.signal });
   }
-  async function q(e, t = 1, o = {}) {
+  async function N(e, t = 1, s = {}) {
     return n("/api/commerce/cart/items", {
       method: "POST",
       body: { variantId: e, quantity: t },
-      query: i(o.locale),
-      signal: o.signal
+      query: u(s.locale),
+      signal: s.signal
     });
   }
-  async function I(e, t, o = {}) {
+  async function q(e, t, s = {}) {
     return n(`/api/commerce/cart/items/${encodeURIComponent(e)}`, {
       method: "PUT",
       body: { quantity: t },
-      query: i(o.locale),
-      signal: o.signal
+      query: u(s.locale),
+      signal: s.signal
     });
   }
-  async function N(e, t = {}) {
+  async function I(e, t = {}) {
     return n(`/api/commerce/cart/items/${encodeURIComponent(e)}`, {
       method: "DELETE",
-      query: i(t.locale),
+      query: u(t.locale),
       signal: t.signal
     });
   }
-  async function v(e = {}) {
-    return n("/api/commerce/cart", { method: "DELETE", query: i(e.locale), signal: e.signal });
+  async function k(e = {}) {
+    return n("/api/commerce/cart", { method: "DELETE", query: u(e.locale), signal: e.signal });
   }
-  async function k(e, t = {}) {
+  async function v(e, t = {}) {
     return n("/api/commerce/cart/coupon", {
       method: "POST",
       body: { code: e },
-      query: i(t.locale),
+      query: u(t.locale),
       signal: t.signal
     });
   }
   async function U(e = {}) {
     return n("/api/commerce/cart/coupon", {
       method: "DELETE",
-      query: i(e.locale),
+      query: u(e.locale),
       signal: e.signal
     });
   }
@@ -198,13 +198,13 @@ function le(r) {
     return n("/api/commerce/cart/shipping", {
       method: "PUT",
       body: e,
-      query: i(t.locale),
+      query: u(t.locale),
       signal: t.signal
     });
   }
   async function V(e = {}) {
     return n("/api/commerce/checkout", {
-      query: i(e.locale),
+      query: u(e.locale),
       signal: e.signal
     });
   }
@@ -212,7 +212,7 @@ function le(r) {
     return n("/api/commerce/checkout", {
       method: "POST",
       body: e,
-      query: i(t.locale),
+      query: u(t.locale),
       signal: t.signal
     });
   }
@@ -278,18 +278,18 @@ function le(r) {
       signal: t.signal
     });
   }
-  async function M(e, t, o = {}) {
+  async function M(e, t, s = {}) {
     return (await n("/api/commerce/customers/reset-password", {
       method: "POST",
       body: { token: e, password: t },
-      signal: o.signal
+      signal: s.signal
     })).customer;
   }
-  async function W(e, t, o = {}) {
+  async function W(e, t, s = {}) {
     await n("/api/commerce/customers/change-password", {
       method: "POST",
       body: { currentPassword: e, newPassword: t },
-      signal: o.signal
+      signal: s.signal
     });
   }
   async function z(e = {}) {
@@ -304,10 +304,10 @@ function le(r) {
       signal: t.signal
     })).address;
   }
-  async function Y(e, t, o = {}) {
+  async function Y(e, t, s = {}) {
     return (await n(
       `/api/commerce/customers/addresses/${encodeURIComponent(e)}`,
-      { method: "PUT", body: t, signal: o.signal }
+      { method: "PUT", body: t, signal: s.signal }
     )).address;
   }
   async function Z(e, t = {}) {
@@ -322,7 +322,7 @@ function le(r) {
     })).providers ?? [];
   }
   function te(e, t = {}) {
-    return w(r.apiUrl, `/api/commerce/customers/oauth/${encodeURIComponent(e)}/start`, {
+    return w(o.apiUrl, `/api/commerce/customers/oauth/${encodeURIComponent(e)}/start`, {
       returnLocale: t.returnLocale
     });
   }
@@ -336,11 +336,11 @@ function le(r) {
     listCategories: b,
     getCategory: P,
     getCart: $,
-    addCartItem: q,
-    setCartItemQuantity: I,
-    removeCartItem: N,
-    clearCart: v,
-    applyCoupon: k,
+    addCartItem: N,
+    setCartItemQuantity: q,
+    removeCartItem: I,
+    clearCart: k,
+    applyCoupon: v,
     removeCoupon: U,
     getShippingMethods: _,
     setShipping: A,
@@ -366,10 +366,18 @@ function le(r) {
     oauthStartUrl: te
   };
 }
+function me(o) {
+  if (!/^\d{11}$/.test(o)) return !1;
+  let r = 10;
+  for (let c = 0; c < 10; c++)
+    r = (r + Number(o[c])) % 10, r === 0 && (r = 10), r = r * 2 % 11;
+  return (11 - r) % 10 === Number(o[10]);
+}
 export {
-  re as CONTRACT_VERSION_HEADER,
+  oe as CONTRACT_VERSION_HEADER,
   ie as STOREFRONT_CONTRACT_VERSION,
   ue as STOREFRONT_SDK_VERSION,
   C as StorefrontError,
-  le as createStorefrontClient
+  le as createStorefrontClient,
+  me as isValidOib
 };

@@ -180,6 +180,9 @@ export declare interface CatalogProduct {
         slug: string;
         name: string;
     }>;
+    /** true → the prices on this product are NET (an approved business is logged in,
+     *  L5.5); the storefront should label them ex-VAT. False/absent = gross B2C. */
+    b2b: boolean;
     /** schema.org/Product JSON-LD for rich snippets (inject verbatim into a
      *  `<script type="application/ld+json">`). Added in L2.5. */
     jsonLd: Record<string, unknown>;
@@ -313,6 +316,9 @@ export declare interface CustomerTokenInfo {
     email: string;
     expiresAt: string;
 }
+
+/** True iff `oib` is exactly 11 digits with a valid ISO 7064 MOD 11,10 check digit. */
+export declare function isValidOib(oib: string): boolean;
 
 /** Input for `POST /api/commerce/customers/login`. */
 export declare interface LoginInput {
