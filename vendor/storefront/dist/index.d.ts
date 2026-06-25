@@ -14,7 +14,8 @@ export declare interface Cart {
     taxDestination: string;
     /** false when the shop isn't VAT-registered → no VAT charged (prices are VAT-exempt). */
     vatRegistered: boolean;
-    /** true when an APPROVED business customer is logged in → line prices/totals are NET (B2B, L5.5). */
+    /** true when an APPROVED business customer is logged in → its price list applies
+     *  (prices stay GROSS like B2C; only a cross-border EU reverse-charge sale is net). L5.5. */
     b2b: boolean;
     /** e.g. `"coupon_removed"` when an applied coupon lapsed since it was added. */
     warnings: string[];
@@ -180,8 +181,8 @@ export declare interface CatalogProduct {
         slug: string;
         name: string;
     }>;
-    /** true → the prices on this product are NET (an approved business is logged in,
-     *  L5.5); the storefront should label them ex-VAT. False/absent = gross B2C. */
+    /** true → an approved business is logged in and its price list applies (L5.5).
+     *  Prices stay GROSS (VAT-inclusive) like B2C — VAT is itemized only in the cart. */
     b2b: boolean;
     /** schema.org/Product JSON-LD for rich snippets (inject verbatim into a
      *  `<script type="application/ld+json">`). Added in L2.5. */

@@ -43,23 +43,6 @@ function AccountNav({ locale }: { locale: string }) {
   );
 }
 
-// Site-wide B2B indicator (L5.5): when an approved business is logged in, every
-// price across the store (catalog, product, cart) is shown NET, so we say so once
-// here instead of relabelling each price. Nothing renders for B2C shoppers.
-function B2bBanner() {
-  const { customer } = useCustomer();
-  if (!customer?.b2bApproved) return null;
-  return (
-    <Box style={{ background: "var(--mantine-color-grape-0)", borderBottom: "1px solid var(--mantine-color-grape-2)" }}>
-      <Container size={1140} py={6}>
-        <Text fz="xs" c="grape.7" ta="center" fw={500}>
-          Business pricing active — prices are shown net (ex. VAT).
-        </Text>
-      </Container>
-    </Box>
-  );
-}
-
 // Cart link with a live item-count badge (reads the server-side cart).
 function CartNav({ locale }: { locale: string }) {
   const { itemCount } = useCart();
@@ -148,8 +131,6 @@ export function RootLayout() {
               </Group>
             </Container>
           </Box>
-
-          <B2bBanner />
 
           <Box component="main" style={{ flex: 1 }}>
             <Container size={1140} py="xl">

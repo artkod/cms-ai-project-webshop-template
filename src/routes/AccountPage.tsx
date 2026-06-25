@@ -166,7 +166,7 @@ export function AccountPage() {
               <Group gap="xs">
                 <Text fz="sm">Business pricing:</Text>
                 <Badge size="sm" variant="light" color={customer.b2bApproved ? "teal" : customer.approvalStatus === "rejected" ? "red" : "yellow"}>
-                  {customer.b2bApproved ? "active (net)" : customer.approvalStatus === "rejected" ? "not approved" : "pending approval"}
+                  {customer.b2bApproved ? "active" : customer.approvalStatus === "rejected" ? "not approved" : "pending approval"}
                 </Badge>
               </Group>
             )}
@@ -177,7 +177,7 @@ export function AccountPage() {
           <Alert color="blue" variant="light" title="Business account pending approval">
             <Text fz="sm">
               Your business account is awaiting approval. You can shop now at standard prices — once approved,
-              net pricing and any assigned price list apply automatically at checkout.
+              your assigned price list applies automatically across the store.
             </Text>
           </Alert>
         )}

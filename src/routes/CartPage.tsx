@@ -138,8 +138,8 @@ export function CartPage() {
             <Stack gap="xs">
               <Group justify="space-between" align="center">
                 <Title order={4}>Summary</Title>
-                {/* B2B net pricing indicator (L5.5) — shown for an approved business. */}
-                {cart?.b2b && <Badge variant="light" color="grape" size="sm">Business pricing (net)</Badge>}
+                {/* B2B indicator (L5.5) — an approved business's price list applies. */}
+                {cart?.b2b && <Badge variant="light" color="grape" size="sm">Business pricing</Badge>}
               </Group>
 
               {/* Coupon */}
@@ -239,10 +239,10 @@ export function CartPage() {
                   </Group>
                   {cart?.vatRegistered === false ? (
                     <Text c="dimmed" fz="xs">Prices are VAT-exempt — the shop is not in the VAT system.</Text>
-                  ) : cart?.b2b ? (
-                    <Text c="dimmed" fz="xs">Business pricing — net prices, VAT added{destLabel}.</Text>
                   ) : totals.taxTotal > 0 ? (
                     <Text c="dimmed" fz="xs">VAT included{destLabel}.</Text>
+                  ) : cart?.b2b ? (
+                    <Text c="dimmed" fz="xs">VAT reverse-charged — your business self-accounts for VAT{destLabel}.</Text>
                   ) : (
                     <Text c="dimmed" fz="xs">No VAT applies to these items.</Text>
                   )}
