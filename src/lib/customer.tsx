@@ -53,8 +53,10 @@ function authErrorMessage(err: StorefrontError): string {
       return "This link is invalid or has expired. Please request a new one.";
     case "email_taken":
       return "An account with this email already exists. Please sign in or reset your password.";
+    case "invalid_oib":
+      return "That OIB is not valid. Please check it and try again.";
     case "validation_error":
-      return "Please check your details and try again (password must be at least 8 characters).";
+      return "Please check the highlighted fields and try again.";
     case "csrf_invalid":
       return "Your session expired — please reload and try again.";
     default:

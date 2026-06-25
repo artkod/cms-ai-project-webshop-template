@@ -89,19 +89,32 @@ export function AccountPage() {
   const newPwMatch = newPw === newPw2;
   const canChangePw = curPw.length > 0 && newPw.length >= 8 && newPwMatch;
 
-  // Confirm-password is a client-side typo guard only (never sent to the API).
-  const passwordsMatch = password === confirm;
-  // B2B field validation (L5.5) — validate the OIB checksum INLINE (same check the
-  // API runs) so the user gets immediate, specific feedback instead of guessing.
+  // Registration validation (L5.5). ALL visible fields are required; we validate
+  // ONLY on submit (never while typing) — `attempted` gates the per-field errors,
+  // which then update live as the user fixes them. The OIB checksum is the same
+  // check the API runs (isValidOib), so a bad OIB is caught here, not server-side.
   const isBusiness = accountType === "business";
-  const oibFilled = oib.trim() !== "";
-  const vatFilled = vatId.trim() !== "";
-  const oibBadFormat = oibFilled && !isValidOib(oib.trim());
-  const oibError = oibBadFormat ? "Invalid OIB — must be 11 digits with a valid checksum." : undefined;
-  const companyError = attempted && isBusiness && company.trim() === "" ? "Company name is required." : undefined;
-  const taxIdError = attempted && isBusiness && !oibFilled && !vatFilled ? "Provide an OIB or a VAT ID." : undefined;
-  const businessOk = !isBusiness || (!!company.trim() && (oibFilled || vatFilled) && !oibBadFormat);
-  const canRegister = !!email && password.length >= 8 && passwordsMatch && businessOk;
+  const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  function validateRegister(): Record<string, string> {
+    const e: Record<string, string> = {};
+    if (!firstName.trim()) e.firstName = "Required.";
+    if (!lastName.trim()) e.lastName = "Required.";
+    if (!email.trim()) e.email = "Required.";
+    else if (!EMAIL_RE.test(email.trim())) e.email = "Enter a valid email address.";
+    if (!password) e.password = "Required.";
+    else if (password.length < 8) e.password = "At least 8 characters.";
+    if (confirm !== password) e.confirm = "Passwords don't match.";
+    if (isBusiness) {
+      if (!company.trim()) e.company = "Required.";
+      const oibFilled = oib.trim() !== "";
+      const vatFilled = vatId.trim() !== "";
+      if (!oibFilled && !vatFilled) e.taxId = "Provide an OIB or a VAT ID.";
+      if (oibFilled && !isValidOib(oib.trim())) e.oib = "Invalid OIB — 11 digits with a valid checksum.";
+      if (vatFilled && (vatId.trim().length < 4 || vatId.trim().length > 20)) e.vatId = "Enter a valid VAT ID.";
+    }
+    return e;
+  }
+  const errors: Record<string, string> = attempted ? validateRegister() : {};
 
   if (loading) {
     return (
@@ -256,7 +269,7 @@ export function AccountPage() {
   };
   const onRegister = async () => {
     setAttempted(true);
-    if (!canRegister) return;
+    if (Object.keys(validateRegister()).length > 0) return; // show field errors, don't hit the API
     setBusy(true);
     const ok = await register({
       email,
@@ -328,11 +341,10 @@ export function AccountPage() {
               <>
                 <TextInput
                   label="Company"
-                  required
                   value={company}
                   onChange={(e) => setCompany(e.currentTarget.value)}
                   autoComplete="organization"
-                  error={companyError}
+                  error={errors.company}
                 />
                 <Group grow align="flex-start">
                   <TextInput
@@ -340,7 +352,7 @@ export function AccountPage() {
                     description="11 digits"
                     value={oib}
                     onChange={(e) => setOib(e.currentTarget.value)}
-                    error={oibError ?? taxIdError}
+                    error={errors.oib ?? errors.taxId}
                     inputMode="numeric"
                   />
                   <TextInput
@@ -348,6 +360,7 @@ export function AccountPage() {
                     description="e.g. HR12345678901"
                     value={vatId}
                     onChange={(e) => setVatId(e.currentTarget.value)}
+                    error={errors.vatId}
                   />
                 </Group>
                 <Text c="dimmed" fz="xs">
@@ -356,9 +369,9 @@ export function AccountPage() {
                 </Text>
               </>
             )}
-            <Group grow>
-              <TextInput label="First name" value={firstName} onChange={(e) => setFirstName(e.currentTarget.value)} autoComplete="given-name" />
-              <TextInput label="Last name" value={lastName} onChange={(e) => setLastName(e.currentTarget.value)} autoComplete="family-name" />
+            <Group grow align="flex-start">
+              <TextInput label="First name" value={firstName} onChange={(e) => setFirstName(e.currentTarget.value)} autoComplete="given-name" error={errors.firstName} />
+              <TextInput label="Last name" value={lastName} onChange={(e) => setLastName(e.currentTarget.value)} autoComplete="family-name" error={errors.lastName} />
             </Group>
             <TextInput
               label="Email"
@@ -366,6 +379,7 @@ export function AccountPage() {
               value={email}
               onChange={(e) => setEmail(e.currentTarget.value)}
               autoComplete="email"
+              error={errors.email}
             />
             <TextInput
               label="Password"
@@ -374,6 +388,7 @@ export function AccountPage() {
               value={password}
               onChange={(e) => setPassword(e.currentTarget.value)}
               autoComplete="new-password"
+              error={errors.password}
             />
             <TextInput
               label="Confirm password"
@@ -381,9 +396,9 @@ export function AccountPage() {
               value={confirm}
               onChange={(e) => setConfirm(e.currentTarget.value)}
               autoComplete="new-password"
-              error={confirm.length > 0 && !passwordsMatch ? "Passwords don't match" : undefined}
+              error={errors.confirm}
             />
-            <Button onClick={() => void onRegister()} loading={busy} disabled={!canRegister}>
+            <Button onClick={() => void onRegister()} loading={busy}>
               Create account
             </Button>
           </Stack>
