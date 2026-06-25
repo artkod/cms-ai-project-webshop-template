@@ -1,11 +1,12 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router";
 import { Alert, Anchor, Box, Button, Divider, Group, Loader, Paper, Select, Stack, Text, TextInput, Textarea, Title } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import { Info } from "lucide-react";
-import { StorefrontError, type CheckoutPreview, type OrderAddress } from "@cms/storefront";
+import { StorefrontError, type CheckoutPreview, type OrderAddress, type StorefrontAddress } from "@cms/storefront";
 import { storefront } from "@/lib/storefront";
 import { useCart } from "@/lib/cart";
+import { useCustomer } from "@/lib/customer";
 import { useLocaleConfig } from "@/lib/locale";
 import { formatCents } from "@/lib/money";
 
@@ -49,10 +50,17 @@ export function CheckoutPage() {
   const loc = locale ?? defaultLocale;
   const navigate = useNavigate();
   const { cart, setShipping, refresh } = useCart();
+  const { customer } = useCustomer();
 
   const [preview, setPreview] = useState<CheckoutPreview | null>(null);
   const [loading, setLoading] = useState(true);
   const [placing, setPlacing] = useState(false);
+
+  // Saved addresses (L5.4) — only for a logged-in + verified customer. The default
+  // shipping address prefills the form; the picker lets them choose another.
+  const [saved, setSaved] = useState<StorefrontAddress[]>([]);
+  const [selectedAddressId, setSelectedAddressId] = useState<string | null>(null);
+  const prefilledRef = useRef(false);
 
   // Address form. `country` drives the destination tax + shipping zone — changing
   // it updates the cart so the preview re-taxes at the destination.
@@ -80,6 +88,61 @@ export function CheckoutPage() {
   useEffect(() => {
     if (cart?.shipping.country) setForm((f) => (f.country === cart.shipping.country ? f : { ...f, country: cart.shipping.country }));
   }, [cart?.shipping.country]);
+
+  // Load saved addresses for a verified customer; prefill the default shipping
+  // address once (the `prefilledRef` guard avoids clobbering edits / StrictMode
+  // double-invoke). Prefill the email from the account too.
+  useEffect(() => {
+    if (!customer?.emailVerified) return;
+    let alive = true;
+    (async () => {
+      try {
+        const rows = await storefront.listAddresses();
+        if (!alive) return;
+        setSaved(rows);
+        if (!prefilledRef.current && rows.length > 0) {
+          prefilledRef.current = true;
+          const def = rows.find((r) => r.isDefaultShipping) ?? rows[0];
+          setSelectedAddressId(def.id);
+          fillFromAddress(def);
+          if (def.country !== (cart?.shipping.country ?? "HR")) await setShipping({ country: def.country });
+        }
+      } catch {
+        /* not verified / network — leave the form blank */
+      }
+    })();
+    return () => {
+      alive = false;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [customer?.emailVerified, customer?.id]);
+
+  // Prefill the contact email from the logged-in account.
+  useEffect(() => {
+    if (customer?.email) setForm((f) => (f.email ? f : { ...f, email: customer.email }));
+  }, [customer?.email]);
+
+  function fillFromAddress(a: StorefrontAddress) {
+    setForm((f) => ({
+      ...f,
+      name: a.name,
+      line1: a.line1,
+      line2: a.line2 ?? "",
+      city: a.city,
+      postalCode: a.postalCode,
+      country: a.country,
+      phone: a.phone ?? "",
+    }));
+  }
+
+  const onSelectSaved = async (id: string | null) => {
+    setSelectedAddressId(id);
+    if (!id) return; // "Enter a new address"
+    const a = saved.find((r) => r.id === id);
+    if (!a) return;
+    fillFromAddress(a);
+    if (a.country !== form.country) await setShipping({ country: a.country });
+  };
 
   const onCountry = async (country: string) => {
     setForm((f) => ({ ...f, country }));
@@ -142,6 +205,19 @@ export function CheckoutPage() {
       <Group align="flex-start" gap="xl" wrap="wrap">
         {/* Address form */}
         <Stack gap="sm" style={{ flex: "1 1 420px" }}>
+          {saved.length > 0 && (
+            <Select
+              label="Use a saved address"
+              data={[
+                ...saved.map((a) => ({ value: a.id, label: `${a.label || a.name} — ${a.line1}, ${a.city}` })),
+                { value: "", label: "Enter a new address" },
+              ]}
+              value={selectedAddressId ?? ""}
+              onChange={(v) => onSelectSaved(v || null)}
+              comboboxProps={{ withinPortal: true }}
+            />
+          )}
+
           <Title order={4}>Contact</Title>
           <TextInput label="Email" type="email" required value={form.email} onChange={set("email")} placeholder="you@example.com" />
 

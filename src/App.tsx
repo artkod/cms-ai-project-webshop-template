@@ -8,6 +8,7 @@ import { CartPage } from "./routes/CartPage";
 import { CheckoutPage } from "./routes/CheckoutPage";
 import { OrderPage } from "./routes/OrderPage";
 import { AccountPage } from "./routes/AccountPage";
+import { AddressBookPage } from "./routes/AddressBookPage";
 import { VerifyEmailPage } from "./routes/VerifyEmailPage";
 import { ForgotPasswordPage } from "./routes/ForgotPasswordPage";
 import { ResetPasswordPage } from "./routes/ResetPasswordPage";
@@ -55,6 +56,8 @@ export default function App() {
             <Route path="checkout" element={<CheckoutPage />} />
             <Route path="order/:token" element={<OrderPage />} />
             <Route path="account" element={<AccountPage />} />
+            {/* Address book (L5.4) — manage saved shipping/billing addresses. */}
+            <Route path="account/addresses" element={<AddressBookPage />} />
             {/* Customer email-verification + password-reset landings (L5.2). */}
             <Route path="account/forgot-password" element={<ForgotPasswordPage />} />
             <Route path="account/verify-email/:token" element={<VerifyEmailPage />} />

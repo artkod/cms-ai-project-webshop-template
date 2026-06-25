@@ -45,7 +45,13 @@ cart is merged into the account cart server-side, and the header badge reflects 
 header gains an **Account** nav item (shows the customer's first name or "Sign in"); `AccountPage.tsx`
 (`/{locale}/account`) is **Sign in / Create account** tabs when logged out (with a banner noting the
 guest cart will move on sign-in) and a profile + **Sign out** when logged in. Guest checkout is never
-blocked — an account is optional. Email verification / address book / B2B land in L5.2–L5.5.
+blocked — an account is optional. **Address book (L5.4):** `AddressBookPage.tsx`
+(`/{locale}/account/addresses`, linked from the account view) — list / add / edit / delete saved
+addresses + pick the default shipping/billing (verification-gated, mirrors the API with a friendly
+prompt; calls the SDK's `listAddresses`/`createAddress`/`updateAddress`/`deleteAddress`). `CheckoutPage`
+gains a **"Use a saved address" picker** that prefills the form from the default shipping address (and
+the contact email from the account) for a logged-in + verified customer; the placed order is linked to
+them server-side. B2B lands in L5.5.
 
 ## Related repos
 

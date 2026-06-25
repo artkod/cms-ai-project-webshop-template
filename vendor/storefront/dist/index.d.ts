@@ -271,6 +271,20 @@ export declare interface ContractCheck {
     compatible: boolean;
 }
 
+/** Body for `POST …/customers/addresses`. */
+export declare interface CreateAddressInput {
+    label?: string;
+    name: string;
+    line1: string;
+    line2?: string;
+    city: string;
+    postalCode: string;
+    country: string;
+    phone?: string;
+    isDefaultShipping?: boolean;
+    isDefaultBilling?: boolean;
+}
+
 /**
  * Create a typed storefront API client (design §17). Framework-agnostic — uses
  * the global `fetch` (override via `config.fetch`). Headless hooks and the
@@ -525,6 +539,23 @@ export declare const STOREFRONT_CONTRACT_VERSION: 1;
 
 export declare const STOREFRONT_SDK_VERSION: "0.0.1";
 
+/** A saved postal address (account address book). Fields mirror the checkout address. */
+export declare interface StorefrontAddress {
+    id: string;
+    label: string | null;
+    name: string;
+    line1: string;
+    line2?: string;
+    city: string;
+    postalCode: string;
+    country: string;
+    phone?: string;
+    isDefaultShipping: boolean;
+    isDefaultBilling: boolean;
+    createdAt: string;
+    updatedAt: string;
+}
+
 /** The typed storefront API client. */
 export declare interface StorefrontClient {
     /** The contract version this SDK was built against. */
@@ -662,6 +693,22 @@ export declare interface StorefrontClient {
     changePassword(currentPassword: string, newPassword: string, opts?: {
         signal?: AbortSignal;
     }): Promise<void>;
+    /** List the customer's saved addresses (defaults first). `GET …/customers/addresses`. */
+    listAddresses(opts?: {
+        signal?: AbortSignal;
+    }): Promise<StorefrontAddress[]>;
+    /** Create a saved address. `POST …/customers/addresses`. */
+    createAddress(input: CreateAddressInput, opts?: {
+        signal?: AbortSignal;
+    }): Promise<StorefrontAddress>;
+    /** Update a saved address (PATCH semantics). `PUT …/customers/addresses/:id`. */
+    updateAddress(id: string, input: UpdateAddressInput, opts?: {
+        signal?: AbortSignal;
+    }): Promise<StorefrontAddress>;
+    /** Delete a saved address. `DELETE …/customers/addresses/:id`. */
+    deleteAddress(id: string, opts?: {
+        signal?: AbortSignal;
+    }): Promise<void>;
     /** Provider ids with a configured + enabled button. `GET …/customers/oauth/providers`. */
     listOAuthProviders(opts?: {
         signal?: AbortSignal;
@@ -748,6 +795,11 @@ export declare interface TypeFacet {
     type: string;
     count: number;
 }
+
+/** Body for `PUT …/customers/addresses/:id` — every field optional (PATCH); `label: null` clears it. */
+export declare type UpdateAddressInput = Partial<Omit<CreateAddressInput, "label">> & {
+    label?: string | null;
+};
 
 /** Result of `POST /verify-email`. */
 export declare interface VerifyEmailResult {
