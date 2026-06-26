@@ -312,6 +312,26 @@ export declare interface CsrfResponse {
 /** Approval gate for B2B accounts (L5.5). Only an `approved` business is on B2B terms. */
 declare type CustomerApprovalStatus = "none" | "pending" | "approved" | "rejected";
 
+/**
+ * A lightweight order summary — one row of the customer's own order history
+ * (`GET /api/commerce/customers/orders`, L5.8). Includes prior GUEST orders
+ * claimed when the email was verified. `token` links to the full order detail
+ * (`getOrder`). Summaries only; fetch `getOrder(token)` for line items + totals.
+ */
+export declare interface CustomerOrderSummary {
+    id: string;
+    orderNumber: number;
+    token: string;
+    placedAt: string;
+    status: OrderStatus;
+    isQuote: boolean;
+    currency: "EUR";
+    /** Sum of line quantities. */
+    itemCount: number;
+    /** Integer EUR cents. */
+    grandTotal: number;
+}
+
 /** Response wrapper for register/login/me. */
 export declare interface CustomerResponse {
     customer: StorefrontCustomer;
@@ -757,6 +777,10 @@ export declare interface StorefrontClient {
     removeFromWishlist(productId: string, opts?: {
         signal?: AbortSignal;
     }): Promise<string[]>;
+    /** List the customer's own orders (summaries, newest first). `GET …/customers/orders`. */
+    listMyOrders(opts?: {
+        signal?: AbortSignal;
+    }): Promise<CustomerOrderSummary[]>;
     /** Provider ids with a configured + enabled button. `GET …/customers/oauth/providers`. */
     listOAuthProviders(opts?: {
         signal?: AbortSignal;

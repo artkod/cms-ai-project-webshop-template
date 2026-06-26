@@ -1,7 +1,7 @@
-var ue = Object.defineProperty;
-var le = (o, r, c) => r in o ? ue(o, r, { enumerable: !0, configurable: !0, writable: !0, value: c }) : o[r] = c;
-var S = (o, r, c) => le(o, typeof r != "symbol" ? r + "" : r, c);
-const ye = 1, he = "0.0.1";
+var le = Object.defineProperty;
+var me = (o, r, c) => r in o ? le(o, r, { enumerable: !0, configurable: !0, writable: !0, value: c }) : o[r] = c;
+var S = (o, r, c) => me(o, typeof r != "symbol" ? r + "" : r, c);
+const he = 1, pe = "0.0.1";
 class C extends Error {
   constructor(c, a) {
     super(c);
@@ -11,12 +11,12 @@ class C extends Error {
     this.name = "StorefrontError", this.status = a.status, this.code = a.code ?? null, this.body = a.body ?? null;
   }
 }
-const me = "X-Commerce-Contract-Version", b = "X-CSRF-Token", de = "cms_csrf";
-function fe() {
+const de = "X-Commerce-Contract-Version", b = "X-CSRF-Token", fe = "cms_csrf";
+function ge() {
   if (typeof document > "u" || typeof document.cookie != "string") return null;
   for (const o of document.cookie.split(";")) {
     const r = o.indexOf("=");
-    if (r !== -1 && o.slice(0, r).trim() === de)
+    if (r !== -1 && o.slice(0, r).trim() === fe)
       return decodeURIComponent(o.slice(r + 1).trim());
   }
   return null;
@@ -34,7 +34,7 @@ function P(o, r, c) {
   const h = f.toString();
   return h ? `${a}${n}?${h}` : `${a}${n}`;
 }
-function pe(o) {
+function Se(o) {
   const r = o.fetch ?? globalThis.fetch;
   if (typeof r != "function")
     throw new Error(
@@ -42,7 +42,7 @@ function pe(o) {
     );
   const c = o.credentials ?? "include", a = {
     "X-Project-Slug": o.projectSlug,
-    [me]: String(1),
+    [de]: String(1),
     ...o.headers
   };
   async function n(e, t = {}) {
@@ -51,7 +51,7 @@ function pe(o) {
     t.body !== void 0 && (p = JSON.stringify(t.body), l["Content-Type"] = "application/json");
     const R = (t.method ?? (t.body !== void 0 ? "POST" : "GET")).toUpperCase();
     if (R !== "GET" && R !== "HEAD" && !(b in l)) {
-      const i = fe();
+      const i = ge();
       i && (l[b] = i);
     }
     let y;
@@ -336,11 +336,16 @@ function pe(o) {
     )).productIds ?? [];
   }
   async function ae(e = {}) {
+    return (await n("/api/commerce/customers/orders", {
+      signal: e.signal
+    })).orders ?? [];
+  }
+  async function ie(e = {}) {
     return (await n("/api/commerce/customers/oauth/providers", {
       signal: e.signal
     })).providers ?? [];
   }
-  function ie(e, t = {}) {
+  function ue(e, t = {}) {
     return P(o.apiUrl, `/api/commerce/customers/oauth/${encodeURIComponent(e)}/start`, {
       returnLocale: t.returnLocale
     });
@@ -384,11 +389,12 @@ function pe(o) {
     getWishlist: oe,
     addToWishlist: se,
     removeFromWishlist: ce,
-    listOAuthProviders: ae,
-    oauthStartUrl: ie
+    listMyOrders: ae,
+    listOAuthProviders: ie,
+    oauthStartUrl: ue
   };
 }
-function Se(o) {
+function Te(o) {
   if (!/^\d{11}$/.test(o)) return !1;
   let r = 10;
   for (let a = 0; a < 10; a++)
@@ -424,14 +430,14 @@ function $(o) {
     }
   return r;
 }
-function Te(o) {
+function Oe(o) {
   const r = I().filter((c) => c !== o);
   return $([o, ...r]);
 }
-function Oe(o) {
+function Ce(o) {
   return $(I().filter((r) => r !== o));
 }
-function Ce() {
+function we() {
   const o = E();
   if (o)
     try {
@@ -440,15 +446,15 @@ function Ce() {
     }
 }
 export {
-  me as CONTRACT_VERSION_HEADER,
-  ye as STOREFRONT_CONTRACT_VERSION,
-  he as STOREFRONT_SDK_VERSION,
+  de as CONTRACT_VERSION_HEADER,
+  he as STOREFRONT_CONTRACT_VERSION,
+  pe as STOREFRONT_SDK_VERSION,
   C as StorefrontError,
-  Te as addLocalWishlist,
-  Ce as clearLocalWishlist,
-  pe as createStorefrontClient,
+  Oe as addLocalWishlist,
+  we as clearLocalWishlist,
+  Se as createStorefrontClient,
   I as getLocalWishlist,
-  Se as isValidOib,
-  Oe as removeLocalWishlist,
+  Te as isValidOib,
+  Ce as removeLocalWishlist,
   $ as setLocalWishlist
 };

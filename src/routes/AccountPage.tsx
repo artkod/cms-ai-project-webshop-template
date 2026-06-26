@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link, useParams, useSearchParams } from "react-router";
 import { Alert, Anchor, Badge, Button, Divider, Group, Loader, Paper, SegmentedControl, Stack, Tabs, Text, TextInput, Title } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
-import { Heart, LogIn, LogOut, MailCheck, MapPin, ShoppingCart } from "lucide-react";
+import { Heart, LogIn, LogOut, MailCheck, MapPin, Package, ShoppingCart } from "lucide-react";
 import { useCustomer } from "@/lib/customer";
 import { useCart } from "@/lib/cart";
 import { useWishlist } from "@/lib/wishlist";
@@ -239,6 +239,14 @@ export function AccountPage() {
 
         <Divider />
         <Group>
+          <Button
+            component={Link}
+            to={`/${loc}/account/orders`}
+            variant="light"
+            leftSection={<Package size={16} />}
+          >
+            My orders
+          </Button>
           <Button
             component={Link}
             to={`/${loc}/account/addresses`}

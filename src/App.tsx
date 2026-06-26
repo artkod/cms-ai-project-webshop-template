@@ -9,6 +9,7 @@ import { CheckoutPage } from "./routes/CheckoutPage";
 import { OrderPage } from "./routes/OrderPage";
 import { AccountPage } from "./routes/AccountPage";
 import { AddressBookPage } from "./routes/AddressBookPage";
+import { OrdersPage } from "./routes/OrdersPage";
 import { WishlistPage } from "./routes/WishlistPage";
 import { VerifyEmailPage } from "./routes/VerifyEmailPage";
 import { ForgotPasswordPage } from "./routes/ForgotPasswordPage";
@@ -59,6 +60,8 @@ export default function App() {
             <Route path="account" element={<AccountPage />} />
             {/* Address book (L5.4) — manage saved shipping/billing addresses. */}
             <Route path="account/addresses" element={<AddressBookPage />} />
+            {/* Order history (L5.8) — own orders incl. claimed guest orders. */}
+            <Route path="account/orders" element={<OrdersPage />} />
             {/* Wishlist (L5.6) — saved products (account-persisted or guest-local). */}
             <Route path="account/wishlist" element={<WishlistPage />} />
             {/* Customer email-verification + password-reset landings (L5.2). */}
