@@ -31,6 +31,7 @@ export function OrdersPage() {
 
   const [orders, setOrders] = useState<CustomerOrderSummary[]>([]);
   const [loading, setLoading] = useState(true);
+  const [failed, setFailed] = useState(false);
 
   const verified = !!customer?.emailVerified;
 
@@ -41,8 +42,12 @@ export function OrdersPage() {
     }
     try {
       setOrders(await storefront.listMyOrders());
+      setFailed(false);
     } catch {
-      /* leave as-is */
+      // Distinguish a load FAILURE from a genuinely empty history — otherwise a
+      // 403 (session not verified server-side) or an SDK error silently looks
+      // like "no orders yet", which is exactly what hides bugs.
+      setFailed(true);
     } finally {
       setLoading(false);
     }
@@ -88,7 +93,12 @@ export function OrdersPage() {
     <Stack maw={680} mx="auto" gap="lg">
       <Title order={2}>My orders</Title>
 
-      {orders.length === 0 ? (
+      {failed ? (
+        <Alert color="red" variant="light" title="Couldn't load your orders">
+          Something went wrong loading your order history.{" "}
+          <Anchor onClick={() => { setLoading(true); void reload(); }}>Try again</Anchor>.
+        </Alert>
+      ) : orders.length === 0 ? (
         <Alert color="gray" variant="light" icon={<ShoppingBag size={18} />}>
           You haven't placed any orders yet. <Anchor component={Link} to={`/${loc}/shop`}>Start shopping</Anchor>.
         </Alert>
