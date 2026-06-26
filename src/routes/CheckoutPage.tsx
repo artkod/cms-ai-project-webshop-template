@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router";
-import { Alert, Anchor, Box, Button, Divider, Group, Loader, Paper, Select, Stack, Text, TextInput, Textarea, Title } from "@mantine/core";
+import { Alert, Anchor, Box, Button, Divider, Group, Loader, Paper, Radio, Select, Stack, Text, TextInput, Textarea, Title } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import { Info } from "lucide-react";
-import { StorefrontError, type CheckoutPreview, type OrderAddress, type StorefrontAddress } from "@cms/storefront";
+import { StorefrontError, type CheckoutMode, type CheckoutPreview, type OrderAddress, type StorefrontAddress } from "@cms/storefront";
 import { storefront } from "@/lib/storefront";
 import { useCart } from "@/lib/cart";
 import { useCustomer } from "@/lib/customer";
@@ -27,6 +27,14 @@ const COUNTRY_OPTIONS = [
   { value: "US", label: "United States (intl.)" },
 ];
 
+// Payment-method labels + help (L7.4). Shown as a radio group at checkout from the
+// preview's offered set; the COD option drives the cart's COD surcharge.
+const PAYMENT_METHODS: Record<CheckoutMode, { label: string; help: string }> = {
+  pay_now: { label: "Pay now (card)", help: "Pay securely by card on the next step." },
+  bank_transfer: { label: "Bank transfer", help: "We'll email payment instructions; your order ships once payment arrives." },
+  cod: { label: "Cash on delivery", help: "Pay in cash when your order is delivered (a surcharge applies)." },
+};
+
 function ratePct(bps: number): string {
   return `${bps / 100}%`;
 }
@@ -39,6 +47,8 @@ function checkoutErrorMessage(err: StorefrontError): string {
       return "Sorry — one of your items just went out of stock.";
     case "coupon_exhausted":
       return "Your coupon was just used up. Please remove it and try again.";
+    case "payment_method_unavailable":
+      return "That payment method isn't available for this cart. Please pick another option.";
     default:
       return "Checkout failed. Please try again.";
   }
@@ -55,6 +65,9 @@ export function CheckoutPage() {
   const [preview, setPreview] = useState<CheckoutPreview | null>(null);
   const [loading, setLoading] = useState(true);
   const [placing, setPlacing] = useState(false);
+  // The chosen payment mode (L7.4) — initialised from the preview's default, kept in
+  // the offered set as the cart/shipping changes.
+  const [paymentMethod, setPaymentMethod] = useState<CheckoutMode | null>(null);
 
   // Saved addresses (L5.4) — only for a logged-in + verified customer. The default
   // shipping address prefills the form; the picker lets them choose another.
@@ -83,6 +96,24 @@ export function CheckoutPage() {
   useEffect(() => {
     void reloadPreview();
   }, [reloadPreview, cart?.id, cart?.itemCount, cart?.shipping.country, cart?.coupon?.discountId]);
+
+  // Keep the chosen payment method valid: when the offered set changes, fall back to
+  // the preview's default if the current pick is no longer offered.
+  useEffect(() => {
+    if (!preview || preview.isQuote) return;
+    setPaymentMethod((cur) => (cur && preview.paymentMethods.includes(cur) ? cur : preview.defaultPaymentMethod));
+  }, [preview]);
+
+  // Picking a method: COD drives the cart's COD surcharge, so toggle the cart flag
+  // then re-preview to reflect the surcharge in the totals.
+  const onPaymentMethod = async (m: CheckoutMode) => {
+    setPaymentMethod(m);
+    const cod = m === "cod";
+    if (cod !== (cart?.shipping.codSelected ?? false)) {
+      await setShipping({ codSelected: cod });
+      await reloadPreview();
+    }
+  };
 
   // Keep the form country in sync with the cart's stored ship-to.
   useEffect(() => {
@@ -160,14 +191,25 @@ export function CheckoutPage() {
   const totals = preview?.cart.totals;
   const isQuote = preview?.isQuote ?? false;
   const empty = !preview || preview.cart.items.length === 0;
-  const canPlace = !!form.name.trim() && !!form.line1.trim() && !!form.city.trim() && !!form.postalCode.trim() && /.+@.+\..+/.test(form.email);
+  const offeredMethods = preview?.paymentMethods ?? [];
+  // A payable cart with no offered method (e.g. a COD-only product without a COD-eligible
+  // shipping method) can't be placed until the shopper changes shipping.
+  const noPayableMethod = !!preview && !isQuote && !empty && offeredMethods.length === 0;
+  const addressValid = !!form.name.trim() && !!form.line1.trim() && !!form.city.trim() && !!form.postalCode.trim() && /.+@.+\..+/.test(form.email);
+  const paymentValid = isQuote || (!!paymentMethod && offeredMethods.includes(paymentMethod));
+  const canPlace = addressValid && paymentValid && !empty;
 
   const place = async () => {
     setPlacing(true);
     try {
       const { email, note, ...address } = form;
       const order = await storefront.startCheckout(
-        { email, shippingAddress: address as OrderAddress, note: note.trim() || undefined },
+        {
+          email,
+          shippingAddress: address as OrderAddress,
+          note: note.trim() || undefined,
+          ...(paymentMethod && !isQuote ? { paymentMethod } : {}),
+        },
         { locale: loc },
       );
       await refresh(); // the cart was cleared server-side
@@ -284,10 +326,36 @@ export function CheckoutPage() {
                 )}
               </>
             )}
+
+            {/* Payment method (L7.4) — only for a payable cart. COD appears only when the
+                chosen shipping method is COD-eligible. */}
+            {!isQuote && offeredMethods.length > 0 && (
+              <>
+                <Divider my="xs" />
+                <Radio.Group
+                  label="Payment method"
+                  value={paymentMethod ?? ""}
+                  onChange={(v) => void onPaymentMethod(v as CheckoutMode)}
+                >
+                  <Stack gap={6} mt={6}>
+                    {offeredMethods.map((m) => (
+                      <Radio key={m} value={m} label={PAYMENT_METHODS[m].label} description={PAYMENT_METHODS[m].help} />
+                    ))}
+                  </Stack>
+                </Radio.Group>
+              </>
+            )}
+            {noPayableMethod && (
+              <Alert color="orange" icon={<Info size={16} />}>
+                No payment method is available for this cart — your item requires cash on delivery, but the
+                chosen shipping method doesn't support it. Pick a courier delivery method on the cart page.
+              </Alert>
+            )}
+
             <Button mt="sm" size="md" onClick={place} loading={placing} disabled={!canPlace}>
               {isQuote ? "Request quote" : "Place order"}
             </Button>
-            {!canPlace && <Text c="dimmed" fz="xs">Fill in your email + shipping address to continue.</Text>}
+            {!canPlace && !noPayableMethod && <Text c="dimmed" fz="xs">Fill in your email + shipping address to continue.</Text>}
           </Stack>
         </Paper>
       </Group>

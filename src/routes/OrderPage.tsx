@@ -157,14 +157,29 @@ export function OrderPage() {
         <Badge color={isPaid ? "teal" : "gray"} variant="light">{order.status.paymentStatus}</Badge>
       </Group>
 
-      {/* Payment (L6.2) — card payment while awaiting_payment + not a quote. */}
+      {/* Payment (L6.2 + L7.4 modes) — while awaiting_payment + not a quote. The UI
+          branches on the order's resolved payment mode: card (Stripe) for pay_now,
+          bank-transfer instructions + deadline for bank_transfer, pay-on-delivery for cod. */}
       {payable && (
         <Paper withBorder p="md" radius="md">
           <Group gap="xs" mb="sm">
             <CreditCard size={18} />
             <Title order={4}>Payment</Title>
           </Group>
-          {confirming ? (
+          {order.paymentMethod === "bank_transfer" ? (
+            <Stack gap={4}>
+              <Text fz="sm">
+                Pay by <b>bank transfer</b> using the details we'll email to {order.email}
+                {order.paymentDueAt ? <> by <b>{new Date(order.paymentDueAt).toLocaleDateString()}</b></> : null}.
+              </Text>
+              <Text fz="sm" c="dimmed">Your order is reserved and ships once payment arrives.</Text>
+            </Stack>
+          ) : order.paymentMethod === "cod" ? (
+            <Text fz="sm">
+              You'll <b>pay in cash on delivery</b>
+              {t.surcharge ? <> (incl. a {formatCents(t.surcharge.gross)} COD surcharge)</> : null}. No payment is needed now.
+            </Text>
+          ) : confirming ? (
             <Group gap="xs">
               <Loader size="xs" />
               <Text fz="sm" c="dimmed">Confirming your payment…</Text>

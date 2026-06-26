@@ -77,6 +77,7 @@ export declare interface CartShippingMethod {
     name: string;
     kind: ShippingKind;
     requiresPickupPoint: boolean;
+    codAllowed: boolean;
     taxClass: string;
 }
 
@@ -250,12 +251,31 @@ export declare interface CategoryNode {
     metaDescription: string | null;
 }
 
+/**
+ * The three PAYABLE checkout modes (L7.4) — the payment method the customer chooses
+ * at checkout. INQUIRY (a quote) is the separate `isQuote` flag. `pay_now` = card,
+ * `bank_transfer` = proforma / pay-by-invoice, `cod` = cash on delivery.
+ */
+export declare type CheckoutMode = "pay_now" | "bank_transfer" | "cod";
+
 /** `GET /api/commerce/checkout` — the cart recomputed at the destination tax. */
 export declare interface CheckoutPreview {
-    /** True when any item is inquiry-only → the cart is placed as a quote request. */
+    /**
+     * True when any item is inquiry-only (or per-product checkout modes conflict) → the
+     * cart is placed as a quote request (no payment).
+     */
     isQuote: boolean;
     /** The full cart view, with totals taxed at the ship-to destination. */
     cart: Cart;
+    /**
+     * The payable checkout modes offered for this cart (L7.4) — the intersection of its
+     * products' required modes, with COD kept only for a COD-eligible shipping method.
+     * Empty for a quote, or when no payable method can be offered (e.g. a COD-only
+     * product without a COD-eligible shipping method).
+     */
+    paymentMethods: CheckoutMode[];
+    /** The pre-selected mode (shop default if offered, else the first). Null for a quote. */
+    defaultPaymentMethod: CheckoutMode | null;
 }
 
 /** Clear the guest wishlist entirely (called after a successful merge-to-server). */
@@ -416,6 +436,10 @@ export declare interface Order {
     } | null;
     pickupPoint: unknown | null;
     codSelected: boolean;
+    /** Resolved payable checkout mode (L7.4) — null on a quote. */
+    paymentMethod: CheckoutMode | null;
+    /** ISO bank-transfer payment deadline (L7.4) — null otherwise. */
+    paymentDueAt: string | null;
     taxDestination: string | null;
     items: OrderItem[];
     itemCount: number;
@@ -615,6 +639,7 @@ export declare interface ShippingRate {
     name: string;
     kind: ShippingKind;
     requiresPickupPoint: boolean;
+    codAllowed: boolean;
     taxClass: string;
     zone: ShippingZone;
     amount: number;
@@ -630,6 +655,11 @@ export declare interface StartCheckoutInput {
     /** Falls back to the shipping address when omitted. */
     billingAddress?: OrderAddress;
     note?: string;
+    /**
+     * The chosen payable checkout mode (L7.4). Omitted → the resolved default; ignored
+     * for a quote. `cod` requires a COD-eligible shipping method + adds the surcharge.
+     */
+    paymentMethod?: CheckoutMode;
 }
 
 export declare const STOREFRONT_CONTRACT_VERSION: 1;
