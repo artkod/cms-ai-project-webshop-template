@@ -2,9 +2,10 @@ import { useEffect, useRef, useState } from "react";
 import { Link, useParams, useSearchParams } from "react-router";
 import { Alert, Anchor, Badge, Button, Divider, Group, Loader, Paper, SegmentedControl, Stack, Tabs, Text, TextInput, Title } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
-import { LogIn, LogOut, MailCheck, MapPin, ShoppingCart } from "lucide-react";
+import { Heart, LogIn, LogOut, MailCheck, MapPin, ShoppingCart } from "lucide-react";
 import { useCustomer } from "@/lib/customer";
 import { useCart } from "@/lib/cart";
+import { useWishlist } from "@/lib/wishlist";
 import { useLocaleConfig } from "@/lib/locale";
 import { isValidOib, type OAuthProviderId } from "@cms/storefront";
 
@@ -38,6 +39,7 @@ export function AccountPage() {
   const loc = locale ?? defaultLocale;
   const { customer, loading, register, login, logout, resendVerification, changePassword, oauthProviders, startOAuth } = useCustomer();
   const { itemCount } = useCart();
+  const { count: wishlistCount } = useWishlist();
   const [searchParams, setSearchParams] = useSearchParams();
 
   // Surface the social-login callback result (?error / ?connected / ?created /
@@ -244,6 +246,14 @@ export function AccountPage() {
             leftSection={<MapPin size={16} />}
           >
             Address book
+          </Button>
+          <Button
+            component={Link}
+            to={`/${loc}/account/wishlist`}
+            variant="light"
+            leftSection={<Heart size={16} />}
+          >
+            Wishlist ({wishlistCount})
           </Button>
           <Button
             component={Link}

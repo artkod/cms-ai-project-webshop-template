@@ -3,6 +3,7 @@ import { Badge, Box, Card, Group, Image, SimpleGrid, Stack, Text } from "@mantin
 import type { ProductCard } from "@cms/storefront";
 import { formatCents } from "@/lib/money";
 import { productHref, type CategoryMap } from "./catalogUrls";
+import { WishlistButton } from "./WishlistButton";
 
 // Product card grid. Each card links to the product's REAL canonical URL (resolved
 // by the by-slug commerce resolver), built from the category tree + primary
@@ -28,7 +29,7 @@ export function ProductGrid({
           radius="md"
           style={{ textDecoration: "none" }}
         >
-          <Card.Section>
+          <Card.Section style={{ position: "relative" }}>
             <Box style={{ aspectRatio: "1 / 1", background: "var(--mantine-color-gray-1)" }}>
               {p.image ? (
                 <Image src={p.image.cdnUrl} alt={p.name} h="100%" w="100%" fit="cover" />
@@ -39,6 +40,9 @@ export function ProductGrid({
                   </Text>
                 </Group>
               )}
+            </Box>
+            <Box style={{ position: "absolute", top: 8, right: 8, zIndex: 2 }}>
+              <WishlistButton productId={p.id} mode="overlay" />
             </Box>
           </Card.Section>
           <Stack gap={4} mt="sm">

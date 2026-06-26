@@ -1,3 +1,6 @@
+/** Add a product to the guest wishlist (idempotent, moved to newest-first). Returns the new set. */
+export declare function addLocalWishlist(productId: string): string[];
+
 /** The full cart, returned by every cart endpoint. */
 export declare interface Cart {
     id: string;
@@ -255,6 +258,9 @@ export declare interface CheckoutPreview {
     cart: Cart;
 }
 
+/** Clear the guest wishlist entirely (called after a successful merge-to-server). */
+export declare function clearLocalWishlist(): void;
+
 /** Response of `GET /api/commerce/health` (the public gating probe). */
 export declare interface CommerceHealth {
     status: string;
@@ -317,6 +323,9 @@ export declare interface CustomerTokenInfo {
     email: string;
     expiresAt: string;
 }
+
+/** The guest wishlist product ids (newest first), or `[]` when none/unavailable. */
+export declare function getLocalWishlist(): string[];
 
 /** True iff `oib` is exactly 11 digits with a valid ISO 7064 MOD 11,10 check digit. */
 export declare function isValidOib(oib: string): boolean;
@@ -493,6 +502,9 @@ export declare interface RegisterInput {
     vatId?: string;
 }
 
+/** Remove a product from the guest wishlist (idempotent). Returns the new set. */
+export declare function removeLocalWishlist(productId: string): string[];
+
 /** Result of `POST /resend-verification`. */
 export declare interface ResendVerificationResult {
     ok: boolean;
@@ -509,6 +521,9 @@ export declare interface SearchFacets {
     } | null;
     inStock: number;
 }
+
+/** Overwrite the guest wishlist (de-duplicated, order preserved). Returns the stored set. */
+export declare function setLocalWishlist(ids: string[]): string[];
 
 /** Body for `PUT /api/commerce/cart/shipping`. Only present fields are applied. */
 export declare interface SetShippingInput {
@@ -729,6 +744,19 @@ export declare interface StorefrontClient {
     deleteAddress(id: string, opts?: {
         signal?: AbortSignal;
     }): Promise<void>;
+    /** List the wishlist: canonical `productIds` + renderable `products` cards. `GET …/customers/wishlist`. */
+    getWishlist(opts?: {
+        locale?: string;
+        signal?: AbortSignal;
+    }): Promise<WishlistResponse>;
+    /** Add a product to the wishlist (idempotent). Returns the updated id set. `POST …/customers/wishlist`. */
+    addToWishlist(productId: string, opts?: {
+        signal?: AbortSignal;
+    }): Promise<string[]>;
+    /** Remove a product from the wishlist (idempotent). Returns the updated id set. `DELETE …/customers/wishlist/:productId`. */
+    removeFromWishlist(productId: string, opts?: {
+        signal?: AbortSignal;
+    }): Promise<string[]>;
     /** Provider ids with a configured + enabled button. `GET …/customers/oauth/providers`. */
     listOAuthProviders(opts?: {
         signal?: AbortSignal;
@@ -830,6 +858,24 @@ export declare type UpdateAddressInput = Partial<Omit<CreateAddressInput, "label
 export declare interface VerifyEmailResult {
     ok: boolean;
     email: string;
+}
+
+/** Result of a wishlist add/remove — the full updated id set (newest first). */
+export declare interface WishlistMutationResult {
+    ok: boolean;
+    productIds: string[];
+}
+
+/**
+ * Response of `GET …/customers/wishlist`. `productIds` is the canonical set
+ * (newest first) — the source of truth for heart/toggle state — and `products`
+ * is the renderable subset (cards for products still visible in the locale), in
+ * the same order. Server-side; a guest's wishlist lives in localStorage (see the
+ * `…LocalWishlist` helpers).
+ */
+export declare interface WishlistResponse {
+    productIds: string[];
+    products: ProductCard[];
 }
 
 export { }

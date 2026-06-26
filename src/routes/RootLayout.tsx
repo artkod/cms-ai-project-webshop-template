@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { Container, Group, Anchor, Box, Text, Indicator } from "@mantine/core";
 import { Outlet, Link, useParams } from "react-router";
-import { ShoppingCart, User } from "lucide-react";
+import { Heart, ShoppingCart, User } from "lucide-react";
 import { getMenu, type MenuItem } from "@/lib/api";
 import { useLocaleConfig, PageAlternatesProvider, StringsProvider } from "@/lib/locale";
 import { CartProvider, useCart } from "@/lib/cart";
 import { CustomerProvider, useCustomer } from "@/lib/customer";
+import { WishlistProvider, useWishlist } from "@/lib/wishlist";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 
 // Minimal shared layout for the test project: a header (site title + primary
@@ -40,6 +41,18 @@ function AccountNav({ locale }: { locale: string }) {
       <User size={20} />
       <Text fz="sm" visibleFrom="sm">{label}</Text>
     </Anchor>
+  );
+}
+
+// Wishlist link with a live saved-count badge (server or local, via the provider).
+function WishlistNav({ locale }: { locale: string }) {
+  const { count } = useWishlist();
+  return (
+    <Indicator label={count} size={18} disabled={count === 0} color="red" offset={4}>
+      <Anchor component={Link} to={`/${locale}/account/wishlist`} c="dark" aria-label="Wishlist" style={{ display: "flex" }}>
+        <Heart size={20} />
+      </Anchor>
+    </Indicator>
   );
 }
 
@@ -112,6 +125,7 @@ export function RootLayout() {
       <StringsProvider locale={activeLocale}>
         <CartProvider>
         <CustomerProvider>
+        <WishlistProvider>
         <Box style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
           <Box component="header" style={{ borderBottom: "1px solid var(--mantine-color-gray-3)" }}>
             <Container size={1140} py="md">
@@ -126,6 +140,7 @@ export function RootLayout() {
                   <Anchor component={Link} to={`/${activeLocale}/shop`}>Shop</Anchor>
                   <LanguageSwitcher />
                   <AccountNav locale={activeLocale} />
+                  <WishlistNav locale={activeLocale} />
                   <CartNav locale={activeLocale} />
                 </Group>
               </Group>
@@ -153,6 +168,7 @@ export function RootLayout() {
             </Container>
           </Box>
         </Box>
+        </WishlistProvider>
         </CustomerProvider>
         </CartProvider>
       </StringsProvider>

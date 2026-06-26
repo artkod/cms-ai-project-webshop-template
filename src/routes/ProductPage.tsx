@@ -9,6 +9,7 @@ import { useCart } from "@/lib/cart";
 import { formatCents } from "@/lib/money";
 import { useDocumentSeo, useJsonLd } from "@/lib/seo";
 import { useCategoryTree, categoryChain, categoryHref } from "@/components/shop/catalogUrls";
+import { WishlistButton } from "@/components/shop/WishlistButton";
 
 // Find the variant matching the current option selection (all axes chosen). For a
 // simple product (no options) the lone variant is always returned.
@@ -220,6 +221,7 @@ export function ProductPage({ product: productProp }: { product?: CatalogProduct
                 <Button onClick={onAdd} loading={adding} disabled={!variant.sellable}>
                   Add to cart
                 </Button>
+                <WishlistButton productId={product.id} mode="button" />
               </Group>
             </>
           ) : (
