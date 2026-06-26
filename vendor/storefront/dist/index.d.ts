@@ -347,6 +347,24 @@ export declare interface CustomerTokenInfo {
 /** The guest wishlist product ids (newest first), or `[]` when none/unavailable. */
 export declare function getLocalWishlist(): string[];
 
+/** Response of `POST /api/commerce/orders/:token/pay`. */
+export declare interface InitiatePaymentResult {
+    payment: PaymentView;
+    initiate: InitiateResult;
+}
+
+/** The initiate-payment discriminated union (mirrors the API's `InitiateResult`). */
+export declare type InitiateResult = {
+    kind: "client_secret";
+    clientSecret: string;
+    publishableKey: string;
+    providerRef: string;
+} | {
+    kind: "redirect";
+    url: string;
+    providerRef: string;
+};
+
 /** True iff `oib` is exactly 11 digits with a valid ISO 7064 MOD 11,10 check digit. */
 export declare function isValidOib(oib: string): boolean;
 
@@ -445,6 +463,30 @@ export declare interface OrderStatus {
     fulfillmentStatus: string;
     /** open | completed | cancelled | quote */
     lifecycle: string;
+}
+
+/** A payment method the storefront can offer (one enabled, configured provider). */
+export declare interface PaymentMethodInfo {
+    /** Provider id — `"stripe"` (Monri arrives in L6.5). */
+    provider: string;
+    /** The PUBLISHABLE key (not a secret) — needed client-side to mount Elements. */
+    publishableKey: string;
+}
+
+/** A payment row's public view (the order's charge attempt). */
+export declare interface PaymentView {
+    id: string;
+    orderId: string;
+    provider: string;
+    status: string;
+    flow: string | null;
+    currency: "EUR";
+    amountAuthorized: number;
+    amountCaptured: number;
+    amountRefunded: number;
+    providerRef: string | null;
+    createdAt: string;
+    updatedAt: string;
 }
 
 /** A chosen parcel-locker / pickup point stored on the cart (carrier-defined). */
@@ -791,6 +833,18 @@ export declare interface StorefrontClient {
      * `GET …/customers/oauth/:provider/start`.
      */
     oauthStartUrl(provider: OAuthProviderId, opts?: OAuthStartOptions): string;
+    /** Enabled payment methods + their publishable keys. `GET …/payments/providers`. */
+    listPaymentProviders(opts?: {
+        signal?: AbortSignal;
+    }): Promise<PaymentMethodInfo[]>;
+    /**
+     * Begin paying a pending order: attaches a payment + returns the initiate union
+     * (Stripe: `{ kind: "client_secret" }` → mount Elements). Idempotent per
+     * (order, provider). `POST …/orders/:token/pay`.
+     */
+    initiatePayment(orderToken: string, provider: string, opts?: {
+        signal?: AbortSignal;
+    }): Promise<InitiatePaymentResult>;
 }
 
 /** Configuration for {@link createStorefrontClient}. */

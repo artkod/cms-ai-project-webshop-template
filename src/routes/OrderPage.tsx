@@ -1,18 +1,22 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router";
-import { Alert, Anchor, Badge, Divider, Group, Loader, Paper, Stack, Text, Title } from "@mantine/core";
-import { CheckCircle2, FileText } from "lucide-react";
-import { StorefrontError, type Order } from "@cms/storefront";
+import { Alert, Anchor, Badge, Button, Divider, Group, Loader, Paper, Stack, Text, Title } from "@mantine/core";
+import { CheckCircle2, CreditCard, FileText } from "lucide-react";
+import { StorefrontError, type InitiatePaymentResult, type Order } from "@cms/storefront";
 import { storefront } from "@/lib/storefront";
 import { useLocaleConfig } from "@/lib/locale";
 import { formatCents } from "@/lib/money";
+import { StripePayment } from "@/components/shop/StripePayment";
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Pending-order page (Phase L4.5).
+// Pending-order page (Phase L4.5 + payment L6.2).
 //
-// The post-checkout landing — fetched by the order's unguessable public token. The
-// order is PENDING (no payment yet — that's L6); a quote shows quote messaging.
-// Everything here is a SNAPSHOT (the order never joins the live catalog).
+// The post-checkout landing — fetched by the order's unguessable public token. A
+// quote shows quote messaging. When the order is `awaiting_payment` and a card
+// provider is configured, it offers in-page Stripe payment. The order flips to
+// PAID off the Stripe WEBHOOK, never the browser result (design §11): after the
+// card is confirmed we POLL the order until the webhook lands. Everything here is
+// a SNAPSHOT (the order never joins the live catalog).
 // ─────────────────────────────────────────────────────────────────────────────
 
 function ratePct(bps: number): string {
@@ -27,6 +31,22 @@ export function OrderPage() {
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
 
+  // Payment (L6.2) — only meaningful while awaiting_payment + not a quote.
+  const [hasCardProvider, setHasCardProvider] = useState(false);
+  const [pay, setPay] = useState<InitiatePaymentResult | null>(null);
+  const [initiating, setInitiating] = useState(false);
+  const [payError, setPayError] = useState<string | null>(null);
+  const [confirming, setConfirming] = useState(false);
+  const pollRef = useRef<number | null>(null);
+
+  const refetch = useCallback(async (): Promise<Order | null> => {
+    if (!token) return null;
+    const o = await storefront.getOrder(token);
+    setOrder(o);
+    return o;
+  }, [token]);
+
+  // Initial load.
   useEffect(() => {
     if (!token) return;
     storefront
@@ -37,6 +57,75 @@ export function OrderPage() {
       })
       .finally(() => setLoading(false));
   }, [token]);
+
+  const stopPolling = useCallback(() => {
+    if (pollRef.current !== null) {
+      window.clearInterval(pollRef.current);
+      pollRef.current = null;
+    }
+    setConfirming(false);
+  }, []);
+
+  // Poll the order until the webhook moves it off awaiting_payment (then stop).
+  const startPolling = useCallback(() => {
+    if (pollRef.current !== null) return;
+    setConfirming(true);
+    let attempts = 0;
+    const tick = async () => {
+      attempts += 1;
+      try {
+        const o = await refetch();
+        if (o && o.status.paymentStatus !== "awaiting_payment") {
+          stopPolling();
+          return;
+        }
+      } catch {
+        /* transient — keep polling */
+      }
+      if (attempts >= 40) stopPolling(); // ~100s safety cap
+    };
+    pollRef.current = window.setInterval(() => void tick(), 2500);
+    void tick();
+  }, [refetch, stopPolling]);
+
+  // Returning from a 3DS redirect: Stripe appends `redirect_status` to the return
+  // URL. If we came back successfully, go straight to polling for the webhook.
+  useEffect(() => {
+    const status = new URLSearchParams(window.location.search).get("redirect_status");
+    if (status === "succeeded") startPolling();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Is a card provider configured? (Only fetch once we know the order is payable.)
+  const payable = !!order && !order.isQuote && order.status.paymentStatus === "awaiting_payment";
+  useEffect(() => {
+    if (!payable) return;
+    let alive = true;
+    storefront
+      .listPaymentProviders()
+      .then((ps) => alive && setHasCardProvider(ps.some((p) => p.provider === "stripe")))
+      .catch(() => {
+        /* leave card payment hidden on error */
+      });
+    return () => {
+      alive = false;
+    };
+  }, [payable]);
+
+  useEffect(() => () => stopPolling(), [stopPolling]);
+
+  const beginCardPayment = async () => {
+    if (!token) return;
+    setInitiating(true);
+    setPayError(null);
+    try {
+      setPay(await storefront.initiatePayment(token, "stripe"));
+    } catch {
+      setPayError("Couldn't start the payment. Please try again.");
+    } finally {
+      setInitiating(false);
+    }
+  };
 
   if (loading) return <Loader />;
   if (notFound || !order) {
@@ -51,12 +140,15 @@ export function OrderPage() {
 
   const t = order.totals;
   const addr = order.shippingAddress;
+  const isPaid = order.status.paymentStatus === "paid" || order.status.paymentStatus === "authorized";
 
   return (
     <Stack gap="lg" maw={720}>
-      <Alert color={order.isQuote ? "blue" : "teal"} icon={order.isQuote ? <FileText size={18} /> : <CheckCircle2 size={18} />}>
+      <Alert color={order.isQuote ? "blue" : isPaid ? "teal" : "yellow"} icon={order.isQuote ? <FileText size={18} /> : <CheckCircle2 size={18} />}>
         {order.isQuote ? (
           <Text>Your <b>quote request</b> #{order.orderNumber} has been received. We'll email a quote to <b>{order.email}</b>.</Text>
+        ) : isPaid ? (
+          <Text>Payment received — thank you! Order <b>#{order.orderNumber}</b> is confirmed. A receipt will go to <b>{order.email}</b>.</Text>
         ) : (
           <Text>Thank you! Order <b>#{order.orderNumber}</b> is placed and awaiting payment. A confirmation will go to <b>{order.email}</b>.</Text>
         )}
@@ -65,8 +157,40 @@ export function OrderPage() {
       <Group gap="xs">
         <Title order={2}>Order #{order.orderNumber}</Title>
         <Badge color={order.isQuote ? "blue" : "yellow"} variant="light">{order.status.lifecycle}</Badge>
-        <Badge color="gray" variant="light">{order.status.paymentStatus}</Badge>
+        <Badge color={isPaid ? "teal" : "gray"} variant="light">{order.status.paymentStatus}</Badge>
       </Group>
+
+      {/* Payment (L6.2) — card payment while awaiting_payment + not a quote. */}
+      {payable && (
+        <Paper withBorder p="md" radius="md">
+          <Group gap="xs" mb="sm">
+            <CreditCard size={18} />
+            <Title order={4}>Payment</Title>
+          </Group>
+          {confirming ? (
+            <Group gap="xs">
+              <Loader size="xs" />
+              <Text fz="sm" c="dimmed">Confirming your payment…</Text>
+            </Group>
+          ) : pay && pay.initiate.kind === "client_secret" ? (
+            <StripePayment
+              publishableKey={pay.initiate.publishableKey}
+              clientSecret={pay.initiate.clientSecret}
+              onConfirmed={startPolling}
+            />
+          ) : hasCardProvider ? (
+            <Stack gap="xs" align="flex-start">
+              <Text fz="sm" c="dimmed">Pay securely by card to confirm your order.</Text>
+              {payError && <Text fz="sm" c="red">{payError}</Text>}
+              <Button leftSection={<CreditCard size={16} />} onClick={() => void beginCardPayment()} loading={initiating}>
+                Pay by card
+              </Button>
+            </Stack>
+          ) : (
+            <Text fz="sm" c="dimmed">We'll follow up by email with payment instructions.</Text>
+          )}
+        </Paper>
+      )}
 
       <Paper withBorder p="md" radius="md">
         <Stack gap="xs">

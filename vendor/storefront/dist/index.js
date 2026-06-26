@@ -1,7 +1,7 @@
-var le = Object.defineProperty;
-var me = (o, r, c) => r in o ? le(o, r, { enumerable: !0, configurable: !0, writable: !0, value: c }) : o[r] = c;
-var S = (o, r, c) => me(o, typeof r != "symbol" ? r + "" : r, c);
-const he = 1, pe = "0.0.1";
+var de = Object.defineProperty;
+var fe = (o, r, c) => r in o ? de(o, r, { enumerable: !0, configurable: !0, writable: !0, value: c }) : o[r] = c;
+var S = (o, r, c) => fe(o, typeof r != "symbol" ? r + "" : r, c);
+const Se = 1, Te = "0.0.1";
 class C extends Error {
   constructor(c, a) {
     super(c);
@@ -11,12 +11,12 @@ class C extends Error {
     this.name = "StorefrontError", this.status = a.status, this.code = a.code ?? null, this.body = a.body ?? null;
   }
 }
-const de = "X-Commerce-Contract-Version", b = "X-CSRF-Token", fe = "cms_csrf";
-function ge() {
+const ge = "X-Commerce-Contract-Version", b = "X-CSRF-Token", ye = "cms_csrf";
+function he() {
   if (typeof document > "u" || typeof document.cookie != "string") return null;
   for (const o of document.cookie.split(";")) {
     const r = o.indexOf("=");
-    if (r !== -1 && o.slice(0, r).trim() === fe)
+    if (r !== -1 && o.slice(0, r).trim() === ye)
       return decodeURIComponent(o.slice(r + 1).trim());
   }
   return null;
@@ -34,7 +34,7 @@ function P(o, r, c) {
   const h = f.toString();
   return h ? `${a}${n}?${h}` : `${a}${n}`;
 }
-function Se(o) {
+function Oe(o) {
   const r = o.fetch ?? globalThis.fetch;
   if (typeof r != "function")
     throw new Error(
@@ -42,16 +42,16 @@ function Se(o) {
     );
   const c = o.credentials ?? "include", a = {
     "X-Project-Slug": o.projectSlug,
-    [de]: String(1),
+    [ge]: String(1),
     ...o.headers
   };
   async function n(e, t = {}) {
     const s = P(o.apiUrl, e, t.query), l = { ...a, ...t.headers };
     let p;
     t.body !== void 0 && (p = JSON.stringify(t.body), l["Content-Type"] = "application/json");
-    const R = (t.method ?? (t.body !== void 0 ? "POST" : "GET")).toUpperCase();
-    if (R !== "GET" && R !== "HEAD" && !(b in l)) {
-      const i = ge();
+    const E = (t.method ?? (t.body !== void 0 ? "POST" : "GET")).toUpperCase();
+    if (E !== "GET" && E !== "HEAD" && !(b in l)) {
+      const i = he();
       i && (l[b] = i);
     }
     let y;
@@ -129,13 +129,13 @@ function Se(o) {
       signal: t.signal
     });
   }
-  async function N(e = {}) {
+  async function v(e = {}) {
     return (await n("/api/commerce/catalog/categories", {
       query: { locale: e.locale },
       signal: e.signal
     })).data;
   }
-  async function q(e, t = {}) {
+  async function N(e, t = {}) {
     return n(`/api/commerce/catalog/categories/${encodeURIComponent(e)}`, {
       query: g(t),
       signal: t.signal
@@ -144,7 +144,7 @@ function Se(o) {
   function u(e) {
     return e ? { locale: e } : void 0;
   }
-  async function v(e = {}) {
+  async function q(e = {}) {
     return n("/api/commerce/cart", { query: u(e.locale), signal: e.signal });
   }
   async function k(e, t = 1, s = {}) {
@@ -155,7 +155,7 @@ function Se(o) {
       signal: s.signal
     });
   }
-  async function A(e, t, s = {}) {
+  async function U(e, t, s = {}) {
     return n(`/api/commerce/cart/items/${encodeURIComponent(e)}`, {
       method: "PUT",
       body: { quantity: t },
@@ -163,7 +163,7 @@ function Se(o) {
       signal: s.signal
     });
   }
-  async function U(e, t = {}) {
+  async function A(e, t = {}) {
     return n(`/api/commerce/cart/items/${encodeURIComponent(e)}`, {
       method: "DELETE",
       query: u(t.locale),
@@ -350,6 +350,18 @@ function Se(o) {
       returnLocale: t.returnLocale
     });
   }
+  async function le(e = {}) {
+    return (await n("/api/commerce/payments/providers", {
+      signal: e.signal
+    })).providers ?? [];
+  }
+  async function me(e, t, s = {}) {
+    return n(`/api/commerce/orders/${encodeURIComponent(e)}/pay`, {
+      method: "POST",
+      body: { provider: t },
+      signal: s.signal
+    });
+  }
   return {
     contractVersion: 1,
     request: n,
@@ -357,12 +369,12 @@ function Se(o) {
     checkContract: h,
     listProducts: d,
     getProduct: T,
-    listCategories: N,
-    getCategory: q,
-    getCart: v,
+    listCategories: v,
+    getCategory: N,
+    getCart: q,
     addCartItem: k,
-    setCartItemQuantity: A,
-    removeCartItem: U,
+    setCartItemQuantity: U,
+    removeCartItem: A,
     clearCart: _,
     applyCoupon: L,
     removeCoupon: V,
@@ -391,10 +403,12 @@ function Se(o) {
     removeFromWishlist: ce,
     listMyOrders: ae,
     listOAuthProviders: ie,
-    oauthStartUrl: ue
+    oauthStartUrl: ue,
+    listPaymentProviders: le,
+    initiatePayment: me
   };
 }
-function Te(o) {
+function Ce(o) {
   if (!/^\d{11}$/.test(o)) return !1;
   let r = 10;
   for (let a = 0; a < 10; a++)
@@ -402,7 +416,7 @@ function Te(o) {
   return (11 - r) % 10 === Number(o[10]);
 }
 const w = "cms_wishlist";
-function E() {
+function R() {
   try {
     return typeof localStorage > "u" ? null : localStorage;
   } catch {
@@ -410,7 +424,7 @@ function E() {
   }
 }
 function I() {
-  const o = E();
+  const o = R();
   if (!o) return [];
   try {
     const r = o.getItem(w);
@@ -422,7 +436,7 @@ function I() {
   }
 }
 function $(o) {
-  const r = Array.from(new Set(o)), c = E();
+  const r = Array.from(new Set(o)), c = R();
   if (c)
     try {
       c.setItem(w, JSON.stringify(r));
@@ -430,15 +444,15 @@ function $(o) {
     }
   return r;
 }
-function Oe(o) {
+function we(o) {
   const r = I().filter((c) => c !== o);
   return $([o, ...r]);
 }
-function Ce(o) {
+function Re(o) {
   return $(I().filter((r) => r !== o));
 }
-function we() {
-  const o = E();
+function Ee() {
+  const o = R();
   if (o)
     try {
       o.removeItem(w);
@@ -446,15 +460,15 @@ function we() {
     }
 }
 export {
-  de as CONTRACT_VERSION_HEADER,
-  he as STOREFRONT_CONTRACT_VERSION,
-  pe as STOREFRONT_SDK_VERSION,
+  ge as CONTRACT_VERSION_HEADER,
+  Se as STOREFRONT_CONTRACT_VERSION,
+  Te as STOREFRONT_SDK_VERSION,
   C as StorefrontError,
-  Oe as addLocalWishlist,
-  we as clearLocalWishlist,
-  Se as createStorefrontClient,
+  we as addLocalWishlist,
+  Ee as clearLocalWishlist,
+  Oe as createStorefrontClient,
   I as getLocalWishlist,
-  Te as isValidOib,
-  Ce as removeLocalWishlist,
+  Ce as isValidOib,
+  Re as removeLocalWishlist,
   $ as setLocalWishlist
 };
