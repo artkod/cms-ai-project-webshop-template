@@ -1,7 +1,7 @@
-var de = Object.defineProperty;
-var fe = (o, r, c) => r in o ? de(o, r, { enumerable: !0, configurable: !0, writable: !0, value: c }) : o[r] = c;
-var S = (o, r, c) => fe(o, typeof r != "symbol" ? r + "" : r, c);
-const Se = 1, Te = "0.0.1";
+var fe = Object.defineProperty;
+var ge = (o, r, c) => r in o ? fe(o, r, { enumerable: !0, configurable: !0, writable: !0, value: c }) : o[r] = c;
+var S = (o, r, c) => ge(o, typeof r != "symbol" ? r + "" : r, c);
+const Te = 1, Oe = "0.0.1";
 class C extends Error {
   constructor(c, a) {
     super(c);
@@ -11,17 +11,17 @@ class C extends Error {
     this.name = "StorefrontError", this.status = a.status, this.code = a.code ?? null, this.body = a.body ?? null;
   }
 }
-const ge = "X-Commerce-Contract-Version", b = "X-CSRF-Token", ye = "cms_csrf";
-function he() {
+const ye = "X-Commerce-Contract-Version", P = "X-CSRF-Token", he = "cms_csrf";
+function pe() {
   if (typeof document > "u" || typeof document.cookie != "string") return null;
   for (const o of document.cookie.split(";")) {
     const r = o.indexOf("=");
-    if (r !== -1 && o.slice(0, r).trim() === ye)
+    if (r !== -1 && o.slice(0, r).trim() === he)
       return decodeURIComponent(o.slice(r + 1).trim());
   }
   return null;
 }
-function P(o, r, c) {
+function b(o, r, c) {
   const a = o.replace(/\/+$/, ""), n = r.startsWith("/") ? r : `/${r}`;
   if (!c) return `${a}${n}`;
   const f = new URLSearchParams();
@@ -34,7 +34,7 @@ function P(o, r, c) {
   const h = f.toString();
   return h ? `${a}${n}?${h}` : `${a}${n}`;
 }
-function Oe(o) {
+function Ce(o) {
   const r = o.fetch ?? globalThis.fetch;
   if (typeof r != "function")
     throw new Error(
@@ -42,17 +42,17 @@ function Oe(o) {
     );
   const c = o.credentials ?? "include", a = {
     "X-Project-Slug": o.projectSlug,
-    [ge]: String(1),
+    [ye]: String(1),
     ...o.headers
   };
   async function n(e, t = {}) {
-    const s = P(o.apiUrl, e, t.query), l = { ...a, ...t.headers };
+    const s = b(o.apiUrl, e, t.query), l = { ...a, ...t.headers };
     let p;
     t.body !== void 0 && (p = JSON.stringify(t.body), l["Content-Type"] = "application/json");
     const E = (t.method ?? (t.body !== void 0 ? "POST" : "GET")).toUpperCase();
-    if (E !== "GET" && E !== "HEAD" && !(b in l)) {
-      const i = he();
-      i && (l[b] = i);
+    if (E !== "GET" && E !== "HEAD" && !(P in l)) {
+      const i = pe();
+      i && (l[P] = i);
     }
     let y;
     try {
@@ -147,7 +147,7 @@ function Oe(o) {
   async function q(e = {}) {
     return n("/api/commerce/cart", { query: u(e.locale), signal: e.signal });
   }
-  async function k(e, t = 1, s = {}) {
+  async function U(e, t = 1, s = {}) {
     return n("/api/commerce/cart/items", {
       method: "POST",
       body: { variantId: e, quantity: t },
@@ -155,7 +155,7 @@ function Oe(o) {
       signal: s.signal
     });
   }
-  async function U(e, t, s = {}) {
+  async function k(e, t, s = {}) {
     return n(`/api/commerce/cart/items/${encodeURIComponent(e)}`, {
       method: "PUT",
       body: { quantity: t },
@@ -346,7 +346,7 @@ function Oe(o) {
     })).providers ?? [];
   }
   function ue(e, t = {}) {
-    return P(o.apiUrl, `/api/commerce/customers/oauth/${encodeURIComponent(e)}/start`, {
+    return b(o.apiUrl, `/api/commerce/customers/oauth/${encodeURIComponent(e)}/start`, {
       returnLocale: t.returnLocale
     });
   }
@@ -362,6 +362,12 @@ function Oe(o) {
       signal: s.signal
     });
   }
+  async function de(e, t = {}) {
+    return n(`/api/commerce/orders/${encodeURIComponent(e)}/payment/refresh`, {
+      method: "POST",
+      signal: t.signal
+    });
+  }
   return {
     contractVersion: 1,
     request: n,
@@ -372,8 +378,8 @@ function Oe(o) {
     listCategories: v,
     getCategory: N,
     getCart: q,
-    addCartItem: k,
-    setCartItemQuantity: U,
+    addCartItem: U,
+    setCartItemQuantity: k,
     removeCartItem: A,
     clearCart: _,
     applyCoupon: L,
@@ -405,10 +411,11 @@ function Oe(o) {
     listOAuthProviders: ie,
     oauthStartUrl: ue,
     listPaymentProviders: le,
-    initiatePayment: me
+    initiatePayment: me,
+    refreshOrderPayment: de
   };
 }
-function Ce(o) {
+function we(o) {
   if (!/^\d{11}$/.test(o)) return !1;
   let r = 10;
   for (let a = 0; a < 10; a++)
@@ -444,14 +451,14 @@ function $(o) {
     }
   return r;
 }
-function we(o) {
+function Re(o) {
   const r = I().filter((c) => c !== o);
   return $([o, ...r]);
 }
-function Re(o) {
+function Ee(o) {
   return $(I().filter((r) => r !== o));
 }
-function Ee() {
+function Pe() {
   const o = R();
   if (o)
     try {
@@ -460,15 +467,15 @@ function Ee() {
     }
 }
 export {
-  ge as CONTRACT_VERSION_HEADER,
-  Se as STOREFRONT_CONTRACT_VERSION,
-  Te as STOREFRONT_SDK_VERSION,
+  ye as CONTRACT_VERSION_HEADER,
+  Te as STOREFRONT_CONTRACT_VERSION,
+  Oe as STOREFRONT_SDK_VERSION,
   C as StorefrontError,
-  we as addLocalWishlist,
-  Ee as clearLocalWishlist,
-  Oe as createStorefrontClient,
+  Re as addLocalWishlist,
+  Pe as clearLocalWishlist,
+  Ce as createStorefrontClient,
   I as getLocalWishlist,
-  Ce as isValidOib,
-  Re as removeLocalWishlist,
+  we as isValidOib,
+  Ee as removeLocalWishlist,
   $ as setLocalWishlist
 };

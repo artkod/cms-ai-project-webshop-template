@@ -845,6 +845,14 @@ export declare interface StorefrontClient {
     initiatePayment(orderToken: string, provider: string, opts?: {
         signal?: AbortSignal;
     }): Promise<InitiatePaymentResult>;
+    /**
+     * Reconcile + return the order — the server pulls the gateway's payment status
+     * (the outbound fallback to the webhook). Poll this on the pending-order page so
+     * the status flips even without an inbound webhook tunnel. `POST …/orders/:token/payment/refresh`.
+     */
+    refreshOrderPayment(orderToken: string, opts?: {
+        signal?: AbortSignal;
+    }): Promise<Order>;
 }
 
 /** Configuration for {@link createStorefrontClient}. */

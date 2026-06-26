@@ -39,13 +39,6 @@ export function OrderPage() {
   const [confirming, setConfirming] = useState(false);
   const pollRef = useRef<number | null>(null);
 
-  const refetch = useCallback(async (): Promise<Order | null> => {
-    if (!token) return null;
-    const o = await storefront.getOrder(token);
-    setOrder(o);
-    return o;
-  }, [token]);
-
   // Initial load.
   useEffect(() => {
     if (!token) return;
@@ -66,7 +59,10 @@ export function OrderPage() {
     setConfirming(false);
   }, []);
 
-  // Poll the order until the webhook moves it off awaiting_payment (then stop).
+  // Poll until the payment settles, then stop. Each tick calls the REFRESH endpoint,
+  // which reconciles server-side (the server pulls Stripe's status) before returning
+  // the order — so the status flips even with no inbound webhook tunnel (local dev).
+  // In prod the webhook usually wins the race; this just confirms it.
   const startPolling = useCallback(() => {
     if (pollRef.current !== null) return;
     setConfirming(true);
@@ -74,7 +70,8 @@ export function OrderPage() {
     const tick = async () => {
       attempts += 1;
       try {
-        const o = await refetch();
+        const o = token ? await storefront.refreshOrderPayment(token) : null;
+        if (o) setOrder(o);
         if (o && o.status.paymentStatus !== "awaiting_payment") {
           stopPolling();
           return;
@@ -86,7 +83,7 @@ export function OrderPage() {
     };
     pollRef.current = window.setInterval(() => void tick(), 2500);
     void tick();
-  }, [refetch, stopPolling]);
+  }, [token, stopPolling]);
 
   // Returning from a 3DS redirect: Stripe appends `redirect_status` to the return
   // URL. If we came back successfully, go straight to polling for the webhook.
