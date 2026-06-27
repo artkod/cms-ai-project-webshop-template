@@ -37,8 +37,16 @@ function PayForm({ onConfirmed }: { onConfirmed: () => void }) {
       setSubmitting(false);
       return;
     }
-    // succeeded / processing — the webhook is the source of truth from here.
-    if (paymentIntent && (paymentIntent.status === "succeeded" || paymentIntent.status === "processing")) {
+    // Confirmed on Stripe's side — the order flips off the webhook/reconcile, not here:
+    //   • succeeded / processing → automatic capture (charged)
+    //   • requires_capture       → MANUAL capture (authorized, captured later at dispatch)
+    // All three mean "card confirmed, start polling for the server to catch up".
+    if (
+      paymentIntent &&
+      (paymentIntent.status === "succeeded" ||
+        paymentIntent.status === "processing" ||
+        paymentIntent.status === "requires_capture")
+    ) {
       onConfirmed();
       return;
     }
