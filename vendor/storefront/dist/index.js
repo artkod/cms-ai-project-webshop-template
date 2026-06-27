@@ -1,7 +1,7 @@
-var fe = Object.defineProperty;
-var ge = (o, r, c) => r in o ? fe(o, r, { enumerable: !0, configurable: !0, writable: !0, value: c }) : o[r] = c;
-var S = (o, r, c) => ge(o, typeof r != "symbol" ? r + "" : r, c);
-const Te = 1, Oe = "0.0.1";
+var ye = Object.defineProperty;
+var he = (o, r, c) => r in o ? ye(o, r, { enumerable: !0, configurable: !0, writable: !0, value: c }) : o[r] = c;
+var S = (o, r, c) => he(o, typeof r != "symbol" ? r + "" : r, c);
+const Ce = 1, Re = "0.0.1";
 class C extends Error {
   constructor(c, a) {
     super(c);
@@ -11,12 +11,12 @@ class C extends Error {
     this.name = "StorefrontError", this.status = a.status, this.code = a.code ?? null, this.body = a.body ?? null;
   }
 }
-const ye = "X-Commerce-Contract-Version", P = "X-CSRF-Token", he = "cms_csrf";
-function pe() {
+const pe = "X-Commerce-Contract-Version", P = "X-CSRF-Token", Se = "cms_csrf";
+function Te() {
   if (typeof document > "u" || typeof document.cookie != "string") return null;
   for (const o of document.cookie.split(";")) {
     const r = o.indexOf("=");
-    if (r !== -1 && o.slice(0, r).trim() === he)
+    if (r !== -1 && o.slice(0, r).trim() === Se)
       return decodeURIComponent(o.slice(r + 1).trim());
   }
   return null;
@@ -34,7 +34,7 @@ function b(o, r, c) {
   const h = f.toString();
   return h ? `${a}${n}?${h}` : `${a}${n}`;
 }
-function Ce(o) {
+function we(o) {
   const r = o.fetch ?? globalThis.fetch;
   if (typeof r != "function")
     throw new Error(
@@ -42,7 +42,7 @@ function Ce(o) {
     );
   const c = o.credentials ?? "include", a = {
     "X-Project-Slug": o.projectSlug,
-    [ye]: String(1),
+    [pe]: String(1),
     ...o.headers
   };
   async function n(e, t = {}) {
@@ -51,7 +51,7 @@ function Ce(o) {
     t.body !== void 0 && (p = JSON.stringify(t.body), l["Content-Type"] = "application/json");
     const E = (t.method ?? (t.body !== void 0 ? "POST" : "GET")).toUpperCase();
     if (E !== "GET" && E !== "HEAD" && !(P in l)) {
-      const i = pe();
+      const i = Te();
       i && (l[P] = i);
     }
     let y;
@@ -221,30 +221,42 @@ function Ce(o) {
       signal: t.signal
     });
   }
-  async function H(e = {}) {
+  async function H(e, t = {}) {
+    return n(`/api/commerce/orders/${encodeURIComponent(e)}/accept`, {
+      method: "POST",
+      signal: t.signal
+    });
+  }
+  async function Q(e, t = {}) {
+    return n(`/api/commerce/orders/${encodeURIComponent(e)}/decline`, {
+      method: "POST",
+      signal: t.signal
+    });
+  }
+  async function J(e = {}) {
     return (await n("/api/commerce/customers/csrf", { signal: e.signal })).token;
   }
-  async function J(e, t = {}) {
+  async function G(e, t = {}) {
     return (await n("/api/commerce/customers/register", {
       method: "POST",
       body: e,
       signal: t.signal
     })).customer;
   }
-  async function G(e, t = {}) {
+  async function K(e, t = {}) {
     return (await n("/api/commerce/customers/login", {
       method: "POST",
       body: e,
       signal: t.signal
     })).customer;
   }
-  async function K(e = {}) {
+  async function X(e = {}) {
     await n("/api/commerce/customers/logout", {
       method: "POST",
       signal: e.signal
     });
   }
-  async function Q(e = {}) {
+  async function M(e = {}) {
     try {
       return (await n("/api/commerce/customers/me", { signal: e.signal })).customer;
     } catch (t) {
@@ -252,117 +264,117 @@ function Ce(o) {
       throw t;
     }
   }
-  async function X(e, t = {}) {
+  async function Y(e, t = {}) {
     return n(
       `/api/commerce/customers/token/${encodeURIComponent(e)}`,
       { signal: t.signal }
     );
   }
-  async function M(e, t = {}) {
+  async function z(e, t = {}) {
     return n("/api/commerce/customers/verify-email", {
       method: "POST",
       body: { token: e },
       signal: t.signal
     });
   }
-  async function Y(e = {}) {
+  async function B(e = {}) {
     return n("/api/commerce/customers/resend-verification", {
       method: "POST",
       signal: e.signal
     });
   }
-  async function z(e, t = {}) {
+  async function Z(e, t = {}) {
     await n("/api/commerce/customers/forgot-password", {
       method: "POST",
       body: { email: e },
       signal: t.signal
     });
   }
-  async function B(e, t, s = {}) {
+  async function ee(e, t, s = {}) {
     return (await n("/api/commerce/customers/reset-password", {
       method: "POST",
       body: { token: e, password: t },
       signal: s.signal
     })).customer;
   }
-  async function Z(e, t, s = {}) {
+  async function te(e, t, s = {}) {
     await n("/api/commerce/customers/change-password", {
       method: "POST",
       body: { currentPassword: e, newPassword: t },
       signal: s.signal
     });
   }
-  async function ee(e = {}) {
+  async function ne(e = {}) {
     return (await n("/api/commerce/customers/addresses", {
       signal: e.signal
     })).addresses ?? [];
   }
-  async function te(e, t = {}) {
+  async function re(e, t = {}) {
     return (await n("/api/commerce/customers/addresses", {
       method: "POST",
       body: e,
       signal: t.signal
     })).address;
   }
-  async function ne(e, t, s = {}) {
+  async function oe(e, t, s = {}) {
     return (await n(
       `/api/commerce/customers/addresses/${encodeURIComponent(e)}`,
       { method: "PUT", body: t, signal: s.signal }
     )).address;
   }
-  async function re(e, t = {}) {
+  async function se(e, t = {}) {
     await n(`/api/commerce/customers/addresses/${encodeURIComponent(e)}`, {
       method: "DELETE",
       signal: t.signal
     });
   }
-  async function oe(e = {}) {
+  async function ce(e = {}) {
     return n("/api/commerce/customers/wishlist", {
       query: { locale: e.locale },
       signal: e.signal
     });
   }
-  async function se(e, t = {}) {
+  async function ae(e, t = {}) {
     return (await n("/api/commerce/customers/wishlist", {
       method: "POST",
       body: { productId: e },
       signal: t.signal
     })).productIds ?? [];
   }
-  async function ce(e, t = {}) {
+  async function ie(e, t = {}) {
     return (await n(
       `/api/commerce/customers/wishlist/${encodeURIComponent(e)}`,
       { method: "DELETE", signal: t.signal }
     )).productIds ?? [];
   }
-  async function ae(e = {}) {
+  async function ue(e = {}) {
     return (await n("/api/commerce/customers/orders", {
       signal: e.signal
     })).orders ?? [];
   }
-  async function ie(e = {}) {
+  async function le(e = {}) {
     return (await n("/api/commerce/customers/oauth/providers", {
       signal: e.signal
     })).providers ?? [];
   }
-  function ue(e, t = {}) {
+  function me(e, t = {}) {
     return b(o.apiUrl, `/api/commerce/customers/oauth/${encodeURIComponent(e)}/start`, {
       returnLocale: t.returnLocale
     });
   }
-  async function le(e = {}) {
+  async function de(e = {}) {
     return (await n("/api/commerce/payments/providers", {
       signal: e.signal
     })).providers ?? [];
   }
-  async function me(e, t, s = {}) {
+  async function fe(e, t, s = {}) {
     return n(`/api/commerce/orders/${encodeURIComponent(e)}/pay`, {
       method: "POST",
       body: { provider: t },
       signal: s.signal
     });
   }
-  async function de(e, t = {}) {
+  async function ge(e, t = {}) {
     return n(`/api/commerce/orders/${encodeURIComponent(e)}/payment/refresh`, {
       method: "POST",
       signal: t.signal
@@ -389,41 +401,43 @@ function Ce(o) {
     previewCheckout: D,
     startCheckout: x,
     getOrder: j,
-    getCsrfToken: H,
-    register: J,
-    login: G,
-    logout: K,
-    getCustomer: Q,
-    getTokenInfo: X,
-    verifyEmail: M,
-    resendVerification: Y,
-    forgotPassword: z,
-    resetPassword: B,
-    changePassword: Z,
-    listAddresses: ee,
-    createAddress: te,
-    updateAddress: ne,
-    deleteAddress: re,
-    getWishlist: oe,
-    addToWishlist: se,
-    removeFromWishlist: ce,
-    listMyOrders: ae,
-    listOAuthProviders: ie,
-    oauthStartUrl: ue,
-    listPaymentProviders: le,
-    initiatePayment: me,
-    refreshOrderPayment: de
+    acceptQuote: H,
+    declineQuote: Q,
+    getCsrfToken: J,
+    register: G,
+    login: K,
+    logout: X,
+    getCustomer: M,
+    getTokenInfo: Y,
+    verifyEmail: z,
+    resendVerification: B,
+    forgotPassword: Z,
+    resetPassword: ee,
+    changePassword: te,
+    listAddresses: ne,
+    createAddress: re,
+    updateAddress: oe,
+    deleteAddress: se,
+    getWishlist: ce,
+    addToWishlist: ae,
+    removeFromWishlist: ie,
+    listMyOrders: ue,
+    listOAuthProviders: le,
+    oauthStartUrl: me,
+    listPaymentProviders: de,
+    initiatePayment: fe,
+    refreshOrderPayment: ge
   };
 }
-function we(o) {
+function Ee(o) {
   if (!/^\d{11}$/.test(o)) return !1;
   let r = 10;
   for (let a = 0; a < 10; a++)
     r = (r + Number(o[a])) % 10, r === 0 && (r = 10), r = r * 2 % 11;
   return (11 - r) % 10 === Number(o[10]);
 }
-const w = "cms_wishlist";
-function R() {
+const R = "cms_wishlist";
+function w() {
   try {
     return typeof localStorage > "u" ? null : localStorage;
   } catch {
@@ -431,10 +445,10 @@ function R() {
   }
 }
 function I() {
-  const o = R();
+  const o = w();
   if (!o) return [];
   try {
-    const r = o.getItem(w);
+    const r = o.getItem(R);
     if (!r) return [];
     const c = JSON.parse(r);
     return Array.isArray(c) ? c.filter((a) => typeof a == "string") : [];
@@ -443,39 +457,39 @@ function I() {
   }
 }
 function $(o) {
-  const r = Array.from(new Set(o)), c = R();
+  const r = Array.from(new Set(o)), c = w();
   if (c)
     try {
-      c.setItem(w, JSON.stringify(r));
+      c.setItem(R, JSON.stringify(r));
     } catch {
     }
   return r;
 }
-function Re(o) {
+function Pe(o) {
   const r = I().filter((c) => c !== o);
   return $([o, ...r]);
 }
-function Ee(o) {
+function be(o) {
   return $(I().filter((r) => r !== o));
 }
-function Pe() {
-  const o = R();
+function Ie() {
+  const o = w();
   if (o)
     try {
-      o.removeItem(w);
+      o.removeItem(R);
     } catch {
     }
 }
 export {
-  ye as CONTRACT_VERSION_HEADER,
-  Te as STOREFRONT_CONTRACT_VERSION,
-  Oe as STOREFRONT_SDK_VERSION,
+  pe as CONTRACT_VERSION_HEADER,
+  Ce as STOREFRONT_CONTRACT_VERSION,
+  Re as STOREFRONT_SDK_VERSION,
   C as StorefrontError,
-  Re as addLocalWishlist,
-  Pe as clearLocalWishlist,
-  Ce as createStorefrontClient,
+  Pe as addLocalWishlist,
+  Ie as clearLocalWishlist,
+  we as createStorefrontClient,
   I as getLocalWishlist,
-  we as isValidOib,
-  Ee as removeLocalWishlist,
+  Ee as isValidOib,
+  be as removeLocalWishlist,
   $ as setLocalWishlist
 };

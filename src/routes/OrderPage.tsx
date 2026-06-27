@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router";
 import { Alert, Anchor, Badge, Button, Divider, Group, Loader, Paper, Stack, Text, Title } from "@mantine/core";
-import { CheckCircle2, CreditCard, FileText } from "lucide-react";
+import { CheckCircle2, CreditCard, FileText, Check, X } from "lucide-react";
 import { StorefrontError, type InitiatePaymentResult, type Order } from "@cms/storefront";
 import { storefront } from "@/lib/storefront";
 import { useLocaleConfig } from "@/lib/locale";
@@ -111,6 +111,36 @@ export function OrderPage() {
 
   useEffect(() => () => stopPolling(), [stopPolling]);
 
+  // Quote accept / decline (L7.5) — only while the quote is SENT to the customer.
+  const [quoteBusy, setQuoteBusy] = useState(false);
+  const [quoteError, setQuoteError] = useState<string | null>(null);
+  const acceptQuote = async () => {
+    if (!token) return;
+    setQuoteBusy(true);
+    setQuoteError(null);
+    try {
+      setOrder(await storefront.acceptQuote(token));
+    } catch (e) {
+      setQuoteError(e instanceof StorefrontError && e.code === "insufficient_stock"
+        ? "Some items are no longer in stock — we'll be in touch."
+        : "Couldn't accept the quote. Please try again.");
+    } finally {
+      setQuoteBusy(false);
+    }
+  };
+  const declineQuote = async () => {
+    if (!token) return;
+    setQuoteBusy(true);
+    setQuoteError(null);
+    try {
+      setOrder(await storefront.declineQuote(token));
+    } catch {
+      setQuoteError("Couldn't decline the quote. Please try again.");
+    } finally {
+      setQuoteBusy(false);
+    }
+  };
+
   const beginCardPayment = async () => {
     if (!token) return;
     setInitiating(true);
@@ -156,6 +186,36 @@ export function OrderPage() {
         <Badge color={order.isQuote ? "blue" : "yellow"} variant="light">{order.status.lifecycle}</Badge>
         <Badge color={isPaid ? "teal" : "gray"} variant="light">{order.status.paymentStatus}</Badge>
       </Group>
+
+      {/* Quote accept / decline (L7.5) — a SENT quote the customer can act on. On
+          accept the quote freezes prices + reserves stock and becomes payable (the
+          payment block below then appears); on decline it's cancelled. */}
+      {order.isQuote && order.quoteStatus === "sent" && (
+        <Paper withBorder p="md" radius="md">
+          <Group gap="xs" mb="sm">
+            <FileText size={18} />
+            <Title order={4}>Your quote is ready</Title>
+          </Group>
+          <Text fz="sm" mb="sm">
+            Review the items and total below
+            {order.validUntil ? <>, valid until <b>{new Date(order.validUntil).toLocaleDateString()}</b></> : null}.
+            Accept to confirm and proceed to payment, or decline if it no longer suits you.
+          </Text>
+          {quoteError && <Text fz="sm" c="red" mb="xs">{quoteError}</Text>}
+          <Group>
+            <Button leftSection={<Check size={16} />} onClick={() => void acceptQuote()} loading={quoteBusy}>
+              Accept quote
+            </Button>
+            <Button variant="light" color="red" leftSection={<X size={16} />} onClick={() => void declineQuote()} loading={quoteBusy}>
+              Decline
+            </Button>
+          </Group>
+        </Paper>
+      )}
+
+      {order.isQuote && order.quoteStatus === "declined" && (
+        <Alert color="gray">You declined this quote. <Anchor component={Link} to={`/${loc}/shop`}>Continue shopping</Anchor>.</Alert>
+      )}
 
       {/* Payment (L6.2 + L7.4 modes) — while awaiting_payment + not a quote. The UI
           branches on the order's resolved payment mode: card (Stripe) for pay_now,

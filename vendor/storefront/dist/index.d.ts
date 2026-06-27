@@ -429,6 +429,13 @@ export declare interface Order {
     locale: string;
     status: OrderStatus;
     isQuote: boolean;
+    /**
+     * Quote sub-state (L7.3/L7.5) — `draft | sent | accepted | declined | expired`,
+     * null on a normal order. A `sent` quote is the one a customer can accept/decline.
+     */
+    quoteStatus: string | null;
+    /** ISO offer-validity deadline for a quote (L7.3) — null on a normal order. */
+    validUntil: string | null;
     currency: "EUR";
     shippingAddress: OrderAddress | null;
     billingAddress: OrderAddress | null;
@@ -780,6 +787,18 @@ export declare interface StorefrontClient {
     }): Promise<Order>;
     /** Fetch an order by its public token (the pending-order page). `GET /api/commerce/orders/:token`. */
     getOrder(token: string, opts?: {
+        signal?: AbortSignal;
+    }): Promise<Order>;
+    /**
+     * Accept a SENT quote (keyed by the order token, like {@link getOrder}). Reserves
+     * stock + freezes prices + flips the quote to a payable order (then pay via
+     * {@link initiatePayment}). 409 `not_acceptable` if the quote isn't in `sent`.
+     */
+    acceptQuote(token: string, opts?: {
+        signal?: AbortSignal;
+    }): Promise<Order>;
+    /** Decline a SENT quote (keyed by the order token). 409 `not_declinable` otherwise. */
+    declineQuote(token: string, opts?: {
         signal?: AbortSignal;
     }): Promise<Order>;
     /** Fetch a CSRF token (double-submit cookie). Call on boot or before mutations. */
