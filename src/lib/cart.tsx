@@ -20,12 +20,14 @@ interface CartValue {
   loading: boolean;
   itemCount: number;
   shippingOptions: ShippingOptions | null;
-  add: (variantId: string, quantity?: number) => Promise<void>;
-  setQuantity: (variantId: string, quantity: number) => Promise<void>;
-  remove: (variantId: string) => Promise<void>;
-  clear: () => Promise<void>;
+  // The cart mutators return whether the change succeeded (false on a structured
+  // error, which already showed its own toast) — callers can skip a success toast.
+  add: (variantId: string, quantity?: number) => Promise<boolean>;
+  setQuantity: (variantId: string, quantity: number) => Promise<boolean>;
+  remove: (variantId: string) => Promise<boolean>;
+  clear: () => Promise<boolean>;
   applyCoupon: (code: string) => Promise<boolean>;
-  removeCoupon: () => Promise<void>;
+  removeCoupon: () => Promise<boolean>;
   loadShipping: (country?: string) => Promise<void>;
   setShipping: (input: SetShippingInput) => Promise<void>;
   refresh: () => Promise<void>;
@@ -94,12 +96,17 @@ export function CartProvider({ children }: { children: ReactNode }) {
     return () => window.removeEventListener("focus", onFocus);
   }, [refresh]);
 
+  // Runs a cart mutation, applies the new cart, and reports success. On a structured
+  // error it shows the friendly toast and returns false — so callers don't fire a
+  // "success" toast on top of the error (the add-to-cart double-toast).
   const guard = useCallback(
-    async (fn: () => Promise<Cart>) => {
+    async (fn: () => Promise<Cart>): Promise<boolean> => {
       try {
         apply(await fn());
+        return true;
       } catch (e) {
         notifications.show({ color: "red", message: cartErrorMessage(e as StorefrontError) });
+        return false;
       }
     },
     [apply],

@@ -108,9 +108,11 @@ export function ProductPage({ product: productProp }: { product?: CatalogProduct
   const onAdd = async () => {
     if (!variant) return;
     setAdding(true);
-    await add(variant.id, qty);
+    const ok = await add(variant.id, qty);
     setAdding(false);
-    notifications.show({ color: "teal", message: `Added ${qty} × ${product.name} to cart.` });
+    // Only confirm on success — on an out-of-stock/unavailable error the cart already
+    // showed the error toast (no double toast).
+    if (ok) notifications.show({ color: "teal", message: `Added ${qty} × ${product.name} to cart.` });
   };
 
   // Breadcrumb from the primary category's slug chain (canonical links).
