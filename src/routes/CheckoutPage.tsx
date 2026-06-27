@@ -59,7 +59,7 @@ export function CheckoutPage() {
   const { defaultLocale } = useLocaleConfig();
   const loc = locale ?? defaultLocale;
   const navigate = useNavigate();
-  const { cart, setShipping, refresh } = useCart();
+  const { cart, setShipping, refresh, shippingOptions, loadShipping } = useCart();
   const { customer } = useCustomer();
 
   const [preview, setPreview] = useState<CheckoutPreview | null>(null);
@@ -92,10 +92,35 @@ export function CheckoutPage() {
     }
   }, [loc]);
 
-  // Re-preview whenever the cart changes (contents / destination / coupon).
+  // Re-preview whenever the cart changes (contents / destination / coupon / method).
   useEffect(() => {
     void reloadPreview();
-  }, [reloadPreview, cart?.id, cart?.itemCount, cart?.shipping.country, cart?.coupon?.discountId]);
+  }, [reloadPreview, cart?.id, cart?.itemCount, cart?.shipping.country, cart?.shipping.method?.id, cart?.coupon?.discountId]);
+
+  // Load the delivery options for the cart's destination (the full picker lives on
+  // the cart page; checkout needs them to auto-select + require a method).
+  useEffect(() => {
+    if (cart && cart.itemCount > 0) void loadShipping(cart.shipping.country);
+  }, [cart?.itemCount, cart?.shipping.country, loadShipping]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // A delivery method is REQUIRED to check out. If none is chosen yet, auto-select the
+  // first non-pickup-point method (pickup/locker methods need a point picked on the
+  // cart page, so they're never auto-selected). The ref guards against a double-fire
+  // while the async setShipping settles.
+  const autoPickedRef = useRef(false);
+  useEffect(() => {
+    if (!preview || preview.isQuote || preview.cart.items.length === 0) return;
+    if (preview.cart.shipping.method) {
+      autoPickedRef.current = false;
+      return;
+    }
+    if (autoPickedRef.current) return;
+    const first = shippingOptions?.methods.find((m) => !m.requiresPickupPoint);
+    if (first) {
+      autoPickedRef.current = true;
+      void setShipping({ methodId: first.methodId });
+    }
+  }, [preview, shippingOptions, setShipping]);
 
   // Keep the chosen payment method valid: when the offered set changes, fall back to
   // the preview's default if the current pick is no longer offered.
@@ -197,7 +222,12 @@ export function CheckoutPage() {
   const noPayableMethod = !!preview && !isQuote && !empty && offeredMethods.length === 0;
   const addressValid = !!form.name.trim() && !!form.line1.trim() && !!form.city.trim() && !!form.postalCode.trim() && /.+@.+\..+/.test(form.email);
   const paymentValid = isQuote || (!!paymentMethod && offeredMethods.includes(paymentMethod));
-  const canPlace = addressValid && paymentValid && !empty;
+  // A delivery method is mandatory for a payable order (auto-selected above when one
+  // exists; this still blocks a zone where only a pickup-point method is offered until
+  // the shopper picks it + a point on the cart page).
+  const hasShipping = !!preview?.cart.shipping.method;
+  const needsShipping = !isQuote && !empty && !hasShipping;
+  const canPlace = addressValid && paymentValid && !empty && (isQuote || hasShipping);
 
   const place = async () => {
     setPlacing(true);
@@ -351,11 +381,17 @@ export function CheckoutPage() {
                 chosen shipping method doesn't support it. Pick a courier delivery method on the cart page.
               </Alert>
             )}
+            {needsShipping && !noPayableMethod && (
+              <Alert color="orange" icon={<Info size={16} />}>
+                Choose a delivery method to continue.{" "}
+                <Anchor component={Link} to={`/${loc}/cart`}>Select one on the cart page</Anchor>.
+              </Alert>
+            )}
 
             <Button mt="sm" size="md" onClick={place} loading={placing} disabled={!canPlace}>
               {isQuote ? "Request quote" : "Place order"}
             </Button>
-            {!canPlace && !noPayableMethod && <Text c="dimmed" fz="xs">Fill in your email + shipping address to continue.</Text>}
+            {!canPlace && !noPayableMethod && !needsShipping && <Text c="dimmed" fz="xs">Fill in your email + shipping address to continue.</Text>}
           </Stack>
         </Paper>
       </Group>
