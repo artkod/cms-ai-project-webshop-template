@@ -112,7 +112,7 @@ export function ProductPage({ product: productProp }: { product?: CatalogProduct
     setAdding(false);
     // Only confirm on success — on an out-of-stock/unavailable error the cart already
     // showed the error toast (no double toast).
-    if (ok) notifications.show({ color: "teal", message: `Added ${qty} × ${product.name} to cart.` });
+    if (ok) notifications.show({ color: "teal", message: `Added ${qty} × ${product.name} to ${product.purchasable ? "cart" : "inquiry"}.` });
   };
 
   // Breadcrumb from the primary category's slug chain (canonical links).
@@ -180,17 +180,26 @@ export function ProductPage({ product: productProp }: { product?: CatalogProduct
 
           {variant ? (
             <>
-              <Group gap="sm" align="baseline">
-                <Text fz="xl" fw={700}>
-                  {formatCents(variant.effectivePrice)}
-                </Text>
-                {variant.onSale && variant.compareAt && (
-                  <Text c="dimmed" td="line-through">
-                    {formatCents(variant.compareAt)}
+              {/* Inquiry-only products hide the price ("on request") — they're sold
+                  via a quote, not direct checkout (L7.4). */}
+              {product.purchasable ? (
+                <Group gap="sm" align="baseline">
+                  <Text fz="xl" fw={700}>
+                    {formatCents(variant.effectivePrice)}
                   </Text>
-                )}
-                {variant.onSale && <Badge color="red">Sale</Badge>}
-              </Group>
+                  {variant.onSale && variant.compareAt && (
+                    <Text c="dimmed" td="line-through">
+                      {formatCents(variant.compareAt)}
+                    </Text>
+                  )}
+                  {variant.onSale && <Badge color="red">Sale</Badge>}
+                </Group>
+              ) : (
+                <Group gap="sm" align="center">
+                  <Text fz="xl" fw={700} c="dimmed">Price on request</Text>
+                  <Badge color="blue" variant="light">Inquiry only</Badge>
+                </Group>
+              )}
               <Group gap="xs">
                 {variant.inStock ? (
                   <Badge color="teal" variant="light">
@@ -221,7 +230,7 @@ export function ProductPage({ product: productProp }: { product?: CatalogProduct
                   w={110}
                 />
                 <Button onClick={onAdd} loading={adding} disabled={!variant.sellable}>
-                  Add to cart
+                  {product.purchasable ? "Add to cart" : "Add to inquiry"}
                 </Button>
                 <WishlistButton productId={product.id} mode="button" />
               </Group>

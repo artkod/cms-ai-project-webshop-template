@@ -51,11 +51,21 @@ export function ProductGrid({
             </Text>
             <Group gap="xs" align="baseline">
               {/* Show only the current price — no struck-through "was" price and no
-                  price-range max (user preference, L5.5). */}
-              <Text fw={700}>{formatCents(p.price)}</Text>
+                  price-range max (user preference, L5.5). Inquiry-only products hide
+                  the price ("on request") — they're sold via a quote, not checkout (L7.4). */}
+              {p.purchasable ? (
+                <Text fw={700}>{formatCents(p.price)}</Text>
+              ) : (
+                <Text fw={600} c="dimmed">Price on request</Text>
+              )}
             </Group>
             <Group gap="xs">
-              {p.onSale && (
+              {!p.purchasable && (
+                <Badge color="blue" variant="light" size="sm">
+                  Inquiry only
+                </Badge>
+              )}
+              {p.purchasable && p.onSale && (
                 <Badge color="red" size="sm">
                   Sale
                 </Badge>

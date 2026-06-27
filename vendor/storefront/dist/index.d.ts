@@ -41,6 +41,8 @@ export declare interface CartLine {
     slug: string | null;
     image: CatalogImage | null;
     taxClass: string;
+    /** false = inquiry-only — routes the whole cart to a quote (no payment/delivery); the storefront hides the line price (L7.4). */
+    purchasable: boolean;
     quantity: number;
     unitPrice: number;
     regularPrice: number;
@@ -167,6 +169,8 @@ export declare interface CatalogProduct {
     id: string;
     type: string;
     status: string;
+    /** false = inquiry-only — price on request, no direct purchase (L7.4). */
+    purchasable: boolean;
     locale: string;
     name: string;
     slug: string;
@@ -530,6 +534,8 @@ export declare interface ProductCard {
     name: string;
     shortDescription: string | null;
     image: CatalogImage | null;
+    /** false = inquiry-only — the storefront hides the price ("on request") + offers a "send an inquiry" path instead of buy/checkout (L7.4). */
+    purchasable: boolean;
     currency: "EUR";
     /** Min effective B2C GROSS price (VAT-inclusive) across variants (EUR cents) — the "from" price. */
     price: number;

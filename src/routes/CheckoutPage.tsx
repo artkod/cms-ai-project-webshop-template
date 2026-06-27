@@ -216,6 +216,8 @@ export function CheckoutPage() {
   const totals = preview?.cart.totals;
   const isQuote = preview?.isQuote ?? false;
   const empty = !preview || preview.cart.items.length === 0;
+  // A mixed inquiry cart also has buyable items (which must be removed to pay for them).
+  const mixed = isQuote && !!preview && preview.cart.items.some((l) => l.purchasable);
   const offeredMethods = preview?.paymentMethods ?? [];
   // A payable cart with no offered method (e.g. a COD-only product without a COD-eligible
   // shipping method) can't be placed until the shopper changes shipping.
@@ -265,12 +267,18 @@ export function CheckoutPage() {
 
   return (
     <Stack gap="lg">
-      <Title order={1}>{isQuote ? "Request a quote" : "Checkout"}</Title>
+      <Title order={1}>{isQuote ? "Send an inquiry" : "Checkout"}</Title>
 
       {isQuote && (
         <Alert color="blue" icon={<Info size={16} />}>
-          Your cart contains an inquiry-only item, so this is a <b>quote request</b>. No payment is taken now —
-          we'll prepare a quote and follow up by email.
+          {mixed ? (
+            <>Your cart contains inquiry-only items, so the whole order is a <b>quote request</b> — no payment or
+            delivery is calculated. To pay for the other items now, go back to your cart and remove the
+            inquiry-only items.</>
+          ) : (
+            <>These items are inquiry-only, so this is a <b>quote request</b>. No payment is taken now — we'll
+            prepare a quote and follow up by email.</>
+          )}
         </Alert>
       )}
 
@@ -321,11 +329,18 @@ export function CheckoutPage() {
             {preview!.cart.items.map((line) => (
               <Group key={line.variantId} justify="space-between" wrap="nowrap" gap="xs">
                 <Text fz="sm" lineClamp={1}>{line.quantity} × {line.name || line.sku || line.variantId}</Text>
-                <Text fz="sm">{formatCents(line.lineTotal)}</Text>
+                {line.purchasable ? (
+                  <Text fz="sm">{formatCents(line.lineTotal)}</Text>
+                ) : (
+                  <Text fz="sm" c="dimmed">On request</Text>
+                )}
               </Group>
             ))}
             <Divider my="xs" />
-            {totals && (
+            {isQuote && (
+              <Text c="dimmed" fz="xs">No total is calculated for a quote — we'll send you a priced offer.</Text>
+            )}
+            {!isQuote && totals && (
               <>
                 <Row label="Subtotal" value={formatCents(totals.itemsSubtotal)} />
                 {totals.discountTotal > 0 && <Row label="Discount" value={`−${formatCents(totals.discountTotal)}`} accent />}
@@ -389,7 +404,7 @@ export function CheckoutPage() {
             )}
 
             <Button mt="sm" size="md" onClick={place} loading={placing} disabled={!canPlace}>
-              {isQuote ? "Request quote" : "Place order"}
+              {isQuote ? "Send an inquiry" : "Place order"}
             </Button>
             {!canPlace && !noPayableMethod && !needsShipping && <Text c="dimmed" fz="xs">Fill in your email + shipping address to continue.</Text>}
           </Stack>

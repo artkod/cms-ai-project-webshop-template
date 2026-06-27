@@ -35,6 +35,7 @@ function detailToCard(p: CatalogProduct): ProductCard {
     name: p.name,
     shortDescription: p.shortDescription,
     image: p.gallery[0] ?? null,
+    purchasable: p.purchasable,
     currency: "EUR",
     price: prices.length ? Math.min(...prices) : 0,
     priceMax: prices.length ? Math.max(...prices) : 0,

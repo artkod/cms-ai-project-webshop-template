@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
-import { ActionIcon, Anchor, Badge, Box, Button, Divider, Group, Image, Loader, Paper, Radio, Select, Stack, Text, TextInput, Title } from "@mantine/core";
-import { Minus, Plus, Trash2, X } from "lucide-react";
+import { ActionIcon, Alert, Anchor, Badge, Box, Button, Divider, Group, Image, Loader, Paper, Radio, Select, Stack, Text, TextInput, Title } from "@mantine/core";
+import { Info, Minus, Plus, Trash2, X } from "lucide-react";
 import type { ShippingRate } from "@cms/storefront";
 import { useCart } from "@/lib/cart";
 import { useLocaleConfig } from "@/lib/locale";
@@ -34,11 +34,18 @@ export function CartPage() {
   const [pickupName, setPickupName] = useState("");
 
   const empty = !cart || cart.items.length === 0;
+  // Inquiry routing (design §9 / L7.4): any inquiry-only line makes the WHOLE cart a
+  // quote request — no payment, no delivery, no cost calculation. `mixed` = it also
+  // has buyable items (which must be removed to check out + pay for them).
+  const isInquiry = !!cart && cart.items.some((l) => !l.purchasable);
+  const hasPurchasable = !!cart && cart.items.some((l) => l.purchasable);
+  const mixed = isInquiry && hasPurchasable;
 
-  // Load shipping options whenever the cart gains contents / its destination changes.
+  // Load shipping options whenever the cart gains contents / its destination changes —
+  // skipped for an inquiry cart (no delivery is offered for a quote).
   useEffect(() => {
-    if (!empty) void loadShipping(cart?.shipping.country);
-  }, [empty, cart?.shipping.country, loadShipping]);
+    if (!empty && !isInquiry) void loadShipping(cart?.shipping.country);
+  }, [empty, isInquiry, cart?.shipping.country, loadShipping]);
 
   if (loading && !cart) return <Loader />;
 
@@ -100,8 +107,14 @@ export function CartPage() {
                       </ActionIcon>
                     </Group>
                     <Group gap="xs" align="baseline">
-                      <Text fz="sm">{formatCents(line.unitPrice)}</Text>
-                      {line.onSale && <Text fz="xs" c="dimmed" td="line-through">{formatCents(line.regularPrice)}</Text>}
+                      {line.purchasable ? (
+                        <>
+                          <Text fz="sm">{formatCents(line.unitPrice)}</Text>
+                          {line.onSale && <Text fz="xs" c="dimmed" td="line-through">{formatCents(line.regularPrice)}</Text>}
+                        </>
+                      ) : (
+                        <Badge color="blue" variant="light" size="sm">Inquiry — price on request</Badge>
+                      )}
                     </Group>
                     <Group justify="space-between">
                       <Group gap={4}>
@@ -121,7 +134,11 @@ export function CartPage() {
                           <Text c="dimmed" fz="xs" ml={6}>max {line.maxQuantity}</Text>
                         )}
                       </Group>
-                      <Text fw={600}>{formatCents(line.lineTotal)}</Text>
+                      {line.purchasable ? (
+                        <Text fw={600}>{formatCents(line.lineTotal)}</Text>
+                      ) : (
+                        <Text fw={600} fz="sm" c="dimmed">On request</Text>
+                      )}
                     </Group>
                   </Stack>
                 </Group>
@@ -142,6 +159,19 @@ export function CartPage() {
                 {cart?.b2b && <Badge variant="light" color="grape" size="sm">Business pricing</Badge>}
               </Group>
 
+              {isInquiry ? (
+                <>
+                  <Alert color="blue" icon={<Info size={16} />}>
+                    {mixed
+                      ? "Your cart contains inquiry-only items, so the whole order becomes a quote request — no payment or delivery is calculated here. To buy the other items now, remove the inquiry-only items from your cart."
+                      : "These items are inquiry-only — we'll prepare a quote and follow up by email. No payment or delivery is calculated here."}
+                  </Alert>
+                  <Button component={Link} to={`/${loc}/checkout`} mt="xs" size="md" fullWidth>
+                    Send an inquiry
+                  </Button>
+                </>
+              ) : (
+                <>
               {/* Coupon */}
               {cart!.coupon ? (
                 <Group justify="space-between">
@@ -249,6 +279,8 @@ export function CartPage() {
                   <Button component={Link} to={`/${loc}/checkout`} mt="xs" size="md" fullWidth>
                     Proceed to checkout
                   </Button>
+                </>
+              )}
                 </>
               )}
             </Stack>
