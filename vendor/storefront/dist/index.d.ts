@@ -495,6 +495,10 @@ export declare interface OrderItem {
 export declare interface OrderReturnsResult {
     eligibility: ReturnEligibility | null;
     returns: ReturnRequest[];
+    /** Whether the shop offers web returns at all (L7.6). False → show "email us". */
+    returnsEnabled: boolean;
+    /** The shop's returns contact address, shown when web returns are off. Null if unset. */
+    returnsEmail: string | null;
 }
 
 export declare interface OrderStatus {

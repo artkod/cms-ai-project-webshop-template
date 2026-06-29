@@ -341,8 +341,13 @@ export function OrderPage() {
       )}
 
       {/* Returns / RMA (L7.6) — only for a delivered order. Shows existing requests
-          and, while inside the return window, a form to request a new return. */}
-      {token && returns && (returns.returns.length > 0 || returns.eligibility?.eligible) && (
+          and, while inside the return window, a form to request a new return. When
+          the shop has web returns turned off, it shows the email-us message instead. */}
+      {token && returns && (
+        returns.returns.length > 0 ||
+        (returns.eligibility?.eligible && returns.returnsEnabled) ||
+        (returns.eligibility?.eligible && !returns.returnsEnabled && returns.returnsEmail)
+      ) && (
         <ReturnsCard token={token} data={returns} onChange={(d) => setReturns(d)} />
       )}
 
@@ -372,6 +377,7 @@ function ReturnsCard({
   onChange: (d: OrderReturnsResult) => void;
 }) {
   const eligible = data.eligibility?.eligible ?? false;
+  const returnsOff = !data.returnsEnabled;
   const lines = (data.eligibility?.lines ?? []).filter((l) => l.returnable > 0);
   const [qty, setQty] = useState<Record<string, number>>({});
   const [reason, setReason] = useState("");
@@ -429,8 +435,16 @@ function ReturnsCard({
         </Stack>
       )}
 
+      {/* Web returns turned off → point the shopper at the returns email instead. */}
+      {returnsOff && eligible && data.returnsEmail && (
+        <Text fz="sm" c="dimmed">
+          To request a return, please email us at{" "}
+          <Anchor href={`mailto:${data.returnsEmail}`}>{data.returnsEmail}</Anchor>.
+        </Text>
+      )}
+
       {/* New return request (within window) */}
-      {eligible && lines.length > 0 && (
+      {!returnsOff && eligible && lines.length > 0 && (
         !open ? (
           <Button variant="light" leftSection={<RotateCcw size={16} />} onClick={() => setOpen(true)}>
             Request a return
