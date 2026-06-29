@@ -491,6 +491,12 @@ export declare interface OrderItem {
     position: number;
 }
 
+/** `GET /api/commerce/orders/:token/returns` — the storefront returns view. */
+export declare interface OrderReturnsResult {
+    eligibility: ReturnEligibility | null;
+    returns: ReturnRequest[];
+}
+
 export declare interface OrderStatus {
     /** draft | awaiting_payment | authorized | paid | partially_refunded | refunded | voided */
     paymentStatus: string;
@@ -610,10 +616,77 @@ export declare interface RegisterInput {
 /** Remove a product from the guest wishlist (idempotent). Returns the new set. */
 export declare function removeLocalWishlist(productId: string): string[];
 
+/** Body for `POST /api/commerce/orders/:token/return`. */
+export declare interface RequestReturnInput {
+    /** `quantity` omitted → the whole remaining returnable quantity of the line. */
+    lines: {
+        orderItemId: string;
+        quantity?: number;
+    }[];
+    reason?: string;
+}
+
 /** Result of `POST /resend-verification`. */
 export declare interface ResendVerificationResult {
     ok: boolean;
     alreadyVerified?: boolean;
+}
+
+/** A line of a delivered order that can still be returned. */
+export declare interface ReturnableLine {
+    orderItemId: string;
+    variantId: string | null;
+    name: string;
+    sku: string | null;
+    ordered: number;
+    alreadyReturned: number;
+    /** ordered − alreadyReturned. */
+    returnable: number;
+    /** Line total snapshot (cents). */
+    gross: number;
+}
+
+/**
+ * Whether an order can be returned right now (delivered + inside the window + lines
+ * still returnable), with the per-line returnable quantities for building the form.
+ */
+export declare interface ReturnEligibility {
+    eligible: boolean;
+    /** When ineligible: not_delivered | window_closed | nothing_returnable. */
+    reason: string | null;
+    deliveredAt: string | null;
+    windowDays: number;
+    /** ISO deadline (deliveredAt + windowDays) — null when never delivered. */
+    windowEndsAt: string | null;
+    lines: ReturnableLine[];
+}
+
+/** A customer return request. `status`: requested → approved | rejected. */
+export declare interface ReturnRequest {
+    id: string;
+    orderId: string;
+    status: string;
+    reason: string | null;
+    adminNote: string | null;
+    restock: boolean;
+    /** Cents actually refunded (null until approved). */
+    refundAmount: number | null;
+    /** `refunded` (a captured payment was returned) | `no_payment` (COD/unpaid). */
+    refundOutcome: string | null;
+    requestedAt: string;
+    resolvedAt: string | null;
+    resolvedBy: string | null;
+    items: ReturnRequestItem[];
+}
+
+/** One line of a return request. */
+export declare interface ReturnRequestItem {
+    id: string;
+    orderItemId: string;
+    variantId: string | null;
+    name: string;
+    sku: string | null;
+    quantity: number;
 }
 
 export declare interface SearchFacets {
@@ -807,6 +880,18 @@ export declare interface StorefrontClient {
     declineQuote(token: string, opts?: {
         signal?: AbortSignal;
     }): Promise<Order>;
+    /** Return eligibility + existing returns for an order. `GET …/orders/:token/returns`. */
+    getReturns(token: string, opts?: {
+        signal?: AbortSignal;
+    }): Promise<OrderReturnsResult>;
+    /**
+     * Request a return for some of a delivered order's lines (keyed by the order
+     * token). 409 `return_not_eligible` (with a `reason`) when out of window / not
+     * delivered, or `return_quantity_invalid` for an over-return.
+     */
+    requestReturn(token: string, input: RequestReturnInput, opts?: {
+        signal?: AbortSignal;
+    }): Promise<ReturnRequest>;
     /** Fetch a CSRF token (double-submit cookie). Call on boot or before mutations. */
     getCsrfToken(opts?: {
         signal?: AbortSignal;

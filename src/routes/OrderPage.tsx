@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router";
-import { Alert, Anchor, Badge, Button, Divider, Group, Loader, Paper, Stack, Text, Title } from "@mantine/core";
-import { CheckCircle2, CreditCard, FileText, Check, X } from "lucide-react";
-import { StorefrontError, type InitiatePaymentResult, type Order } from "@cms/storefront";
+import { Alert, Anchor, Badge, Button, Divider, Group, Loader, NumberInput, Paper, Stack, Text, Textarea, Title } from "@mantine/core";
+import { CheckCircle2, CreditCard, FileText, Check, X, RotateCcw } from "lucide-react";
+import { StorefrontError, type InitiatePaymentResult, type Order, type OrderReturnsResult } from "@cms/storefront";
 import { storefront } from "@/lib/storefront";
 import { useLocaleConfig } from "@/lib/locale";
 import { formatCents } from "@/lib/money";
@@ -31,6 +31,13 @@ export function OrderPage() {
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
 
+  // Returns / RMA (L7.6) — eligibility + existing requests, fetched once the order loads.
+  const [returns, setReturns] = useState<OrderReturnsResult | null>(null);
+  const refreshReturns = useCallback(() => {
+    if (!token) return;
+    storefront.getReturns(token).then(setReturns).catch(() => {});
+  }, [token]);
+
   // Payment (L6.2) — only meaningful while awaiting_payment + not a quote.
   const [hasCardProvider, setHasCardProvider] = useState(false);
   // Manual capture (L6.4): confirming only AUTHORIZES a hold; the charge happens later
@@ -52,7 +59,8 @@ export function OrderPage() {
         if (e instanceof StorefrontError && e.status === 404) setNotFound(true);
       })
       .finally(() => setLoading(false));
-  }, [token]);
+    refreshReturns();
+  }, [token, refreshReturns]);
 
   const stopPolling = useCallback(() => {
     if (pollRef.current !== null) {
@@ -332,8 +340,132 @@ export function OrderPage() {
         </Paper>
       )}
 
+      {/* Returns / RMA (L7.6) — only for a delivered order. Shows existing requests
+          and, while inside the return window, a form to request a new return. */}
+      {token && returns && (returns.returns.length > 0 || returns.eligibility?.eligible) && (
+        <ReturnsCard token={token} data={returns} onChange={(d) => setReturns(d)} />
+      )}
+
       <Anchor component={Link} to={`/${loc}/shop`}>← Continue shopping</Anchor>
     </Stack>
+  );
+}
+
+const RETURN_STATUS_LABEL: Record<string, string> = {
+  requested: "Requested",
+  approved: "Approved",
+  rejected: "Rejected",
+};
+const RETURN_STATUS_COLOR: Record<string, string> = {
+  requested: "yellow",
+  approved: "teal",
+  rejected: "gray",
+};
+
+function ReturnsCard({
+  token,
+  data,
+  onChange,
+}: {
+  token: string;
+  data: OrderReturnsResult;
+  onChange: (d: OrderReturnsResult) => void;
+}) {
+  const eligible = data.eligibility?.eligible ?? false;
+  const lines = (data.eligibility?.lines ?? []).filter((l) => l.returnable > 0);
+  const [qty, setQty] = useState<Record<string, number>>({});
+  const [reason, setReason] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [open, setOpen] = useState(false);
+
+  const submit = async () => {
+    const picked = Object.entries(qty)
+      .filter(([, q]) => q > 0)
+      .map(([orderItemId, quantity]) => ({ orderItemId, quantity }));
+    if (picked.length === 0) {
+      setError("Select at least one item to return.");
+      return;
+    }
+    setBusy(true);
+    setError(null);
+    try {
+      await storefront.requestReturn(token, { lines: picked, reason: reason || undefined });
+      setQty({});
+      setReason("");
+      setOpen(false);
+      onChange(await storefront.getReturns(token));
+    } catch (e) {
+      setError(
+        e instanceof StorefrontError && e.code === "return_not_eligible"
+          ? "This order is no longer eligible for a return."
+          : "Couldn't submit the return. Please try again.",
+      );
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  return (
+    <Paper withBorder p="md" radius="md">
+      <Group gap="xs" mb="sm">
+        <RotateCcw size={18} />
+        <Title order={4}>Returns</Title>
+      </Group>
+
+      {/* Existing return requests */}
+      {data.returns.length > 0 && (
+        <Stack gap="xs" mb={eligible ? "md" : 0}>
+          {data.returns.map((r) => (
+            <Group key={r.id} justify="space-between" wrap="nowrap">
+              <Text fz="sm">
+                {r.items.map((it) => `${it.quantity} × ${it.name}`).join(", ")}
+              </Text>
+              <Badge color={RETURN_STATUS_COLOR[r.status] ?? "gray"} variant="light">
+                {RETURN_STATUS_LABEL[r.status] ?? r.status}
+              </Badge>
+            </Group>
+          ))}
+        </Stack>
+      )}
+
+      {/* New return request (within window) */}
+      {eligible && lines.length > 0 && (
+        !open ? (
+          <Button variant="light" leftSection={<RotateCcw size={16} />} onClick={() => setOpen(true)}>
+            Request a return
+          </Button>
+        ) : (
+          <Stack gap="xs">
+            <Text fz="sm" c="dimmed">
+              Choose how many of each item to return
+              {data.eligibility?.windowEndsAt
+                ? <> — the return window closes on <b>{new Date(data.eligibility.windowEndsAt).toLocaleDateString()}</b></>
+                : null}.
+            </Text>
+            {lines.map((l) => (
+              <Group key={l.orderItemId} justify="space-between" wrap="nowrap">
+                <Text fz="sm">{l.name}{l.sku ? ` (${l.sku})` : ""}</Text>
+                <NumberInput
+                  size="xs" w={80} min={0} max={l.returnable}
+                  value={qty[l.orderItemId] ?? 0}
+                  onChange={(v) => setQty((s) => ({ ...s, [l.orderItemId]: Number(v) || 0 }))}
+                />
+              </Group>
+            ))}
+            <Textarea
+              label="Reason (optional)" autosize minRows={2}
+              value={reason} onChange={(e) => setReason(e.currentTarget.value)}
+            />
+            {error && <Text fz="sm" c="red">{error}</Text>}
+            <Group>
+              <Button onClick={() => void submit()} loading={busy}>Submit return request</Button>
+              <Button variant="subtle" onClick={() => setOpen(false)} disabled={busy}>Cancel</Button>
+            </Group>
+          </Stack>
+        )
+      )}
+    </Paper>
   );
 }
 
