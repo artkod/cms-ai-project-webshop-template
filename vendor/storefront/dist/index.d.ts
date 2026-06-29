@@ -458,6 +458,17 @@ export declare interface Order {
     totals: CartTotals;
     note: string | null;
     placedAt: string;
+    /**
+     * Per-line shipped/ordered counts (L7) — present on `getOrder`, so the storefront
+     * can show, per item, how much has shipped vs is still to come. Absent on the
+     * `startCheckout` response (nothing has shipped yet).
+     */
+    lineFulfillment?: {
+        orderItemId: string;
+        ordered: number;
+        shipped: number;
+        delivered: number;
+    }[];
 }
 
 /** A postal address captured at checkout (snapshotted on the order). */
@@ -656,11 +667,12 @@ export declare interface ReturnableLine {
  */
 export declare interface ReturnEligibility {
     eligible: boolean;
-    /** When ineligible: not_delivered | window_closed | nothing_returnable. */
+    /** When ineligible: not_shipped | window_closed | nothing_returnable. */
     reason: string | null;
-    deliveredAt: string | null;
+    /** The return-window start (ship/fulfilled date) — null when nothing has shipped. */
+    windowStartsAt: string | null;
     windowDays: number;
-    /** ISO deadline (deliveredAt + windowDays) — null when never delivered. */
+    /** ISO deadline (windowStartsAt + windowDays) — null when nothing has shipped. */
     windowEndsAt: string | null;
     lines: ReturnableLine[];
 }

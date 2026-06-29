@@ -325,12 +325,29 @@ export function OrderPage() {
       <Paper withBorder p="md" radius="md">
         <Stack gap="xs">
           <Title order={4}>Items</Title>
-          {order.items.map((line) => (
-            <Group key={line.id} justify="space-between" wrap="nowrap" gap="xs">
-              <Text fz="sm">{line.quantity} × {line.name || line.sku || line.variantId}</Text>
-              <Text fz="sm">{formatCents(line.gross)}</Text>
-            </Group>
-          ))}
+          {order.items.map((line) => {
+            // Per-line shipped state (only meaningful once something has shipped).
+            const f = order.lineFulfillment?.find((x) => x.orderItemId === line.id);
+            const showShip = !order.isQuote && !!f && (order.status.fulfillmentStatus === "partially_shipped" || order.status.fulfillmentStatus === "shipped" || order.status.fulfillmentStatus === "delivered");
+            const shipText = !showShip || !f
+              ? null
+              : f.shipped >= f.ordered
+              ? "Shipped"
+              : f.shipped > 0
+              ? `Shipped ${f.shipped} of ${f.ordered}`
+              : "Ships soon";
+            return (
+              <Group key={line.id} justify="space-between" wrap="nowrap" gap="xs">
+                <div>
+                  <Text fz="sm">{line.quantity} × {line.name || line.sku || line.variantId}</Text>
+                  {shipText && (
+                    <Text fz="xs" c={shipText === "Ships soon" ? "dimmed" : "teal"}>{shipText}</Text>
+                  )}
+                </div>
+                <Text fz="sm">{formatCents(line.gross)}</Text>
+              </Group>
+            );
+          })}
           <Divider my="xs" />
           <Row label="Subtotal" value={formatCents(t.itemsSubtotal)} />
           {t.discountTotal > 0 && <Row label="Discount" value={`−${formatCents(t.discountTotal)}`} accent />}
