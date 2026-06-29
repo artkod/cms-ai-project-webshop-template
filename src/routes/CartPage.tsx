@@ -198,6 +198,11 @@ export function CartPage() {
                   </Group>
                 </Group>
               ))}
+              {/* When more than one coupon is applied, each discount is calculated on
+                  the original subtotal (additive), not one after another. */}
+              {cart!.coupons.length > 1 && (
+                <Text fz="xs" c="dimmed">Each coupon is applied to the original subtotal (discounts add up).</Text>
+              )}
               {/* Allow adding another code unless a single non-stackable coupon is
                   applied (it can't combine with anything). */}
               {!(cart!.coupons.length === 1 && !cart!.coupons[0].stackable) && (
