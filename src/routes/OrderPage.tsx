@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router";
 import { Alert, Anchor, Badge, Button, Divider, Group, Loader, NumberInput, Paper, Stack, Text, Textarea, Title } from "@mantine/core";
-import { CheckCircle2, CreditCard, FileText, Check, X, RotateCcw } from "lucide-react";
+import { CheckCircle2, CreditCard, FileText, Check, X, RotateCcw, Package } from "lucide-react";
 import { StorefrontError, type InitiatePaymentResult, type Order, type OrderReturnsResult } from "@cms/storefront";
 import { storefront } from "@/lib/storefront";
 import { useLocaleConfig } from "@/lib/locale";
@@ -22,6 +22,20 @@ import { StripePayment } from "@/components/shop/StripePayment";
 function ratePct(bps: number): string {
   return `${bps / 100}%`;
 }
+
+// Fulfillment axis → badge colour + a friendly progress message shown on the order
+// page (L7 fulfillment reflection). `unfulfilled` shows nothing (order just placed).
+const FULFILLMENT_COLOR: Record<string, string> = {
+  unfulfilled: "gray", reserved: "blue", preparing: "blue", partially_shipped: "yellow",
+  shipped: "teal", delivered: "teal", returned: "gray",
+};
+const FULFILLMENT_MESSAGE: Record<string, string> = {
+  preparing: "Your order is being prepared for shipment.",
+  partially_shipped: "Part of your order is on its way — the rest will follow.",
+  shipped: "Your order has shipped and is on its way.",
+  delivered: "Your order has been delivered. Enjoy!",
+  returned: "This order has been returned.",
+};
 
 export function OrderPage() {
   const { locale, token } = useParams<{ locale: string; token: string }>();
@@ -205,7 +219,20 @@ export function OrderPage() {
         <Title order={2}>Order #{order.orderNumber}</Title>
         <Badge color={order.isQuote ? "blue" : "yellow"} variant="light">{order.status.lifecycle}</Badge>
         <Badge color={isPaid ? "teal" : "gray"} variant="light">{order.status.paymentStatus}</Badge>
+        {!order.isQuote && order.status.fulfillmentStatus !== "unfulfilled" && (
+          <Badge color={FULFILLMENT_COLOR[order.status.fulfillmentStatus] ?? "gray"} variant="light">
+            {order.status.fulfillmentStatus.replace(/_/g, " ")}
+          </Badge>
+        )}
       </Group>
+
+      {/* Fulfillment progress (L7) — reflects the admin's fulfillment actions
+          (preparing → shipped → delivered) so the shopper sees where their order is. */}
+      {!order.isQuote && FULFILLMENT_MESSAGE[order.status.fulfillmentStatus] && (
+        <Alert color={order.status.fulfillmentStatus === "returned" ? "gray" : "teal"} icon={<Package size={18} />}>
+          {FULFILLMENT_MESSAGE[order.status.fulfillmentStatus]}
+        </Alert>
+      )}
 
       {/* Quote accept / decline (L7.5) — a SENT quote the customer can act on. On
           accept the quote freezes prices + reserves stock and becomes payable (the
@@ -447,7 +474,7 @@ function ReturnsCard({
       {!returnsOff && eligible && lines.length > 0 && (
         !open ? (
           <Button variant="light" leftSection={<RotateCcw size={16} />} onClick={() => setOpen(true)}>
-            Request a return
+            {data.returns.length > 0 ? "Request another return" : "Request a return"}
           </Button>
         ) : (
           <Stack gap="xs">

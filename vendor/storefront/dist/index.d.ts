@@ -673,8 +673,10 @@ export declare interface ReturnRequest {
     reason: string | null;
     adminNote: string | null;
     restock: boolean;
-    /** Cents actually refunded (null until approved). */
+    /** Total cents refunded — items + shipping (null until approved). */
     refundAmount: number | null;
+    /** Portion of `refundAmount` that was delivery cost. */
+    shippingRefund: number;
     /** `refunded` (a captured payment was returned) | `no_payment` (COD/unpaid). */
     refundOutcome: string | null;
     requestedAt: string;
@@ -691,6 +693,9 @@ export declare interface ReturnRequestItem {
     name: string;
     sku: string | null;
     quantity: number;
+    /** Per-line admin decision recorded at approval. */
+    refunded: boolean;
+    restocked: boolean;
 }
 
 export declare interface SearchFacets {

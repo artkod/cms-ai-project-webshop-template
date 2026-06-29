@@ -55,7 +55,11 @@ function PayForm({ onConfirmed }: { onConfirmed: () => void }) {
 
   return (
     <Stack gap="sm">
-      <PaymentElement />
+      {/* Card only — no Link / Apple Pay / Google Pay. The PaymentIntent is created
+          with payment_method_types=['card'] (server), and we disable the wallet
+          accelerators here. (Stripe's account-level "Link" toggle in the dashboard is
+          the definitive switch for the inline Link save-prompt.) */}
+      <PaymentElement options={{ wallets: { applePay: "never", googlePay: "never" } }} />
       {error && (
         <Alert color="red" icon={<AlertCircle size={16} />}>
           {error}
