@@ -506,6 +506,12 @@ export declare interface PaymentMethodInfo {
     provider: string;
     /** The PUBLISHABLE key (not a secret) — needed client-side to mount Elements. */
     publishableKey: string;
+    /**
+     * Whether confirming charges immediately (`automatic`) or only AUTHORIZES a hold
+     * that's captured later at dispatch (`manual`, L6.4). The storefront uses this to
+     * tell the shopper they're placing a hold, not paying yet. Defaults to `automatic`.
+     */
+    captureMode?: "automatic" | "manual";
 }
 
 /** A payment row's public view (the order's charge attempt). */

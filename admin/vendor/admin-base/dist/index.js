@@ -4,7 +4,7 @@ var bn = (t, e, n) => f3(t, typeof e != "symbol" ? e + "" : e, n);
 import { jsx as l, jsxs as v, Fragment as Re } from "react/jsx-runtime";
 import ut, { createContext as An, useContext as mn, useCallback as ht, useRef as Te, useState as _, useEffect as he, useSyncExternalStore as y3, isValidElement as Nl, cloneElement as Ki, Children as g3, forwardRef as Nr, useMemo as qe, createElement as Vl, useLayoutEffect as oy, memo as k3, useReducer as v3, useDebugValue as ry, Component as b3, lazy as Dr, Suspense as x3, StrictMode as w3 } from "react";
 import { createRoot as M3 } from "react-dom/client";
-import { factory as kn, useProps as Cn, useResolvedStylesApi as js, InputBase as iy, useStyles as Ya, UnstyledButton as cr, createVarsResolver as ui, getSize as hd, Box as ae, getSpacing as C3, getFontSize as pd, AccordionChevron as T0, useInputProps as _3, Input as Js, Modal as mi, Popover as g1, ActionIcon as Mt, CheckIcon as S3, Notification as N3, useMantineTheme as z3, OptionalPortal as T3, RemoveScroll as j0, getDefaultZIndex as j3, rem as A3, Button as yt, useComputedColorScheme as Dp, Stack as pe, TextInput as je, PasswordInput as yr, Alert as Fn, Center as kt, Loader as St, Text as H, Select as Tt, Checkbox as Ao, Drawer as E3, Tooltip as Le, Group as se, Switch as an, TagsInput as L3, NumberInput as wn, MultiSelect as Zr, Badge as Fe, Anchor as P3, Skeleton as Na, ScrollArea as Vo, Image as Bo, Tabs as ft, Menu as be, useMantineColorScheme as sy, Radio as Gi, Collapse as As, Textarea as lo, Paper as Eo, List as Va, Avatar as Xr, Table as ue, Pagination as $3, SegmentedControl as Qr, Divider as Gn, Code as Oo, SimpleGrid as ly, Title as cy, createTheme as D3, localStorageColorSchemeManager as O3, MantineProvider as R3, Card as I3, FileButton as H3 } from "@mantine/core";
+import { factory as kn, useProps as Cn, useResolvedStylesApi as js, InputBase as iy, useStyles as Ya, UnstyledButton as cr, createVarsResolver as ui, getSize as hd, Box as ae, getSpacing as C3, getFontSize as pd, AccordionChevron as T0, useInputProps as _3, Input as Js, Modal as mi, Popover as g1, ActionIcon as Mt, CheckIcon as S3, Notification as N3, useMantineTheme as z3, OptionalPortal as T3, RemoveScroll as j0, getDefaultZIndex as j3, rem as A3, Button as yt, useComputedColorScheme as Dp, Stack as pe, TextInput as je, PasswordInput as yr, Alert as Fn, Center as kt, Loader as St, Text as V, Select as Tt, Checkbox as Ao, Drawer as E3, Tooltip as Le, Group as se, Switch as an, TagsInput as L3, NumberInput as wn, MultiSelect as Zr, Badge as Fe, Anchor as P3, Skeleton as Na, ScrollArea as Vo, Image as Bo, Tabs as ft, Menu as be, useMantineColorScheme as sy, Radio as Gi, Collapse as As, Textarea as lo, Paper as Eo, List as Va, Avatar as Xr, Table as ue, Pagination as $3, SegmentedControl as Qr, Divider as Gn, Code as Oo, SimpleGrid as ly, Title as cy, createTheme as D3, localStorageColorSchemeManager as O3, MantineProvider as R3, Card as I3, FileButton as H3 } from "@mantine/core";
 import { useUncontrolled as dy, clamp as q3, useMergedRef as V3, useDisclosure as B3, useDidUpdate as Ch, randomId as F3, useForceUpdate as U3, useReducedMotion as W3 } from "@mantine/hooks";
 import Oi, { unstable_batchedUpdates as Zs, createPortal as K3 } from "react-dom";
 function Es(t) {
@@ -16,183 +16,183 @@ function hy() {
     (function(n, a) {
       t.exports = a();
     })(G3, (function() {
-      var n = 1e3, a = 6e4, o = 36e5, r = "millisecond", i = "second", s = "minute", c = "hour", d = "day", p = "week", u = "month", m = "quarter", f = "year", y = "date", g = "Invalid Date", k = /^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[Tt\s]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?[.:]?(\d+)?$/, b = /\[([^\]]+)]|Y{1,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g, N = { name: "en", weekdays: "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"), months: "January_February_March_April_May_June_July_August_September_October_November_December".split("_"), ordinal: function($) {
-        var O = ["th", "st", "nd", "rd"], V = $ % 100;
-        return "[" + $ + (O[(V - 20) % 10] || O[V] || O[0]) + "]";
-      } }, z = function($, O, V) {
-        var K = String($);
-        return !K || K.length >= O ? $ : "" + Array(O + 1 - K.length).join(V) + $;
-      }, x = { s: z, z: function($) {
-        var O = -$.utcOffset(), V = Math.abs(O), K = Math.floor(V / 60), G = V % 60;
-        return (O <= 0 ? "+" : "-") + z(K, 2, "0") + ":" + z(G, 2, "0");
-      }, m: function $(O, V) {
-        if (O.date() < V.date()) return -$(V, O);
-        var K = 12 * (V.year() - O.year()) + (V.month() - O.month()), G = O.clone().add(K, u), D = V - G < 0, E = O.clone().add(K + (D ? -1 : 1), u);
-        return +(-(K + (V - G) / (D ? G - E : E - G)) || 0);
-      }, a: function($) {
-        return $ < 0 ? Math.ceil($) || 0 : Math.floor($);
-      }, p: function($) {
-        return { M: u, y: f, w: p, d, D: y, h: c, m: s, s: i, ms: r, Q: m }[$] || String($ || "").toLowerCase().replace(/s$/, "");
-      }, u: function($) {
-        return $ === void 0;
+      var n = 1e3, a = 6e4, o = 36e5, r = "millisecond", i = "second", s = "minute", c = "hour", d = "day", p = "week", u = "month", m = "quarter", f = "year", y = "date", g = "Invalid Date", k = /^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[Tt\s]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?[.:]?(\d+)?$/, b = /\[([^\]]+)]|Y{1,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g, N = { name: "en", weekdays: "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"), months: "January_February_March_April_May_June_July_August_September_October_November_December".split("_"), ordinal: function(P) {
+        var O = ["th", "st", "nd", "rd"], B = P % 100;
+        return "[" + P + (O[(B - 20) % 10] || O[B] || O[0]) + "]";
+      } }, z = function(P, O, B) {
+        var W = String(P);
+        return !W || W.length >= O ? P : "" + Array(O + 1 - W.length).join(B) + P;
+      }, x = { s: z, z: function(P) {
+        var O = -P.utcOffset(), B = Math.abs(O), W = Math.floor(B / 60), K = B % 60;
+        return (O <= 0 ? "+" : "-") + z(W, 2, "0") + ":" + z(K, 2, "0");
+      }, m: function P(O, B) {
+        if (O.date() < B.date()) return -P(B, O);
+        var W = 12 * (B.year() - O.year()) + (B.month() - O.month()), K = O.clone().add(W, u), D = B - K < 0, E = O.clone().add(W + (D ? -1 : 1), u);
+        return +(-(W + (B - K) / (D ? K - E : E - K)) || 0);
+      }, a: function(P) {
+        return P < 0 ? Math.ceil(P) || 0 : Math.floor(P);
+      }, p: function(P) {
+        return { M: u, y: f, w: p, d, D: y, h: c, m: s, s: i, ms: r, Q: m }[P] || String(P || "").toLowerCase().replace(/s$/, "");
+      }, u: function(P) {
+        return P === void 0;
       } }, w = "en", C = {};
       C[w] = N;
-      var M = "$isDayjsObject", S = function($) {
-        return $ instanceof U || !(!$ || !$[M]);
-      }, j = function $(O, V, K) {
-        var G;
+      var M = "$isDayjsObject", S = function(P) {
+        return P instanceof U || !(!P || !P[M]);
+      }, j = function P(O, B, W) {
+        var K;
         if (!O) return w;
         if (typeof O == "string") {
           var D = O.toLowerCase();
-          C[D] && (G = D), V && (C[D] = V, G = D);
+          C[D] && (K = D), B && (C[D] = B, K = D);
           var E = O.split("-");
-          if (!G && E.length > 1) return $(E[0]);
+          if (!K && E.length > 1) return P(E[0]);
         } else {
           var R = O.name;
-          C[R] = O, G = R;
+          C[R] = O, K = R;
         }
-        return !K && G && (w = G), G || !K && w;
-      }, A = function($, O) {
-        if (S($)) return $.clone();
-        var V = typeof O == "object" ? O : {};
-        return V.date = $, V.args = arguments, new U(V);
+        return !W && K && (w = K), K || !W && w;
+      }, A = function(P, O) {
+        if (S(P)) return P.clone();
+        var B = typeof O == "object" ? O : {};
+        return B.date = P, B.args = arguments, new U(B);
       }, T = x;
-      T.l = j, T.i = S, T.w = function($, O) {
-        return A($, { locale: O.$L, utc: O.$u, x: O.$x, $offset: O.$offset });
+      T.l = j, T.i = S, T.w = function(P, O) {
+        return A(P, { locale: O.$L, utc: O.$u, x: O.$x, $offset: O.$offset });
       };
       var U = (function() {
-        function $(V) {
-          this.$L = j(V.locale, null, !0), this.parse(V), this.$x = this.$x || V.x || {}, this[M] = !0;
+        function P(B) {
+          this.$L = j(B.locale, null, !0), this.parse(B), this.$x = this.$x || B.x || {}, this[M] = !0;
         }
-        var O = $.prototype;
-        return O.parse = function(V) {
-          this.$d = (function(K) {
-            var G = K.date, D = K.utc;
-            if (G === null) return /* @__PURE__ */ new Date(NaN);
-            if (T.u(G)) return /* @__PURE__ */ new Date();
-            if (G instanceof Date) return new Date(G);
-            if (typeof G == "string" && !/Z$/i.test(G)) {
-              var E = G.match(k);
+        var O = P.prototype;
+        return O.parse = function(B) {
+          this.$d = (function(W) {
+            var K = W.date, D = W.utc;
+            if (K === null) return /* @__PURE__ */ new Date(NaN);
+            if (T.u(K)) return /* @__PURE__ */ new Date();
+            if (K instanceof Date) return new Date(K);
+            if (typeof K == "string" && !/Z$/i.test(K)) {
+              var E = K.match(k);
               if (E) {
                 var R = E[2] - 1 || 0, F = (E[7] || "0").substring(0, 3);
                 return D ? new Date(Date.UTC(E[1], R, E[3] || 1, E[4] || 0, E[5] || 0, E[6] || 0, F)) : new Date(E[1], R, E[3] || 1, E[4] || 0, E[5] || 0, E[6] || 0, F);
               }
             }
-            return new Date(G);
-          })(V), this.init();
+            return new Date(K);
+          })(B), this.init();
         }, O.init = function() {
-          var V = this.$d;
-          this.$y = V.getFullYear(), this.$M = V.getMonth(), this.$D = V.getDate(), this.$W = V.getDay(), this.$H = V.getHours(), this.$m = V.getMinutes(), this.$s = V.getSeconds(), this.$ms = V.getMilliseconds();
+          var B = this.$d;
+          this.$y = B.getFullYear(), this.$M = B.getMonth(), this.$D = B.getDate(), this.$W = B.getDay(), this.$H = B.getHours(), this.$m = B.getMinutes(), this.$s = B.getSeconds(), this.$ms = B.getMilliseconds();
         }, O.$utils = function() {
           return T;
         }, O.isValid = function() {
           return this.$d.toString() !== g;
-        }, O.isSame = function(V, K) {
-          var G = A(V);
-          return this.startOf(K) <= G && G <= this.endOf(K);
-        }, O.isAfter = function(V, K) {
-          return A(V) < this.startOf(K);
-        }, O.isBefore = function(V, K) {
-          return this.endOf(K) < A(V);
-        }, O.$g = function(V, K, G) {
-          return T.u(V) ? this[K] : this.set(G, V);
+        }, O.isSame = function(B, W) {
+          var K = A(B);
+          return this.startOf(W) <= K && K <= this.endOf(W);
+        }, O.isAfter = function(B, W) {
+          return A(B) < this.startOf(W);
+        }, O.isBefore = function(B, W) {
+          return this.endOf(W) < A(B);
+        }, O.$g = function(B, W, K) {
+          return T.u(B) ? this[W] : this.set(K, B);
         }, O.unix = function() {
           return Math.floor(this.valueOf() / 1e3);
         }, O.valueOf = function() {
           return this.$d.getTime();
-        }, O.startOf = function(V, K) {
-          var G = this, D = !!T.u(K) || K, E = T.p(V), R = function(te, ee) {
-            var de = T.w(G.$u ? Date.UTC(G.$y, ee, te) : new Date(G.$y, ee, te), G);
+        }, O.startOf = function(B, W) {
+          var K = this, D = !!T.u(W) || W, E = T.p(B), R = function(te, ee) {
+            var de = T.w(K.$u ? Date.UTC(K.$y, ee, te) : new Date(K.$y, ee, te), K);
             return D ? de : de.endOf(d);
           }, F = function(te, ee) {
-            return T.w(G.toDate()[te].apply(G.toDate("s"), (D ? [0, 0, 0, 0] : [23, 59, 59, 999]).slice(ee)), G);
-          }, L = this.$W, W = this.$M, B = this.$D, P = "set" + (this.$u ? "UTC" : "");
+            return T.w(K.toDate()[te].apply(K.toDate("s"), (D ? [0, 0, 0, 0] : [23, 59, 59, 999]).slice(ee)), K);
+          }, H = this.$W, Y = this.$M, $ = this.$D, L = "set" + (this.$u ? "UTC" : "");
           switch (E) {
             case f:
               return D ? R(1, 0) : R(31, 11);
             case u:
-              return D ? R(1, W) : R(0, W + 1);
+              return D ? R(1, Y) : R(0, Y + 1);
             case p:
-              var q = this.$locale().weekStart || 0, J = (L < q ? L + 7 : L) - q;
-              return R(D ? B - J : B + (6 - J), W);
+              var q = this.$locale().weekStart || 0, J = (H < q ? H + 7 : H) - q;
+              return R(D ? $ - J : $ + (6 - J), Y);
             case d:
             case y:
-              return F(P + "Hours", 0);
+              return F(L + "Hours", 0);
             case c:
-              return F(P + "Minutes", 1);
+              return F(L + "Minutes", 1);
             case s:
-              return F(P + "Seconds", 2);
+              return F(L + "Seconds", 2);
             case i:
-              return F(P + "Milliseconds", 3);
+              return F(L + "Milliseconds", 3);
             default:
               return this.clone();
           }
-        }, O.endOf = function(V) {
-          return this.startOf(V, !1);
-        }, O.$set = function(V, K) {
-          var G, D = T.p(V), E = "set" + (this.$u ? "UTC" : ""), R = (G = {}, G[d] = E + "Date", G[y] = E + "Date", G[u] = E + "Month", G[f] = E + "FullYear", G[c] = E + "Hours", G[s] = E + "Minutes", G[i] = E + "Seconds", G[r] = E + "Milliseconds", G)[D], F = D === d ? this.$D + (K - this.$W) : K;
+        }, O.endOf = function(B) {
+          return this.startOf(B, !1);
+        }, O.$set = function(B, W) {
+          var K, D = T.p(B), E = "set" + (this.$u ? "UTC" : ""), R = (K = {}, K[d] = E + "Date", K[y] = E + "Date", K[u] = E + "Month", K[f] = E + "FullYear", K[c] = E + "Hours", K[s] = E + "Minutes", K[i] = E + "Seconds", K[r] = E + "Milliseconds", K)[D], F = D === d ? this.$D + (W - this.$W) : W;
           if (D === u || D === f) {
-            var L = this.clone().set(y, 1);
-            L.$d[R](F), L.init(), this.$d = L.set(y, Math.min(this.$D, L.daysInMonth())).$d;
+            var H = this.clone().set(y, 1);
+            H.$d[R](F), H.init(), this.$d = H.set(y, Math.min(this.$D, H.daysInMonth())).$d;
           } else R && this.$d[R](F);
           return this.init(), this;
-        }, O.set = function(V, K) {
-          return this.clone().$set(V, K);
-        }, O.get = function(V) {
-          return this[T.p(V)]();
-        }, O.add = function(V, K) {
-          var G, D = this;
-          V = Number(V);
-          var E = T.p(K), R = function(W) {
-            var B = A(D);
-            return T.w(B.date(B.date() + Math.round(W * V)), D);
+        }, O.set = function(B, W) {
+          return this.clone().$set(B, W);
+        }, O.get = function(B) {
+          return this[T.p(B)]();
+        }, O.add = function(B, W) {
+          var K, D = this;
+          B = Number(B);
+          var E = T.p(W), R = function(Y) {
+            var $ = A(D);
+            return T.w($.date($.date() + Math.round(Y * B)), D);
           };
-          if (E === u) return this.set(u, this.$M + V);
-          if (E === f) return this.set(f, this.$y + V);
+          if (E === u) return this.set(u, this.$M + B);
+          if (E === f) return this.set(f, this.$y + B);
           if (E === d) return R(1);
           if (E === p) return R(7);
-          var F = (G = {}, G[s] = a, G[c] = o, G[i] = n, G)[E] || 1, L = this.$d.getTime() + V * F;
-          return T.w(L, this);
-        }, O.subtract = function(V, K) {
-          return this.add(-1 * V, K);
-        }, O.format = function(V) {
-          var K = this, G = this.$locale();
-          if (!this.isValid()) return G.invalidDate || g;
-          var D = V || "YYYY-MM-DDTHH:mm:ssZ", E = T.z(this), R = this.$H, F = this.$m, L = this.$M, W = G.weekdays, B = G.months, P = G.meridiem, q = function(ee, de, Y, Z) {
-            return ee && (ee[de] || ee(K, D)) || Y[de].slice(0, Z);
+          var F = (K = {}, K[s] = a, K[c] = o, K[i] = n, K)[E] || 1, H = this.$d.getTime() + B * F;
+          return T.w(H, this);
+        }, O.subtract = function(B, W) {
+          return this.add(-1 * B, W);
+        }, O.format = function(B) {
+          var W = this, K = this.$locale();
+          if (!this.isValid()) return K.invalidDate || g;
+          var D = B || "YYYY-MM-DDTHH:mm:ssZ", E = T.z(this), R = this.$H, F = this.$m, H = this.$M, Y = K.weekdays, $ = K.months, L = K.meridiem, q = function(ee, de, G, Z) {
+            return ee && (ee[de] || ee(W, D)) || G[de].slice(0, Z);
           }, J = function(ee) {
             return T.s(R % 12 || 12, ee, "0");
-          }, te = P || function(ee, de, Y) {
+          }, te = L || function(ee, de, G) {
             var Z = ee < 12 ? "AM" : "PM";
-            return Y ? Z.toLowerCase() : Z;
+            return G ? Z.toLowerCase() : Z;
           };
           return D.replace(b, (function(ee, de) {
-            return de || (function(Y) {
-              switch (Y) {
+            return de || (function(G) {
+              switch (G) {
                 case "YY":
-                  return String(K.$y).slice(-2);
+                  return String(W.$y).slice(-2);
                 case "YYYY":
-                  return T.s(K.$y, 4, "0");
+                  return T.s(W.$y, 4, "0");
                 case "M":
-                  return L + 1;
+                  return H + 1;
                 case "MM":
-                  return T.s(L + 1, 2, "0");
+                  return T.s(H + 1, 2, "0");
                 case "MMM":
-                  return q(G.monthsShort, L, B, 3);
+                  return q(K.monthsShort, H, $, 3);
                 case "MMMM":
-                  return q(B, L);
+                  return q($, H);
                 case "D":
-                  return K.$D;
+                  return W.$D;
                 case "DD":
-                  return T.s(K.$D, 2, "0");
+                  return T.s(W.$D, 2, "0");
                 case "d":
-                  return String(K.$W);
+                  return String(W.$W);
                 case "dd":
-                  return q(G.weekdaysMin, K.$W, W, 2);
+                  return q(K.weekdaysMin, W.$W, Y, 2);
                 case "ddd":
-                  return q(G.weekdaysShort, K.$W, W, 3);
+                  return q(K.weekdaysShort, W.$W, Y, 3);
                 case "dddd":
-                  return W[K.$W];
+                  return Y[W.$W];
                 case "H":
                   return String(R);
                 case "HH":
@@ -210,11 +210,11 @@ function hy() {
                 case "mm":
                   return T.s(F, 2, "0");
                 case "s":
-                  return String(K.$s);
+                  return String(W.$s);
                 case "ss":
-                  return T.s(K.$s, 2, "0");
+                  return T.s(W.$s, 2, "0");
                 case "SSS":
-                  return T.s(K.$ms, 3, "0");
+                  return T.s(W.$ms, 3, "0");
                 case "Z":
                   return E;
               }
@@ -223,47 +223,47 @@ function hy() {
           }));
         }, O.utcOffset = function() {
           return 15 * -Math.round(this.$d.getTimezoneOffset() / 15);
-        }, O.diff = function(V, K, G) {
-          var D, E = this, R = T.p(K), F = A(V), L = (F.utcOffset() - this.utcOffset()) * a, W = this - F, B = function() {
+        }, O.diff = function(B, W, K) {
+          var D, E = this, R = T.p(W), F = A(B), H = (F.utcOffset() - this.utcOffset()) * a, Y = this - F, $ = function() {
             return T.m(E, F);
           };
           switch (R) {
             case f:
-              D = B() / 12;
+              D = $() / 12;
               break;
             case u:
-              D = B();
+              D = $();
               break;
             case m:
-              D = B() / 3;
+              D = $() / 3;
               break;
             case p:
-              D = (W - L) / 6048e5;
+              D = (Y - H) / 6048e5;
               break;
             case d:
-              D = (W - L) / 864e5;
+              D = (Y - H) / 864e5;
               break;
             case c:
-              D = W / o;
+              D = Y / o;
               break;
             case s:
-              D = W / a;
+              D = Y / a;
               break;
             case i:
-              D = W / n;
+              D = Y / n;
               break;
             default:
-              D = W;
+              D = Y;
           }
-          return G ? D : T.a(D);
+          return K ? D : T.a(D);
         }, O.daysInMonth = function() {
           return this.endOf(u).$D;
         }, O.$locale = function() {
           return C[this.$L];
-        }, O.locale = function(V, K) {
-          if (!V) return this.$L;
-          var G = this.clone(), D = j(V, K, !0);
-          return D && (G.$L = D), G;
+        }, O.locale = function(B, W) {
+          if (!B) return this.$L;
+          var K = this.clone(), D = j(B, W, !0);
+          return D && (K.$L = D), K;
         }, O.clone = function() {
           return T.w(this.$d, this);
         }, O.toDate = function() {
@@ -274,16 +274,16 @@ function hy() {
           return this.$d.toISOString();
         }, O.toString = function() {
           return this.$d.toUTCString();
-        }, $;
+        }, P;
       })(), I = U.prototype;
-      return A.prototype = I, [["$ms", r], ["$s", i], ["$m", s], ["$H", c], ["$W", d], ["$M", u], ["$y", f], ["$D", y]].forEach((function($) {
-        I[$[1]] = function(O) {
-          return this.$g(O, $[0], $[1]);
+      return A.prototype = I, [["$ms", r], ["$s", i], ["$m", s], ["$H", c], ["$W", d], ["$M", u], ["$y", f], ["$D", y]].forEach((function(P) {
+        I[P[1]] = function(O) {
+          return this.$g(O, P[0], P[1]);
         };
-      })), A.extend = function($, O) {
-        return $.$i || ($(O, U, A), $.$i = !0), A;
-      }, A.locale = j, A.isDayjs = S, A.unix = function($) {
-        return A(1e3 * $);
+      })), A.extend = function(P, O) {
+        return P.$i || (P(O, U, A), P.$i = !0), A;
+      }, A.locale = j, A.isDayjs = S, A.unix = function(P) {
+        return A(1e3 * P);
       }, A.en = C[w], A.Ls = C, A.p = {}, A;
     }));
   })(zl)), zl.exports;
@@ -948,11 +948,11 @@ const S6 = {
     __onDayMouseEnter: T,
     __preventFocus: U,
     __stopPropagation: I,
-    withCellSpacing: $,
+    withCellSpacing: P,
     size: O,
-    highlightToday: V,
-    withWeekNumbers: K,
-    ...G
+    highlightToday: B,
+    withWeekNumbers: W,
+    ...K
   } = n, D = Ya({
     name: d || "Month",
     classes: My,
@@ -977,34 +977,34 @@ const S6 = {
     k,
     x,
     f
-  ), { resolvedClassNames: L, resolvedStyles: W } = js({
+  ), { resolvedClassNames: H, resolvedStyles: Y } = js({
     classNames: a,
     styles: i,
     props: n
-  }), B = R.map((P, q) => {
-    const J = P.map((te, ee) => {
-      const de = !by(te, f), Y = (C == null ? void 0 : C(te)) || Ne(te).locale(p || E.locale).format("D MMMM YYYY"), Z = g == null ? void 0 : g(te), oe = Ne(te).isSame(F, "date");
+  }), $ = R.map((L, q) => {
+    const J = L.map((te, ee) => {
+      const de = !by(te, f), G = (C == null ? void 0 : C(te)) || Ne(te).locale(p || E.locale).format("D MMMM YYYY"), Z = g == null ? void 0 : g(te), oe = Ne(te).isSame(F, "date");
       return /* @__PURE__ */ l(
         "td",
         {
           ...D("monthCell"),
-          "data-with-spacing": $ || void 0,
+          "data-with-spacing": P || void 0,
           children: /* @__PURE__ */ l(
             Ip,
             {
               __staticSelector: d || "Month",
-              classNames: L,
-              styles: W,
+              classNames: H,
+              styles: Y,
               unstyled: s,
               "data-mantine-stop-propagation": I || void 0,
-              highlightToday: V,
+              highlightToday: B,
               renderDay: z,
               date: te,
               size: O,
               weekend: E.getWeekendDays(y).includes(te.getDay()),
               outside: de,
               hidden: x ? de : !1,
-              "aria-label": Y,
+              "aria-label": G,
               static: M,
               disabled: (k == null ? void 0 : k(te)) || !wy(te, N) || !xy(te, b),
               ref: (le) => S == null ? void 0 : S(q, ee, le),
@@ -1033,11 +1033,11 @@ const S6 = {
       );
     });
     return /* @__PURE__ */ v("tr", { ...D("monthRow"), children: [
-      K && /* @__PURE__ */ l("td", { ...D("weekNumber"), children: _6(P) }),
+      W && /* @__PURE__ */ l("td", { ...D("weekNumber"), children: _6(L) }),
       J
     ] }, q);
   });
-  return /* @__PURE__ */ v(ae, { component: "table", ...D("month"), size: O, ref: e, ...G, children: [
+  return /* @__PURE__ */ v(ae, { component: "table", ...D("month"), size: O, ref: e, ...K, children: [
     !w && /* @__PURE__ */ l("thead", { ...D("monthThead"), children: /* @__PURE__ */ l(
       Hp,
       {
@@ -1046,13 +1046,13 @@ const S6 = {
         firstDayOfWeek: u,
         weekdayFormat: m,
         size: O,
-        classNames: L,
-        styles: W,
+        classNames: H,
+        styles: Y,
         unstyled: s,
-        withWeekNumbers: K
+        withWeekNumbers: W
       }
     ) }),
-    /* @__PURE__ */ l("tbody", { ...D("monthTbody"), children: B })
+    /* @__PURE__ */ l("tbody", { ...D("monthTbody"), children: $ })
   ] });
 });
 ud.classes = My;
@@ -1178,9 +1178,9 @@ const A6 = {
     unstyled: s,
     vars: c,
     rootSelector: "yearsList"
-  }), A = ha(), T = Sy(d), U = j6(T, m, f, y), I = T.map(($, O) => {
-    const V = $.map((K, G) => {
-      const D = y == null ? void 0 : y(K), E = Ne(K).isSame(U, "year");
+  }), A = ha(), T = Sy(d), U = j6(T, m, f, y), I = T.map((P, O) => {
+    const B = P.map((W, K) => {
+      const D = y == null ? void 0 : y(W), E = Ne(W).isSame(U, "year");
       return /* @__PURE__ */ l(
         "td",
         {
@@ -1193,34 +1193,34 @@ const A6 = {
               size: M,
               unstyled: s,
               "data-mantine-stop-propagation": w || void 0,
-              disabled: _y(K, m, f),
-              ref: (R) => k == null ? void 0 : k(O, G, R),
+              disabled: _y(W, m, f),
+              ref: (R) => k == null ? void 0 : k(O, K, R),
               ...D,
               onKeyDown: (R) => {
                 var F;
-                (F = D == null ? void 0 : D.onKeyDown) == null || F.call(D, R), b == null || b(R, { rowIndex: O, cellIndex: G, date: K });
+                (F = D == null ? void 0 : D.onKeyDown) == null || F.call(D, R), b == null || b(R, { rowIndex: O, cellIndex: K, date: W });
               },
               onClick: (R) => {
                 var F;
-                (F = D == null ? void 0 : D.onClick) == null || F.call(D, R), N == null || N(R, K);
+                (F = D == null ? void 0 : D.onClick) == null || F.call(D, R), N == null || N(R, W);
               },
               onMouseEnter: (R) => {
                 var F;
-                (F = D == null ? void 0 : D.onMouseEnter) == null || F.call(D, R), z == null || z(R, K);
+                (F = D == null ? void 0 : D.onMouseEnter) == null || F.call(D, R), z == null || z(R, W);
               },
               onMouseDown: (R) => {
                 var F;
                 (F = D == null ? void 0 : D.onMouseDown) == null || F.call(D, R), x && R.preventDefault();
               },
               tabIndex: x || !E ? -1 : 0,
-              children: Ne(K).locale(A.getLocale(u)).format(p)
+              children: Ne(W).locale(A.getLocale(u)).format(p)
             }
           )
         },
-        G
+        K
       );
     });
-    return /* @__PURE__ */ l("tr", { ...j("yearsListRow"), children: V }, O);
+    return /* @__PURE__ */ l("tr", { ...j("yearsListRow"), children: B }, O);
   });
   return /* @__PURE__ */ l(ae, { component: "table", ref: e, size: M, ...j("yearsList"), ...S, children: /* @__PURE__ */ l("tbody", { children: I }) });
 });
@@ -1291,9 +1291,9 @@ const P6 = {
     unstyled: s,
     vars: c,
     rootSelector: "monthsList"
-  }), A = ha(), T = L6(p), U = E6(T, f, y, g), I = T.map(($, O) => {
-    const V = $.map((K, G) => {
-      const D = g == null ? void 0 : g(K), E = Ne(K).isSame(U, "month");
+  }), A = ha(), T = L6(p), U = E6(T, f, y, g), I = T.map((P, O) => {
+    const B = P.map((W, K) => {
+      const D = g == null ? void 0 : g(W), E = Ne(W).isSame(U, "month");
       return /* @__PURE__ */ l(
         "td",
         {
@@ -1307,34 +1307,34 @@ const P6 = {
               unstyled: s,
               __staticSelector: d || "MonthsList",
               "data-mantine-stop-propagation": w || void 0,
-              disabled: zy(K, f, y),
-              ref: (R) => k == null ? void 0 : k(O, G, R),
+              disabled: zy(W, f, y),
+              ref: (R) => k == null ? void 0 : k(O, K, R),
               ...D,
               onKeyDown: (R) => {
                 var F;
-                (F = D == null ? void 0 : D.onKeyDown) == null || F.call(D, R), b == null || b(R, { rowIndex: O, cellIndex: G, date: K });
+                (F = D == null ? void 0 : D.onKeyDown) == null || F.call(D, R), b == null || b(R, { rowIndex: O, cellIndex: K, date: W });
               },
               onClick: (R) => {
                 var F;
-                (F = D == null ? void 0 : D.onClick) == null || F.call(D, R), N == null || N(R, K);
+                (F = D == null ? void 0 : D.onClick) == null || F.call(D, R), N == null || N(R, W);
               },
               onMouseEnter: (R) => {
                 var F;
-                (F = D == null ? void 0 : D.onMouseEnter) == null || F.call(D, R), z == null || z(R, K);
+                (F = D == null ? void 0 : D.onMouseEnter) == null || F.call(D, R), z == null || z(R, W);
               },
               onMouseDown: (R) => {
                 var F;
                 (F = D == null ? void 0 : D.onMouseDown) == null || F.call(D, R), x && R.preventDefault();
               },
               tabIndex: x || !E ? -1 : 0,
-              children: Ne(K).locale(A.getLocale(m)).format(u)
+              children: Ne(W).locale(A.getLocale(m)).format(u)
             }
           )
         },
-        G
+        K
       );
     });
-    return /* @__PURE__ */ l("tr", { ...j("monthsListRow"), children: V }, O);
+    return /* @__PURE__ */ l("tr", { ...j("monthsListRow"), children: B }, O);
   });
   return /* @__PURE__ */ l(ae, { component: "table", ref: e, size: M, ...j("monthsList"), ...S, children: /* @__PURE__ */ l("tbody", { children: I }) });
 });
@@ -1496,22 +1496,22 @@ const R6 = {
     classNames: T,
     styles: U,
     unstyled: I,
-    __staticSelector: $,
+    __staticSelector: P,
     __stopPropagation: O,
-    size: V,
-    ...K
-  } = n, G = ha(), [D, E] = O6(a), R = {
-    __staticSelector: $ || "DecadeLevel",
+    size: B,
+    ...W
+  } = n, K = ha(), [D, E] = O6(a), R = {
+    __staticSelector: P || "DecadeLevel",
     classNames: T,
     styles: U,
     unstyled: I,
-    size: V
-  }, F = typeof w == "boolean" ? w : i ? !Ne(E).endOf("year").isBefore(i) : !1, L = typeof C == "boolean" ? C : r ? !Ne(D).startOf("year").isAfter(r) : !1, W = (B, P) => Ne(B).locale(o || G.locale).format(P);
-  return /* @__PURE__ */ v(ae, { "data-decade-level": !0, size: V, ref: e, ...K, children: [
+    size: B
+  }, F = typeof w == "boolean" ? w : i ? !Ne(E).endOf("year").isBefore(i) : !1, H = typeof C == "boolean" ? C : r ? !Ne(D).startOf("year").isAfter(r) : !1, Y = ($, L) => Ne($).locale(o || K.locale).format(L);
+  return /* @__PURE__ */ v(ae, { "data-decade-level": !0, size: B, ref: e, ...W, children: [
     /* @__PURE__ */ l(
       Fo,
       {
-        label: typeof A == "function" ? A(D, E) : `${W(D, A)} – ${W(
+        label: typeof A == "function" ? A(D, E) : `${Y(D, A)} – ${Y(
           E,
           A
         )}`,
@@ -1524,7 +1524,7 @@ const R6 = {
         onNext: z,
         onPrevious: x,
         nextDisabled: F,
-        previousDisabled: L,
+        previousDisabled: H,
         hasNextLevel: !1,
         levelControlAriaLabel: M,
         withNext: S,
@@ -1589,26 +1589,26 @@ const I6 = {
     // Other props
     yearLabelFormat: U,
     __staticSelector: I,
-    __stopPropagation: $,
+    __stopPropagation: P,
     size: O,
-    classNames: V,
-    styles: K,
-    unstyled: G,
+    classNames: B,
+    styles: W,
+    unstyled: K,
     ...D
   } = n, E = ha(), R = {
     __staticSelector: I || "YearLevel",
-    classNames: V,
-    styles: K,
-    unstyled: G,
+    classNames: B,
+    styles: W,
+    unstyled: K,
     size: O
-  }, F = typeof C == "boolean" ? C : i ? !Ne(a).endOf("year").isBefore(i) : !1, L = typeof M == "boolean" ? M : r ? !Ne(a).startOf("year").isAfter(r) : !1;
+  }, F = typeof C == "boolean" ? C : i ? !Ne(a).endOf("year").isBefore(i) : !1, H = typeof M == "boolean" ? M : r ? !Ne(a).startOf("year").isAfter(r) : !1;
   return /* @__PURE__ */ v(ae, { "data-year-level": !0, size: O, ref: e, ...D, children: [
     /* @__PURE__ */ l(
       Fo,
       {
         label: typeof U == "function" ? U(a) : Ne(a).locale(o || E.locale).format(U),
         __preventFocus: y,
-        __stopPropagation: $,
+        __stopPropagation: P,
         nextIcon: g,
         previousIcon: k,
         nextLabel: b,
@@ -1617,7 +1617,7 @@ const I6 = {
         onPrevious: x,
         onLevelClick: w,
         nextDisabled: F,
-        previousDisabled: L,
+        previousDisabled: H,
         hasNextLevel: S,
         levelControlAriaLabel: j,
         withNext: A,
@@ -1639,7 +1639,7 @@ const I6 = {
         __onControlClick: u,
         __onControlMouseEnter: m,
         __preventFocus: y,
-        __stopPropagation: $,
+        __stopPropagation: P,
         withCellSpacing: f,
         ...R
       }
@@ -1681,30 +1681,30 @@ const H6 = {
     nextLabel: T,
     previousLabel: U,
     onNext: I,
-    onPrevious: $,
+    onPrevious: P,
     onLevelClick: O,
-    nextDisabled: V,
-    previousDisabled: K,
-    hasNextLevel: G,
+    nextDisabled: B,
+    previousDisabled: W,
+    hasNextLevel: K,
     levelControlAriaLabel: D,
     withNext: E,
     withPrevious: R,
     // Other props
     monthLabelFormat: F,
-    classNames: L,
-    styles: W,
-    unstyled: B,
-    __staticSelector: P,
+    classNames: H,
+    styles: Y,
+    unstyled: $,
+    __staticSelector: L,
     size: q,
     static: J,
     ...te
   } = n, ee = ha(), de = {
-    __staticSelector: P || "MonthLevel",
-    classNames: L,
-    styles: W,
-    unstyled: B,
+    __staticSelector: L || "MonthLevel",
+    classNames: H,
+    styles: Y,
+    unstyled: $,
     size: q
-  }, Y = typeof V == "boolean" ? V : u ? !Ne(a).endOf("month").isBefore(u) : !1, Z = typeof K == "boolean" ? K : p ? !Ne(a).startOf("month").isAfter(p) : !1;
+  }, G = typeof B == "boolean" ? B : u ? !Ne(a).endOf("month").isBefore(u) : !1, Z = typeof W == "boolean" ? W : p ? !Ne(a).startOf("month").isAfter(p) : !1;
   return /* @__PURE__ */ v(ae, { "data-month-level": !0, size: q, ref: e, ...te, children: [
     /* @__PURE__ */ l(
       Fo,
@@ -1717,11 +1717,11 @@ const H6 = {
         nextLabel: T,
         previousLabel: U,
         onNext: I,
-        onPrevious: $,
+        onPrevious: P,
         onLevelClick: O,
-        nextDisabled: Y,
+        nextDisabled: G,
         previousDisabled: Z,
-        hasNextLevel: G,
+        hasNextLevel: K,
         levelControlAriaLabel: D,
         withNext: E,
         withPrevious: R,
@@ -1813,9 +1813,9 @@ const V6 = {
     levelControlAriaLabel: T,
     decadeLabelFormat: U,
     size: I,
-    vars: $,
+    vars: P,
     ...O
-  } = n, V = Te([]), K = Array(A).fill(0).map((G, D) => {
+  } = n, B = Te([]), W = Array(A).fill(0).map((K, D) => {
     const E = Ne(a).add(D * 10, "years").toDate();
     return /* @__PURE__ */ l(
       gd,
@@ -1833,10 +1833,10 @@ const V6 = {
           rowIndex: F.rowIndex,
           cellIndex: F.cellIndex,
           event: R,
-          controlsRef: V
+          controlsRef: B
         }),
-        __getControlRef: (R, F, L) => {
-          Array.isArray(V.current[D]) || (V.current[D] = []), Array.isArray(V.current[D][R]) || (V.current[D][R] = []), V.current[D][R][F] = L;
+        __getControlRef: (R, F, H) => {
+          Array.isArray(B.current[D]) || (B.current[D] = []), Array.isArray(B.current[D][R]) || (B.current[D][R] = []), B.current[D][R][F] = H;
         },
         levelControlAriaLabel: typeof T == "function" ? T(E) : T,
         locale: o,
@@ -1872,7 +1872,7 @@ const V6 = {
       size: I,
       unstyled: M,
       ...O,
-      children: K
+      children: W
     }
   );
 });
@@ -1912,11 +1912,11 @@ const B6 = {
     __stopPropagation: T,
     numberOfColumns: U,
     levelControlAriaLabel: I,
-    yearLabelFormat: $,
+    yearLabelFormat: P,
     size: O,
-    vars: V,
-    ...K
-  } = n, G = Te([]), D = Array(U).fill(0).map((E, R) => {
+    vars: B,
+    ...W
+  } = n, K = Te([]), D = Array(U).fill(0).map((E, R) => {
     const F = Ne(a).add(R, "years").toDate();
     return /* @__PURE__ */ l(
       kd,
@@ -1926,19 +1926,19 @@ const B6 = {
         year: F,
         withNext: R === U - 1,
         withPrevious: R === 0,
-        yearLabelFormat: $,
+        yearLabelFormat: P,
         __stopPropagation: T,
         __onControlClick: d,
         __onControlMouseEnter: p,
-        __onControlKeyDown: (L, W) => Op({
+        __onControlKeyDown: (H, Y) => Op({
           levelIndex: R,
-          rowIndex: W.rowIndex,
-          cellIndex: W.cellIndex,
-          event: L,
-          controlsRef: G
+          rowIndex: Y.rowIndex,
+          cellIndex: Y.cellIndex,
+          event: H,
+          controlsRef: K
         }),
-        __getControlRef: (L, W, B) => {
-          Array.isArray(G.current[R]) || (G.current[R] = []), Array.isArray(G.current[R][L]) || (G.current[R][L] = []), G.current[R][L][W] = B;
+        __getControlRef: (H, Y, $) => {
+          Array.isArray(K.current[R]) || (K.current[R] = []), Array.isArray(K.current[R][H]) || (K.current[R][H] = []), K.current[R][H][Y] = $;
         },
         levelControlAriaLabel: typeof I == "function" ? I(F) : I,
         locale: o,
@@ -1974,7 +1974,7 @@ const B6 = {
       ref: e,
       size: O,
       unstyled: j,
-      ...K,
+      ...W,
       children: D
     }
   );
@@ -2014,31 +2014,31 @@ const F6 = {
     onPrevious: T,
     onLevelClick: U,
     nextDisabled: I,
-    previousDisabled: $,
+    previousDisabled: P,
     hasNextLevel: O,
     // Other settings
-    classNames: V,
-    styles: K,
-    unstyled: G,
+    classNames: B,
+    styles: W,
+    unstyled: K,
     numberOfColumns: D,
     levelControlAriaLabel: E,
     monthLabelFormat: R,
     __staticSelector: F,
-    __stopPropagation: L,
-    size: W,
-    static: B,
-    vars: P,
+    __stopPropagation: H,
+    size: Y,
+    static: $,
+    vars: L,
     ...q
   } = n, J = Te([]), te = Array(D).fill(0).map((ee, de) => {
-    const Y = Ne(a).add(de, "months").toDate();
+    const G = Ne(a).add(de, "months").toDate();
     return /* @__PURE__ */ l(
       vd,
       {
-        month: Y,
+        month: G,
         withNext: de === D - 1,
         withPrevious: de === 0,
         monthLabelFormat: R,
-        __stopPropagation: L,
+        __stopPropagation: H,
         __onDayClick: k,
         __onDayMouseEnter: b,
         __onDayKeyDown: (Z, oe) => Op({
@@ -2051,7 +2051,7 @@ const F6 = {
         __getDayRef: (Z, oe, le) => {
           Array.isArray(J.current[de]) || (J.current[de] = []), Array.isArray(J.current[de][Z]) || (J.current[de][Z] = []), J.current[de][Z][oe] = le;
         },
-        levelControlAriaLabel: typeof E == "function" ? E(Y) : E,
+        levelControlAriaLabel: typeof E == "function" ? E(G) : E,
         locale: o,
         firstDayOfWeek: r,
         weekdayFormat: i,
@@ -2073,14 +2073,14 @@ const F6 = {
         onPrevious: T,
         onLevelClick: U,
         nextDisabled: I,
-        previousDisabled: $,
+        previousDisabled: P,
         hasNextLevel: O,
-        classNames: V,
-        styles: K,
-        unstyled: G,
+        classNames: B,
+        styles: W,
+        unstyled: K,
         __staticSelector: F || "MonthLevelGroup",
-        size: W,
-        static: B,
+        size: Y,
+        static: $,
         withCellSpacing: N,
         highlightToday: z,
         withWeekNumbers: x
@@ -2091,11 +2091,11 @@ const F6 = {
   return /* @__PURE__ */ l(
     Uo,
     {
-      classNames: V,
-      styles: K,
+      classNames: B,
+      styles: W,
       __staticSelector: F || "MonthLevelGroup",
       ref: e,
-      size: W,
+      size: Y,
       ...q,
       children: te
     }
@@ -2159,9 +2159,9 @@ const U6 = {}, Md = kn((t, e) => {
         unstyled: s,
         ...c,
         disabled: (c == null ? void 0 : c.disabled) || p === "modal" || w,
-        onChange: ($) => {
+        onChange: (P) => {
           var O;
-          $ || ((O = c == null ? void 0 : c.onClose) == null || O.call(c), I());
+          P || ((O = c == null ? void 0 : c.onClose) == null || O.call(c), I());
         },
         children: [
           /* @__PURE__ */ l(g1.Target, { children: /* @__PURE__ */ l(
@@ -2173,8 +2173,8 @@ const U6 = {}, Md = kn((t, e) => {
               component: "button",
               type: "button",
               multiline: !0,
-              onClick: ($) => {
-                g == null || g($), f.toggle();
+              onClick: (P) => {
+                g == null || g(P), f.toggle();
               },
               __clearSection: U,
               __clearable: k && x && !w && !C,
@@ -2296,20 +2296,20 @@ const K6 = {
     excludeDate: T,
     renderDay: U,
     hideOutsideDates: I,
-    hideWeekdays: $,
+    hideWeekdays: P,
     getDayAriaLabel: O,
-    monthLabelFormat: V,
-    nextIcon: K,
-    previousIcon: G,
+    monthLabelFormat: B,
+    nextIcon: W,
+    previousIcon: K,
     __onDayClick: D,
     __onDayMouseEnter: E,
     withCellSpacing: R,
     highlightToday: F,
-    withWeekNumbers: L,
+    withWeekNumbers: H,
     // YearLevelGroup props
-    monthsListFormat: W,
-    getMonthControlProps: B,
-    yearLabelFormat: P,
+    monthsListFormat: Y,
+    getMonthControlProps: $,
+    yearLabelFormat: L,
     // DecadeLevelGroup props
     yearsListFormat: q,
     getYearControlProps: J,
@@ -2317,7 +2317,7 @@ const K6 = {
     // Other props
     classNames: ee,
     styles: de,
-    unstyled: Y,
+    unstyled: G,
     minDate: Z,
     maxDate: oe,
     locale: le,
@@ -2353,7 +2353,7 @@ const K6 = {
     __staticSelector: ze || "Calendar",
     styles: Ye,
     classNames: Pe,
-    unstyled: Y,
+    unstyled: G,
     size: fe
   }, Ae = ha(), Ve = f || m || 1, re = /* @__PURE__ */ new Date(), De = Z && Z > re ? Z : re, Oe = hn || ro("add", De, Ae.getTimezone()), ct = () => {
     const me = Ne(Oe).add(Ve, "month").toDate();
@@ -2388,7 +2388,7 @@ const K6 = {
         excludeDate: T,
         renderDay: U,
         hideOutsideDates: I,
-        hideWeekdays: $,
+        hideWeekdays: P,
         getDayAriaLabel: O,
         onNext: ct,
         onPrevious: Ze,
@@ -2398,10 +2398,10 @@ const K6 = {
         locale: le,
         levelControlAriaLabel: y == null ? void 0 : y.monthLevelControl,
         nextLabel: (y == null ? void 0 : y.nextMonth) ?? g,
-        nextIcon: K,
+        nextIcon: W,
         previousLabel: (y == null ? void 0 : y.previousMonth) ?? k,
-        previousIcon: G,
-        monthLabelFormat: V,
+        previousIcon: K,
+        monthLabelFormat: B,
         __onDayClick: D,
         __onDayMouseEnter: E,
         __preventFocus: Me,
@@ -2409,7 +2409,7 @@ const K6 = {
         static: ye,
         withCellSpacing: R,
         highlightToday: F,
-        withWeekNumbers: L,
+        withWeekNumbers: H,
         ...X
       }
     ),
@@ -2420,8 +2420,8 @@ const K6 = {
         numberOfColumns: m,
         minDate: Z,
         maxDate: oe,
-        monthsListFormat: W,
-        getMonthControlProps: B,
+        monthsListFormat: Y,
+        getMonthControlProps: $,
         locale: le,
         onNext: Nt,
         onPrevious: Vt,
@@ -2429,10 +2429,10 @@ const K6 = {
         onLevelClick: () => lt("decade"),
         levelControlAriaLabel: y == null ? void 0 : y.yearLevelControl,
         nextLabel: (y == null ? void 0 : y.nextYear) ?? g,
-        nextIcon: K,
+        nextIcon: W,
         previousLabel: (y == null ? void 0 : y.previousYear) ?? k,
-        previousIcon: G,
-        yearLabelFormat: P,
+        previousIcon: K,
+        yearLabelFormat: L,
         __onControlMouseEnter: x,
         __onControlClick: (me, $e) => {
           C && Je($e), lt(Ni("month", r, o)), N == null || N($e);
@@ -2456,9 +2456,9 @@ const K6 = {
         onPrevious: Ee,
         numberOfColumns: m,
         nextLabel: (y == null ? void 0 : y.nextDecade) ?? g,
-        nextIcon: K,
+        nextIcon: W,
         previousLabel: (y == null ? void 0 : y.previousDecade) ?? k,
-        previousIcon: G,
+        previousIcon: K,
         decadeLabelFormat: te,
         __onControlMouseEnter: z,
         __onControlClick: (me, $e) => {
@@ -2509,21 +2509,21 @@ function G6(t) {
     highlightToday: T,
     __updateDateOnYearSelect: U,
     __updateDateOnMonthSelect: I,
-    withWeekNumbers: $,
+    withWeekNumbers: P,
     // MonthLevelGroup props
     firstDayOfWeek: O,
-    weekdayFormat: V,
-    weekendDays: K,
-    getDayProps: G,
+    weekdayFormat: B,
+    weekendDays: W,
+    getDayProps: K,
     excludeDate: D,
     renderDay: E,
     hideOutsideDates: R,
     hideWeekdays: F,
-    getDayAriaLabel: L,
-    monthLabelFormat: W,
+    getDayAriaLabel: H,
+    monthLabelFormat: Y,
     // YearLevelGroup props
-    monthsListFormat: B,
-    getMonthControlProps: P,
+    monthsListFormat: $,
+    getMonthControlProps: L,
     yearLabelFormat: q,
     // DecadeLevelGroup props
     yearsListFormat: J,
@@ -2531,7 +2531,7 @@ function G6(t) {
     decadeLabelFormat: ee,
     // External picker props
     allowSingleDateInRange: de,
-    allowDeselect: Y,
+    allowDeselect: G,
     // Other props
     minDate: Z,
     maxDate: oe,
@@ -2569,21 +2569,21 @@ function G6(t) {
       highlightToday: T,
       __updateDateOnYearSelect: U,
       __updateDateOnMonthSelect: I,
-      withWeekNumbers: $,
+      withWeekNumbers: P,
       // MonthLevelGroup props
       firstDayOfWeek: O,
-      weekdayFormat: V,
-      weekendDays: K,
-      getDayProps: G,
+      weekdayFormat: B,
+      weekendDays: W,
+      getDayProps: K,
       excludeDate: D,
       renderDay: E,
       hideOutsideDates: R,
       hideWeekdays: F,
-      getDayAriaLabel: L,
-      monthLabelFormat: W,
+      getDayAriaLabel: H,
+      monthLabelFormat: Y,
       // YearLevelGroup props
-      monthsListFormat: B,
-      getMonthControlProps: P,
+      monthsListFormat: $,
+      getMonthControlProps: L,
       yearLabelFormat: q,
       // DecadeLevelGroup props
       yearsListFormat: J,
@@ -2591,7 +2591,7 @@ function G6(t) {
       decadeLabelFormat: ee,
       // External picker props
       allowSingleDateInRange: de,
-      allowDeselect: Y,
+      allowDeselect: G,
       // Other props
       minDate: Z,
       maxDate: oe,
@@ -2793,47 +2793,47 @@ const Z6 = {
     styles: d,
     props: n
   }), A = i || (f ? "DD/MM/YYYY HH:mm:ss" : "DD/MM/YYYY HH:mm"), T = Te(null), U = V3(T, u == null ? void 0 : u.ref), {
-    calendarProps: { allowSingleDateInRange: I, ...$ },
+    calendarProps: { allowSingleDateInRange: I, ...P },
     others: O
-  } = G6(C), V = ha(), [K, G] = qp({
+  } = G6(C), B = ha(), [W, K] = qp({
     type: "default",
     value: a,
     defaultValue: o,
     onChange: r
-  }), D = (Z) => Z ? Ne(Z).format(f ? "HH:mm:ss" : "HH:mm") : "", [E, R] = _(D(K)), [F, L] = _(y || g || "month"), [W, B] = B3(!1), P = K ? Ne(K).locale(V.getLocale(s)).tz(V.getTimezone(), !0).format(A) : "", q = (Z) => {
+  }), D = (Z) => Z ? Ne(Z).format(f ? "HH:mm:ss" : "HH:mm") : "", [E, R] = _(D(W)), [F, H] = _(y || g || "month"), [Y, $] = B3(!1), L = W ? Ne(W).locale(B.getLocale(s)).tz(B.getTimezone(), !0).format(A) : "", q = (Z) => {
     var le;
     (le = u == null ? void 0 : u.onChange) == null || le.call(u, Z);
     const oe = Z.currentTarget.value;
     if (R(oe), oe) {
-      const [ze, fe, Me] = oe.split(":").map(Number), Ue = ro("add", /* @__PURE__ */ new Date(), V.getTimezone());
-      Ue.setHours(ze), Ue.setMinutes(fe), Ue.setSeconds(Me || 0), Ue.setMilliseconds(0), G(E0(Ue, K || ro("add", /* @__PURE__ */ new Date(), V.getTimezone())));
+      const [ze, fe, Me] = oe.split(":").map(Number), Ue = ro("add", /* @__PURE__ */ new Date(), B.getTimezone());
+      Ue.setHours(ze), Ue.setMinutes(fe), Ue.setSeconds(Me || 0), Ue.setMilliseconds(0), K(E0(Ue, W || ro("add", /* @__PURE__ */ new Date(), B.getTimezone())));
     }
   }, J = (Z) => {
     var oe;
-    Z && G(E0(K, Z)), (oe = T.current) == null || oe.focus();
+    Z && K(E0(W, Z)), (oe = T.current) == null || oe.focus();
   }, te = (Z) => {
     var oe;
-    (oe = u == null ? void 0 : u.onKeyDown) == null || oe.call(u, Z), Z.key === "Enter" && (Z.preventDefault(), B.close());
+    (oe = u == null ? void 0 : u.onKeyDown) == null || oe.call(u, Z), Z.key === "Enter" && (Z.preventDefault(), $.close());
   };
   Ch(() => {
-    W || R(D(K));
-  }, [K, W]), Ch(() => {
-    W && L("month");
-  }, [W]);
-  const ee = x ? Ne(x).format("HH:mm:ss") : null, de = w ? Ne(w).format("HH:mm:ss") : null, Y = N === "popover";
+    Y || R(D(W));
+  }, [W, Y]), Ch(() => {
+    Y && H("month");
+  }, [Y]);
+  const ee = x ? Ne(x).format("HH:mm:ss") : null, de = w ? Ne(w).format("HH:mm:ss") : null, G = N === "popover";
   return /* @__PURE__ */ v(
     Md,
     {
-      formattedValue: P,
-      dropdownOpened: C.disabled ? !1 : W,
-      dropdownHandlers: B,
+      formattedValue: L,
+      dropdownOpened: C.disabled ? !1 : Y,
+      dropdownHandlers: $,
       classNames: S,
       styles: j,
       unstyled: p,
       ref: e,
-      onClear: () => G(null),
-      shouldClear: !!K,
-      value: K,
+      onClear: () => K(null),
+      shouldClear: !!W,
+      value: W,
       size: k,
       variant: b,
       dropdownType: N,
@@ -2844,26 +2844,26 @@ const Z6 = {
         /* @__PURE__ */ l(
           _d,
           {
-            ...$,
+            ...P,
             maxDate: w,
             minDate: x,
             size: k,
             variant: b,
             type: "default",
-            value: K,
-            defaultDate: K,
+            value: W,
+            defaultDate: W,
             onChange: J,
             locale: s,
             classNames: S,
             styles: j,
             unstyled: p,
             __staticSelector: "DateTimePicker",
-            __stopPropagation: Y,
+            __stopPropagation: G,
             level: y,
             defaultLevel: g,
             onLevelChange: (Z) => {
               var oe;
-              L(Z), (oe = $.onLevelChange) == null || oe.call($, Z);
+              H(Z), (oe = P.onLevelChange) == null || oe.call(P, Z);
             },
             __timezoneApplied: !0
           }
@@ -2876,8 +2876,8 @@ const Z6 = {
               withSeconds: f,
               ref: U,
               unstyled: p,
-              minTime: K && x && K.toDateString() === x.toDateString() ? ee ?? void 0 : void 0,
-              maxTime: K && w && K.toDateString() === w.toDateString() ? de ?? void 0 : void 0,
+              minTime: W && x && W.toDateString() === x.toDateString() ? ee ?? void 0 : void 0,
+              maxTime: W && w && W.toDateString() === w.toDateString() ? de ?? void 0 : void 0,
               ...u,
               ...M("timeInput", {
                 className: u == null ? void 0 : u.className,
@@ -2886,7 +2886,7 @@ const Z6 = {
               onChange: q,
               onKeyDown: te,
               size: k,
-              "data-mantine-stop-propagation": Y || void 0
+              "data-mantine-stop-propagation": G || void 0
             }
           ),
           /* @__PURE__ */ l(
@@ -2899,12 +2899,12 @@ const Z6 = {
                 style: m == null ? void 0 : m.style
               }),
               unstyled: p,
-              "data-mantine-stop-propagation": Y || void 0,
+              "data-mantine-stop-propagation": G || void 0,
               children: /* @__PURE__ */ l(S3, { size: "30%" }),
               ...m,
               onClick: (Z) => {
                 var oe;
-                (oe = m == null ? void 0 : m.onClick) == null || oe.call(m, Z), B.close();
+                (oe = m == null ? void 0 : m.onClick) == null || oe.call(m, Z), $.close();
               }
             }
           )
@@ -3116,16 +3116,16 @@ var H0;
 function l8() {
   return H0 || (H0 = 1, process.env.NODE_ENV !== "production" && (function() {
     var t = typeof Symbol == "function" && Symbol.for, e = t ? Symbol.for("react.element") : 60103, n = t ? Symbol.for("react.portal") : 60106, a = t ? Symbol.for("react.fragment") : 60107, o = t ? Symbol.for("react.strict_mode") : 60108, r = t ? Symbol.for("react.profiler") : 60114, i = t ? Symbol.for("react.provider") : 60109, s = t ? Symbol.for("react.context") : 60110, c = t ? Symbol.for("react.async_mode") : 60111, d = t ? Symbol.for("react.concurrent_mode") : 60111, p = t ? Symbol.for("react.forward_ref") : 60112, u = t ? Symbol.for("react.suspense") : 60113, m = t ? Symbol.for("react.suspense_list") : 60120, f = t ? Symbol.for("react.memo") : 60115, y = t ? Symbol.for("react.lazy") : 60116, g = t ? Symbol.for("react.block") : 60121, k = t ? Symbol.for("react.fundamental") : 60117, b = t ? Symbol.for("react.responder") : 60118, N = t ? Symbol.for("react.scope") : 60119;
-    function z(Y) {
-      return typeof Y == "string" || typeof Y == "function" || // Note: its typeof might be other than 'symbol' or 'number' if it's a polyfill.
-      Y === a || Y === d || Y === r || Y === o || Y === u || Y === m || typeof Y == "object" && Y !== null && (Y.$$typeof === y || Y.$$typeof === f || Y.$$typeof === i || Y.$$typeof === s || Y.$$typeof === p || Y.$$typeof === k || Y.$$typeof === b || Y.$$typeof === N || Y.$$typeof === g);
+    function z(G) {
+      return typeof G == "string" || typeof G == "function" || // Note: its typeof might be other than 'symbol' or 'number' if it's a polyfill.
+      G === a || G === d || G === r || G === o || G === u || G === m || typeof G == "object" && G !== null && (G.$$typeof === y || G.$$typeof === f || G.$$typeof === i || G.$$typeof === s || G.$$typeof === p || G.$$typeof === k || G.$$typeof === b || G.$$typeof === N || G.$$typeof === g);
     }
-    function x(Y) {
-      if (typeof Y == "object" && Y !== null) {
-        var Z = Y.$$typeof;
+    function x(G) {
+      if (typeof G == "object" && G !== null) {
+        var Z = G.$$typeof;
         switch (Z) {
           case e:
-            var oe = Y.type;
+            var oe = G.type;
             switch (oe) {
               case c:
               case d:
@@ -3152,47 +3152,47 @@ function l8() {
         }
       }
     }
-    var w = c, C = d, M = s, S = i, j = e, A = p, T = a, U = y, I = f, $ = n, O = r, V = o, K = u, G = !1;
-    function D(Y) {
-      return G || (G = !0, console.warn("The ReactIs.isAsyncMode() alias has been deprecated, and will be removed in React 17+. Update your code to use ReactIs.isConcurrentMode() instead. It has the exact same API.")), E(Y) || x(Y) === c;
+    var w = c, C = d, M = s, S = i, j = e, A = p, T = a, U = y, I = f, P = n, O = r, B = o, W = u, K = !1;
+    function D(G) {
+      return K || (K = !0, console.warn("The ReactIs.isAsyncMode() alias has been deprecated, and will be removed in React 17+. Update your code to use ReactIs.isConcurrentMode() instead. It has the exact same API.")), E(G) || x(G) === c;
     }
-    function E(Y) {
-      return x(Y) === d;
+    function E(G) {
+      return x(G) === d;
     }
-    function R(Y) {
-      return x(Y) === s;
+    function R(G) {
+      return x(G) === s;
     }
-    function F(Y) {
-      return x(Y) === i;
+    function F(G) {
+      return x(G) === i;
     }
-    function L(Y) {
-      return typeof Y == "object" && Y !== null && Y.$$typeof === e;
+    function H(G) {
+      return typeof G == "object" && G !== null && G.$$typeof === e;
     }
-    function W(Y) {
-      return x(Y) === p;
+    function Y(G) {
+      return x(G) === p;
     }
-    function B(Y) {
-      return x(Y) === a;
+    function $(G) {
+      return x(G) === a;
     }
-    function P(Y) {
-      return x(Y) === y;
+    function L(G) {
+      return x(G) === y;
     }
-    function q(Y) {
-      return x(Y) === f;
+    function q(G) {
+      return x(G) === f;
     }
-    function J(Y) {
-      return x(Y) === n;
+    function J(G) {
+      return x(G) === n;
     }
-    function te(Y) {
-      return x(Y) === r;
+    function te(G) {
+      return x(G) === r;
     }
-    function ee(Y) {
-      return x(Y) === o;
+    function ee(G) {
+      return x(G) === o;
     }
-    function de(Y) {
-      return x(Y) === u;
+    function de(G) {
+      return x(G) === u;
     }
-    $t.AsyncMode = w, $t.ConcurrentMode = C, $t.ContextConsumer = M, $t.ContextProvider = S, $t.Element = j, $t.ForwardRef = A, $t.Fragment = T, $t.Lazy = U, $t.Memo = I, $t.Portal = $, $t.Profiler = O, $t.StrictMode = V, $t.Suspense = K, $t.isAsyncMode = D, $t.isConcurrentMode = E, $t.isContextConsumer = R, $t.isContextProvider = F, $t.isElement = L, $t.isForwardRef = W, $t.isFragment = B, $t.isLazy = P, $t.isMemo = q, $t.isPortal = J, $t.isProfiler = te, $t.isStrictMode = ee, $t.isSuspense = de, $t.isValidElementType = z, $t.typeOf = x;
+    $t.AsyncMode = w, $t.ConcurrentMode = C, $t.ContextConsumer = M, $t.ContextProvider = S, $t.Element = j, $t.ForwardRef = A, $t.Fragment = T, $t.Lazy = U, $t.Memo = I, $t.Portal = P, $t.Profiler = O, $t.StrictMode = B, $t.Suspense = W, $t.isAsyncMode = D, $t.isConcurrentMode = E, $t.isContextConsumer = R, $t.isContextProvider = F, $t.isElement = H, $t.isForwardRef = Y, $t.isFragment = $, $t.isLazy = L, $t.isMemo = q, $t.isPortal = J, $t.isProfiler = te, $t.isStrictMode = ee, $t.isSuspense = de, $t.isValidElementType = z, $t.typeOf = x;
   })()), $t;
 }
 var q0;
@@ -3365,13 +3365,13 @@ function h8() {
     function k(E) {
       if (process.env.NODE_ENV !== "production")
         var R = {}, F = 0;
-      function L(B, P, q, J, te, ee, de) {
+      function H($, L, q, J, te, ee, de) {
         if (J = J || m, ee = ee || q, de !== n) {
           if (c) {
-            var Y = new Error(
+            var G = new Error(
               "Calling PropTypes validators directly is not supported by the `prop-types` package. Use `PropTypes.checkPropTypes()` to call them. Read more at http://fb.me/use-check-prop-types"
             );
-            throw Y.name = "Invariant Violation", Y;
+            throw G.name = "Invariant Violation", G;
           } else if (process.env.NODE_ENV !== "production" && typeof console < "u") {
             var Z = J + ":" + q;
             !R[Z] && // Avoid spamming the console because they are often not actionable except for lib authors
@@ -3380,18 +3380,18 @@ function h8() {
             ), R[Z] = !0, F++);
           }
         }
-        return P[q] == null ? B ? P[q] === null ? new g("The " + te + " `" + ee + "` is marked as required " + ("in `" + J + "`, but its value is `null`.")) : new g("The " + te + " `" + ee + "` is marked as required in " + ("`" + J + "`, but its value is `undefined`.")) : null : E(P, q, J, te, ee);
+        return L[q] == null ? $ ? L[q] === null ? new g("The " + te + " `" + ee + "` is marked as required " + ("in `" + J + "`, but its value is `null`.")) : new g("The " + te + " `" + ee + "` is marked as required in " + ("`" + J + "`, but its value is `undefined`.")) : null : E(L, q, J, te, ee);
       }
-      var W = L.bind(null, !1);
-      return W.isRequired = L.bind(null, !0), W;
+      var Y = H.bind(null, !1);
+      return Y.isRequired = H.bind(null, !0), Y;
     }
     function b(E) {
-      function R(F, L, W, B, P, q) {
-        var J = F[L], te = V(J);
+      function R(F, H, Y, $, L, q) {
+        var J = F[H], te = B(J);
         if (te !== E) {
-          var ee = K(J);
+          var ee = W(J);
           return new g(
-            "Invalid " + B + " `" + P + "` of type " + ("`" + ee + "` supplied to `" + W + "`, expected ") + ("`" + E + "`."),
+            "Invalid " + $ + " `" + L + "` of type " + ("`" + ee + "` supplied to `" + Y + "`, expected ") + ("`" + E + "`."),
             { expectedType: E }
           );
         }
@@ -3403,16 +3403,16 @@ function h8() {
       return k(i);
     }
     function z(E) {
-      function R(F, L, W, B, P) {
+      function R(F, H, Y, $, L) {
         if (typeof E != "function")
-          return new g("Property `" + P + "` of component `" + W + "` has invalid PropType notation inside arrayOf.");
-        var q = F[L];
+          return new g("Property `" + L + "` of component `" + Y + "` has invalid PropType notation inside arrayOf.");
+        var q = F[H];
         if (!Array.isArray(q)) {
-          var J = V(q);
-          return new g("Invalid " + B + " `" + P + "` of type " + ("`" + J + "` supplied to `" + W + "`, expected an array."));
+          var J = B(q);
+          return new g("Invalid " + $ + " `" + L + "` of type " + ("`" + J + "` supplied to `" + Y + "`, expected an array."));
         }
         for (var te = 0; te < q.length; te++) {
-          var ee = E(q, te, W, B, P + "[" + te + "]", n);
+          var ee = E(q, te, Y, $, L + "[" + te + "]", n);
           if (ee instanceof Error)
             return ee;
         }
@@ -3421,32 +3421,32 @@ function h8() {
       return k(R);
     }
     function x() {
-      function E(R, F, L, W, B) {
-        var P = R[F];
-        if (!s(P)) {
-          var q = V(P);
-          return new g("Invalid " + W + " `" + B + "` of type " + ("`" + q + "` supplied to `" + L + "`, expected a single ReactElement."));
+      function E(R, F, H, Y, $) {
+        var L = R[F];
+        if (!s(L)) {
+          var q = B(L);
+          return new g("Invalid " + Y + " `" + $ + "` of type " + ("`" + q + "` supplied to `" + H + "`, expected a single ReactElement."));
         }
         return null;
       }
       return k(E);
     }
     function w() {
-      function E(R, F, L, W, B) {
-        var P = R[F];
-        if (!t.isValidElementType(P)) {
-          var q = V(P);
-          return new g("Invalid " + W + " `" + B + "` of type " + ("`" + q + "` supplied to `" + L + "`, expected a single ReactElement type."));
+      function E(R, F, H, Y, $) {
+        var L = R[F];
+        if (!t.isValidElementType(L)) {
+          var q = B(L);
+          return new g("Invalid " + Y + " `" + $ + "` of type " + ("`" + q + "` supplied to `" + H + "`, expected a single ReactElement type."));
         }
         return null;
       }
       return k(E);
     }
     function C(E) {
-      function R(F, L, W, B, P) {
-        if (!(F[L] instanceof E)) {
-          var q = E.name || m, J = D(F[L]);
-          return new g("Invalid " + B + " `" + P + "` of type " + ("`" + J + "` supplied to `" + W + "`, expected ") + ("instance of `" + q + "`."));
+      function R(F, H, Y, $, L) {
+        if (!(F[H] instanceof E)) {
+          var q = E.name || m, J = D(F[H]);
+          return new g("Invalid " + $ + " `" + L + "` of type " + ("`" + J + "` supplied to `" + Y + "`, expected ") + ("instance of `" + q + "`."));
         }
         return null;
       }
@@ -3457,28 +3457,28 @@ function h8() {
         return process.env.NODE_ENV !== "production" && (arguments.length > 1 ? r(
           "Invalid arguments supplied to oneOf, expected an array, got " + arguments.length + " arguments. A common mistake is to write oneOf(x, y, z) instead of oneOf([x, y, z])."
         ) : r("Invalid argument supplied to oneOf, expected an array.")), i;
-      function R(F, L, W, B, P) {
-        for (var q = F[L], J = 0; J < E.length; J++)
+      function R(F, H, Y, $, L) {
+        for (var q = F[H], J = 0; J < E.length; J++)
           if (y(q, E[J]))
             return null;
-        var te = JSON.stringify(E, function(de, Y) {
-          var Z = K(Y);
-          return Z === "symbol" ? String(Y) : Y;
+        var te = JSON.stringify(E, function(de, G) {
+          var Z = W(G);
+          return Z === "symbol" ? String(G) : G;
         });
-        return new g("Invalid " + B + " `" + P + "` of value `" + String(q) + "` " + ("supplied to `" + W + "`, expected one of " + te + "."));
+        return new g("Invalid " + $ + " `" + L + "` of value `" + String(q) + "` " + ("supplied to `" + Y + "`, expected one of " + te + "."));
       }
       return k(R);
     }
     function S(E) {
-      function R(F, L, W, B, P) {
+      function R(F, H, Y, $, L) {
         if (typeof E != "function")
-          return new g("Property `" + P + "` of component `" + W + "` has invalid PropType notation inside objectOf.");
-        var q = F[L], J = V(q);
+          return new g("Property `" + L + "` of component `" + Y + "` has invalid PropType notation inside objectOf.");
+        var q = F[H], J = B(q);
         if (J !== "object")
-          return new g("Invalid " + B + " `" + P + "` of type " + ("`" + J + "` supplied to `" + W + "`, expected an object."));
+          return new g("Invalid " + $ + " `" + L + "` of type " + ("`" + J + "` supplied to `" + Y + "`, expected an object."));
         for (var te in q)
           if (a(q, te)) {
-            var ee = E(q, te, W, B, P + "." + te, n);
+            var ee = E(q, te, Y, $, L + "." + te, n);
             if (ee instanceof Error)
               return ee;
           }
@@ -3493,42 +3493,42 @@ function h8() {
         var F = E[R];
         if (typeof F != "function")
           return r(
-            "Invalid argument supplied to oneOfType. Expected an array of check functions, but received " + G(F) + " at index " + R + "."
+            "Invalid argument supplied to oneOfType. Expected an array of check functions, but received " + K(F) + " at index " + R + "."
           ), i;
       }
-      function L(W, B, P, q, J) {
+      function H(Y, $, L, q, J) {
         for (var te = [], ee = 0; ee < E.length; ee++) {
-          var de = E[ee], Y = de(W, B, P, q, J, n);
-          if (Y == null)
+          var de = E[ee], G = de(Y, $, L, q, J, n);
+          if (G == null)
             return null;
-          Y.data && a(Y.data, "expectedType") && te.push(Y.data.expectedType);
+          G.data && a(G.data, "expectedType") && te.push(G.data.expectedType);
         }
         var Z = te.length > 0 ? ", expected one of type [" + te.join(", ") + "]" : "";
-        return new g("Invalid " + q + " `" + J + "` supplied to " + ("`" + P + "`" + Z + "."));
+        return new g("Invalid " + q + " `" + J + "` supplied to " + ("`" + L + "`" + Z + "."));
       }
-      return k(L);
+      return k(H);
     }
     function A() {
-      function E(R, F, L, W, B) {
-        return $(R[F]) ? null : new g("Invalid " + W + " `" + B + "` supplied to " + ("`" + L + "`, expected a ReactNode."));
+      function E(R, F, H, Y, $) {
+        return P(R[F]) ? null : new g("Invalid " + Y + " `" + $ + "` supplied to " + ("`" + H + "`, expected a ReactNode."));
       }
       return k(E);
     }
-    function T(E, R, F, L, W) {
+    function T(E, R, F, H, Y) {
       return new g(
-        (E || "React class") + ": " + R + " type `" + F + "." + L + "` is invalid; it must be a function, usually from the `prop-types` package, but received `" + W + "`."
+        (E || "React class") + ": " + R + " type `" + F + "." + H + "` is invalid; it must be a function, usually from the `prop-types` package, but received `" + Y + "`."
       );
     }
     function U(E) {
-      function R(F, L, W, B, P) {
-        var q = F[L], J = V(q);
+      function R(F, H, Y, $, L) {
+        var q = F[H], J = B(q);
         if (J !== "object")
-          return new g("Invalid " + B + " `" + P + "` of type `" + J + "` " + ("supplied to `" + W + "`, expected `object`."));
+          return new g("Invalid " + $ + " `" + L + "` of type `" + J + "` " + ("supplied to `" + Y + "`, expected `object`."));
         for (var te in E) {
           var ee = E[te];
           if (typeof ee != "function")
-            return T(W, B, P, te, K(ee));
-          var de = ee(q, te, W, B, P + "." + te, n);
+            return T(Y, $, L, te, W(ee));
+          var de = ee(q, te, Y, $, L + "." + te, n);
           if (de)
             return de;
         }
@@ -3537,29 +3537,29 @@ function h8() {
       return k(R);
     }
     function I(E) {
-      function R(F, L, W, B, P) {
-        var q = F[L], J = V(q);
+      function R(F, H, Y, $, L) {
+        var q = F[H], J = B(q);
         if (J !== "object")
-          return new g("Invalid " + B + " `" + P + "` of type `" + J + "` " + ("supplied to `" + W + "`, expected `object`."));
-        var te = e({}, F[L], E);
+          return new g("Invalid " + $ + " `" + L + "` of type `" + J + "` " + ("supplied to `" + Y + "`, expected `object`."));
+        var te = e({}, F[H], E);
         for (var ee in te) {
           var de = E[ee];
           if (a(E, ee) && typeof de != "function")
-            return T(W, B, P, ee, K(de));
+            return T(Y, $, L, ee, W(de));
           if (!de)
             return new g(
-              "Invalid " + B + " `" + P + "` key `" + ee + "` supplied to `" + W + "`.\nBad object: " + JSON.stringify(F[L], null, "  ") + `
+              "Invalid " + $ + " `" + L + "` key `" + ee + "` supplied to `" + Y + "`.\nBad object: " + JSON.stringify(F[H], null, "  ") + `
 Valid keys: ` + JSON.stringify(Object.keys(E), null, "  ")
             );
-          var Y = de(q, ee, W, B, P + "." + ee, n);
-          if (Y)
-            return Y;
+          var G = de(q, ee, Y, $, L + "." + ee, n);
+          if (G)
+            return G;
         }
         return null;
       }
       return k(R);
     }
-    function $(E) {
+    function P(E) {
       switch (typeof E) {
         case "number":
         case "string":
@@ -3569,20 +3569,20 @@ Valid keys: ` + JSON.stringify(Object.keys(E), null, "  ")
           return !E;
         case "object":
           if (Array.isArray(E))
-            return E.every($);
+            return E.every(P);
           if (E === null || s(E))
             return !0;
           var R = u(E);
           if (R) {
-            var F = R.call(E), L;
+            var F = R.call(E), H;
             if (R !== E.entries) {
-              for (; !(L = F.next()).done; )
-                if (!$(L.value))
+              for (; !(H = F.next()).done; )
+                if (!P(H.value))
                   return !1;
             } else
-              for (; !(L = F.next()).done; ) {
-                var W = L.value;
-                if (W && !$(W[1]))
+              for (; !(H = F.next()).done; ) {
+                var Y = H.value;
+                if (Y && !P(Y[1]))
                   return !1;
               }
           } else
@@ -3595,14 +3595,14 @@ Valid keys: ` + JSON.stringify(Object.keys(E), null, "  ")
     function O(E, R) {
       return E === "symbol" ? !0 : R ? R["@@toStringTag"] === "Symbol" || typeof Symbol == "function" && R instanceof Symbol : !1;
     }
-    function V(E) {
+    function B(E) {
       var R = typeof E;
       return Array.isArray(E) ? "array" : E instanceof RegExp ? "object" : O(R, E) ? "symbol" : R;
     }
-    function K(E) {
+    function W(E) {
       if (typeof E > "u" || E === null)
         return "" + E;
-      var R = V(E);
+      var R = B(E);
       if (R === "object") {
         if (E instanceof Date)
           return "date";
@@ -3611,8 +3611,8 @@ Valid keys: ` + JSON.stringify(Object.keys(E), null, "  ")
       }
       return R;
     }
-    function G(E) {
-      var R = K(E);
+    function K(E) {
+      var R = W(E);
       switch (R) {
         case "array":
         case "object":
@@ -4349,50 +4349,50 @@ const N8 = uo, z8 = {
   }, [y, d]), Ch(() => {
     w.notifications.length > j.current && setTimeout(() => C(), 0), j.current = w.notifications.length;
   }, [w.notifications]);
-  const I = M8(w.notifications, d), $ = Iy.reduce(
-    (O, V) => (O[V] = I[V].map(({ style: K, ...G }) => /* @__PURE__ */ l(
+  const I = M8(w.notifications, d), P = Iy.reduce(
+    (O, B) => (O[B] = I[B].map(({ style: W, ...K }) => /* @__PURE__ */ l(
       N8,
       {
         timeout: T,
-        onEnter: () => S.current[G.id].offsetHeight,
-        nodeRef: { current: S.current[G.id] },
+        onEnter: () => S.current[K.id].offsetHeight,
+        nodeRef: { current: S.current[K.id] },
         children: (D) => /* @__PURE__ */ l(
           Hy,
           {
             ref: (E) => {
-              S.current[G.id] = E;
+              S.current[K.id] = E;
             },
-            data: G,
+            data: K,
             onHide: (E) => Py(E, k),
             autoClose: p,
             ...U("notification", {
               style: {
                 ..._8({
                   state: D,
-                  position: V,
+                  position: B,
                   transitionDuration: T,
                   maxHeight: f
                 }),
-                ...K
+                ...W
               }
             })
           }
         )
       },
-      G.id
+      K.id
     )), O),
     {}
   );
   return /* @__PURE__ */ v(T3, { withinPortal: N, ...b, children: [
-    /* @__PURE__ */ l(ae, { ...U("root"), "data-position": "top-center", ref: e, ...z, children: /* @__PURE__ */ l(xo, { children: $["top-center"] }) }),
-    /* @__PURE__ */ l(ae, { ...U("root"), "data-position": "top-left", ...z, children: /* @__PURE__ */ l(xo, { children: $["top-left"] }) }),
+    /* @__PURE__ */ l(ae, { ...U("root"), "data-position": "top-center", ref: e, ...z, children: /* @__PURE__ */ l(xo, { children: P["top-center"] }) }),
+    /* @__PURE__ */ l(ae, { ...U("root"), "data-position": "top-left", ...z, children: /* @__PURE__ */ l(xo, { children: P["top-left"] }) }),
     /* @__PURE__ */ l(
       ae,
       {
         ...U("root", { className: j0.classNames.fullWidth }),
         "data-position": "top-right",
         ...z,
-        children: /* @__PURE__ */ l(xo, { children: $["top-right"] })
+        children: /* @__PURE__ */ l(xo, { children: P["top-right"] })
       }
     ),
     /* @__PURE__ */ l(
@@ -4401,11 +4401,11 @@ const N8 = uo, z8 = {
         ...U("root", { className: j0.classNames.fullWidth }),
         "data-position": "bottom-right",
         ...z,
-        children: /* @__PURE__ */ l(xo, { children: $["bottom-right"] })
+        children: /* @__PURE__ */ l(xo, { children: P["bottom-right"] })
       }
     ),
-    /* @__PURE__ */ l(ae, { ...U("root"), "data-position": "bottom-left", ...z, children: /* @__PURE__ */ l(xo, { children: $["bottom-left"] }) }),
-    /* @__PURE__ */ l(ae, { ...U("root"), "data-position": "bottom-center", ...z, children: /* @__PURE__ */ l(xo, { children: $["bottom-center"] }) })
+    /* @__PURE__ */ l(ae, { ...U("root"), "data-position": "bottom-left", ...z, children: /* @__PURE__ */ l(xo, { children: P["bottom-left"] }) }),
+    /* @__PURE__ */ l(ae, { ...U("root"), "data-position": "bottom-center", ...z, children: /* @__PURE__ */ l(xo, { children: P["bottom-center"] }) })
   ] });
 });
 mo.classes = qy;
@@ -4959,19 +4959,19 @@ class Kl extends Sd {
       }
       if (r) {
         const T = Array.isArray(S), U = T ? [] : {}, I = T ? y : f;
-        for (const $ in S)
-          if (Object.prototype.hasOwnProperty.call(S, $)) {
-            const O = `${I}${r}${$}`;
-            z && !m ? U[$] = this.translate(O, {
+        for (const P in S)
+          if (Object.prototype.hasOwnProperty.call(S, P)) {
+            const O = `${I}${r}${P}`;
+            z && !m ? U[P] = this.translate(O, {
               ...n,
-              defaultValue: r2(M) ? M[$] : void 0,
+              defaultValue: r2(M) ? M[P] : void 0,
               joinArrays: !1,
               ns: s
-            }) : U[$] = this.translate(O, {
+            }) : U[P] = this.translate(O, {
               ...n,
               joinArrays: !1,
               ns: s
-            }), U[$] === O && (U[$] = S[$]);
+            }), U[P] === O && (U[P] = S[P]);
           }
         m = U;
       }
@@ -4980,7 +4980,7 @@ class Kl extends Sd {
     else {
       let T = !1, U = !1;
       !this.isValidLookup(m) && z && (T = !0, m = M), this.isValidLookup(m) || (U = !0, m = i);
-      const $ = (n.missingKeyNoValueFallbackToKey || this.options.missingKeyNoValueFallbackToKey) && U ? void 0 : m, O = z && M !== m && this.options.updateMissing;
+      const P = (n.missingKeyNoValueFallbackToKey || this.options.missingKeyNoValueFallbackToKey) && U ? void 0 : m, O = z && M !== m && this.options.updateMissing;
       if (U || T || O) {
         if (this.logger.log(O ? "updateKey" : "missingKey", d, c, i, O ? M : m), r) {
           const D = this.resolve(i, {
@@ -4989,23 +4989,23 @@ class Kl extends Sd {
           });
           D && D.res && this.logger.warn("Seems the loaded translations were in flat JSON format instead of nested. Either set keySeparator: false on init or make sure your translations are published in nested format.");
         }
-        let V = [];
-        const K = this.languageUtils.getFallbackCodes(this.options.fallbackLng, n.lng || this.language);
-        if (this.options.saveMissingTo === "fallback" && K && K[0])
-          for (let D = 0; D < K.length; D++)
-            V.push(K[D]);
-        else this.options.saveMissingTo === "all" ? V = this.languageUtils.toResolveHierarchy(n.lng || this.language) : V.push(n.lng || this.language);
-        const G = (D, E, R) => {
-          var L;
-          const F = z && R !== m ? R : $;
-          this.options.missingKeyHandler ? this.options.missingKeyHandler(D, c, E, F, O, n) : (L = this.backendConnector) != null && L.saveMissing && this.backendConnector.saveMissing(D, c, E, F, O, n), this.emit("missingKey", D, c, E, m);
+        let B = [];
+        const W = this.languageUtils.getFallbackCodes(this.options.fallbackLng, n.lng || this.language);
+        if (this.options.saveMissingTo === "fallback" && W && W[0])
+          for (let D = 0; D < W.length; D++)
+            B.push(W[D]);
+        else this.options.saveMissingTo === "all" ? B = this.languageUtils.toResolveHierarchy(n.lng || this.language) : B.push(n.lng || this.language);
+        const K = (D, E, R) => {
+          var H;
+          const F = z && R !== m ? R : P;
+          this.options.missingKeyHandler ? this.options.missingKeyHandler(D, c, E, F, O, n) : (H = this.backendConnector) != null && H.saveMissing && this.backendConnector.saveMissing(D, c, E, F, O, n), this.emit("missingKey", D, c, E, m);
         };
-        this.options.saveMissing && (this.options.saveMissingPlurals && N ? V.forEach((D) => {
+        this.options.saveMissing && (this.options.saveMissingPlurals && N ? B.forEach((D) => {
           const E = this.pluralResolver.getSuffixes(D, n);
           C && n[`defaultValue${this.options.pluralSeparator}zero`] && E.indexOf(`${this.options.pluralSeparator}zero`) < 0 && E.push(`${this.options.pluralSeparator}zero`), E.forEach((R) => {
-            G([D], i + R, n[`defaultValue${R}`] || M);
+            K([D], i + R, n[`defaultValue${R}`] || M);
           });
-        }) : G(V, i, M));
+        }) : K(B, i, M));
       }
       m = this.extendTranslation(m, e, n, u, a), U && m === i && this.options.appendNamespaceToMissingKey && (m = `${c}:${i}`), (U || T) && this.options.parseMissingKeyHandler && (m = this.options.parseMissingKeyHandler(this.options.appendNamespaceToMissingKey ? `${c}:${i}` : i, T ? m : void 0));
     }
@@ -6009,7 +6009,7 @@ function ux() {
 }
 ux();
 const mx = { tagline: `Content at
-the right pace.`, subTagline: "Headless CMS engine for teams who care about the details.", welcomeBack: "Welcome back", signInToWorkspace: "Sign in to your workspace", email: "Email", emailPlaceholder: "you@example.com", password: "Password", passwordPlaceholder: "Your password", signIn: "Sign in", signingIn: "Signing in…", forgotHint: "Forgot your password? Contact your administrator.", error: "Invalid email or password" }, fx = { cancel: "Cancel", save: "Save", delete: "Delete", edit: "Edit", create: "Create", close: "Close", back: "Back", loading: "Loading...", loadingEllipsis: "Loading…", copy: "Copy", copied: "Copied!", remove: "Remove", rename: "Rename", upload: "Upload", download: "Download", preview: "Preview", restore: "Restore", never: "Never", dismiss: "Dismiss", done: "Done", add: "Add", change: "Change", reset: "Reset", search: "Search", on: "on", off: "off", configure: "Configure", backToList: "Back to list", discard: "Discard", confirm: "Confirm", yes: "Yes", no: "No" }, yx = { dashboard: "Dashboard", pages: "Pages", media: "Media", menus: "Menus", settings: "Settings", users: "Users", apiKeys: "API Keys", activity: "Activity", webhooks: "Webhooks", strings: "Strings", workspace: "Workspace", system: "System", toggleSidebar: "Toggle sidebar", cmsAdmin: "ARTKOD CMS", lightMode: "Light mode", darkMode: "Dark mode", switchToLight: "Switch to light mode", switchToDark: "Switch to dark mode", signOut: "Sign out", contentLanguage: "Content language" }, gx = { searchPages: "Search pages…", editPage: "Edit page", newPage: "New page", menuLabel: "Menu: {{label}}", backToList: "Back to list", backToMenus: "Back to menus" }, kx = { title: "Dashboard", subtitle: "Overview of your content and recent activity.", newPage: "New page", mediaLibrary: "Media", publishedPages: "Published pages", draftPages: "Drafts", mediaFiles: "Media files", activityWeek: "Activity (7 days)", publishedThisWeek_one: "{{count}} this week", publishedThisWeek_other: "{{count}} this week", noneThisWeek: "None this week", scheduledCount_one: "{{count}} scheduled", scheduledCount_other: "{{count}} scheduled", noneScheduled: "None scheduled", storageUsed: "{{size}} used", contributorsCount_one: "{{count}} contributor", contributorsCount_other: "{{count}} contributors", translationCoverage: "Translation coverage", translationMissing_one: "{{count}} translation missing", translationMissing_other: "{{count}} translations missing", translationComplete: "Fully translated", staleContent: "Stale content", staleContentFooter: "Not updated in 3+ months", pendingDrafts: "Pending drafts", pendingDraftsFooter: "Awaiting publish", pagesByType: "Page types in use", pagesByTypeFooter: "Top: {{type}} ({{count}})", trashedPages: "Trashed pages", trashedFooter: "In trash", mediaByType: "Images", mediaByTypeFooter_one: "{{count}} document", mediaByTypeFooter_other: "{{count}} documents", team: "Active users", teamFooter: "{{pending}} pending · {{disabled}} disabled", recentActivity: "Recent activity", noActivity: "No activity yet.", viewAllActivity: "View all", recentlyEdited: "Recently edited", noRecentEdits: "No pages edited yet.", quickActions: "Quick actions", recentDrafts: "Recent drafts", noRecentDrafts: "No recent drafts.", actionNewPage: "Create new page", actionNewPageDesc: "Start a blank draft", actionUploadMedia: "Upload media", actionUploadMediaDesc: "Add images & files", actionSettings: "Site settings", actionSettingsDesc: "Configure your project", greetingMorning: "Good morning", greetingAfternoon: "Good afternoon", greetingEvening: "Good evening", greetingSubtitle: "Here's what's happening", actions: { created: "Created", updated: "Updated", deleted: "Deleted", published: "Published", restored: "Restored", permDeleted: "Perm. deleted" } }, vx = { title: "Pages", titleTrash: "Trash", subtitle: "Manage published content and drafts.", subtitleTrash: "Deleted pages — restore or permanently remove.", newPage: "+ New Page", exitTrash: "Exit Trash", enterTrash: "Trash", options: "Options", allStatuses: "All statuses", draft: "Draft", published: "Published", allTypes: "All types", colTitle: "Title", colSlug: "Slug", colStatus: "Status", colActions: "Actions", noResults: 'No results for "{{query}}"', resultCount: '{{count}} result(s) for "{{query}}"', trashEmpty: "Trash is empty.", noMatch: "No pages match your filters.", noPages: "No pages yet", createFirst: "Create your first page", pagination: "{{from}}–{{to}} of {{total}} pages", restore: "Restore", deleteForever: "Delete forever", delete: "Delete", moveToTrash: "Move to trash", moveToTrashConfirm: "Move this page to trash? You can restore it later.", permDeleteTitle: "Permanently delete page", permDeleteBody: "This cannot be undone. The page and all its versions will be gone forever.", permDeleteConfirm: "Delete forever", scheduled: "Scheduled", draftBadge: "draft", pendingDraft: "draft pending", permDeleteSuccess: "Page permanently deleted", permDeleteFailed: "Failed to permanently delete page", trashChildCount_one: "1 child in trash", trashChildCount_other: "{{count}} children in trash", trashOrphan: "Was under: {{parent}}", trashOrphanUnknown: "deleted page", trashTruncated: "Showing first {{count}} trashed pages. Restore or permanently delete some to see more." }, bx = { title: "New Page", description: "Choose a page type to get started.", typeSection: "Page type", chooseType: "Choose a page type:", requiresParent: "Requires a parent", parentNamed: "Parent: {{name}}", children: "Children: {{types}}", globalLimit: "Global limit reached", parentRequired: "Parent page (required)", parentOptional: "Parent page (optional)", parentPlaceholder: "Select a parent page…", perParentLimit: 'This parent already has {{limit}} pages of type "{{label}}" (per-parent limit reached).', cancel: "Cancel", createBtn: "Create {{label}}", defaultLabel: "Page" }, xx = { title: "Page type options", description: "Override runtime policy for each page type registered by this project. Code defaults stay the source of truth — empty fields fall back to them.", loading: "Loading…", empty: "No page types registered for this project.", deletable: "Deletable", deletableHelp: "When off, the trash button is hidden for pages of this type. Default: {{default}}", canBeRoot: "Can be root", canBeRootHelp: "When off, pages of this type must have a parent. Default: {{default}}", limit: "Max items (global)", limitHelp: "Total pages of this type allowed across the whole project. Leave empty for no limit. Default: {{default}}", perParentLimit: "Max per parent", perParentLimitHelp: "Max pages of this type under a single parent. Leave empty for no limit. Default: {{default}}", noLimit: "No limit", reset: "Reset", resetTooltip: "Revert to the code-defined defaults for this type", overridden: "Overridden — differs from code defaults", loadError: "Failed to load settings", saved: "Page type options saved", saveError: "Failed to save page type options", deleted: "Page type deleted", systemBadge: "system", addType: "Add page type", createTitle: "Create page type", editTitle: "Edit page type", back: "Back", slugLabel: "Slug", slugHelp: "Lowercase letters, numbers, and hyphens. Used by your frontend to render this type.", slugLocked: "Locked after create — renaming would break your frontend's rendering switch.", slugInvalid: "Lowercase letters, numbers, and hyphens only.", slugTaken: 'Slug "{{slug}}" is already taken.', slugShadowsCodeType: 'Slug "{{slug}}" already exists.', labels: "Labels", labelFor: "Label ({{locale}})", allowedParentTypes: "Allowed parent types", allowedChildTypes: "Allowed child types", allowBlocks: "Allow content blocks", allowedBlockTypes: "Allowed block types", allowedBlockTypesHint: "Leave empty to allow all registered block types.", fields: "Fields", fieldsEmpty: "No fields yet. Add one below.", addField: "Add field", fieldName: "Name", fieldLabel: "Label", fieldType: "Type", fieldRequired: "Required", fieldPlaceholder: "Placeholder", fieldOptions: "Options", fieldOptionsHint: "Press Enter after each option.", fieldNameInvalid: "Use letters, numbers and underscore. Must start with a letter or underscore.", removeField: "Remove field", removeFieldConfirm: "Remove this field? Any page data stored under this name will become orphaned.", deleteType: "Delete page type", deleteConfirm: "Delete this page type? It can only be deleted if no pages still use it.", deleteInUseError: "Cannot delete — {{count}} page(s) still use this type. Remove or convert them first." }, wx = { subtitle: "Manage published content, drafts, and page hierarchy.", noPages: "No pages yet. Create your first page!", newPage: "New Page", addChild: "Add child", collapse: "Collapse", expand: "Expand", dragHandle: "Drag to reorder within this level", previewPage: "Preview page", deletePage: "Delete", deleteTitle: "Delete page", deleteBody: "Delete this page? Any child pages will be moved to root.", deleteConfirm: "Delete", previewNeedsFrontend: "Configure frontendUrl in createAdmin() to enable preview.", previewFailed: "Failed to create preview token", pageDeleted: "Page deleted", deleteError: "Failed to delete page", deleteParentBlocked: "Contains child pages — ask an admin or developer to delete.", deleteCurrentLocaleInactive: "{{locale}} version is already disabled. Switch language to delete this page.", deleteTypeNotDeletable: "This page type can't be deleted.", moveError: { generic: "Couldn't move the page.", parentInSubtree: "Can't move a page under itself or one of its descendants.", parentNotFound: "Target page no longer exists.", parentTrashed: "Target page is in the trash.", invalidParentType: "This page type isn't allowed under that parent.", parentNoChildren: "“{{parent}}” pages can't contain child pages.", invalidChildType: "“{{parent}}” pages can't contain “{{child}}” pages.", perParentLimit: "Target parent already has the maximum number of pages of this type.", cannotBeRoot: "This page type can't be placed at the root.", versionConflict: "Page was modified elsewhere — reload and try again.", pageTrashed: "Page is in the trash and can't be moved.", invalidInsertBefore: "Couldn't place the page at the requested position." } }, Mx = { loading: "Checking what will be deleted…", success: "Page moved to Trash", disableSuccess: "{{locale}} version disabled", confirm: { title: "Delete page?", leaf_single: "{{title}} will be moved to Trash. You can restore it later.", leaf_multi: "All {{count}} language versions ({{locales}}) of {{title}} will be moved to Trash.", cascade_one: "{{title}} and 1 descendant page ({{translationCount}} translations across {{locales}}) will be moved to Trash.", cascade_other: "{{title}} and {{count}} descendant pages ({{translationCount}} translations across {{locales}}) will be moved to Trash.", intro_multilocale: "This page is active in {{activeLocales}}. You can delete the entire page (all locales) or just disable the {{currentLocale}} version and keep {{otherLocales}} live.", deleteButton: "Delete entire page", disableButton: "Disable {{locale}} version only", disableExplain_one: "Hides this page from {{locale}} visitors. {{otherLocales}} stays live.", disableExplain_other: "Hides this page and {{count}} descendant page(s) from {{locale}} visitors. {{otherLocales}} stays live.", presence: "Currently being edited by: {{emails}}", restoreHint: "Restorable from Trash." }, blocked: { title: "Can't delete this page", intro_one: "This page can't be deleted because 1 menu item or link widget still references it:", intro_other: "This page can't be deleted because {{count}} menu items or link widgets still reference it:", menusHeader_one: "1 menu item", menusHeader_other: "{{count}} menu items", pagesHeader_one: "1 page", pagesHeader_other: "{{count}} pages", menuRow: "{{label}} · {{location}}", pageRow: "{{title}}", hint: "Open the listed items and remove the link, then try again.", close: "Close" }, disableBlocked: { title: "Can't disable {{locale}} version", intro_one: "Disabling the {{locale}} version would break 1 reference still pointing to this content:", intro_other: "Disabling the {{locale}} version would break {{count}} references still pointing to this content:" }, forbiddenParent: "This page has child pages — only an admin or developer can delete it.", multiLocale: { activeIn: "active in {{locales}}", intro: "This page lives in more than one language. Pick how to delete:", disableLocaleTitle: "Disable {{locale}} version only", disableLocaleHelp: "Hides this page from {{locale}} visitors. {{other}} stays live. Restorable from Trash.", disableLocaleHelpDesc: "Hides this page and {{count}} descendant page(s) from {{locale}} visitors. {{other}} stays live. Restorable from Trash.", deleteEntireHelp: "{{subject}} and all its translations ({{locales}}) will be moved to Trash.", deleteEntireHelpDesc: "{{subject}} and {{count}} descendant page(s) ({{locales}}) will be moved to Trash." } }, Cx = { title: "Restore page", loading: "Checking restore options…", success: "Page restored", restoreButton: "Restore", placementLabel: "Where should this page be restored?", typeHint: "Page type: {{type}}", option: { originalParent: 'Under "{{title}}" (original parent)', root: "Move to root (top level)", rootOriginal: "At root (top level)", otherParent: "Under a different page…", pickParent: "Pick a parent page", loading: "Loading pages…", noMatches: "No matching pages" }, cascade: { label_one: "Also restore 1 trashed descendant", label_other: "Also restore {{count}} trashed descendants", hint: "Children that were trashed alongside this page will be restored back into their original positions." }, reason: { parent_trashed: "Original parent is still in trash. Restore it first or pick a different parent.", type_mismatch: "Original parent isn't a valid parent type for {{type}}.", per_parent_limit_reached: "This parent already has the maximum number of {{type}} pages ({{limit}}).", cannot_be_root: "{{type}} pages cannot live at the root.", global_limit_reached: "Project limit for {{type}} pages reached ({{limit}})." }, blocked: { title: "Cannot restore page", typeNotRegistered: 'Page type "{{type}}" is no longer registered in this project. Add the type back or permanently delete this page.', noPlacement: "There's no valid place to restore this {{type}} page right now.", suggestion: "Restore (or create) a page of type: {{parentTypes}}, then try again.", parentInTrash: 'The original parent "{{parentTitle}}" is still in trash — restoring it first will give this page a home.', globalLimit: "Project limit for {{type}} pages reached ({{limit}}). Delete or trash a live {{type}} page first." }, error: { generic: "Failed to restore page. Try again.", pickParent: "Please pick a parent page.", parentTrashed: "The chosen parent is in trash. Pick a live page or restore that parent first.", parentNotFound: "The chosen parent no longer exists.", parentInSubtree: "Cannot move a page under one of its own descendants.", invalidParentType: "The chosen parent isn't a valid parent type for {{type}}.", perParentLimitReached: "This parent already has the maximum number of {{type}} pages ({{limit}}).", cannotBeRoot: "{{type}} pages cannot live at the root.", globalLimitReached: "Project limit for {{type}} pages reached ({{limit}}).", slugTaken: 'The {{locale}} slug "{{slug}}" is already used by a live page. Rename it before restoring.' } }, _x = { titleEdit: "Edit Page", titleNew: "New Page", tabContent: "Content", tabSeo: "SEO", fieldTitle: "Title", placeholderTitle: "Page title", fieldStatus: "Status", statusDraft: "Draft", statusPublished: "Published", statusHint: "Only admins and developers can publish or unpublish pages", schedulePublish: "Schedule publish", scheduleDescription: "The page will go live automatically at the selected time.", scheduleHint: "Leave blank to keep as draft indefinitely", schedulePlaceholder: "Pick date and time…", scheduledFor: "Scheduled for {{date}}", scheduleClear: "Clear", scheduleConfirm: "Confirm", scheduleLeaveBlank: "Leave blank to keep as draft indefinitely.", parentRequired: "Parent page (required)", parentOptional: "Parent page (optional)", parentNone: "No parent (root level)", fieldsSectionTitle: "Fields", contentSections: "Content Sections", saveAsTemplate: "Save as template", loadTemplate: "Load template", noSections: "No sections yet. Add one below.", addSection: "+ Add new section", addBlockLabel: "+ {{label}}", chooseBlockType: "Choose section type", metaTitle: "Meta title", metaDescription: "Meta description", metaDescriptionHint: "Brief description for search engines", metaTitleCount: "{{count}}/60 characters", metaTitleTooLong: "Meta title is too long", metaDescCount: "{{count}}/160 characters", metaDescTooLong: "Meta description is too long", ogImage: "OG image", pickImage: "Pick image", canonicalUrl: "Canonical URL", canonicalPlaceholder: "https://example.com/my-page", canonicalHint: "Leave blank to use the default page URL", noindex: "Hide from search engines (noindex)", googlePreview: "Google preview", noDescription: "No description set.", savePage: "Save", publishPage: "Publish page", publishSuccess: "Page published", publishError: "Failed to publish page", localeActiveCheckbox: "Active in this language", localeMissing: "No content yet for {{locale}}", localeInactive: "{{locale}} is inactive — content won't appear on the public site", deactivateError: "Couldn't check where this page is used", deactivateBlockedTitle: "This page is still linked in {{locale}}", deactivateBlockedBody: "Deactivating {{locale}} would silently break the links below. Remove them first, then come back to deactivate.", deactivateBlockedMenus: "Used in menus:", deactivateBlockedPages: "Linked from pages:", cascadeBlockedTitle: "Can't disable {{locale}} on descendants", cascadeBlockedBody: "Disabling {{locale}} on this page would also disable it on descendant pages, but some are still linked from same-locale content outside this subtree. Remove the links below, then try again.", cascadeBlockedPageLabel: "Descendant: {{title}}", cascadeDoneNotification: "Disabled {{locale}} on {{count}} descendant page(s)", cascadeConfirmTitle: "Also disable {{locale}} on descendants?", cascadeConfirmBody: "{{count}} descendant page(s) currently active in {{locale}} will also be disabled when you save. This action runs on save and can be undone by re-activating each page individually.", cascadeConfirmAction: "Disable on descendants", ancestorBlockedTitle: "Can't enable {{locale}} yet", ancestorBlockedBody: "One or more parent pages still have {{locale}} disabled. Enable {{locale}} on the parent first, then come back here. Otherwise this page would publish at a URL whose parent segment doesn't resolve.", cascadeFailedError: "Saved the page, but couldn't cascade {{locale}} to descendants", statusDraftBadge: "Draft", statusPublishedBadge: "Published", statusPendingBadge: "Published · draft pending", leaveTitle: "Leave page?", leaveBody: "You have unsaved changes. If you leave now, your changes will be lost.", leaveConfirm: "Leave", conflictTitle: "Edit conflict", conflictBody: "Someone else saved this page while you were editing. [Reload] to get the latest version.", savedNotification: "Page saved", saveError: "Failed to save page", siblingSlugTaken: "Another page under the same parent already uses this name ({{locale}}). Rename this page to save it.", previewNeedsSave: "Save the page first to enable preview", previewNeedsFrontend: "Configure frontendUrl in createAdmin() to enable preview", previewFailed: "Failed to create preview", versionHistory: "Version history", versionHistoryDescription: "Restore an earlier version of this page.", versionCount: "{{count}} saved version", versionCount_other: "{{count}} saved versions", versionCurrent: "current", noVersions: "No saved versions yet. Versions are created on every save.", restoreVersion: "Restore", restoreVersionTitle: "Restore version?", restoreVersionBody: "This will replace the current page content with this version. The current state will be saved as a new version first.", restoreVersionFailed: "Failed to restore version", unknownBlock: "Unknown block type: {{type}}", unsavedBadge: "Unsaved changes", lastSaved: "Last saved {{time}}", alsoEditing: "{{emails}} also editing", moreEditors: "+{{count}}" }, Sx = { title: "Menus", subtitle: "Manage navigation menus for your frontend.", newMenu: "New Menu", loading: "Loading…", noMenus: "No menus yet. Create your first menu!", emptyTitle: "No menus yet", emptyDescription: "Create navigation menus for your frontend header, footer, and other areas.", locationPrimary: "primary — main navigation", locationFooter: "footer — footer links", locationBadge_primary: "Main Navigation", locationBadge_footer: "Footer Navigation", edit: "Edit", delete: "Delete", modeAuto: "Auto", modeManual: "Manual", topLevelItems: "{{count}} top-level item(s)", autoInfo: "{{types}} · depth {{depth}}", deleteTitle: "Delete menu", deleteBody: "Delete this menu? This cannot be undone.", deleteConfirm: "Delete", createTitle: "Create menu", createDescription: "Navigation menus are rendered by your frontend.", modeSection: "Mode", modeManualSub: "You control every menu item", modeAutoSub: "Built from your page tree", locationSection: "Navigation slot", locationPrimaryTitle: "Primary navigation", locationPrimaryCardSub: "Main header navigation", locationFooterTitle: "Footer", locationFooterCardSub: "Footer links", alreadyAdded: "Already added", allLocationsUsed: "All menu locations are already in use.", cancel: "Cancel", createBtn: "Create menu" }, Nx = { title: "Navigation menu editor", alsoEditing: "{{emails}} also editing", moreEditors: "+{{count}}", save: "Save menu", modeLabel: "Mode", modeAuto: "Auto (Smart)", modeManual: "Manual (Custom)", modeAutoHint: "Automatically generates menu items from selected page types.", modeManualHint: "Manually arrange items with drag-and-drop.", includeTypes: "Include page types", includeTypesHint: "Only published pages of these types will appear.", includeTypesPlaceholder: "Select page types…", maxDepth: "Max depth", maxDepthHint: "Levels of children to include (0 = root only).", depth0: "0 — root only", depth1: "1 level", depth2: "2 levels", depth3: "3 levels", maxTypes: "Max selectable page types", maxTypesHint: "Limit how many types admins can pick.", previewLabel: "Preview", previewLoading: "Loading preview…", previewEmpty: "No published pages match the selected types.", itemsLabel: "Items", addItem: "Add item", dndHint: "Drag onto an item to nest it as a child · Drop above/below to reorder · Use ◀ ▶ buttons to change level", noItems: "No items yet. Add your first menu item.", indentOut: "Move to parent level", indentIn: "Make child of item above", itemLabelField: "Label", itemLabelPlaceholder: "e.g. Products", itemTypePage: "Page", itemTypeUrl: "Custom URL", itemPageLabel: "Page", itemPagePlaceholder: "Search pages…", itemUrlLabel: "URL", itemUrlPlaceholder: "https://… or /relative", itemNewTab: "Open in new tab", editItem: "Edit item", cancelItem: "Cancel", saveItem: "Save changes", saveNewItem: "Add item", removeItem: "Remove item", removeItemTitle: "Remove this item and all its children?", removeItemConfirm: "Remove", switchToAuto: "Switch to Auto mode", switchToManual: "Switch to Manual mode", switchToAutoConfirm: "Switching to Auto mode will discard your manually-configured items. Continue?", switchToManualConfirm: "Switch to Manual mode? The current auto-generated structure will be used as your starting point.", switchManualImport: "Switch & import items", switchAutoConfirm: "Switch to Auto", savedNotification: "Menu saved", conflictBody: "Someone else saved this menu while you were editing. [Reload] to get the latest version.", saveError: "Failed to save menu", itemLabelFor: "Label ({{locale}})", itemLabelFallback: "Falls back to {{locale}}", itemLabelMissing: "Missing in: {{locales}}", itemLabelAutoHint: "Leave blank to use the page's title “{{title}}”.", itemLocaleBadge: "Not in {{locale}}", itemLocaleTooltip: "This page has no active translation in {{locale}}. It will be hidden from the public menu for this language.", previewLocaleHint: "Preview for {{locale}}. Pages without an active translation in this language are hidden." }, zx = { title: "Media", subtitle: "Upload and manage images, documents, and other files.", searchPlaceholder: "Search files…", fileCount: "{{count}} file(s)", viewLarge: "Large", viewSmall: "Small", viewList: "List", settingsBtn: "Settings", uploadBtn: "Upload", filterAll: "All", filterImages: "Images", filterDocs: "Documents", noResults: "No files match your search.", noFiles: "No files here", uploadFiles: "Upload files", foldersTitle: "Folders", allFiles: "All files", unorganized: "Unorganized", newFolder: "New Folder", confirmDelete: "Confirm delete", confirmCreate: "Create", newSubfolder: "New subfolder", rename: "Rename", delete: "Delete", expand: "Expand", collapse: "Collapse", folderActions: "Folder actions", deleteFolderTitle: "Delete folder?", deleteFolderMessage: "This cannot be undone.", renameFileTitle: "Rename file", renameFileLabel: "File name", cancel: "Cancel", save: "Save", renameFailed: "Failed to rename.", fileInfoTitle: "File info", fileInfoName: "Display name", fileInfoStorage: "Storage filename", fileInfoType: "Type", fileInfoSize: "Size", fileInfoUploaded: "Uploaded", fileInfoModified: "Last modified", fileInfoCdnUrl: "CDN URL", copy: "Copy", copied: "Copied!", download: "Download", close: "Close", copyUrl: "Copy URL", fileInfo: "File info", deleteFile: "Delete", downloadSelected: "Download {{count}} selected", deleteSelected: "Delete {{count}} selected", deleteFileTitle: "Delete file?", deleteFileBody: "Delete <strong>{{name}}</strong>? This cannot be undone.", deleteFileMessage: "This cannot be undone.", deleteSelectedTitle: "Delete selected files?", deleteSelectedBody: "Delete <strong>{{count}} selected file(s)</strong>? This cannot be undone.", deleteSelectedMessage: "Delete {{count}} selected file(s)? This cannot be undone.", deleteConfirm: "Delete {{count}} file(s)", usedOnPages: "Used on {{count}} page(s):", removeFromPagesFirst: "Remove this image from those pages first.", sortNewest: "Added (newest)", sortOldest: "Added (oldest)", sortModifiedNew: "Modified (newest)", sortModifiedOld: "Modified (oldest)", sortNameAZ: "Name (A → Z)", sortNameZA: "Name (Z → A)", sortSizeLarge: "Size (largest)", sortSizeSmall: "Size (smallest)", dropUploadTo: 'Drop to upload to "{{folder}}"', dropUpload: "Drop to upload", skippedDuplicatesTitle: "Skipped duplicates", skippedDuplicates: "Skipped {{count}} file(s) already in this folder: {{names}}", selectedCount: "{{count}} file(s) selected", selectAll: "Select all", showingRange: "{{from}}–{{to}} of {{total}}", moveToFolder: "Move to folder…", clearSelection: "Clear", settingsTitle: "Bunny CDN Storage", settingsConfigured: "Configured", settingsZoneName: "Storage Zone Name", settingsPathPrefix: "Storage Path Prefix", settingsPathHint: "Subfolder path within the zone.", settingsApiKeyEdit: "Storage API Key (leave blank to keep)", settingsApiKeyNew: "Storage API Key", settingsApiKeyPlaceholderHidden: "••••••••", settingsApiKeyPlaceholderNew: "Paste storage zone password", settingsRegion: "Storage Region", settingsCdnUrl: "CDN Pull Zone URL", settingsCdnPlaceholder: "https://myzone.b-cdn.net", settingsSave: "Save configuration", settingsSaved: "Configuration saved.", settingsHelp: "Zone name & password: Bunny CDN → Storage → [Zone] → FTP & API Access. CDN URL: Bunny CDN → Pull Zones → [Zone] → hostname." }, Tx = { title: "Users", subtitle: "Manage team members and their roles.", newUser: "New User", loading: "Loading…", noUsers: "No users found.", userCount: "{{count}} user", userCount_other: "{{count}} users", colName: "Name", colUser: "User", colEmail: "Email", colRole: "Role", colStatus: "Status", colCreated: "Created", colActions: "Actions", searchPlaceholder: "Search users…", actionsMenu: "Actions", edit: "Edit", delete: "Delete", disable: "Disable", reactivate: "Reactivate", resetPassword: "Reset password", resendInvite: "Resend invite", status: { active: "Active", pending: "Pending", disabled: "Disabled" }, createTitle: "Invite user", createDescription: "Set up the new team member's access credentials.", inviteDescription: "An activation email will be sent to this address.", inviteEmailHint: "We'll email an activation link — the user chooses their own password.", sendInvite: "Send invitation", inviteSent: "Invitation sent to {{email}}", roleSection: "Role", createFirstName: "First name", createFirstNamePlaceholder: "Jane", createLastName: "Last name", createLastNamePlaceholder: "Doe", createEmail: "Email", createEmailPlaceholder: "user@example.com", createPassword: "Password", createPasswordHint: "Min 8 characters", createRole: "Role", createRolePlaceholder: "Choose role", cancel: "Cancel", create: "Create", editTitle: "Edit {{email}}", editRole: "Role", editPasswordNote: `To change this user's password, use "Reset password" from the row menu — they'll get an email.`, editCancel: "Cancel", editSave: "Save", deleteTitle: "Delete user", deleteBody: "Delete {{email}}? This cannot be undone.", deleteMessage: "This permanently removes the user. They will not be able to log in again.", disableTitle: "Disable user", disableMessage: "Their existing session will end and they will be unable to log in until reactivated.", disableConfirm: "Disable", disableSuccess: "{{email}} disabled", reactivateTitle: "Reactivate user", reactivateMessage: "They will be able to log in again with their existing password.", reactivateConfirm: "Reactivate", reactivateSuccess: "{{email}} reactivated", resetTitle: "Reset password", resetMessage: "We'll email a reset link to this user. Their current password keeps working until they set a new one.", resetConfirm: "Send reset email", resetSuccess: "Reset email sent to {{email}}", resendTitle: "Resend invitation", resendMessage: "We'll send a fresh activation link to this user. Any previous link will stop working.", resendConfirm: "Resend invitation", resendSuccess: "Invitation resent to {{email}}", loadError: "Failed to load users", createError: "Failed to invite user", updateError: "Failed to update user", actionError: "Action failed", deleteSuccess: "{{email}} deleted", deleteError: "Failed to delete user" }, jx = { title: "Set your password", subtitle: "Choose a password for {{email}} to activate your account.", password: "Password", passwordPlaceholder: "At least 8 characters", confirmPassword: "Confirm password", confirmPasswordPlaceholder: "Re-enter your password", submit: "Activate account", submitting: "Activating…", success: "Account activated", redirecting: "Taking you to the dashboard…", linkInvalidTitle: "Link invalid or expired", invalidLink: "This activation link is no longer valid. Ask an administrator to send a new invitation.", passwordTooShort: "Password must be at least 8 characters.", passwordMismatch: "Passwords don't match.", submitError: "Could not activate your account. Please try again." }, Ax = { title: "Reset your password", subtitle: "Choose a new password for {{email}}.", submit: "Set new password", success: "Password updated" }, Ex = { title: "API Keys", subtitle: "Manage access tokens for frontend integrations.", newKey: "New Key", loading: "Loading...", noKeys: "No API keys yet.", emptyTitle: "No API keys yet", emptyDescription: "Create access tokens for your frontend or third-party integrations.", new: "New key", colName: "Name", colPrefix: "Prefix", colRole: "Role", colLastUsed: "Last used", colActions: "Actions", revoke: "Revoke", createTitle: "Create API Key", createName: "Name", createNamePlaceholder: "e.g. project-one-frontend", createRole: "Role", roleViewer: "Viewer — read-only", roleEditor: "Editor — create & edit", roleAdmin: "Admin — full access", roleDeveloper: "Developer — developer access", createDescription: "Keys are shown once — copy immediately after creation.", roleSection: "Role", createBtn: "Create", newKeyTitle: "Key created — copy it now. It will not be shown again.", copy: "Copy", dismiss: "Dismiss", revokeTitle: "Revoke API key", revokeBody: 'Revoke "{{name}}"? Any integrations using this key will stop working.', revokeMessage: "Any integration still using this key will start failing immediately.", revokeConfirm: "Revoke", never: "Never", revokeSuccess: 'API key "{{name}}" deleted', revokeError: "Failed to delete key", keyCount: "{{count}} API key", keyCount_other: "{{count}} API keys" }, Lx = { title: "Site Settings", subtitle: "Global configuration for your project.", save: "Save settings", tabGeneral: "General", tabLocales: "Locales", tabSeo: "SEO Defaults", tabEditorPrefs: "Editor preferences", tabAnalytics: "Analytics", tabDashboard: "Dashboard", dashboardHint: "Choose which stat cards each user role sees on their dashboard. Some cards are restricted to a minimum role and can't be enabled below it.", dashboardRole_viewer: "Viewer", dashboardRole_editor: "Editor", dashboardRole_admin: "Admin", dashboardRole_developer: "Developer", dashboardMinRole: "Requires {{role}} or higher", tabApiKeys: "API keys", tabWebhooks: "Webhooks", tabAdvanced: "Advanced", tabRobots: "Robots.txt", identitySection: "Site identity", identityHint: "How your CMS appears to users and to the public.", brandSection: "Brand", brandHint: "Favicon shown in browser tabs and shared previews.", languagesHint: "Which languages this project supports.", thisDeviceNote: "(this device)", editorPrefsHint: "Personal preferences stored on this browser only.", analyticsHint: "Connect your analytics provider.", advancedHint: "Inject raw HTML into every public page.", email: { title: "Email", hint: "Configuration for invitations, password resets, and other transactional email. The same values are used in dev and production for this project — set different credentials in each environment's database.", fromLabel: 'Default "From" address', fromPlaceholder: "My CMS <noreply@example.com>", fromHint: "Plain address or RFC 5322 form. The sender domain must be verified with your email provider (e.g. Resend) — unverified domains will be rejected at send time.", transportTitle: "Transport", transportHint: "How email is actually sent. Credentials are stored per-project — paste them once here and the same values apply in dev and prod (each environment carries its own database).", transportLabel: "Transport mode", transportLabelHint: '"Auto" uses environment variables (RESEND_API_KEY / SMTP_HOST) as a fallback. The other choices use the credentials you fill in below.', transportAuto: "Auto (use environment variables)", transportResend: "Resend (HTTP API)", transportSmtp: "SMTP (nodemailer)", transportNone: "Disabled (drop all sends)", resendKeyLabel: "Resend API key", resendKeyHint: 'Get one at resend.com → API Keys. Free tier covers 100 emails/day. Keys start with "re_".', resendKeyPlaceholder: "re_xxxxxxxxxxxxxxxxxxxxxxxx", resendKeyPlaceholderStored: "Leave blank to keep the existing key", smtpHostLabel: "SMTP host", smtpPortLabel: "SMTP port", smtpUserLabel: "SMTP username", smtpPassLabel: "SMTP password", smtpPassPlaceholderStored: "Leave blank to keep the existing password", smtpSecureLabel: "Use TLS/SSL (port 465 typically requires this; port 587 typically does not)", configured: "Configured", show: "Show", hide: "Hide", clear: "Clear", saveTransport: "Save email config", saved: "Email config saved", cleared: "Credential cleared", statusResend: "Resend connected ({{source}})", statusSmtp: "SMTP connected ({{source}})", statusConsole: "No transport configured — emails will be logged to the API stdout instead of sent", statusNone: "Email is disabled — outgoing sends will be silently dropped", statusLoading: "Checking transport…", sourceProject: "this project", sourceEnv: "from env", overrideActive: "Dev override active: all sends are re-routed to {{email}}" }, noFavicon: "No favicon set", faviconReady: "Active across the site", faviconFallback: "Brand monogram fallback in use", faviconName: "favicon", siteTitle: "Site title", siteTitleHint: "Used in the browser tab and as a fallback OG title.", siteTitlePlaceholder: "My Website", tagline: "Tagline", taglineHint: "Short description shown below the site title.", taglinePlaceholder: "Building things since 2024", favicon: "Favicon", faviconHint: "Recommended: 32×32 PNG or SVG.", faviconSet: "Favicon set (media ID: {{id}}…)", faviconRemove: "Remove", faviconNone: "No favicon set.", faviconSelect: "Select favicon", faviconChange: "Change favicon", uiLanguage: "Admin UI language", uiLanguageHint: "Language used for all admin panel labels and messages.", langEn: "English", langHr: "Croatian", localeFallback: "Falls back to {{locale}} when empty", editorPrefsSection: "Editor preferences (this device)", autosaveEnabled: "Autosave every 30 seconds", autosaveEnabledHint: "Saves drafts in the background while you edit. Manual save (Ctrl+S, Save button) and Publish are unaffected.", languagesSection: "Content languages", availableLocales: "Available locales", availableLocalesHint: "Languages this project will publish content in.", defaultLocale: "Default locale", defaultLocaleHint: "Fallback locale used at the site root and when a page has no translation in the visitor's locale.", defaultLocaleNotAvailable: "Default locale must be one of the available locales.", atLeastOneLocale: "At least one locale must be available.", localeInUse: "Cannot remove locale {{locale}} — pages still have content in it. Remove that content first.", seoDefaultsHint: "These defaults are used when a page doesn't have its own SEO fields set.", defaultMetaTitle: "Default meta title", defaultMetaTitlePlaceholder: "My Website — Page Title", defaultMetaDesc: "Default meta description", defaultMetaDescPlaceholder: "A short description of your website…", defaultOgImage: "Default OG image URL", defaultOgImageHint: "Fallback Open Graph image for social sharing.", defaultOgImagePlaceholder: "https://cdn.example.com/og-default.jpg", analyticsId: "Analytics ID", analyticsIdHint: "Google Analytics measurement ID (G-XXXXXXXX) or any other analytics identifier.", analyticsIdPlaceholder: "G-XXXXXXXXXX", advancedWarning: "Raw HTML injected into every page. Use with caution — invalid HTML can break your site.", customHeadHtml: "Custom <head> HTML", customHeadHtmlHint: "Injected inside <head> before </head>.", customHeadHtmlPlaceholder: "<!-- e.g. third-party scripts, custom fonts -->", customBodyHtml: "Custom <body> HTML", customBodyHtmlHint: "Injected just before </body>.", customBodyHtmlPlaceholder: "<!-- e.g. chat widget, cookie banner -->", robotsHint: "Content returned by GET /robots.txt when the X-Project-Slug header is present.", robotsLabel: "robots.txt content", robotsResetAllow: "Reset to allow all", robotsDisallowAll: "Disallow all (maintenance)", savedNotification: "Settings saved", conflictTitle: "Edit conflict", conflictBody: "Someone else saved these settings while you were editing. [Reload] to get the latest version.", saveError: "Failed to save settings" }, Px = { title: "Webhooks", subtitle: "Notify external services when content changes", addBtn: "Add webhook", loading: "Loading…", noWebhooks: "No webhooks configured", emptyTitle: "No webhooks yet", emptyDescription: "Notify Slack, Vercel or your build pipeline when content changes.", add: "Add webhook", addFirst: "Add your first webhook", colUrl: "URL", colEvents: "Events", colActive: "Active", colCreated: "Created", colActions: "Actions", count: "{{count}} webhook", count_other: "{{count}} webhooks", createUrlPlaceholder: "https://example.com/webhook", createEventsLabel: "Events", cancel: "Cancel", createBtn: "Create webhook", createSuccess: "Webhook created successfully", secretHint: "Copy and store this secret — it will not be shown again. Use it to verify the X-CMS-Signature header on incoming requests.", done: "Done", validationUrl: "URL must start with http:// or https://", validationEvents: "Select at least one event", createError: "Failed to create webhook", noDeliveries: "No deliveries yet", viewLog: "View delivery log", deleteWebhook: "Delete webhook", deliveryLog: "Delivery log", deleteTitle: "Delete webhook?", deleteBody: "All delivery history for this webhook will also be deleted.", deleteConfirm: "Delete", deleteSuccess: "Webhook deleted", updateError: "Failed to update webhook", deleteError: "Failed to delete webhook", loadError: "Failed to load webhooks" }, $x = { title: "Strings", subtitle: "Edit hardcoded frontend copy without a code deploy.", colKey: "Key", colValue: "Value", addRow: "Add string", addRowBlocked: "Finish the new string first — enter a key and a value for every language.", removeRow: "Remove string", save: "Save", keyPlaceholder: "e.g. hero_title", valuePlaceholder: "Translated value", defaultBadge: "default", emptyTitle: "No strings yet", emptyState: "No strings defined for this language yet.", noLocales: "No content languages are configured. Configure them in Settings → General first.", saveSuccess: "Strings saved", saveError: "Failed to save strings", loadError: "Failed to load strings", deleteTitle: "Delete this string?", deleteBody: 'The key "{{key}}" will be removed from this language. Other languages are unaffected.', deleteMessage: "The key will be removed from all languages.", deleteConfirm: "Delete", deleteSuccess: "String deleted", deleteError: "Failed to delete string", errorKeyRequired: "Key is required", errorKeyFormat: "Letters, numbers, dot, underscore, hyphen only", errorKeyDuplicate: "Duplicate key in this language", errorFixFirst: "Fix the highlighted errors before saving", rowCount: "{{count}} string" }, Dx = { placeholder: "Search pages, or jump to…", newPage: "New page", newPageDesc: "Create a new page", mediaLibrary: "Media library", mediaLibraryDesc: "Browse and upload files", viewActivity: "View activity", viewActivityDesc: "See recent activity log", pageHint: "{{slug}} · {{status}}", noResults: "No results found" }, Ox = { title: "Activity Log", subtitle: "A record of all changes made by your team.", colWhen: "When", colUser: "User", colAction: "Action", colResource: "Resource", noActivity: "No activity yet.", loadMore: "Load more", filter: "Filter", filterAll: "All", filterPages: "Pages", filterMedia: "Media", filterUsers: "Users", rangeLabel: "Date range", rangeAll: "All time", range24h: "Last 24 hours", range7d: "Last 7 days", range30d: "Last 30 days", actions: { page_created: "Created", page_updated: "Updated", page_moved: "Moved", page_published: "Published", page_trashed: "Trashed", page_restored: "Restored", page_deleted: "Permanently deleted", page_locale_disabled: "Disabled translation", page_version_restored: "Restored a version of", menu_created: "Menu created", menu_updated: "Menu updated", menu_deleted: "Menu deleted", media_uploaded: "Media uploaded", media_deleted: "Media deleted", media_folder_created: "Folder created", media_folder_moved: "Folder moved", media_folder_renamed: "Folder renamed", media_folder_deleted: "Folder deleted", media_config_updated: "Media settings updated", block_template_created: "Template saved", block_template_deleted: "Template deleted", page_type_created: "Page type created", page_type_updated: "Page type updated", page_type_deleted: "Page type deleted", settings_updated: "Settings updated", strings_updated: "Strings updated", strings_deleted: "String deleted", user_invited: "Invited user", user_activated: "Activated account", user_updated: "User updated", user_disabled: "Disabled user", user_reactivated: "Reactivated user", user_password_reset_requested: "Sent password reset", user_password_reset_completed: "Reset their password", user_invite_resent: "Resent invite", user_deleted: "Deleted user" } }, Rx = { saveTitle: "Save as Template", saveSubtitle: "Saves the current {{count}} block(s) as a reusable template.", nameLabel: "Template name", namePlaceholder: "e.g. Hero + Two Columns", nameRequired: "Template name is required", saveFailed: "Failed to save template", saveBtn: "Save Template", loadTitle: "Load Template", loadDescription: "This will replace all existing blocks on the page.", loadWarning: "Loading a template will replace all current content blocks.", loadNoTemplates: "No saved templates yet.", blockCount: "{{count}} block(s)", loadBtn: "Load Template", crossLocaleTitle: "Cross-language template", crossLocaleBody: "This template was authored in {{source}}, but you're editing in {{target}}. Loading it will paste {{source}}-language content into the {{target}} tab. Continue?", crossLocaleConfirm: "Load anyway" }, Ix = { mixedContent: { blockLabel: "Mixed Content Block", widgetText: "Text", widgetVideo: "Video", widgetLink: "Link", widgetAccordion: "Accordion", widgetGallery: "Gallery", widgetSection: "Section", layoutFull: "Full width", layoutHalf: "Half / Half", layout13_23: "1/3 + 2/3", layout23_13: "2/3 + 1/3", layoutThree: "Three equal", layout14_34: "1/4 + 3/4", layout34_14: "3/4 + 1/4", chooseLayout: "Choose a layout for this section:", addWidget: "Add Widget", addWidgetDescription: "Choose a content widget to insert into this column.", cancelBtn: "Cancel", insertBtn: "Insert", textPlaceholder: "Type here…", textEmpty: "No text yet — click ✏ to edit", videoUrl: "Video URL", videoWidth: "Width (px)", videoHeight: "Height (px)", videoEmpty: "No video URL — click ✏ to edit", linkEmpty: "Link not configured — click ✏ to edit", accordionEmpty: "No items — click ✏ to add", accordionMainTitle: "Title (optional)", accordionMainTitlePlaceholder: "e.g. Frequently asked questions", notConfigured: "Not configured", configure: "Configure", addItem: "+ Add item", accordionItem: "Item {{num}}", accordionTitle: "Accordion title", accordionContent: "Item content…", galleryEmpty: "No images added yet.", galleryEdit: "Edit gallery", gallerySelect: "Select images", resetLayout: "Reset and choose a different layout", changeLayout: "Change", columnLabel: "Column {{num}} ({{width}}/12)", addWidgetBtn: "+ Add Widget", sectionTitle: "Section title (optional)", changeLayoutBtn: "Change layout", discardTitle: "Discard changes?", discardBody: "You have unsaved widget changes. If you close now, they will be lost.", collapseWidget: "Collapse preview", expandWidget: "Expand preview" } }, Hx = { paragraph: "Paragraph", heading: "Heading {{level}}", alignment: "Alignment", alignLeft: "Align left", alignCenter: "Center", alignRight: "Align right", alignJustify: "Justify", indent: "Indent", outdent: "Outdent", table: "Table", insertTable: "Insert {{rows}}×{{cols}} table", tableRow: "Row", addRowAbove: "Add row above", addRowBelow: "Add row below", deleteRow: "Delete row", tableColumn: "Column", addColumnLeft: "Add column left", addColumnRight: "Add column right", deleteColumn: "Delete column", deleteTable: "Delete table", addHeaderRow: "Add header row", removeHeaderRow: "Remove header row", mergeCells: "Merge cells", splitCell: "Split cell", cellOptions: "Cell options", addImage: "Add image", imageModal: { title: "Add Image", titleEdit: "Edit Image", add: "+ Add", change: "Change", imageTitle: "Image title", imageTitlePlaceholder: "Enter image title", description: "Image description", descriptionPlaceholder: "Alt text for accessibility", alignment: "Image alignment", alignDefault: "Default", alignLeft: "Left", alignCenter: "Center", alignRight: "Right", dimensions: "Image dimensions", originalDims: "Use original dimensions", customDims: "Set custom dimensions", width: "Width (px)", height: "Height (px)", lockAspect: "Lock aspect ratio", unlockAspect: "Unlock aspect ratio" } }, qx = /* @__PURE__ */ JSON.parse(`{"nav":{"store":"Store","products":"Products","categories":"Categories","settings":"Settings","customers":"Customers","priceLists":"Price lists","orders":"Orders"},"checkoutModes":{"pay_now":"Pay now (card)","bank_transfer":"Bank transfer","cod":"Cash on delivery"},"products":{"new":"New product","empty":"No products yet","emptyHint":"Create your first product to start building the catalog.","noMatches":"No products match your filters.","createTitle":"New product","create":"Create","createHint":"You'll set price, stock, variants and content after creating.","nameRequired":"A name is required.","untitled":"(untitled product)","backToList":"Products","searchPlaceholder":"Search name or SKU…","allStatuses":"All statuses","allTypes":"All types","colName":"Name","colStatus":"Status","colType":"Type","colPrice":"Price","colStock":"Stock","variantCount":"{{n}} variants","save":"Save","saved":"Product saved","delete":"Delete","deleteTitle":"Delete product?","deleteBody":"This permanently deletes the product and all its variants.","deleted":"Product deleted","slugTaken":"Another product already uses this name in this language.","leaveTitle":"Discard unsaved changes?","leaveBody":"You have unsaved changes to this product. Leave without saving?","leaveConfirm":"Discard","editingLocale":"Editing {{locale}} content","type":"Type","typePhysical":"Physical","typeDigital":"Digital","typeService":"Service","status":"Status","statusDraft":"Draft","statusActive":"Active","sale":"Sale","saleBuy":"For sale","saleInquiry":"Inquiry only","inquiryHint":"Inquiry-only: no direct payment. A cart with any inquiry-only item becomes a quote request at checkout.","name":"Name","shortDescription":"Short description","tabGeneral":"General","tabVariants":"Variants","tabCategories":"Categories","tabMedia":"Media","tabContent":"Content","tabSeo":"SEO","options":"Options","addOption":"Add option","removeOption":"Remove option","noOptions":"No options — this is a simple product with a single variant. Add an option (e.g. Size, Color) to create variants.","optionNamePlaceholder":"Option name (e.g. Size)","addValuePlaceholder":"Add a value and press Enter (e.g. Small)","applyOptions":"Apply options","optionsDirtyHint":"Unsaved option changes — apply to regenerate variants.","applyOptionsTitle":"Regenerate variants?","applyOptionsBody":"Applying these options rebuilds the variant matrix. Existing variant combinations keep their SKU and price; removed combinations (and their price/stock) are deleted.","optionsApplied":"Options applied","variants":"Variants","variantSaved":"Variant saved","saveVariants":"Save variants","saveVariantsCount":"Save variants ({{n}})","variantsSaved":"{{n}} variant(s) saved","variantsSavedPartial":"Saved {{n}}; some failed: {{errors}}","rowUnsaved":"Unsaved changes","sku":"SKU","skuPlaceholder":"SKU","skuTaken":"That SKU is already used by another variant.","price":"Price (€)","salePrice":"Sale (€)","priceInvalid":"Enter a valid price (e.g. 12.99).","saleAbovePrice":"Sale price can't be higher than the regular price.","onHand":"On hand","tracked":"Track","backorder":"Backorder","stockStatus":"Availability","inStock":"{{n}} in stock","outOfStock":"Out of stock","untracked":"Not tracked","backordered":"Backorder","onSale":"On sale","compareAtHint":"Reference price (lowest in the prior 30 days): {{price}}","categories":"Categories","noCategoriesYet":"No categories exist yet. Create categories first to assign this product.","assignedCategories":"Assigned categories","pickCategories":"Pick categories…","primaryCategory":"Primary category","primaryHint":"The primary category drives the product's canonical URL and breadcrumb.","saveCategories":"Save categories","categoriesSaved":"Categories saved","gallery":"Image gallery","galleryHint":"Shared product photos (not per-language). The first image is the main image.","addImages":"Add images","noImages":"No images yet.","mainImage":"Main","removeImage":"Remove image","gallerySaveHint":"Gallery changes are saved with the Save button.","noSections":"No content sections yet. The block body is optional — add a section for rich product copy.","addSection":"Add new section","blockBodyHint":"Optional long-form content shown on the product page, in addition to the short description.","blockBodyReadOnly":"Read-only (you don't have edit permission).","dragToReorder":"Drag to reorder","column":"Column {{n}}","metaTitle":"Meta title","metaDescription":"Meta description","ogImage":"OG image","pickImage":"Pick image","export":"Export CSV","exportHint":"Catalog fields only — no image gallery or block body.","import":{"button":"Import CSV","title":"Import products from CSV","help":"Bulk-create or update products. Rows are grouped into a product by the \\"handle\\" column; an existing product is matched by any SKU it carries, then by handle.","warning":"The CSV covers catalog fields only — it does NOT include the image gallery or the Mixed Content block body. Editing and re-importing keeps them, but deleting a product and re-importing will not restore them. For a full backup/restore, use the database snapshot (db:export → db-snapshot.json).","chooseFile":"Choose CSV file","pasteLabel":"Or paste CSV","pastePlaceholder":"handle,product_type,status,name:en,sku,price,on_hand\\nwidget,physical,active,Widget,WID-1,12.50,7","formatHint":"One row per variant. Columns: handle, product_type, status, name:<locale>, short_description:<locale>, meta_title:<locale>, meta_description:<locale>, categories (a>b|c paths), option1_name/value … option3_name/value, sku, price, sale_price, inventory_tracked, backorder, on_hand.","preview":"Preview (dry run)","run":"Import","empty":"Add a CSV file or paste rows first.","tooLargeOrInvalid":"The CSV is invalid or too large.","previewBadge":"Preview — nothing was saved","created":"{{n}} created","updated":"{{n}} updated","skipped":"{{n}} skipped","variants":"{{n}} variants","categoriesCreated":"{{n}} categories created","errorsTitle":"{{n}} row(s) skipped","lineLabel":"Line {{n}}","success":"Import complete.","done":"Imported: {{created}} created, {{updated}} updated.","donePartial":"Imported {{created}} created, {{updated}} updated; {{skipped}} skipped — see the report.","clear":"Clear"},"taxClass":"Tax class","taxClassDefault":"Use shop default","checkoutMode":"Checkout mode","checkoutModeDefault":"Use shop default","checkoutModeHint":"This product requires the chosen payment mode at checkout — it overrides the shop default for any cart containing it."},"categories":{"new":"New category","addChild":"Add subcategory","empty":"No categories yet","emptyHint":"Create your first category to organize products.","createTitle":"New category","editTitle":"Edit category","slug":"Slug","slugHelp":"Lowercase, words separated by hyphens (e.g. power-tools).","slugRequired":"A slug is required.","parent":"Parent category","root":"— None (top level) —","label":"Label","description":"Description","metaTitle":"Meta title","metaDescription":"Meta description","heroImage":"Hero image","pickImage":"Choose image","editingLocale":"Editing {{locale}} content","labelRequired":"A label is required for at least one language.","save":"Save","create":"Create","delete":"Delete","deleteTitle":"Delete category?","deleteBody":"This permanently deletes the category.","saved":"Category saved","deleted":"Category deleted"},"errors":{"slug_taken":"Another category here already uses this name.","has_children":"Move or delete its subcategories first.","cycle_detected":"A category can't be moved under its own subcategory.","cannot_parent_self":"A category can't be its own parent.","parent_not_found":"The selected parent no longer exists.","has_products":"Products still link to this category. Unassign them first.","category_not_found":"One of the selected categories no longer exists.","primary_not_in_set":"The primary category must be one of the selected categories.","conflict":"Someone else changed this while you were editing. Reload and try again.","generic":"Something went wrong. Please try again.","invalid_price_list":"That price list no longer exists.","unknown_variant":"One of the selected variants no longer exists.","not_found":"Not found.","already_erased":"This customer's data has already been erased.","order_not_found":"This order no longer exists.","over_ship":"You can't ship more than was ordered.","no_voidable_payment":"There's no authorized payment to void.","order_not_refundable":"This order has no captured payment to refund.","not_capturable":"This payment can't be captured in its current state.","not_acceptable":"This quote can't be accepted in its current state.","insufficient_stock":"Not enough stock to reserve for this order.","no_shipment_lines":"Select at least one line to ship.","quote_empty":"Add at least one line to the quote.","not_editable":"This quote can no longer be edited."},"orders":{"title":"Orders","empty":"No orders yet.","searchPlaceholder":"Search by order # or email","newQuote":"New quote","colOrder":"Order","colCustomer":"Customer","colStatus":"Status","colTotal":"Total","colDate":"Date","allLifecycles":"All states","allPayments":"All payments","allFulfillments":"All fulfillment","ordersTab":"Orders","quotesTab":"Quotes","detailTitle":"Order detail","payment":"Payment","fulfillment":"Fulfillment","lifecycle":"Lifecycle","quoteStatus":"Quote","items":"Items","qty":"Qty","unit":"Unit","lineTotal":"Total","shippedOf":"{{shipped}} of {{ordered}} shipped","shippingAddress":"Shipping address","billingAddress":"Billing address","totals":"Totals","subtotal":"Subtotal","shipping":"Shipping","surcharge":"Surcharge","tax":"VAT","grandTotal":"Grand total","payments":"Payments","shipments":"Shipments","noShipments":"No shipments yet.","timeline":"Timeline","note":"Note","validUntil":"Valid until","paymentMethod":"Payment method","actions":"Actions","capture":"Capture payment","void":"Void & cancel","refund":"Refund","refundAmount":"Amount (€)","refundReason":"Reason (optional)","doRefund":"Issue refund","cancelLine":"Cancel line","createShipment":"Create shipment","shipSelected":"Ship selected","carrier":"Carrier","trackingNumber":"Tracking number","trackingUrl":"Tracking URL","markDelivered":"Mark delivered","markPreparing":"Mark preparing","cancelOrder":"Cancel order","sendQuote":"Send quote","editQuote":"Edit quote","acceptedByCustomer":"Accepted by the customer","captured":"Payment captured.","voided":"Authorization voided, order cancelled.","refunded":"Refund issued.","lineCancelled":"Line cancelled.","shipmentCreated":"Shipment created.","delivered":"Marked delivered.","transitioned":"Order updated.","quoteCreated":"Quote saved.","quoteSent":"Quote sent to the customer.","outOfStockVoided":"Stock ran out — the authorization was voided and the order cancelled.","captureFailed":"The gateway couldn't capture this payment. It may need re-authorization.","nothingCaptured":"Nothing was captured yet, so there was nothing to refund.","quoteBuilderTitle":"Quote builder","customerEmail":"Customer email","addLine":"Add line","variant":"Variant","customPrice":"Custom unit price (€, optional)","saveDraft":"Save draft","remove":"Remove","quotePill":"Quote","noPayments":"No payments yet."},"social":{"intro":"Let customers sign in with a social provider. Credentials are per-shop; the client secret is write-only and never shown back.","enabled":"Enabled","clientId":"Client ID","clientSecret":"Client secret","secretSet":"A secret is saved — leave blank to keep it.","secretUnset":"No secret saved yet.","redirectHint":"Register this redirect URI (prefixed with your API base URL) with the provider:","saved":"Provider saved.","saveError":"Couldn't save the provider.","loadError":"Couldn't load social-login providers.","stub":"Dev stub","devOnly":"dev only","stubHelp":"A fake provider for local testing — never loads in production. Set the identity it returns; sign in completes without real credentials. Use an existing verified customer's email to test account linking.","stubEmail":"Returned email","firstName":"First name","lastName":"Last name","comingSoon":"coming soon","apple":{"serviceId":"Service ID","teamId":"Team ID","keyId":"Key ID","privateKey":"Private key (P8)","privateKeyHint":"Paste the contents of the .p8 file downloaded from the Apple Developer portal."}},"payments":{"intro":"Accept card payments. Credentials are per-shop; the secret key and webhook signing secret are write-only and never shown back. Test vs live mode is detected from the key prefix.","enabled":"Enabled","publishableKey":"Publishable key","publishableKeyHint":"pk_test_… (test) or pk_live_… (live). Safe to expose — it's sent to the browser to render the card form.","secretKey":"Secret key","secretKeyHint":"sk_test_… / sk_live_…. Kept server-side, never shown again.","secretSet":"A secret is saved — leave blank to keep it.","webhookSecret":"Webhook signing secret","webhookSecretHint":"whsec_… from the Stripe webhook endpoint — used to verify inbound events.","webhookUrlHint":"Add this webhook endpoint (prefixed with your API base URL) in the Stripe dashboard, subscribed to payment_intent.succeeded / payment_failed / canceled and charge.refunded:","testMode":"Test mode","liveMode":"Live mode","captureMode":"Capture mode","captureModeHint":"Automatic charges the card immediately on checkout. Manual only authorizes (holds) the amount at checkout — you capture it later from the order (e.g. when it ships).","captureAutomatic":"Automatic (charge at checkout)","captureManual":"Manual (authorize, capture at dispatch)","saved":"Payment provider saved.","saveError":"Couldn't save the payment provider.","loadError":"Couldn't load payment providers."},"settings":{"title":"Shop settings","loadError":"Couldn't load shop settings.","saved":"Settings saved.","saveError":"Couldn't save settings.","tabs":{"tax":"Tax & VAT","inventory":"Inventory","shipping":"Shipping & COD","payments":"Payments","social":"Social login"},"vatRegistered":{"label":"VAT registered","help":"When off, prices are shown and charged without VAT (the tax engine is short-circuited)."},"ossRegistered":{"label":"OSS registered","help":"Collect the destination country's VAT for cross-border EU B2C sales (One-Stop-Shop). Off = charge the home rate."},"defaultTaxClass":{"label":"Default tax class","help":"The VAT class used by every product set to \\"Use shop default\\". Change it and all those products follow — set a specific class on a product to override the default."},"taxClasses":{"standard":"Standard","reduced":"Reduced","reduced_low":"Reduced (low)","zero":"Zero-rated"},"inventoryProvider":{"label":"Inventory source","help":"Where the storefront reads stock levels from.","local":"Local (CMS)","erp":"ERP (synced cache)"},"checkout":{"heading":"Checkout"},"defaultCheckoutMode":{"label":"Default checkout mode","help":"The payment method pre-selected at checkout. A product can override it; cash on delivery is only offered for COD-eligible shipping methods."},"cod":{"heading":"Cash on delivery (COD)"},"codEnabled":{"label":"Offer cash on delivery","help":"Allow paying in cash on delivery (otkupnina). Eligibility is per shipping method."},"codSurcharge":{"label":"COD surcharge","help":"Added to the order total when COD is chosen."},"shipping":{"heading":"Shipping methods","add":"Add method","empty":"No shipping methods yet. Add one so the storefront can offer delivery.","loadError":"Couldn't load shipping methods.","saved":"Shipping method saved.","saveError":"Couldn't save the shipping method.","deleted":"Shipping method deleted.","deleteError":"Couldn't delete the shipping method.","codeRequired":"A code is required.","codeTaken":"That code is already used by another method.","addTitle":"New shipping method","editTitle":"Edit shipping method","deleteTitle":"Delete shipping method","deleteConfirm":"Delete \\"{{name}}\\"? This can't be undone.","code":"Code","codeHelp":"A stable key (lowercase letters, digits, _ or -). Can't be changed later.","codeImmutable":"The code can't be changed after creation.","name":"Name","kind":"Type","kinds":{"flat":"Flat rate","weight":"By weight","pickup_point":"Pickup point","store_pickup":"Store pickup"},"taxClass":"Tax class","requiresPickupPoint":"Requires a pickup point","codAllowed":"COD eligible","zones":"Zones & rates","zonesHelp":"Turn on each zone you deliver to and set its rate. A zone left off isn't offered there.","zone":{"HR":"Croatia (home)","EU":"EU","INT":"International"},"base":"Base rate","perKg":"Per kg","freeOver":"Free over","freeOverShort":"free ≥ {{amount}}","position":"Position","activeLabel":"Active","active":"Active","inactive":"Inactive","col":{"name":"Name","kind":"Type","zones":"Zones","cod":"COD","status":"Status"},"taxNote":"Shipping VAT follows the products' rate — it isn't set per method.","untitled":"Untitled method","nameRequired":"Enter a name in at least one language."},"homeRates":{"heading":"VAT rates (Croatia)","help":"The home-country VAT rate for each tax class. A product stores a class; its rate is resolved from here — so a law change (e.g. 25% → 21%) is one edit here, not a change to every product.","note":"Cross-border (OSS) destination rates are maintained in code. Verify rates with your accountant."}},"customers":{"searchPlaceholder":"Search email or company…","allTypes":"All types","allStatuses":"All statuses","personal":"Personal","business":"Business","statusNone":"—","statusPending":"Pending","statusApproved":"Approved","statusRejected":"Rejected","empty":"No customers yet","colCustomer":"Customer","colType":"Type","colStatus":"Approval","colPriceList":"Price list","detailTitle":"Customer","verified":"Verified","unverified":"Unverified","disabled":"Disabled","company":"Company","vatId":"VAT ID","priceList":"Price list","priceListHint":"Assigned to an approved business — drives net pricing at checkout.","noPriceList":"No price list","approve":"Approve","reject":"Reject","revoke":"Revoke approval","saveAssignment":"Save price list","approved":"Customer approved","rejected":"Customer rejected","revoked":"Approval revoked","savedAssignment":"Price list updated","personalHint":"Personal accounts buy at standard B2C terms — no approval needed.","orders":"Orders","noOrders":"No orders yet.","orderQuote":"Quote","gdpr":"Data & privacy","gdprHint":"Export gives the customer a copy of their data. Erase anonymizes their personal data while keeping their orders for accounting.","export":"Export data","exported":"Customer data exported","erase":"Erase","erased":"Customer data erased","eraseTitle":"Erase customer data?","eraseBody":"This anonymizes the customer's personal data and cannot be undone. Their orders are kept for accounting but no longer show their name or contact details.","deletedCustomer":"Deleted customer","erasedTag":"Erased","erasedHint":"This customer's personal data was anonymized (GDPR erasure). Their orders are retained but no longer carry personal details."},"priceLists":{"new":"New price list","empty":"No price lists yet","emptyHint":"Create a customer or volume price list, then assign it to a business customer.","colName":"Name","colType":"Type","colEntries":"Entries","colAssigned":"Assigned","inactive":"Inactive","type_customer":"Customer","type_volume":"Volume","createTitle":"New price list","editTitle":"Edit price list","name":"Name","nameRequired":"Name is required","type":"Type","active":"Active","customerHint":"Customer list: specific (gross) unit prices for an assigned business customer.","volumeHint":"Volume list: quantity-break prices (buy ≥ N for a lower unit price).","entries":"Prices","noProducts":"Create some products first — entries reference product variants.","entryVariant":"Variant","entryMinQty":"Min qty","entryPrice":"Unit price","addEntry":"Add price","priceHint":"Prices are gross (VAT-inclusive), like the catalog — VAT is shown only in the cart.","delete":"Delete","deleted":"Price list deleted","saved":"Price list saved","deleteTitle":"Delete price list?","deleteBody":"This removes the list and unassigns it from any customers. This can't be undone."}}`), Vx = {
+the right pace.`, subTagline: "Headless CMS engine for teams who care about the details.", welcomeBack: "Welcome back", signInToWorkspace: "Sign in to your workspace", email: "Email", emailPlaceholder: "you@example.com", password: "Password", passwordPlaceholder: "Your password", signIn: "Sign in", signingIn: "Signing in…", forgotHint: "Forgot your password? Contact your administrator.", error: "Invalid email or password" }, fx = { cancel: "Cancel", save: "Save", delete: "Delete", edit: "Edit", create: "Create", close: "Close", back: "Back", loading: "Loading...", loadingEllipsis: "Loading…", copy: "Copy", copied: "Copied!", remove: "Remove", rename: "Rename", upload: "Upload", download: "Download", preview: "Preview", restore: "Restore", never: "Never", dismiss: "Dismiss", done: "Done", add: "Add", change: "Change", reset: "Reset", search: "Search", on: "on", off: "off", configure: "Configure", backToList: "Back to list", discard: "Discard", confirm: "Confirm", yes: "Yes", no: "No" }, yx = { dashboard: "Dashboard", pages: "Pages", media: "Media", menus: "Menus", settings: "Settings", users: "Users", apiKeys: "API Keys", activity: "Activity", webhooks: "Webhooks", strings: "Strings", workspace: "Workspace", system: "System", toggleSidebar: "Toggle sidebar", cmsAdmin: "ARTKOD CMS", lightMode: "Light mode", darkMode: "Dark mode", switchToLight: "Switch to light mode", switchToDark: "Switch to dark mode", signOut: "Sign out", contentLanguage: "Content language" }, gx = { searchPages: "Search pages…", editPage: "Edit page", newPage: "New page", menuLabel: "Menu: {{label}}", backToList: "Back to list", backToMenus: "Back to menus" }, kx = { title: "Dashboard", subtitle: "Overview of your content and recent activity.", newPage: "New page", mediaLibrary: "Media", publishedPages: "Published pages", draftPages: "Drafts", mediaFiles: "Media files", activityWeek: "Activity (7 days)", publishedThisWeek_one: "{{count}} this week", publishedThisWeek_other: "{{count}} this week", noneThisWeek: "None this week", scheduledCount_one: "{{count}} scheduled", scheduledCount_other: "{{count}} scheduled", noneScheduled: "None scheduled", storageUsed: "{{size}} used", contributorsCount_one: "{{count}} contributor", contributorsCount_other: "{{count}} contributors", translationCoverage: "Translation coverage", translationMissing_one: "{{count}} translation missing", translationMissing_other: "{{count}} translations missing", translationComplete: "Fully translated", staleContent: "Stale content", staleContentFooter: "Not updated in 3+ months", pendingDrafts: "Pending drafts", pendingDraftsFooter: "Awaiting publish", pagesByType: "Page types in use", pagesByTypeFooter: "Top: {{type}} ({{count}})", trashedPages: "Trashed pages", trashedFooter: "In trash", mediaByType: "Images", mediaByTypeFooter_one: "{{count}} document", mediaByTypeFooter_other: "{{count}} documents", team: "Active users", teamFooter: "{{pending}} pending · {{disabled}} disabled", recentActivity: "Recent activity", noActivity: "No activity yet.", viewAllActivity: "View all", recentlyEdited: "Recently edited", noRecentEdits: "No pages edited yet.", quickActions: "Quick actions", recentDrafts: "Recent drafts", noRecentDrafts: "No recent drafts.", actionNewPage: "Create new page", actionNewPageDesc: "Start a blank draft", actionUploadMedia: "Upload media", actionUploadMediaDesc: "Add images & files", actionSettings: "Site settings", actionSettingsDesc: "Configure your project", greetingMorning: "Good morning", greetingAfternoon: "Good afternoon", greetingEvening: "Good evening", greetingSubtitle: "Here's what's happening", actions: { created: "Created", updated: "Updated", deleted: "Deleted", published: "Published", restored: "Restored", permDeleted: "Perm. deleted" } }, vx = { title: "Pages", titleTrash: "Trash", subtitle: "Manage published content and drafts.", subtitleTrash: "Deleted pages — restore or permanently remove.", newPage: "+ New Page", exitTrash: "Exit Trash", enterTrash: "Trash", options: "Options", allStatuses: "All statuses", draft: "Draft", published: "Published", allTypes: "All types", colTitle: "Title", colSlug: "Slug", colStatus: "Status", colActions: "Actions", noResults: 'No results for "{{query}}"', resultCount: '{{count}} result(s) for "{{query}}"', trashEmpty: "Trash is empty.", noMatch: "No pages match your filters.", noPages: "No pages yet", createFirst: "Create your first page", pagination: "{{from}}–{{to}} of {{total}} pages", restore: "Restore", deleteForever: "Delete forever", delete: "Delete", moveToTrash: "Move to trash", moveToTrashConfirm: "Move this page to trash? You can restore it later.", permDeleteTitle: "Permanently delete page", permDeleteBody: "This cannot be undone. The page and all its versions will be gone forever.", permDeleteConfirm: "Delete forever", scheduled: "Scheduled", draftBadge: "draft", pendingDraft: "draft pending", permDeleteSuccess: "Page permanently deleted", permDeleteFailed: "Failed to permanently delete page", trashChildCount_one: "1 child in trash", trashChildCount_other: "{{count}} children in trash", trashOrphan: "Was under: {{parent}}", trashOrphanUnknown: "deleted page", trashTruncated: "Showing first {{count}} trashed pages. Restore or permanently delete some to see more." }, bx = { title: "New Page", description: "Choose a page type to get started.", typeSection: "Page type", chooseType: "Choose a page type:", requiresParent: "Requires a parent", parentNamed: "Parent: {{name}}", children: "Children: {{types}}", globalLimit: "Global limit reached", parentRequired: "Parent page (required)", parentOptional: "Parent page (optional)", parentPlaceholder: "Select a parent page…", perParentLimit: 'This parent already has {{limit}} pages of type "{{label}}" (per-parent limit reached).', cancel: "Cancel", createBtn: "Create {{label}}", defaultLabel: "Page" }, xx = { title: "Page type options", description: "Override runtime policy for each page type registered by this project. Code defaults stay the source of truth — empty fields fall back to them.", loading: "Loading…", empty: "No page types registered for this project.", deletable: "Deletable", deletableHelp: "When off, the trash button is hidden for pages of this type. Default: {{default}}", canBeRoot: "Can be root", canBeRootHelp: "When off, pages of this type must have a parent. Default: {{default}}", limit: "Max items (global)", limitHelp: "Total pages of this type allowed across the whole project. Leave empty for no limit. Default: {{default}}", perParentLimit: "Max per parent", perParentLimitHelp: "Max pages of this type under a single parent. Leave empty for no limit. Default: {{default}}", noLimit: "No limit", reset: "Reset", resetTooltip: "Revert to the code-defined defaults for this type", overridden: "Overridden — differs from code defaults", loadError: "Failed to load settings", saved: "Page type options saved", saveError: "Failed to save page type options", deleted: "Page type deleted", systemBadge: "system", addType: "Add page type", createTitle: "Create page type", editTitle: "Edit page type", back: "Back", slugLabel: "Slug", slugHelp: "Lowercase letters, numbers, and hyphens. Used by your frontend to render this type.", slugLocked: "Locked after create — renaming would break your frontend's rendering switch.", slugInvalid: "Lowercase letters, numbers, and hyphens only.", slugTaken: 'Slug "{{slug}}" is already taken.', slugShadowsCodeType: 'Slug "{{slug}}" already exists.', labels: "Labels", labelFor: "Label ({{locale}})", allowedParentTypes: "Allowed parent types", allowedChildTypes: "Allowed child types", allowBlocks: "Allow content blocks", allowedBlockTypes: "Allowed block types", allowedBlockTypesHint: "Leave empty to allow all registered block types.", fields: "Fields", fieldsEmpty: "No fields yet. Add one below.", addField: "Add field", fieldName: "Name", fieldLabel: "Label", fieldType: "Type", fieldRequired: "Required", fieldPlaceholder: "Placeholder", fieldOptions: "Options", fieldOptionsHint: "Press Enter after each option.", fieldNameInvalid: "Use letters, numbers and underscore. Must start with a letter or underscore.", removeField: "Remove field", removeFieldConfirm: "Remove this field? Any page data stored under this name will become orphaned.", deleteType: "Delete page type", deleteConfirm: "Delete this page type? It can only be deleted if no pages still use it.", deleteInUseError: "Cannot delete — {{count}} page(s) still use this type. Remove or convert them first." }, wx = { subtitle: "Manage published content, drafts, and page hierarchy.", noPages: "No pages yet. Create your first page!", newPage: "New Page", addChild: "Add child", collapse: "Collapse", expand: "Expand", dragHandle: "Drag to reorder within this level", previewPage: "Preview page", deletePage: "Delete", deleteTitle: "Delete page", deleteBody: "Delete this page? Any child pages will be moved to root.", deleteConfirm: "Delete", previewNeedsFrontend: "Configure frontendUrl in createAdmin() to enable preview.", previewFailed: "Failed to create preview token", pageDeleted: "Page deleted", deleteError: "Failed to delete page", deleteParentBlocked: "Contains child pages — ask an admin or developer to delete.", deleteCurrentLocaleInactive: "{{locale}} version is already disabled. Switch language to delete this page.", deleteTypeNotDeletable: "This page type can't be deleted.", moveError: { generic: "Couldn't move the page.", parentInSubtree: "Can't move a page under itself or one of its descendants.", parentNotFound: "Target page no longer exists.", parentTrashed: "Target page is in the trash.", invalidParentType: "This page type isn't allowed under that parent.", parentNoChildren: "“{{parent}}” pages can't contain child pages.", invalidChildType: "“{{parent}}” pages can't contain “{{child}}” pages.", perParentLimit: "Target parent already has the maximum number of pages of this type.", cannotBeRoot: "This page type can't be placed at the root.", versionConflict: "Page was modified elsewhere — reload and try again.", pageTrashed: "Page is in the trash and can't be moved.", invalidInsertBefore: "Couldn't place the page at the requested position." } }, Mx = { loading: "Checking what will be deleted…", success: "Page moved to Trash", disableSuccess: "{{locale}} version disabled", confirm: { title: "Delete page?", leaf_single: "{{title}} will be moved to Trash. You can restore it later.", leaf_multi: "All {{count}} language versions ({{locales}}) of {{title}} will be moved to Trash.", cascade_one: "{{title}} and 1 descendant page ({{translationCount}} translations across {{locales}}) will be moved to Trash.", cascade_other: "{{title}} and {{count}} descendant pages ({{translationCount}} translations across {{locales}}) will be moved to Trash.", intro_multilocale: "This page is active in {{activeLocales}}. You can delete the entire page (all locales) or just disable the {{currentLocale}} version and keep {{otherLocales}} live.", deleteButton: "Delete entire page", disableButton: "Disable {{locale}} version only", disableExplain_one: "Hides this page from {{locale}} visitors. {{otherLocales}} stays live.", disableExplain_other: "Hides this page and {{count}} descendant page(s) from {{locale}} visitors. {{otherLocales}} stays live.", presence: "Currently being edited by: {{emails}}", restoreHint: "Restorable from Trash." }, blocked: { title: "Can't delete this page", intro_one: "This page can't be deleted because 1 menu item or link widget still references it:", intro_other: "This page can't be deleted because {{count}} menu items or link widgets still reference it:", menusHeader_one: "1 menu item", menusHeader_other: "{{count}} menu items", pagesHeader_one: "1 page", pagesHeader_other: "{{count}} pages", menuRow: "{{label}} · {{location}}", pageRow: "{{title}}", hint: "Open the listed items and remove the link, then try again.", close: "Close" }, disableBlocked: { title: "Can't disable {{locale}} version", intro_one: "Disabling the {{locale}} version would break 1 reference still pointing to this content:", intro_other: "Disabling the {{locale}} version would break {{count}} references still pointing to this content:" }, forbiddenParent: "This page has child pages — only an admin or developer can delete it.", multiLocale: { activeIn: "active in {{locales}}", intro: "This page lives in more than one language. Pick how to delete:", disableLocaleTitle: "Disable {{locale}} version only", disableLocaleHelp: "Hides this page from {{locale}} visitors. {{other}} stays live. Restorable from Trash.", disableLocaleHelpDesc: "Hides this page and {{count}} descendant page(s) from {{locale}} visitors. {{other}} stays live. Restorable from Trash.", deleteEntireHelp: "{{subject}} and all its translations ({{locales}}) will be moved to Trash.", deleteEntireHelpDesc: "{{subject}} and {{count}} descendant page(s) ({{locales}}) will be moved to Trash." } }, Cx = { title: "Restore page", loading: "Checking restore options…", success: "Page restored", restoreButton: "Restore", placementLabel: "Where should this page be restored?", typeHint: "Page type: {{type}}", option: { originalParent: 'Under "{{title}}" (original parent)', root: "Move to root (top level)", rootOriginal: "At root (top level)", otherParent: "Under a different page…", pickParent: "Pick a parent page", loading: "Loading pages…", noMatches: "No matching pages" }, cascade: { label_one: "Also restore 1 trashed descendant", label_other: "Also restore {{count}} trashed descendants", hint: "Children that were trashed alongside this page will be restored back into their original positions." }, reason: { parent_trashed: "Original parent is still in trash. Restore it first or pick a different parent.", type_mismatch: "Original parent isn't a valid parent type for {{type}}.", per_parent_limit_reached: "This parent already has the maximum number of {{type}} pages ({{limit}}).", cannot_be_root: "{{type}} pages cannot live at the root.", global_limit_reached: "Project limit for {{type}} pages reached ({{limit}})." }, blocked: { title: "Cannot restore page", typeNotRegistered: 'Page type "{{type}}" is no longer registered in this project. Add the type back or permanently delete this page.', noPlacement: "There's no valid place to restore this {{type}} page right now.", suggestion: "Restore (or create) a page of type: {{parentTypes}}, then try again.", parentInTrash: 'The original parent "{{parentTitle}}" is still in trash — restoring it first will give this page a home.', globalLimit: "Project limit for {{type}} pages reached ({{limit}}). Delete or trash a live {{type}} page first." }, error: { generic: "Failed to restore page. Try again.", pickParent: "Please pick a parent page.", parentTrashed: "The chosen parent is in trash. Pick a live page or restore that parent first.", parentNotFound: "The chosen parent no longer exists.", parentInSubtree: "Cannot move a page under one of its own descendants.", invalidParentType: "The chosen parent isn't a valid parent type for {{type}}.", perParentLimitReached: "This parent already has the maximum number of {{type}} pages ({{limit}}).", cannotBeRoot: "{{type}} pages cannot live at the root.", globalLimitReached: "Project limit for {{type}} pages reached ({{limit}}).", slugTaken: 'The {{locale}} slug "{{slug}}" is already used by a live page. Rename it before restoring.' } }, _x = { titleEdit: "Edit Page", titleNew: "New Page", tabContent: "Content", tabSeo: "SEO", fieldTitle: "Title", placeholderTitle: "Page title", fieldStatus: "Status", statusDraft: "Draft", statusPublished: "Published", statusHint: "Only admins and developers can publish or unpublish pages", schedulePublish: "Schedule publish", scheduleDescription: "The page will go live automatically at the selected time.", scheduleHint: "Leave blank to keep as draft indefinitely", schedulePlaceholder: "Pick date and time…", scheduledFor: "Scheduled for {{date}}", scheduleClear: "Clear", scheduleConfirm: "Confirm", scheduleLeaveBlank: "Leave blank to keep as draft indefinitely.", parentRequired: "Parent page (required)", parentOptional: "Parent page (optional)", parentNone: "No parent (root level)", fieldsSectionTitle: "Fields", contentSections: "Content Sections", saveAsTemplate: "Save as template", loadTemplate: "Load template", noSections: "No sections yet. Add one below.", addSection: "+ Add new section", addBlockLabel: "+ {{label}}", chooseBlockType: "Choose section type", metaTitle: "Meta title", metaDescription: "Meta description", metaDescriptionHint: "Brief description for search engines", metaTitleCount: "{{count}}/60 characters", metaTitleTooLong: "Meta title is too long", metaDescCount: "{{count}}/160 characters", metaDescTooLong: "Meta description is too long", ogImage: "OG image", pickImage: "Pick image", canonicalUrl: "Canonical URL", canonicalPlaceholder: "https://example.com/my-page", canonicalHint: "Leave blank to use the default page URL", noindex: "Hide from search engines (noindex)", googlePreview: "Google preview", noDescription: "No description set.", savePage: "Save", publishPage: "Publish page", publishSuccess: "Page published", publishError: "Failed to publish page", localeActiveCheckbox: "Active in this language", localeMissing: "No content yet for {{locale}}", localeInactive: "{{locale}} is inactive — content won't appear on the public site", deactivateError: "Couldn't check where this page is used", deactivateBlockedTitle: "This page is still linked in {{locale}}", deactivateBlockedBody: "Deactivating {{locale}} would silently break the links below. Remove them first, then come back to deactivate.", deactivateBlockedMenus: "Used in menus:", deactivateBlockedPages: "Linked from pages:", cascadeBlockedTitle: "Can't disable {{locale}} on descendants", cascadeBlockedBody: "Disabling {{locale}} on this page would also disable it on descendant pages, but some are still linked from same-locale content outside this subtree. Remove the links below, then try again.", cascadeBlockedPageLabel: "Descendant: {{title}}", cascadeDoneNotification: "Disabled {{locale}} on {{count}} descendant page(s)", cascadeConfirmTitle: "Also disable {{locale}} on descendants?", cascadeConfirmBody: "{{count}} descendant page(s) currently active in {{locale}} will also be disabled when you save. This action runs on save and can be undone by re-activating each page individually.", cascadeConfirmAction: "Disable on descendants", ancestorBlockedTitle: "Can't enable {{locale}} yet", ancestorBlockedBody: "One or more parent pages still have {{locale}} disabled. Enable {{locale}} on the parent first, then come back here. Otherwise this page would publish at a URL whose parent segment doesn't resolve.", cascadeFailedError: "Saved the page, but couldn't cascade {{locale}} to descendants", statusDraftBadge: "Draft", statusPublishedBadge: "Published", statusPendingBadge: "Published · draft pending", leaveTitle: "Leave page?", leaveBody: "You have unsaved changes. If you leave now, your changes will be lost.", leaveConfirm: "Leave", conflictTitle: "Edit conflict", conflictBody: "Someone else saved this page while you were editing. [Reload] to get the latest version.", savedNotification: "Page saved", saveError: "Failed to save page", siblingSlugTaken: "Another page under the same parent already uses this name ({{locale}}). Rename this page to save it.", previewNeedsSave: "Save the page first to enable preview", previewNeedsFrontend: "Configure frontendUrl in createAdmin() to enable preview", previewFailed: "Failed to create preview", versionHistory: "Version history", versionHistoryDescription: "Restore an earlier version of this page.", versionCount: "{{count}} saved version", versionCount_other: "{{count}} saved versions", versionCurrent: "current", noVersions: "No saved versions yet. Versions are created on every save.", restoreVersion: "Restore", restoreVersionTitle: "Restore version?", restoreVersionBody: "This will replace the current page content with this version. The current state will be saved as a new version first.", restoreVersionFailed: "Failed to restore version", unknownBlock: "Unknown block type: {{type}}", unsavedBadge: "Unsaved changes", lastSaved: "Last saved {{time}}", alsoEditing: "{{emails}} also editing", moreEditors: "+{{count}}" }, Sx = { title: "Menus", subtitle: "Manage navigation menus for your frontend.", newMenu: "New Menu", loading: "Loading…", noMenus: "No menus yet. Create your first menu!", emptyTitle: "No menus yet", emptyDescription: "Create navigation menus for your frontend header, footer, and other areas.", locationPrimary: "primary — main navigation", locationFooter: "footer — footer links", locationBadge_primary: "Main Navigation", locationBadge_footer: "Footer Navigation", edit: "Edit", delete: "Delete", modeAuto: "Auto", modeManual: "Manual", topLevelItems: "{{count}} top-level item(s)", autoInfo: "{{types}} · depth {{depth}}", deleteTitle: "Delete menu", deleteBody: "Delete this menu? This cannot be undone.", deleteConfirm: "Delete", createTitle: "Create menu", createDescription: "Navigation menus are rendered by your frontend.", modeSection: "Mode", modeManualSub: "You control every menu item", modeAutoSub: "Built from your page tree", locationSection: "Navigation slot", locationPrimaryTitle: "Primary navigation", locationPrimaryCardSub: "Main header navigation", locationFooterTitle: "Footer", locationFooterCardSub: "Footer links", alreadyAdded: "Already added", allLocationsUsed: "All menu locations are already in use.", cancel: "Cancel", createBtn: "Create menu" }, Nx = { title: "Navigation menu editor", alsoEditing: "{{emails}} also editing", moreEditors: "+{{count}}", save: "Save menu", modeLabel: "Mode", modeAuto: "Auto (Smart)", modeManual: "Manual (Custom)", modeAutoHint: "Automatically generates menu items from selected page types.", modeManualHint: "Manually arrange items with drag-and-drop.", includeTypes: "Include page types", includeTypesHint: "Only published pages of these types will appear.", includeTypesPlaceholder: "Select page types…", maxDepth: "Max depth", maxDepthHint: "Levels of children to include (0 = root only).", depth0: "0 — root only", depth1: "1 level", depth2: "2 levels", depth3: "3 levels", maxTypes: "Max selectable page types", maxTypesHint: "Limit how many types admins can pick.", previewLabel: "Preview", previewLoading: "Loading preview…", previewEmpty: "No published pages match the selected types.", itemsLabel: "Items", addItem: "Add item", dndHint: "Drag onto an item to nest it as a child · Drop above/below to reorder · Use ◀ ▶ buttons to change level", noItems: "No items yet. Add your first menu item.", indentOut: "Move to parent level", indentIn: "Make child of item above", itemLabelField: "Label", itemLabelPlaceholder: "e.g. Products", itemTypePage: "Page", itemTypeUrl: "Custom URL", itemPageLabel: "Page", itemPagePlaceholder: "Search pages…", itemUrlLabel: "URL", itemUrlPlaceholder: "https://… or /relative", itemNewTab: "Open in new tab", editItem: "Edit item", cancelItem: "Cancel", saveItem: "Save changes", saveNewItem: "Add item", removeItem: "Remove item", removeItemTitle: "Remove this item and all its children?", removeItemConfirm: "Remove", switchToAuto: "Switch to Auto mode", switchToManual: "Switch to Manual mode", switchToAutoConfirm: "Switching to Auto mode will discard your manually-configured items. Continue?", switchToManualConfirm: "Switch to Manual mode? The current auto-generated structure will be used as your starting point.", switchManualImport: "Switch & import items", switchAutoConfirm: "Switch to Auto", savedNotification: "Menu saved", conflictBody: "Someone else saved this menu while you were editing. [Reload] to get the latest version.", saveError: "Failed to save menu", itemLabelFor: "Label ({{locale}})", itemLabelFallback: "Falls back to {{locale}}", itemLabelMissing: "Missing in: {{locales}}", itemLabelAutoHint: "Leave blank to use the page's title “{{title}}”.", itemLocaleBadge: "Not in {{locale}}", itemLocaleTooltip: "This page has no active translation in {{locale}}. It will be hidden from the public menu for this language.", previewLocaleHint: "Preview for {{locale}}. Pages without an active translation in this language are hidden." }, zx = { title: "Media", subtitle: "Upload and manage images, documents, and other files.", searchPlaceholder: "Search files…", fileCount: "{{count}} file(s)", viewLarge: "Large", viewSmall: "Small", viewList: "List", settingsBtn: "Settings", uploadBtn: "Upload", filterAll: "All", filterImages: "Images", filterDocs: "Documents", noResults: "No files match your search.", noFiles: "No files here", uploadFiles: "Upload files", foldersTitle: "Folders", allFiles: "All files", unorganized: "Unorganized", newFolder: "New Folder", confirmDelete: "Confirm delete", confirmCreate: "Create", newSubfolder: "New subfolder", rename: "Rename", delete: "Delete", expand: "Expand", collapse: "Collapse", folderActions: "Folder actions", deleteFolderTitle: "Delete folder?", deleteFolderMessage: "This cannot be undone.", renameFileTitle: "Rename file", renameFileLabel: "File name", cancel: "Cancel", save: "Save", renameFailed: "Failed to rename.", fileInfoTitle: "File info", fileInfoName: "Display name", fileInfoStorage: "Storage filename", fileInfoType: "Type", fileInfoSize: "Size", fileInfoUploaded: "Uploaded", fileInfoModified: "Last modified", fileInfoCdnUrl: "CDN URL", copy: "Copy", copied: "Copied!", download: "Download", close: "Close", copyUrl: "Copy URL", fileInfo: "File info", deleteFile: "Delete", downloadSelected: "Download {{count}} selected", deleteSelected: "Delete {{count}} selected", deleteFileTitle: "Delete file?", deleteFileBody: "Delete <strong>{{name}}</strong>? This cannot be undone.", deleteFileMessage: "This cannot be undone.", deleteSelectedTitle: "Delete selected files?", deleteSelectedBody: "Delete <strong>{{count}} selected file(s)</strong>? This cannot be undone.", deleteSelectedMessage: "Delete {{count}} selected file(s)? This cannot be undone.", deleteConfirm: "Delete {{count}} file(s)", usedOnPages: "Used on {{count}} page(s):", removeFromPagesFirst: "Remove this image from those pages first.", sortNewest: "Added (newest)", sortOldest: "Added (oldest)", sortModifiedNew: "Modified (newest)", sortModifiedOld: "Modified (oldest)", sortNameAZ: "Name (A → Z)", sortNameZA: "Name (Z → A)", sortSizeLarge: "Size (largest)", sortSizeSmall: "Size (smallest)", dropUploadTo: 'Drop to upload to "{{folder}}"', dropUpload: "Drop to upload", skippedDuplicatesTitle: "Skipped duplicates", skippedDuplicates: "Skipped {{count}} file(s) already in this folder: {{names}}", selectedCount: "{{count}} file(s) selected", selectAll: "Select all", showingRange: "{{from}}–{{to}} of {{total}}", moveToFolder: "Move to folder…", clearSelection: "Clear", settingsTitle: "Bunny CDN Storage", settingsConfigured: "Configured", settingsZoneName: "Storage Zone Name", settingsPathPrefix: "Storage Path Prefix", settingsPathHint: "Subfolder path within the zone.", settingsApiKeyEdit: "Storage API Key (leave blank to keep)", settingsApiKeyNew: "Storage API Key", settingsApiKeyPlaceholderHidden: "••••••••", settingsApiKeyPlaceholderNew: "Paste storage zone password", settingsRegion: "Storage Region", settingsCdnUrl: "CDN Pull Zone URL", settingsCdnPlaceholder: "https://myzone.b-cdn.net", settingsSave: "Save configuration", settingsSaved: "Configuration saved.", settingsHelp: "Zone name & password: Bunny CDN → Storage → [Zone] → FTP & API Access. CDN URL: Bunny CDN → Pull Zones → [Zone] → hostname." }, Tx = { title: "Users", subtitle: "Manage team members and their roles.", newUser: "New User", loading: "Loading…", noUsers: "No users found.", userCount: "{{count}} user", userCount_other: "{{count}} users", colName: "Name", colUser: "User", colEmail: "Email", colRole: "Role", colStatus: "Status", colCreated: "Created", colActions: "Actions", searchPlaceholder: "Search users…", actionsMenu: "Actions", edit: "Edit", delete: "Delete", disable: "Disable", reactivate: "Reactivate", resetPassword: "Reset password", resendInvite: "Resend invite", status: { active: "Active", pending: "Pending", disabled: "Disabled" }, createTitle: "Invite user", createDescription: "Set up the new team member's access credentials.", inviteDescription: "An activation email will be sent to this address.", inviteEmailHint: "We'll email an activation link — the user chooses their own password.", sendInvite: "Send invitation", inviteSent: "Invitation sent to {{email}}", roleSection: "Role", createFirstName: "First name", createFirstNamePlaceholder: "Jane", createLastName: "Last name", createLastNamePlaceholder: "Doe", createEmail: "Email", createEmailPlaceholder: "user@example.com", createPassword: "Password", createPasswordHint: "Min 8 characters", createRole: "Role", createRolePlaceholder: "Choose role", cancel: "Cancel", create: "Create", editTitle: "Edit {{email}}", editRole: "Role", editPasswordNote: `To change this user's password, use "Reset password" from the row menu — they'll get an email.`, editCancel: "Cancel", editSave: "Save", deleteTitle: "Delete user", deleteBody: "Delete {{email}}? This cannot be undone.", deleteMessage: "This permanently removes the user. They will not be able to log in again.", disableTitle: "Disable user", disableMessage: "Their existing session will end and they will be unable to log in until reactivated.", disableConfirm: "Disable", disableSuccess: "{{email}} disabled", reactivateTitle: "Reactivate user", reactivateMessage: "They will be able to log in again with their existing password.", reactivateConfirm: "Reactivate", reactivateSuccess: "{{email}} reactivated", resetTitle: "Reset password", resetMessage: "We'll email a reset link to this user. Their current password keeps working until they set a new one.", resetConfirm: "Send reset email", resetSuccess: "Reset email sent to {{email}}", resendTitle: "Resend invitation", resendMessage: "We'll send a fresh activation link to this user. Any previous link will stop working.", resendConfirm: "Resend invitation", resendSuccess: "Invitation resent to {{email}}", loadError: "Failed to load users", createError: "Failed to invite user", updateError: "Failed to update user", actionError: "Action failed", deleteSuccess: "{{email}} deleted", deleteError: "Failed to delete user" }, jx = { title: "Set your password", subtitle: "Choose a password for {{email}} to activate your account.", password: "Password", passwordPlaceholder: "At least 8 characters", confirmPassword: "Confirm password", confirmPasswordPlaceholder: "Re-enter your password", submit: "Activate account", submitting: "Activating…", success: "Account activated", redirecting: "Taking you to the dashboard…", linkInvalidTitle: "Link invalid or expired", invalidLink: "This activation link is no longer valid. Ask an administrator to send a new invitation.", passwordTooShort: "Password must be at least 8 characters.", passwordMismatch: "Passwords don't match.", submitError: "Could not activate your account. Please try again." }, Ax = { title: "Reset your password", subtitle: "Choose a new password for {{email}}.", submit: "Set new password", success: "Password updated" }, Ex = { title: "API Keys", subtitle: "Manage access tokens for frontend integrations.", newKey: "New Key", loading: "Loading...", noKeys: "No API keys yet.", emptyTitle: "No API keys yet", emptyDescription: "Create access tokens for your frontend or third-party integrations.", new: "New key", colName: "Name", colPrefix: "Prefix", colRole: "Role", colLastUsed: "Last used", colActions: "Actions", revoke: "Revoke", createTitle: "Create API Key", createName: "Name", createNamePlaceholder: "e.g. project-one-frontend", createRole: "Role", roleViewer: "Viewer — read-only", roleEditor: "Editor — create & edit", roleAdmin: "Admin — full access", roleDeveloper: "Developer — developer access", createDescription: "Keys are shown once — copy immediately after creation.", roleSection: "Role", createBtn: "Create", newKeyTitle: "Key created — copy it now. It will not be shown again.", copy: "Copy", dismiss: "Dismiss", revokeTitle: "Revoke API key", revokeBody: 'Revoke "{{name}}"? Any integrations using this key will stop working.', revokeMessage: "Any integration still using this key will start failing immediately.", revokeConfirm: "Revoke", never: "Never", revokeSuccess: 'API key "{{name}}" deleted', revokeError: "Failed to delete key", keyCount: "{{count}} API key", keyCount_other: "{{count}} API keys" }, Lx = { title: "Site Settings", subtitle: "Global configuration for your project.", save: "Save settings", tabGeneral: "General", tabLocales: "Locales", tabSeo: "SEO Defaults", tabEditorPrefs: "Editor preferences", tabAnalytics: "Analytics", tabDashboard: "Dashboard", dashboardHint: "Choose which stat cards each user role sees on their dashboard. Some cards are restricted to a minimum role and can't be enabled below it.", dashboardRole_viewer: "Viewer", dashboardRole_editor: "Editor", dashboardRole_admin: "Admin", dashboardRole_developer: "Developer", dashboardMinRole: "Requires {{role}} or higher", tabApiKeys: "API keys", tabWebhooks: "Webhooks", tabAdvanced: "Advanced", tabRobots: "Robots.txt", identitySection: "Site identity", identityHint: "How your CMS appears to users and to the public.", brandSection: "Brand", brandHint: "Favicon shown in browser tabs and shared previews.", languagesHint: "Which languages this project supports.", thisDeviceNote: "(this device)", editorPrefsHint: "Personal preferences stored on this browser only.", analyticsHint: "Connect your analytics provider.", advancedHint: "Inject raw HTML into every public page.", email: { title: "Email", hint: "Configuration for invitations, password resets, and other transactional email. The same values are used in dev and production for this project — set different credentials in each environment's database.", fromLabel: 'Default "From" address', fromPlaceholder: "My CMS <noreply@example.com>", fromHint: "Plain address or RFC 5322 form. The sender domain must be verified with your email provider (e.g. Resend) — unverified domains will be rejected at send time.", transportTitle: "Transport", transportHint: "How email is actually sent. Credentials are stored per-project — paste them once here and the same values apply in dev and prod (each environment carries its own database).", transportLabel: "Transport mode", transportLabelHint: '"Auto" uses environment variables (RESEND_API_KEY / SMTP_HOST) as a fallback. The other choices use the credentials you fill in below.', transportAuto: "Auto (use environment variables)", transportResend: "Resend (HTTP API)", transportSmtp: "SMTP (nodemailer)", transportNone: "Disabled (drop all sends)", resendKeyLabel: "Resend API key", resendKeyHint: 'Get one at resend.com → API Keys. Free tier covers 100 emails/day. Keys start with "re_".', resendKeyPlaceholder: "re_xxxxxxxxxxxxxxxxxxxxxxxx", resendKeyPlaceholderStored: "Leave blank to keep the existing key", smtpHostLabel: "SMTP host", smtpPortLabel: "SMTP port", smtpUserLabel: "SMTP username", smtpPassLabel: "SMTP password", smtpPassPlaceholderStored: "Leave blank to keep the existing password", smtpSecureLabel: "Use TLS/SSL (port 465 typically requires this; port 587 typically does not)", configured: "Configured", show: "Show", hide: "Hide", clear: "Clear", saveTransport: "Save email config", saved: "Email config saved", cleared: "Credential cleared", statusResend: "Resend connected ({{source}})", statusSmtp: "SMTP connected ({{source}})", statusConsole: "No transport configured — emails will be logged to the API stdout instead of sent", statusNone: "Email is disabled — outgoing sends will be silently dropped", statusLoading: "Checking transport…", sourceProject: "this project", sourceEnv: "from env", overrideActive: "Dev override active: all sends are re-routed to {{email}}" }, noFavicon: "No favicon set", faviconReady: "Active across the site", faviconFallback: "Brand monogram fallback in use", faviconName: "favicon", siteTitle: "Site title", siteTitleHint: "Used in the browser tab and as a fallback OG title.", siteTitlePlaceholder: "My Website", tagline: "Tagline", taglineHint: "Short description shown below the site title.", taglinePlaceholder: "Building things since 2024", favicon: "Favicon", faviconHint: "Recommended: 32×32 PNG or SVG.", faviconSet: "Favicon set (media ID: {{id}}…)", faviconRemove: "Remove", faviconNone: "No favicon set.", faviconSelect: "Select favicon", faviconChange: "Change favicon", uiLanguage: "Admin UI language", uiLanguageHint: "Language used for all admin panel labels and messages.", langEn: "English", langHr: "Croatian", localeFallback: "Falls back to {{locale}} when empty", editorPrefsSection: "Editor preferences (this device)", autosaveEnabled: "Autosave every 30 seconds", autosaveEnabledHint: "Saves drafts in the background while you edit. Manual save (Ctrl+S, Save button) and Publish are unaffected.", languagesSection: "Content languages", availableLocales: "Available locales", availableLocalesHint: "Languages this project will publish content in.", defaultLocale: "Default locale", defaultLocaleHint: "Fallback locale used at the site root and when a page has no translation in the visitor's locale.", defaultLocaleNotAvailable: "Default locale must be one of the available locales.", atLeastOneLocale: "At least one locale must be available.", localeInUse: "Cannot remove locale {{locale}} — pages still have content in it. Remove that content first.", seoDefaultsHint: "These defaults are used when a page doesn't have its own SEO fields set.", defaultMetaTitle: "Default meta title", defaultMetaTitlePlaceholder: "My Website — Page Title", defaultMetaDesc: "Default meta description", defaultMetaDescPlaceholder: "A short description of your website…", defaultOgImage: "Default OG image URL", defaultOgImageHint: "Fallback Open Graph image for social sharing.", defaultOgImagePlaceholder: "https://cdn.example.com/og-default.jpg", analyticsId: "Analytics ID", analyticsIdHint: "Google Analytics measurement ID (G-XXXXXXXX) or any other analytics identifier.", analyticsIdPlaceholder: "G-XXXXXXXXXX", advancedWarning: "Raw HTML injected into every page. Use with caution — invalid HTML can break your site.", customHeadHtml: "Custom <head> HTML", customHeadHtmlHint: "Injected inside <head> before </head>.", customHeadHtmlPlaceholder: "<!-- e.g. third-party scripts, custom fonts -->", customBodyHtml: "Custom <body> HTML", customBodyHtmlHint: "Injected just before </body>.", customBodyHtmlPlaceholder: "<!-- e.g. chat widget, cookie banner -->", robotsHint: "Content returned by GET /robots.txt when the X-Project-Slug header is present.", robotsLabel: "robots.txt content", robotsResetAllow: "Reset to allow all", robotsDisallowAll: "Disallow all (maintenance)", savedNotification: "Settings saved", conflictTitle: "Edit conflict", conflictBody: "Someone else saved these settings while you were editing. [Reload] to get the latest version.", saveError: "Failed to save settings" }, Px = { title: "Webhooks", subtitle: "Notify external services when content changes", addBtn: "Add webhook", loading: "Loading…", noWebhooks: "No webhooks configured", emptyTitle: "No webhooks yet", emptyDescription: "Notify Slack, Vercel or your build pipeline when content changes.", add: "Add webhook", addFirst: "Add your first webhook", colUrl: "URL", colEvents: "Events", colActive: "Active", colCreated: "Created", colActions: "Actions", count: "{{count}} webhook", count_other: "{{count}} webhooks", createUrlPlaceholder: "https://example.com/webhook", createEventsLabel: "Events", cancel: "Cancel", createBtn: "Create webhook", createSuccess: "Webhook created successfully", secretHint: "Copy and store this secret — it will not be shown again. Use it to verify the X-CMS-Signature header on incoming requests.", done: "Done", validationUrl: "URL must start with http:// or https://", validationEvents: "Select at least one event", createError: "Failed to create webhook", noDeliveries: "No deliveries yet", viewLog: "View delivery log", deleteWebhook: "Delete webhook", deliveryLog: "Delivery log", deleteTitle: "Delete webhook?", deleteBody: "All delivery history for this webhook will also be deleted.", deleteConfirm: "Delete", deleteSuccess: "Webhook deleted", updateError: "Failed to update webhook", deleteError: "Failed to delete webhook", loadError: "Failed to load webhooks" }, $x = { title: "Strings", subtitle: "Edit hardcoded frontend copy without a code deploy.", colKey: "Key", colValue: "Value", addRow: "Add string", addRowBlocked: "Finish the new string first — enter a key and a value for every language.", removeRow: "Remove string", save: "Save", keyPlaceholder: "e.g. hero_title", valuePlaceholder: "Translated value", defaultBadge: "default", emptyTitle: "No strings yet", emptyState: "No strings defined for this language yet.", noLocales: "No content languages are configured. Configure them in Settings → General first.", saveSuccess: "Strings saved", saveError: "Failed to save strings", loadError: "Failed to load strings", deleteTitle: "Delete this string?", deleteBody: 'The key "{{key}}" will be removed from this language. Other languages are unaffected.', deleteMessage: "The key will be removed from all languages.", deleteConfirm: "Delete", deleteSuccess: "String deleted", deleteError: "Failed to delete string", errorKeyRequired: "Key is required", errorKeyFormat: "Letters, numbers, dot, underscore, hyphen only", errorKeyDuplicate: "Duplicate key in this language", errorFixFirst: "Fix the highlighted errors before saving", rowCount: "{{count}} string" }, Dx = { placeholder: "Search pages, or jump to…", newPage: "New page", newPageDesc: "Create a new page", mediaLibrary: "Media library", mediaLibraryDesc: "Browse and upload files", viewActivity: "View activity", viewActivityDesc: "See recent activity log", pageHint: "{{slug}} · {{status}}", noResults: "No results found" }, Ox = { title: "Activity Log", subtitle: "A record of all changes made by your team.", colWhen: "When", colUser: "User", colAction: "Action", colResource: "Resource", noActivity: "No activity yet.", loadMore: "Load more", filter: "Filter", filterAll: "All", filterPages: "Pages", filterMedia: "Media", filterUsers: "Users", rangeLabel: "Date range", rangeAll: "All time", range24h: "Last 24 hours", range7d: "Last 7 days", range30d: "Last 30 days", actions: { page_created: "Created", page_updated: "Updated", page_moved: "Moved", page_published: "Published", page_trashed: "Trashed", page_restored: "Restored", page_deleted: "Permanently deleted", page_locale_disabled: "Disabled translation", page_version_restored: "Restored a version of", menu_created: "Menu created", menu_updated: "Menu updated", menu_deleted: "Menu deleted", media_uploaded: "Media uploaded", media_deleted: "Media deleted", media_folder_created: "Folder created", media_folder_moved: "Folder moved", media_folder_renamed: "Folder renamed", media_folder_deleted: "Folder deleted", media_config_updated: "Media settings updated", block_template_created: "Template saved", block_template_deleted: "Template deleted", page_type_created: "Page type created", page_type_updated: "Page type updated", page_type_deleted: "Page type deleted", settings_updated: "Settings updated", strings_updated: "Strings updated", strings_deleted: "String deleted", user_invited: "Invited user", user_activated: "Activated account", user_updated: "User updated", user_disabled: "Disabled user", user_reactivated: "Reactivated user", user_password_reset_requested: "Sent password reset", user_password_reset_completed: "Reset their password", user_invite_resent: "Resent invite", user_deleted: "Deleted user" } }, Rx = { saveTitle: "Save as Template", saveSubtitle: "Saves the current {{count}} block(s) as a reusable template.", nameLabel: "Template name", namePlaceholder: "e.g. Hero + Two Columns", nameRequired: "Template name is required", saveFailed: "Failed to save template", saveBtn: "Save Template", loadTitle: "Load Template", loadDescription: "This will replace all existing blocks on the page.", loadWarning: "Loading a template will replace all current content blocks.", loadNoTemplates: "No saved templates yet.", blockCount: "{{count}} block(s)", loadBtn: "Load Template", crossLocaleTitle: "Cross-language template", crossLocaleBody: "This template was authored in {{source}}, but you're editing in {{target}}. Loading it will paste {{source}}-language content into the {{target}} tab. Continue?", crossLocaleConfirm: "Load anyway" }, Ix = { mixedContent: { blockLabel: "Mixed Content Block", widgetText: "Text", widgetVideo: "Video", widgetLink: "Link", widgetAccordion: "Accordion", widgetGallery: "Gallery", widgetSection: "Section", layoutFull: "Full width", layoutHalf: "Half / Half", layout13_23: "1/3 + 2/3", layout23_13: "2/3 + 1/3", layoutThree: "Three equal", layout14_34: "1/4 + 3/4", layout34_14: "3/4 + 1/4", chooseLayout: "Choose a layout for this section:", addWidget: "Add Widget", addWidgetDescription: "Choose a content widget to insert into this column.", cancelBtn: "Cancel", insertBtn: "Insert", textPlaceholder: "Type here…", textEmpty: "No text yet — click ✏ to edit", videoUrl: "Video URL", videoWidth: "Width (px)", videoHeight: "Height (px)", videoEmpty: "No video URL — click ✏ to edit", linkEmpty: "Link not configured — click ✏ to edit", accordionEmpty: "No items — click ✏ to add", accordionMainTitle: "Title (optional)", accordionMainTitlePlaceholder: "e.g. Frequently asked questions", notConfigured: "Not configured", configure: "Configure", addItem: "+ Add item", accordionItem: "Item {{num}}", accordionTitle: "Accordion title", accordionContent: "Item content…", galleryEmpty: "No images added yet.", galleryEdit: "Edit gallery", gallerySelect: "Select images", resetLayout: "Reset and choose a different layout", changeLayout: "Change", columnLabel: "Column {{num}} ({{width}}/12)", addWidgetBtn: "+ Add Widget", sectionTitle: "Section title (optional)", changeLayoutBtn: "Change layout", discardTitle: "Discard changes?", discardBody: "You have unsaved widget changes. If you close now, they will be lost.", collapseWidget: "Collapse preview", expandWidget: "Expand preview" } }, Hx = { paragraph: "Paragraph", heading: "Heading {{level}}", alignment: "Alignment", alignLeft: "Align left", alignCenter: "Center", alignRight: "Align right", alignJustify: "Justify", indent: "Indent", outdent: "Outdent", table: "Table", insertTable: "Insert {{rows}}×{{cols}} table", tableRow: "Row", addRowAbove: "Add row above", addRowBelow: "Add row below", deleteRow: "Delete row", tableColumn: "Column", addColumnLeft: "Add column left", addColumnRight: "Add column right", deleteColumn: "Delete column", deleteTable: "Delete table", addHeaderRow: "Add header row", removeHeaderRow: "Remove header row", mergeCells: "Merge cells", splitCell: "Split cell", cellOptions: "Cell options", addImage: "Add image", imageModal: { title: "Add Image", titleEdit: "Edit Image", add: "+ Add", change: "Change", imageTitle: "Image title", imageTitlePlaceholder: "Enter image title", description: "Image description", descriptionPlaceholder: "Alt text for accessibility", alignment: "Image alignment", alignDefault: "Default", alignLeft: "Left", alignCenter: "Center", alignRight: "Right", dimensions: "Image dimensions", originalDims: "Use original dimensions", customDims: "Set custom dimensions", width: "Width (px)", height: "Height (px)", lockAspect: "Lock aspect ratio", unlockAspect: "Unlock aspect ratio" } }, qx = /* @__PURE__ */ JSON.parse(`{"nav":{"store":"Store","products":"Products","categories":"Categories","settings":"Settings","customers":"Customers","priceLists":"Price lists","orders":"Orders"},"checkoutModes":{"pay_now":"Pay now (card)","bank_transfer":"Bank transfer","cod":"Cash on delivery"},"products":{"new":"New product","empty":"No products yet","emptyHint":"Create your first product to start building the catalog.","noMatches":"No products match your filters.","createTitle":"New product","create":"Create","createHint":"You'll set price, stock, variants and content after creating.","nameRequired":"A name is required.","untitled":"(untitled product)","backToList":"Products","searchPlaceholder":"Search name or SKU…","allStatuses":"All statuses","allTypes":"All types","colName":"Name","colStatus":"Status","colType":"Type","colPrice":"Price","colStock":"Stock","variantCount":"{{n}} variants","save":"Save","saved":"Product saved","delete":"Delete","deleteTitle":"Delete product?","deleteBody":"This permanently deletes the product and all its variants.","deleted":"Product deleted","slugTaken":"Another product already uses this name in this language.","leaveTitle":"Discard unsaved changes?","leaveBody":"You have unsaved changes to this product. Leave without saving?","leaveConfirm":"Discard","editingLocale":"Editing {{locale}} content","type":"Type","typePhysical":"Physical","typeDigital":"Digital","typeService":"Service","status":"Status","statusDraft":"Draft","statusActive":"Active","sale":"Sale","saleBuy":"For sale","saleInquiry":"Inquiry only","inquiryHint":"Inquiry-only: no direct payment. A cart with any inquiry-only item becomes a quote request at checkout.","name":"Name","shortDescription":"Short description","tabGeneral":"General","tabVariants":"Variants","tabCategories":"Categories","tabMedia":"Media","tabContent":"Content","tabSeo":"SEO","options":"Options","addOption":"Add option","removeOption":"Remove option","noOptions":"No options — this is a simple product with a single variant. Add an option (e.g. Size, Color) to create variants.","optionNamePlaceholder":"Option name (e.g. Size)","addValuePlaceholder":"Add a value and press Enter (e.g. Small)","applyOptions":"Apply options","optionsDirtyHint":"Unsaved option changes — apply to regenerate variants.","applyOptionsTitle":"Regenerate variants?","applyOptionsBody":"Applying these options rebuilds the variant matrix. Existing variant combinations keep their SKU and price; removed combinations (and their price/stock) are deleted.","optionsApplied":"Options applied","variants":"Variants","variantSaved":"Variant saved","saveVariants":"Save variants","saveVariantsCount":"Save variants ({{n}})","variantsSaved":"{{n}} variant(s) saved","variantsSavedPartial":"Saved {{n}}; some failed: {{errors}}","rowUnsaved":"Unsaved changes","sku":"SKU","skuPlaceholder":"SKU","skuTaken":"That SKU is already used by another variant.","price":"Price (€)","salePrice":"Sale (€)","priceInvalid":"Enter a valid price (e.g. 12.99).","saleAbovePrice":"Sale price can't be higher than the regular price.","onHand":"On hand","tracked":"Track","backorder":"Backorder","stockStatus":"Availability","inStock":"{{n}} in stock","outOfStock":"Out of stock","untracked":"Not tracked","backordered":"Backorder","onSale":"On sale","compareAtHint":"Reference price (lowest in the prior 30 days): {{price}}","categories":"Categories","noCategoriesYet":"No categories exist yet. Create categories first to assign this product.","assignedCategories":"Assigned categories","pickCategories":"Pick categories…","primaryCategory":"Primary category","primaryHint":"The primary category drives the product's canonical URL and breadcrumb.","saveCategories":"Save categories","categoriesSaved":"Categories saved","gallery":"Image gallery","galleryHint":"Shared product photos (not per-language). The first image is the main image.","addImages":"Add images","noImages":"No images yet.","mainImage":"Main","removeImage":"Remove image","gallerySaveHint":"Gallery changes are saved with the Save button.","noSections":"No content sections yet. The block body is optional — add a section for rich product copy.","addSection":"Add new section","blockBodyHint":"Optional long-form content shown on the product page, in addition to the short description.","blockBodyReadOnly":"Read-only (you don't have edit permission).","dragToReorder":"Drag to reorder","column":"Column {{n}}","metaTitle":"Meta title","metaDescription":"Meta description","ogImage":"OG image","pickImage":"Pick image","export":"Export CSV","exportHint":"Catalog fields only — no image gallery or block body.","import":{"button":"Import CSV","title":"Import products from CSV","help":"Bulk-create or update products. Rows are grouped into a product by the \\"handle\\" column; an existing product is matched by any SKU it carries, then by handle.","warning":"The CSV covers catalog fields only — it does NOT include the image gallery or the Mixed Content block body. Editing and re-importing keeps them, but deleting a product and re-importing will not restore them. For a full backup/restore, use the database snapshot (db:export → db-snapshot.json).","chooseFile":"Choose CSV file","pasteLabel":"Or paste CSV","pastePlaceholder":"handle,product_type,status,name:en,sku,price,on_hand\\nwidget,physical,active,Widget,WID-1,12.50,7","formatHint":"One row per variant. Columns: handle, product_type, status, name:<locale>, short_description:<locale>, meta_title:<locale>, meta_description:<locale>, categories (a>b|c paths), option1_name/value … option3_name/value, sku, price, sale_price, inventory_tracked, backorder, on_hand.","preview":"Preview (dry run)","run":"Import","empty":"Add a CSV file or paste rows first.","tooLargeOrInvalid":"The CSV is invalid or too large.","previewBadge":"Preview — nothing was saved","created":"{{n}} created","updated":"{{n}} updated","skipped":"{{n}} skipped","variants":"{{n}} variants","categoriesCreated":"{{n}} categories created","errorsTitle":"{{n}} row(s) skipped","lineLabel":"Line {{n}}","success":"Import complete.","done":"Imported: {{created}} created, {{updated}} updated.","donePartial":"Imported {{created}} created, {{updated}} updated; {{skipped}} skipped — see the report.","clear":"Clear"},"taxClass":"Tax class","taxClassDefault":"Use shop default","checkoutMode":"Checkout mode","checkoutModeDefault":"Use shop default","checkoutModeHint":"This product requires the chosen payment mode at checkout — it overrides the shop default for any cart containing it."},"categories":{"new":"New category","addChild":"Add subcategory","empty":"No categories yet","emptyHint":"Create your first category to organize products.","createTitle":"New category","editTitle":"Edit category","slug":"Slug","slugHelp":"Lowercase, words separated by hyphens (e.g. power-tools).","slugRequired":"A slug is required.","parent":"Parent category","root":"— None (top level) —","label":"Label","description":"Description","metaTitle":"Meta title","metaDescription":"Meta description","heroImage":"Hero image","pickImage":"Choose image","editingLocale":"Editing {{locale}} content","labelRequired":"A label is required for at least one language.","save":"Save","create":"Create","delete":"Delete","deleteTitle":"Delete category?","deleteBody":"This permanently deletes the category.","saved":"Category saved","deleted":"Category deleted"},"errors":{"slug_taken":"Another category here already uses this name.","has_children":"Move or delete its subcategories first.","cycle_detected":"A category can't be moved under its own subcategory.","cannot_parent_self":"A category can't be its own parent.","parent_not_found":"The selected parent no longer exists.","has_products":"Products still link to this category. Unassign them first.","category_not_found":"One of the selected categories no longer exists.","primary_not_in_set":"The primary category must be one of the selected categories.","conflict":"Someone else changed this while you were editing. Reload and try again.","generic":"Something went wrong. Please try again.","invalid_price_list":"That price list no longer exists.","unknown_variant":"One of the selected variants no longer exists.","not_found":"Not found.","already_erased":"This customer's data has already been erased.","order_not_found":"This order no longer exists.","over_ship":"You can't ship more than was ordered.","no_voidable_payment":"There's no authorized payment to void.","order_not_refundable":"This order has no captured payment to refund.","refund_amount_invalid":"The refund can't exceed the captured amount remaining.","not_refundable":"This payment can't be refunded in its current state.","refund_failed":"The gateway rejected the refund. Please try again.","not_capturable":"This payment can't be captured in its current state.","not_acceptable":"This quote can't be accepted in its current state.","insufficient_stock":"Not enough stock to reserve for this order.","no_shipment_lines":"Select at least one line to ship.","quote_empty":"Add at least one line to the quote.","not_editable":"This quote can no longer be edited."},"orders":{"title":"Orders","empty":"No orders yet.","searchPlaceholder":"Search by order # or email","newQuote":"New quote","colOrder":"Order","colCustomer":"Customer","colStatus":"Status","colTotal":"Total","colDate":"Date","allLifecycles":"All states","allPayments":"All payments","allFulfillments":"All fulfillment","ordersTab":"Orders","quotesTab":"Quotes","detailTitle":"Order detail","payment":"Payment","fulfillment":"Fulfillment","lifecycle":"Lifecycle","quoteStatus":"Quote","items":"Items","qty":"Qty","unit":"Unit","lineTotal":"Total","shippedOf":"{{shipped}} of {{ordered}} shipped","shippingAddress":"Shipping address","billingAddress":"Billing address","totals":"Totals","subtotal":"Subtotal","shipping":"Shipping","surcharge":"Surcharge","tax":"VAT","grandTotal":"Grand total","payments":"Payments","shipments":"Shipments","noShipments":"No shipments yet.","timeline":"Timeline","note":"Note","validUntil":"Valid until","paymentMethod":"Payment method","actions":"Actions","capture":"Capture payment","void":"Void & cancel","refund":"Refund","refundAmount":"Amount (€)","refundableRemaining":"Refundable","refundReason":"Reason (optional)","doRefund":"Issue refund","cancelLine":"Cancel line","createShipment":"Create shipment","shipSelected":"Ship selected","carrier":"Carrier","trackingNumber":"Tracking number","trackingUrl":"Tracking URL","markDelivered":"Mark delivered","markPreparing":"Mark preparing","cancelOrder":"Cancel order","sendQuote":"Send quote","editQuote":"Edit quote","acceptedByCustomer":"Accepted by the customer","captured":"Payment captured.","voided":"Authorization voided, order cancelled.","refunded":"Refund issued.","lineCancelled":"Line cancelled.","shipmentCreated":"Shipment created.","delivered":"Marked delivered.","transitioned":"Order updated.","quoteCreated":"Quote saved.","quoteSent":"Quote sent to the customer.","outOfStockVoided":"Stock ran out — the authorization was voided and the order cancelled.","captureFailed":"The gateway couldn't capture this payment. It may need re-authorization.","nothingCaptured":"Nothing was captured yet, so there was nothing to refund.","quoteBuilderTitle":"Quote builder","customerEmail":"Customer email","addLine":"Add line","variant":"Variant","customPrice":"Custom unit price (€, optional)","saveDraft":"Save draft","remove":"Remove","quotePill":"Quote","noPayments":"No payments yet."},"social":{"intro":"Let customers sign in with a social provider. Credentials are per-shop; the client secret is write-only and never shown back.","enabled":"Enabled","clientId":"Client ID","clientSecret":"Client secret","secretSet":"A secret is saved — leave blank to keep it.","secretUnset":"No secret saved yet.","redirectHint":"Register this redirect URI (prefixed with your API base URL) with the provider:","saved":"Provider saved.","saveError":"Couldn't save the provider.","loadError":"Couldn't load social-login providers.","stub":"Dev stub","devOnly":"dev only","stubHelp":"A fake provider for local testing — never loads in production. Set the identity it returns; sign in completes without real credentials. Use an existing verified customer's email to test account linking.","stubEmail":"Returned email","firstName":"First name","lastName":"Last name","comingSoon":"coming soon","apple":{"serviceId":"Service ID","teamId":"Team ID","keyId":"Key ID","privateKey":"Private key (P8)","privateKeyHint":"Paste the contents of the .p8 file downloaded from the Apple Developer portal."}},"payments":{"intro":"Accept card payments. Credentials are per-shop; the secret key and webhook signing secret are write-only and never shown back. Test vs live mode is detected from the key prefix.","enabled":"Enabled","publishableKey":"Publishable key","publishableKeyHint":"pk_test_… (test) or pk_live_… (live). Safe to expose — it's sent to the browser to render the card form.","secretKey":"Secret key","secretKeyHint":"sk_test_… / sk_live_…. Kept server-side, never shown again.","secretSet":"A secret is saved — leave blank to keep it.","webhookSecret":"Webhook signing secret","webhookSecretHint":"whsec_… from the Stripe webhook endpoint — used to verify inbound events.","webhookUrlHint":"Add this webhook endpoint (prefixed with your API base URL) in the Stripe dashboard, subscribed to payment_intent.succeeded / payment_failed / canceled and charge.refunded:","testMode":"Test mode","liveMode":"Live mode","captureMode":"Capture mode","captureModeHint":"Automatic charges the card immediately on checkout. Manual only authorizes (holds) the amount at checkout — you capture it later from the order (e.g. when it ships).","captureAutomatic":"Automatic (charge at checkout)","captureManual":"Manual (authorize, capture at dispatch)","saved":"Payment provider saved.","saveError":"Couldn't save the payment provider.","loadError":"Couldn't load payment providers."},"settings":{"title":"Shop settings","loadError":"Couldn't load shop settings.","saved":"Settings saved.","saveError":"Couldn't save settings.","tabs":{"tax":"Tax & VAT","inventory":"Inventory","shipping":"Shipping & COD","payments":"Payments","social":"Social login"},"vatRegistered":{"label":"VAT registered","help":"When off, prices are shown and charged without VAT (the tax engine is short-circuited)."},"ossRegistered":{"label":"OSS registered","help":"Collect the destination country's VAT for cross-border EU B2C sales (One-Stop-Shop). Off = charge the home rate."},"defaultTaxClass":{"label":"Default tax class","help":"The VAT class used by every product set to \\"Use shop default\\". Change it and all those products follow — set a specific class on a product to override the default."},"taxClasses":{"standard":"Standard","reduced":"Reduced","reduced_low":"Reduced (low)","zero":"Zero-rated"},"inventoryProvider":{"label":"Inventory source","help":"Where the storefront reads stock levels from.","local":"Local (CMS)","erp":"ERP (synced cache)"},"checkout":{"heading":"Checkout"},"defaultCheckoutMode":{"label":"Default checkout mode","help":"The payment method pre-selected at checkout. A product can override it; cash on delivery is only offered for COD-eligible shipping methods."},"cod":{"heading":"Cash on delivery (COD)"},"codEnabled":{"label":"Offer cash on delivery","help":"Allow paying in cash on delivery (otkupnina). Eligibility is per shipping method."},"codSurcharge":{"label":"COD surcharge","help":"Added to the order total when COD is chosen."},"shipping":{"heading":"Shipping methods","add":"Add method","empty":"No shipping methods yet. Add one so the storefront can offer delivery.","loadError":"Couldn't load shipping methods.","saved":"Shipping method saved.","saveError":"Couldn't save the shipping method.","deleted":"Shipping method deleted.","deleteError":"Couldn't delete the shipping method.","codeRequired":"A code is required.","codeTaken":"That code is already used by another method.","addTitle":"New shipping method","editTitle":"Edit shipping method","deleteTitle":"Delete shipping method","deleteConfirm":"Delete \\"{{name}}\\"? This can't be undone.","code":"Code","codeHelp":"A stable key (lowercase letters, digits, _ or -). Can't be changed later.","codeImmutable":"The code can't be changed after creation.","name":"Name","kind":"Type","kinds":{"flat":"Flat rate","weight":"By weight","pickup_point":"Pickup point","store_pickup":"Store pickup"},"taxClass":"Tax class","requiresPickupPoint":"Requires a pickup point","codAllowed":"COD eligible","zones":"Zones & rates","zonesHelp":"Turn on each zone you deliver to and set its rate. A zone left off isn't offered there.","zone":{"HR":"Croatia (home)","EU":"EU","INT":"International"},"base":"Base rate","perKg":"Per kg","freeOver":"Free over","freeOverShort":"free ≥ {{amount}}","position":"Position","activeLabel":"Active","active":"Active","inactive":"Inactive","col":{"name":"Name","kind":"Type","zones":"Zones","cod":"COD","status":"Status"},"taxNote":"Shipping VAT follows the products' rate — it isn't set per method.","untitled":"Untitled method","nameRequired":"Enter a name in at least one language."},"homeRates":{"heading":"VAT rates (Croatia)","help":"The home-country VAT rate for each tax class. A product stores a class; its rate is resolved from here — so a law change (e.g. 25% → 21%) is one edit here, not a change to every product.","note":"Cross-border (OSS) destination rates are maintained in code. Verify rates with your accountant."}},"customers":{"searchPlaceholder":"Search email or company…","allTypes":"All types","allStatuses":"All statuses","personal":"Personal","business":"Business","statusNone":"—","statusPending":"Pending","statusApproved":"Approved","statusRejected":"Rejected","empty":"No customers yet","colCustomer":"Customer","colType":"Type","colStatus":"Approval","colPriceList":"Price list","detailTitle":"Customer","verified":"Verified","unverified":"Unverified","disabled":"Disabled","company":"Company","vatId":"VAT ID","priceList":"Price list","priceListHint":"Assigned to an approved business — drives net pricing at checkout.","noPriceList":"No price list","approve":"Approve","reject":"Reject","revoke":"Revoke approval","saveAssignment":"Save price list","approved":"Customer approved","rejected":"Customer rejected","revoked":"Approval revoked","savedAssignment":"Price list updated","personalHint":"Personal accounts buy at standard B2C terms — no approval needed.","orders":"Orders","noOrders":"No orders yet.","orderQuote":"Quote","gdpr":"Data & privacy","gdprHint":"Export gives the customer a copy of their data. Erase anonymizes their personal data while keeping their orders for accounting.","export":"Export data","exported":"Customer data exported","erase":"Erase","erased":"Customer data erased","eraseTitle":"Erase customer data?","eraseBody":"This anonymizes the customer's personal data and cannot be undone. Their orders are kept for accounting but no longer show their name or contact details.","deletedCustomer":"Deleted customer","erasedTag":"Erased","erasedHint":"This customer's personal data was anonymized (GDPR erasure). Their orders are retained but no longer carry personal details."},"priceLists":{"new":"New price list","empty":"No price lists yet","emptyHint":"Create a customer or volume price list, then assign it to a business customer.","colName":"Name","colType":"Type","colEntries":"Entries","colAssigned":"Assigned","inactive":"Inactive","type_customer":"Customer","type_volume":"Volume","createTitle":"New price list","editTitle":"Edit price list","name":"Name","nameRequired":"Name is required","type":"Type","active":"Active","customerHint":"Customer list: specific (gross) unit prices for an assigned business customer.","volumeHint":"Volume list: quantity-break prices (buy ≥ N for a lower unit price).","entries":"Prices","noProducts":"Create some products first — entries reference product variants.","entryVariant":"Variant","entryMinQty":"Min qty","entryPrice":"Unit price","addEntry":"Add price","priceHint":"Prices are gross (VAT-inclusive), like the catalog — VAT is shown only in the cart.","delete":"Delete","deleted":"Price list deleted","saved":"Price list saved","deleteTitle":"Delete price list?","deleteBody":"This removes the list and unassigns it from any customers. This can't be undone."}}`), Vx = {
   login: mx,
   common: fx,
   nav: yx,
@@ -6039,7 +6039,7 @@ the right pace.`, subTagline: "Headless CMS engine for teams who care about the 
   rte: Hx,
   commerce: qx
 }, Bx = { tagline: `Sadržaj u
-pravom ritmu.`, subTagline: "Headless CMS za timove kojima su važni detalji.", welcomeBack: "Dobrodošli natrag", signInToWorkspace: "Prijavite se u svoj radni prostor", email: "E-pošta", emailPlaceholder: "vi@primjer.hr", password: "Lozinka", passwordPlaceholder: "Vaša lozinka", signIn: "Prijava", signingIn: "Prijava u tijeku…", forgotHint: "Zaboravili ste lozinku? Obratite se administratoru.", error: "Neispravna e-pošta ili lozinka" }, Fx = { cancel: "Odustani", save: "Spremi", delete: "Obriši", edit: "Uredi", create: "Stvori", close: "Zatvori", back: "Natrag", loading: "Učitavanje...", loadingEllipsis: "Učitavanje…", copy: "Kopiraj", copied: "Kopirano!", remove: "Ukloni", rename: "Preimenuj", upload: "Učitaj", download: "Preuzmi", preview: "Pregled", restore: "Vrati", never: "Nikad", dismiss: "Odbaci", done: "Gotovo", add: "Dodaj", change: "Promijeni", reset: "Resetiraj", search: "Pretraži", on: "uključeno", off: "isključeno", configure: "Konfiguriraj", backToList: "Natrag na popis", discard: "Odbaci", confirm: "Potvrdi", yes: "Da", no: "Ne" }, Ux = { dashboard: "Nadzorna ploča", pages: "Stranice", media: "Mediji", menus: "Izbornici", settings: "Postavke", users: "Korisnici", apiKeys: "API ključevi", activity: "Aktivnost", webhooks: "Webhooks", strings: "Tekstovi", workspace: "Radni prostor", system: "Sustav", toggleSidebar: "Preklopi bočnu traku", cmsAdmin: "ARTKOD CMS", lightMode: "Svijetli način", darkMode: "Tamni način", switchToLight: "Prebaci na svijetli način", switchToDark: "Prebaci na tamni način", signOut: "Odjava", contentLanguage: "Jezik sadržaja" }, Wx = { searchPages: "Pretraži stranice…", editPage: "Uredi stranicu", newPage: "Nova stranica", menuLabel: "Izbornik: {{label}}", backToList: "Natrag na popis", backToMenus: "Natrag na izbornike" }, Kx = { title: "Nadzorna ploča", subtitle: "Pregled sadržaja i nedavne aktivnosti.", newPage: "Nova stranica", mediaLibrary: "Mediji", publishedPages: "Objavljene stranice", draftPages: "Skice", mediaFiles: "Medijske datoteke", activityWeek: "Aktivnost (7 dana)", publishedThisWeek_one: "{{count}} ovaj tjedan", publishedThisWeek_few: "{{count}} ovaj tjedan", publishedThisWeek_other: "{{count}} ovaj tjedan", noneThisWeek: "Ništa ovaj tjedan", scheduledCount_one: "{{count}} u rasporedu", scheduledCount_few: "{{count}} u rasporedu", scheduledCount_other: "{{count}} u rasporedu", noneScheduled: "Ništa zakazano", storageUsed: "{{size}} iskorišteno", contributorsCount_one: "{{count}} suradnik", contributorsCount_few: "{{count}} suradnika", contributorsCount_other: "{{count}} suradnika", translationCoverage: "Pokrivenost prijevodima", translationMissing_one: "{{count}} prijevod nedostaje", translationMissing_few: "{{count}} prijevoda nedostaje", translationMissing_other: "{{count}} prijevoda nedostaje", translationComplete: "Potpuno prevedeno", staleContent: "Zastarjeli sadržaj", staleContentFooter: "Bez izmjena 3+ mjeseca", pendingDrafts: "Skice na čekanju", pendingDraftsFooter: "Čeka objavu", pagesByType: "Tipovi stranica u upotrebi", pagesByTypeFooter: "Najviše: {{type}} ({{count}})", trashedPages: "Stranice u smeću", trashedFooter: "U smeću", mediaByType: "Slike", mediaByTypeFooter_one: "{{count}} dokument", mediaByTypeFooter_few: "{{count}} dokumenta", mediaByTypeFooter_other: "{{count}} dokumenata", team: "Aktivni korisnici", teamFooter: "{{pending}} na čekanju · {{disabled}} onemogućeno", recentActivity: "Nedavna aktivnost", noActivity: "Još nema aktivnosti.", viewAllActivity: "Vidi sve", recentlyEdited: "Nedavno uređeno", noRecentEdits: "Još nema uređenih stranica.", quickActions: "Brze akcije", recentDrafts: "Nedavne skice", noRecentDrafts: "Nema nedavnih skica.", actionNewPage: "Stvori novu stranicu", actionNewPageDesc: "Počni prazan nacrt", actionUploadMedia: "Prenesi medij", actionUploadMediaDesc: "Dodaj slike i datoteke", actionSettings: "Postavke stranice", actionSettingsDesc: "Konfiguriraj projekt", greetingMorning: "Dobro jutro", greetingAfternoon: "Dobar dan", greetingEvening: "Dobra večer", greetingSubtitle: "Evo što se događa", actions: { created: "Stvoreno", updated: "Ažurirano", deleted: "Obrisano", published: "Objavljeno", restored: "Vraćeno", permDeleted: "Trajno obrisano" } }, Gx = { title: "Stranice", titleTrash: "Koš za smeće", subtitle: "Upravljajte objavljenim sadržajem i skicama.", subtitleTrash: "Obrisane stranice — vratite ih ili trajno uklonite.", newPage: "+ Nova stranica", exitTrash: "Izađi iz koša", enterTrash: "Koš za smeće", options: "Postavke", allStatuses: "Svi statusi", draft: "Skica", published: "Objavljeno", allTypes: "Svi tipovi", colTitle: "Naslov", colSlug: "Slug", colStatus: "Status", colActions: "Akcije", noResults: 'Nema rezultata za "{{query}}"', resultCount: '{{count}} rezultat(a) za "{{query}}"', trashEmpty: "Koš za smeće je prazan.", noMatch: "Nijedna stranica ne odgovara filtrima.", noPages: "Još nema stranica", createFirst: "Stvorite svoju prvu stranicu", pagination: "{{from}}–{{to}} od {{total}} stranica", restore: "Vrati", deleteForever: "Obriši zauvijek", delete: "Obriši", moveToTrash: "Premjesti u koš", moveToTrashConfirm: "Premjestiti stranicu u koš? Možete je kasnije vratiti.", permDeleteTitle: "Trajno brisanje stranice", permDeleteBody: "Ovo se ne može poništiti. Stranica i sve njene verzije bit će zauvijek izbrisane.", permDeleteConfirm: "Obriši zauvijek", scheduled: "Zakazano", draftBadge: "Nacrt", pendingDraft: "Čeka objavu", permDeleteSuccess: "Stranica trajno obrisana", permDeleteFailed: "Trajno brisanje stranice nije uspjelo", trashChildCount_one: "1 podstranica u košu", trashChildCount_few: "{{count}} podstranice u košu", trashChildCount_other: "{{count}} podstranica u košu", trashOrphan: "Bila pod: {{parent}}", trashOrphanUnknown: "obrisana stranica", trashTruncated: "Prikazano prvih {{count}} stranica iz koša. Vratite ili trajno obrišite neke da biste vidjeli ostale." }, Yx = { title: "Nova stranica", description: "Odaberite tip stranice za početak.", typeSection: "Tip stranice", chooseType: "Odaberite tip stranice:", requiresParent: "Zahtijeva nadređenu stranicu", parentNamed: "Nadređena: {{name}}", children: "Podstranice: {{types}}", globalLimit: "Dostignut globalni limit", parentRequired: "Nadređena stranica (obavezno)", parentOptional: "Nadređena stranica (neobavezno)", parentPlaceholder: "Odaberite nadređenu stranicu…", perParentLimit: 'Ova nadređena stranica već ima {{limit}} stranica tipa "{{label}}" (dostignut limit po roditelju).', cancel: "Odustani", createBtn: "Stvori {{label}}", defaultLabel: "Stranicu" }, Jx = { title: "Postavke tipa stranice", description: "Promijenite ponašanje za svaki tip stranice koji je projekt registrirao. Kodom definirane vrijednosti ostaju izvorni izvor — prazna polja se vraćaju na njih.", loading: "Učitavam…", empty: "Ovaj projekt nema registriranih tipova stranica.", deletable: "Može se obrisati", deletableHelp: "Kad je isključeno, gumb za brisanje sakriva se za stranice ovog tipa. Zadano: {{default}}", canBeRoot: "Može biti na korijenu", canBeRootHelp: "Kad je isključeno, stranice ovog tipa moraju imati nadređenu stranicu. Zadano: {{default}}", limit: "Maks. broj stranica (ukupno)", limitHelp: "Ukupno dopušteno stranica ovog tipa na cijelom projektu. Ostavite prazno za neograničeno. Zadano: {{default}}", perParentLimit: "Maks. po nadređenoj stranici", perParentLimitHelp: "Maks. broj stranica ovog tipa unutar jedne nadređene stranice. Ostavite prazno za neograničeno. Zadano: {{default}}", noLimit: "Bez ograničenja", reset: "Resetiraj", resetTooltip: "Vrati na vrijednosti definirane u kodu za ovaj tip", overridden: "Izmijenjeno — razlikuje se od zadanih vrijednosti", loadError: "Neuspjelo učitavanje postavki", saved: "Postavke tipa stranice su spremljene", saveError: "Neuspjelo spremanje postavki", deleted: "Tip stranice je obrisan", systemBadge: "sustav", addType: "Dodaj tip stranice", createTitle: "Stvori tip stranice", editTitle: "Uredi tip stranice", back: "Natrag", slugLabel: "Identifikator", slugHelp: "Mala slova, brojevi i crtice. Koristi se na frontendu za prikaz ovog tipa.", slugLocked: "Zaključano nakon stvaranja — preimenovanje bi razbilo frontend prikaz.", slugInvalid: "Samo mala slova, brojevi i crtice.", slugTaken: 'Identifikator "{{slug}}" je već zauzet.', slugShadowsCodeType: 'Identifikator "{{slug}}" već postoji.', labels: "Nazivi", labelFor: "Naziv ({{locale}})", allowedParentTypes: "Dopušteni nadređeni tipovi", allowedChildTypes: "Dopušteni podređeni tipovi", allowBlocks: "Dopusti sadržajne blokove", allowedBlockTypes: "Dopušteni tipovi blokova", allowedBlockTypesHint: "Ostavite prazno za sve registrirane tipove blokova.", fields: "Polja", fieldsEmpty: "Još nema polja. Dodajte jedno ispod.", addField: "Dodaj polje", fieldName: "Naziv (id)", fieldLabel: "Naziv", fieldType: "Tip", fieldRequired: "Obavezno", fieldPlaceholder: "Pomoćni tekst", fieldOptions: "Opcije", fieldOptionsHint: "Pritisnite Enter nakon svake opcije.", fieldNameInvalid: "Slova, brojevi i podvlaka. Mora započinjati slovom ili podvlakom.", removeField: "Ukloni polje", removeFieldConfirm: "Ukloniti ovo polje? Podaci stranica pohranjeni pod ovim nazivom postat će napušteni.", deleteType: "Obriši tip stranice", deleteConfirm: "Obrisati ovaj tip stranice? Brisanje je dopušteno samo ako ga niti jedna stranica više ne koristi.", deleteInUseError: "Nije moguće obrisati — {{count}} stranica još koristi ovaj tip. Prvo ih uklonite ili pretvorite." }, Zx = { subtitle: "Upravljajte objavljenim sadržajem, skicama i hijerarhijom stranica.", noPages: "Još nema stranica. Stvorite svoju prvu stranicu!", newPage: "Nova stranica", addChild: "Dodaj podstranicu", collapse: "Sažmi", expand: "Proširi", dragHandle: "Povuci za promjenu redoslijeda", previewPage: "Pregled stranice", deletePage: "Obriši", deleteTitle: "Obriši stranicu", deleteBody: "Obrisati ovu stranicu? Sve podstranice bit će premještene na razinu korijena.", deleteConfirm: "Obriši", previewNeedsFrontend: "Konfigurirajte frontendUrl u createAdmin() za pregled.", previewFailed: "Greška pri stvaranju pregleda", pageDeleted: "Stranica obrisana", deleteError: "Greška pri brisanju stranice", deleteParentBlocked: "Sadrži podstranice — može obrisati samo admin ili developer.", deleteCurrentLocaleInactive: "{{locale}} verzija je već onemogućena. Promijeni jezik za brisanje stranice.", deleteTypeNotDeletable: "Ovaj tip stranice se ne može obrisati.", moveError: { generic: "Premještanje stranice nije uspjelo.", parentInSubtree: "Stranicu nije moguće premjestiti ispod same sebe ili svojih podstranica.", parentNotFound: "Odredišna stranica više ne postoji.", parentTrashed: "Odredišna stranica je u košu.", invalidParentType: "Ovaj tip stranice nije dozvoljen ispod tog roditelja.", parentNoChildren: "Stranice tipa „{{parent}}“ ne mogu sadržavati podstranice.", invalidChildType: "Stranice tipa „{{parent}}“ ne mogu sadržavati stranice tipa „{{child}}“.", perParentLimit: "Odredišni roditelj već ima maksimalan broj stranica ovog tipa.", cannotBeRoot: "Ovaj tip stranice ne može biti na vrhu.", versionConflict: "Stranica je u međuvremenu izmijenjena — osvježi i pokušaj ponovno.", pageTrashed: "Stranica je u košu i ne može se premjestiti.", invalidInsertBefore: "Stranicu nije moguće postaviti na traženu poziciju." } }, Xx = { loading: "Provjeravam što će biti obrisano…", success: "Stranica premještena u koš", disableSuccess: "Verzija {{locale}} deaktivirana", confirm: { title: "Obrisati stranicu?", leaf_single: "Stranica {{title}} bit će premještena u koš. Možete je kasnije vratiti.", leaf_multi: "Sve {{count}} jezične verzije ({{locales}}) stranice {{title}} bit će premještene u koš.", cascade_one: "Stranica {{title}} i 1 podstranica ({{translationCount}} prijevoda u jezicima {{locales}}) bit će premještene u koš.", cascade_other: "Stranica {{title}} i {{count}} podstranica ({{translationCount}} prijevoda u jezicima {{locales}}) bit će premještene u koš.", intro_multilocale: "Ova stranica je aktivna u {{activeLocales}}. Možete obrisati cijelu stranicu (sve jezike) ili samo deaktivirati verziju {{currentLocale}}, a {{otherLocales}} ostaje aktivno.", deleteButton: "Obriši cijelu stranicu", disableButton: "Deaktiviraj samo verziju {{locale}}", disableExplain_one: "Skriva ovu stranicu posjetiteljima jezika {{locale}}. {{otherLocales}} ostaje aktivno.", disableExplain_other: "Skriva ovu stranicu i {{count}} podstranica posjetiteljima jezika {{locale}}. {{otherLocales}} ostaje aktivno.", presence: "Trenutno uređuju: {{emails}}", restoreHint: "Može se vratiti iz koša." }, blocked: { title: "Stranicu nije moguće obrisati", intro_one: "Stranicu nije moguće obrisati jer je još uvijek referencira 1 stavka izbornika ili poveznica:", intro_other: "Stranicu nije moguće obrisati jer je još uvijek referencira {{count}} stavki izbornika ili poveznica:", menusHeader_one: "1 stavka izbornika", menusHeader_other: "{{count}} stavki izbornika", pagesHeader_one: "1 stranica", pagesHeader_other: "{{count}} stranica", menuRow: "{{label}} · {{location}}", pageRow: "{{title}}", hint: "Otvorite navedene stavke, uklonite poveznicu i pokušajte ponovno.", close: "Zatvori" }, disableBlocked: { title: "Nije moguće deaktivirati verziju {{locale}}", intro_one: "Deaktivacija verzije {{locale}} pokvarila bi 1 poveznicu koja još uvijek upućuje na ovaj sadržaj:", intro_other: "Deaktivacija verzije {{locale}} pokvarila bi {{count}} poveznica koje još uvijek upućuju na ovaj sadržaj:" }, forbiddenParent: "Stranica ima podstranice — može je obrisati samo admin ili developer.", multiLocale: { activeIn: "aktivno u {{locales}}", intro: "Ova stranica postoji u više jezika. Odaberite način brisanja:", disableLocaleTitle: "Deaktiviraj samo verziju {{locale}}", disableLocaleHelp: "Skriva ovu stranicu posjetiteljima {{locale}}. {{other}} ostaje aktivno. Može se vratiti iz koša.", disableLocaleHelpDesc: "Skriva ovu stranicu i {{count}} podstranica posjetiteljima {{locale}}. {{other}} ostaje aktivno. Može se vratiti iz koša.", deleteEntireHelp: "Stranica {{subject}} i svi njezini prijevodi ({{locales}}) bit će premješteni u koš.", deleteEntireHelpDesc: "Stranica {{subject}} i {{count}} podstranica ({{locales}}) bit će premješteni u koš." } }, Qx = { title: "Vrati stranicu", loading: "Provjera mogućnosti vraćanja…", success: "Stranica vraćena", restoreButton: "Vrati", placementLabel: "Gdje vratiti ovu stranicu?", typeHint: "Tip stranice: {{type}}", option: { originalParent: 'Pod "{{title}}" (izvorni roditelj)', root: "Premjesti u korijen (najvišu razinu)", rootOriginal: "U korijen (najvišu razinu)", otherParent: "Pod drugu stranicu…", pickParent: "Odaberite roditeljsku stranicu", loading: "Učitavanje stranica…", noMatches: "Nema odgovarajućih stranica" }, cascade: { label_one: "Vrati i 1 obrisanu podstranicu", label_few: "Vrati i {{count}} obrisane podstranice", label_other: "Vrati i {{count}} obrisanih podstranica", hint: "Podstranice obrisane zajedno s ovom stranicom bit će vraćene na svoje izvorne pozicije." }, reason: { parent_trashed: "Izvorni roditelj je još u košu. Prvo ga vratite ili odaberite drugog roditelja.", type_mismatch: "Izvorni roditelj nije valjan tip roditelja za {{type}}.", per_parent_limit_reached: "Ovaj roditelj već ima maksimalan broj {{type}} stranica ({{limit}}).", cannot_be_root: "{{type}} stranice ne mogu biti na korijenskoj razini.", global_limit_reached: "Dosegnuto ograničenje broja {{type}} stranica na projektu ({{limit}})." }, blocked: { title: "Vraćanje nije moguće", typeNotRegistered: 'Tip stranice "{{type}}" više nije registriran u projektu. Vratite tip ili trajno obrišite stranicu.', noPlacement: "Trenutno nema valjanog mjesta za vraćanje ove {{type}} stranice.", suggestion: "Vratite (ili stvorite) stranicu tipa: {{parentTypes}}, a zatim pokušajte ponovno.", parentInTrash: 'Izvorni roditelj "{{parentTitle}}" je još u košu — vratite ga prvo da bi ova stranica imala dom.', globalLimit: "Dosegnuto ograničenje broja {{type}} stranica na projektu ({{limit}}). Obrišite ili premjestite u koš jednu aktivnu {{type}} stranicu." }, error: { generic: "Vraćanje stranice nije uspjelo. Pokušajte ponovno.", pickParent: "Molimo odaberite roditeljsku stranicu.", parentTrashed: "Odabrani roditelj je u košu. Odaberite aktivnu stranicu ili prvo vratite roditelja.", parentNotFound: "Odabrani roditelj više ne postoji.", parentInSubtree: "Stranica ne može biti premještena pod jednu od svojih podstranica.", invalidParentType: "Odabrani roditelj nije valjan tip roditelja za {{type}}.", perParentLimitReached: "Ovaj roditelj već ima maksimalan broj {{type}} stranica ({{limit}}).", cannotBeRoot: "{{type}} stranice ne mogu biti na korijenskoj razini.", globalLimitReached: "Dosegnuto ograničenje broja {{type}} stranica na projektu ({{limit}}).", slugTaken: '{{locale}} slug "{{slug}}" je već u upotrebi na aktivnoj stranici. Preimenujte ga prije vraćanja.' } }, ew = { titleEdit: "Uredi stranicu", titleNew: "Nova stranica", tabContent: "Sadržaj", tabSeo: "SEO", fieldTitle: "Naslov", placeholderTitle: "Naslov stranice", fieldStatus: "Status", statusDraft: "Skica", statusPublished: "Objavljeno", statusHint: "Samo admini i programeri mogu objavljivati ili povlačiti stranice", schedulePublish: "Zakazano objavljivanje", scheduleDescription: "Stranica će se automatski objaviti u odabrano vrijeme.", scheduleHint: "Ostavite prazno za neodređenu skicu", schedulePlaceholder: "Odaberite datum i vrijeme…", scheduledFor: "Zakazano za {{date}}", scheduleClear: "Obriši", scheduleConfirm: "Potvrdi", scheduleLeaveBlank: "Ostavite prazno za zadržavanje nacrta neograničeno.", parentRequired: "Nadređena stranica (obavezno)", parentOptional: "Nadređena stranica (neobavezno)", parentNone: "Bez nadređene (korijenski nivo)", fieldsSectionTitle: "Polja", contentSections: "Sekcije sadržaja", saveAsTemplate: "Spremi kao predložak", loadTemplate: "Učitaj predložak", noSections: "Još nema sekcija. Dodajte jednu ispod.", addSection: "+ Dodaj novu sekciju", addBlockLabel: "+ {{label}}", chooseBlockType: "Odaberite vrstu odjeljka", metaTitle: "Meta naslov", metaDescription: "Meta opis", metaDescriptionHint: "Kratki opis za tražilice", metaTitleCount: "{{count}}/60 znakova", metaTitleTooLong: "Meta naslov je predug", metaDescCount: "{{count}}/160 znakova", metaDescTooLong: "Meta opis je predug", ogImage: "OG slika", pickImage: "Odaberi sliku", canonicalUrl: "Kanonski URL", canonicalPlaceholder: "https://primjer.hr/moja-stranica", canonicalHint: "Ostavite prazno za korištenje zadanog URL-a stranice", noindex: "Sakrij od tražilica (noindex)", googlePreview: "Pregled u Googleu", noDescription: "Opis nije postavljen.", savePage: "Spremi", publishPage: "Objavi stranicu", publishSuccess: "Stranica objavljena", publishError: "Nije moguće objaviti stranicu", localeActiveCheckbox: "Aktivan na ovom jeziku", localeMissing: "Još nema sadržaja za {{locale}}", localeInactive: "{{locale}} je neaktivan — sadržaj se neće prikazivati na javnom sajtu", deactivateError: "Nije moguće provjeriti gdje je ova stranica korištena", deactivateBlockedTitle: "Ova stranica je još uvijek povezana u jeziku {{locale}}", deactivateBlockedBody: "Deaktivacija jezika {{locale}} bi tiho prekinula veze ispod. Najprije ih uklonite, zatim se vratite na deaktivaciju.", deactivateBlockedMenus: "Korišteno u izbornicima:", deactivateBlockedPages: "Linkano sa stranica:", cascadeBlockedTitle: "Nije moguće deaktivirati {{locale}} na podstranicama", cascadeBlockedBody: "Deaktivacija jezika {{locale}} na ovoj stranici bi deaktivirala isti jezik i na podstranicama, ali neke su još uvijek povezane sa sadržajem izvan ovog podstabla u istom jeziku. Uklonite veze ispod pa pokušajte ponovno.", cascadeBlockedPageLabel: "Podstranica: {{title}}", cascadeDoneNotification: "Jezik {{locale}} deaktiviran na {{count}} podstranica/e", cascadeConfirmTitle: "Deaktivirati {{locale}} i na podstranicama?", cascadeConfirmBody: "{{count}} podstranica trenutno aktivnih u jeziku {{locale}} također će biti deaktivirano prilikom spremanja. Akcija se izvršava prilikom spremanja i može se poništiti ponovnim aktiviranjem svake stranice pojedinačno.", cascadeConfirmAction: "Deaktiviraj na podstranicama", ancestorBlockedTitle: "Još nije moguće aktivirati {{locale}}", ancestorBlockedBody: "Jedna ili više nadređenih stranica još uvijek ima {{locale}} deaktiviran. Najprije aktivirajte {{locale}} na nadređenoj stranici, a zatim se vratite ovamo. Inače bi se ova stranica objavila na URL-u čiji nadređeni segment ne postoji.", cascadeFailedError: "Stranica je spremljena, ali nije bilo moguće prenijeti deaktivaciju jezika {{locale}} na podstranice", statusDraftBadge: "Skica", statusPublishedBadge: "Objavljeno", statusPendingBadge: "Objavljeno · Čeka objavu", leaveTitle: "Napustiti stranicu?", leaveBody: "Imate nespremljene promjene. Ako odete sada, promjene će biti izgubljene.", leaveConfirm: "Napusti", conflictTitle: "Konflikt uređivanja", conflictBody: "Netko drugi je spremio ovu stranicu dok ste je uređivali. [Osvježi] za najnoviju verziju.", savedNotification: "Stranica spremljena", saveError: "Greška pri spremanju stranice", siblingSlugTaken: "Druga stranica pod istim roditeljem već koristi ovaj naziv ({{locale}}). Preimenujte ovu stranicu da biste je spremili.", previewNeedsSave: "Najprije spremite stranicu za pregled", previewNeedsFrontend: "Konfigurirajte frontendUrl u createAdmin() za pregled", previewFailed: "Greška pri stvaranju pregleda", versionHistory: "Povijest verzija", versionHistoryDescription: "Povratite raniju verziju ove stranice.", versionCount: "{{count}} spremljena verzija", versionCount_other: "{{count}} spremljenih verzija", versionCurrent: "trenutna", noVersions: "Još nema verzija. Verzije se stvaraju pri svakom spremanju.", restoreVersion: "Vrati", restoreVersionTitle: "Vratiti verziju?", restoreVersionBody: "Ovo će zamijeniti trenutni sadržaj stranice s ovom verzijom. Trenutno stanje bit će spremljeno kao nova verzija.", restoreVersionFailed: "Greška pri vraćanju verzije", unknownBlock: "Nepoznati tip bloka: {{type}}", unsavedBadge: "Nespremljene promjene", lastSaved: "Zadnje spremljeno {{time}}", alsoEditing: "{{emails}} također uređuje", moreEditors: "+{{count}}" }, tw = { title: "Izbornici", subtitle: "Upravljajte navigacijskim izbornicima za vaš frontend.", newMenu: "Novi izbornik", loading: "Učitavanje…", noMenus: "Još nema izbornika. Stvorite prvi!", emptyTitle: "Još nema izbornika", emptyDescription: "Stvorite navigacijske izbornike za zaglavlje, podnožje i ostala područja frontenda.", locationPrimary: "primary — glavna navigacija", locationFooter: "footer — poveznice u podnožju", locationBadge_primary: "Glavna navigacija", locationBadge_footer: "Navigacija u podnožju", edit: "Uredi", delete: "Obriši", modeAuto: "Auto", modeManual: "Ručno", topLevelItems: "{{count}} stavka/stavki na vrhu", autoInfo: "{{types}} · dubina {{depth}}", deleteTitle: "Obriši izbornik", deleteBody: "Obrisati ovaj izbornik? Ovo se ne može poništiti.", deleteConfirm: "Obriši", createTitle: "Stvori izbornik", createDescription: "Navigacijski izbornici prikazuju se na vašem sučelju.", modeSection: "Način rada", modeManualSub: "Vi upravljate svakom stavkom", modeAutoSub: "Gradi se iz stabla stranica", locationSection: "Navigacijski slot", locationPrimaryTitle: "Primarna navigacija", locationPrimaryCardSub: "Navigacija u zaglavlju", locationFooterTitle: "Podnožje", locationFooterCardSub: "Poveznice u podnožju", alreadyAdded: "Već dodano", allLocationsUsed: "Sve lokacije izbornika su već u upotrebi.", cancel: "Odustani", createBtn: "Stvori izbornik" }, nw = { title: "Uređivač navigacijskog izbornika", alsoEditing: "{{emails}} također uređuje", moreEditors: "+{{count}}", save: "Spremi izbornik", modeLabel: "Način rada", modeAuto: "Auto (Pametni)", modeManual: "Ručni (Prilagođeni)", modeAutoHint: "Automatski generira stavke izbornika iz odabranih tipova stranica.", modeManualHint: "Ručno rasporedite stavke povlačenjem i ispuštanjem.", includeTypes: "Uključi tipove stranica", includeTypesHint: "Pojavit će se samo objavljene stranice ovih tipova.", includeTypesPlaceholder: "Odaberite tipove stranica…", maxDepth: "Maksimalna dubina", maxDepthHint: "Razine djece za uključiti (0 = samo korijen).", depth0: "0 — samo korijen", depth1: "1 razina", depth2: "2 razine", depth3: "3 razine", maxTypes: "Maks. odabranih tipova stranica", maxTypesHint: "Ograničite koliko tipova admini mogu odabrati.", previewLabel: "Pregled", previewLoading: "Učitavanje pregleda…", previewEmpty: "Nema objavljenih stranica koje odgovaraju odabranim tipovima.", itemsLabel: "Stavke", addItem: "Dodaj stavku", dndHint: "Povucite na stavku za ugniježđivanje · Ispustite gore/dolje za sortiranje · Koristite ◀ ▶ za promjenu razine", noItems: "Još nema stavki. Dodajte prvu stavku izbornika.", indentOut: "Premjesti na nadređenu razinu", indentIn: "Postavi kao dijete gornje stavke", itemLabelField: "Oznaka", itemLabelPlaceholder: "npr. Proizvodi", itemTypePage: "Stranica", itemTypeUrl: "Prilagođeni URL", itemPageLabel: "Stranica", itemPagePlaceholder: "Pretraži stranice…", itemUrlLabel: "URL", itemUrlPlaceholder: "https://… ili /relativno", itemNewTab: "Otvori u novoj kartici", editItem: "Uredi stavku", cancelItem: "Odustani", saveItem: "Spremi promjene", saveNewItem: "Dodaj stavku", removeItem: "Ukloni stavku", removeItemTitle: "Ukloniti ovu stavku i svu njenu djecu?", removeItemConfirm: "Ukloni", switchToAuto: "Prebaci na Auto način", switchToManual: "Prebaci na Ručni način", switchToAutoConfirm: "Prebacivanje na Auto način će odbaciti ručno konfigurirane stavke. Nastaviti?", switchToManualConfirm: "Prebaciti na Ručni način? Trenutna auto-generirana struktura koristit će se kao polazište.", switchManualImport: "Prebaci i uvezi stavke", switchAutoConfirm: "Prebaci na Auto", savedNotification: "Izbornik spremljen", conflictBody: "Netko drugi je spremio ovaj izbornik dok ste ga uređivali. [Osvježi] za najnoviju verziju.", saveError: "Greška pri spremanju izbornika", itemLabelFor: "Oznaka ({{locale}})", itemLabelFallback: "Koristi vrijednost iz {{locale}}", itemLabelMissing: "Nedostaje za: {{locales}}", itemLabelAutoHint: "Ostavite prazno za korištenje naslova stranice „{{title}}”.", itemLocaleBadge: "Nije u {{locale}}", itemLocaleTooltip: "Ova stranica nema aktivni prijevod u {{locale}}. Bit će sakrivena iz javnog izbornika za ovaj jezik.", previewLocaleHint: "Pregled za {{locale}}. Stranice bez aktivnog prijevoda u ovom jeziku su sakrivene." }, aw = { title: "Mediji", subtitle: "Učitajte i upravljajte slikama, dokumentima i ostalim datotekama.", searchPlaceholder: "Pretraži datoteke…", fileCount: "{{count}} datoteka/datoteke", viewLarge: "Veliko", viewSmall: "Malo", viewList: "Lista", settingsBtn: "Postavke", uploadBtn: "Učitaj", filterAll: "Sve", filterImages: "Slike", filterDocs: "Dokumenti", noResults: "Nema datoteka koje odgovaraju pretrazi.", noFiles: "Nema datoteka", uploadFiles: "Učitaj datoteke", foldersTitle: "Mape", allFiles: "Sve datoteke", unorganized: "Neorganizirano", newFolder: "Nova mapa", confirmDelete: "Potvrdi brisanje", confirmCreate: "Stvori", newSubfolder: "Nova podmapa", rename: "Preimenuj", delete: "Obriši", expand: "Proširi", collapse: "Skupi", folderActions: "Radnje mape", deleteFolderTitle: "Obrisati mapu?", deleteFolderMessage: "Ova radnja se ne može poništiti.", renameFileTitle: "Preimenuj datoteku", renameFileLabel: "Ime datoteke", cancel: "Odustani", save: "Spremi", renameFailed: "Greška pri preименовању.", fileInfoTitle: "Info o datoteci", fileInfoName: "Prikazano ime", fileInfoStorage: "Naziv pohrane", fileInfoType: "Tip", fileInfoSize: "Veličina", fileInfoUploaded: "Učitano", fileInfoModified: "Zadnja izmjena", fileInfoCdnUrl: "CDN URL", copy: "Kopiraj", copied: "Kopirano!", download: "Preuzmi", close: "Zatvori", copyUrl: "Kopiraj URL", fileInfo: "Info o datoteci", deleteFile: "Obriši", downloadSelected: "Preuzmi {{count}} odabranih", deleteSelected: "Obriši {{count}} odabranih", deleteFileTitle: "Obrisati datoteku?", deleteFileBody: "Obrisati <strong>{{name}}</strong>? Ovo se ne može poništiti.", deleteFileMessage: "Ovo se ne može poništiti.", deleteSelectedTitle: "Obrisati odabrane datoteke?", deleteSelectedBody: "Obrisati <strong>{{count}} odabranu/ih datoteku/a</strong>? Ovo se ne može poništiti.", deleteSelectedMessage: "Obrisati {{count}} odabranu/ih datoteku/a? Ovo se ne može poništiti.", deleteConfirm: "Obriši {{count}} datoteka/e", usedOnPages: "Koristi se na {{count}} stranici/ama:", removeFromPagesFirst: "Najprije uklonite ovu sliku s tih stranica.", sortNewest: "Dodano (najnovije)", sortOldest: "Dodano (najstarije)", sortModifiedNew: "Izmijenjeno (najnovije)", sortModifiedOld: "Izmijenjeno (najstarije)", sortNameAZ: "Ime (A → Ž)", sortNameZA: "Ime (Ž → A)", sortSizeLarge: "Veličina (najveće)", sortSizeSmall: "Veličina (najmanje)", dropUploadTo: 'Ispustite za učitavanje u "{{folder}}"', dropUpload: "Ispustite za učitavanje", skippedDuplicatesTitle: "Preskočeni duplikati", skippedDuplicates: "Preskočeno {{count}} datoteka koje već postoje u ovoj mapi: {{names}}", selectedCount: "{{count}} datoteka/e odabrano", selectAll: "Odaberi sve", showingRange: "{{from}}–{{to}} od {{total}}", moveToFolder: "Premjesti u mapu…", clearSelection: "Poništi", settingsTitle: "Bunny CDN pohrana", settingsConfigured: "Konfigurirano", settingsZoneName: "Naziv zone pohrane", settingsPathPrefix: "Prefiks putanje pohrane", settingsPathHint: "Putanja podmape unutar zone.", settingsApiKeyEdit: "API ključ pohrane (ostavite prazno za zadržavanje)", settingsApiKeyNew: "API ključ pohrane", settingsApiKeyPlaceholderHidden: "••••••••", settingsApiKeyPlaceholderNew: "Zalijepite lozinku zone pohrane", settingsRegion: "Regija pohrane", settingsCdnUrl: "URL CDN Pull Zone", settingsCdnPlaceholder: "https://mojazona.b-cdn.net", settingsSave: "Spremi konfiguraciju", settingsSaved: "Konfiguracija spremljena.", settingsHelp: "Naziv zone i lozinka: Bunny CDN → Storage → [Zona] → FTP & API Access. CDN URL: Bunny CDN → Pull Zones → [Zona] → hostname." }, ow = { title: "Korisnici", subtitle: "Upravljajte članovima tima i njihovim ulogama.", newUser: "Novi korisnik", loading: "Učitavanje…", noUsers: "Nisu pronađeni korisnici.", userCount: "{{count}} korisnik", userCount_other: "{{count}} korisnika", colName: "Ime", colUser: "Korisnik", colEmail: "E-pošta", colRole: "Uloga", colStatus: "Status", colCreated: "Stvoreno", colActions: "Akcije", searchPlaceholder: "Pretraži korisnike…", actionsMenu: "Akcije", edit: "Uredi", delete: "Obriši", disable: "Onemogući", reactivate: "Reaktiviraj", resetPassword: "Resetiraj lozinku", resendInvite: "Ponovno pošalji pozivnicu", status: { active: "Aktivan", pending: "Na čekanju", disabled: "Onemogućen" }, createTitle: "Pozovi korisnika", createDescription: "Postavite pristupne podatke novog člana tima.", inviteDescription: "Na ovu adresu bit će poslana poveznica za aktivaciju.", inviteEmailHint: "Poslat ćemo poveznicu za aktivaciju — korisnik sam odabire lozinku.", sendInvite: "Pošalji pozivnicu", inviteSent: "Pozivnica poslana na {{email}}", roleSection: "Uloga", createFirstName: "Ime", createFirstNamePlaceholder: "Ana", createLastName: "Prezime", createLastNamePlaceholder: "Horvat", createEmail: "E-pošta", createEmailPlaceholder: "korisnik@primjer.hr", createPassword: "Lozinka", createPasswordHint: "Minimalno 8 znakova", createRole: "Uloga", createRolePlaceholder: "Odaberite ulogu", cancel: "Odustani", create: "Stvori", editTitle: "Uredi {{email}}", editRole: "Uloga", editPasswordNote: 'Za promjenu lozinke ovog korisnika koristite "Resetiraj lozinku" iz izbornika retka — dobit će e-poštu.', editCancel: "Odustani", editSave: "Spremi", deleteTitle: "Obriši korisnika", deleteBody: "Obrisati {{email}}? Ovo se ne može poništiti.", deleteMessage: "Ovo trajno uklanja korisnika. Više se neće moći prijaviti.", disableTitle: "Onemogući korisnika", disableMessage: "Postojeća sesija će prestati i neće se moći prijaviti dok ne bude reaktiviran.", disableConfirm: "Onemogući", disableSuccess: "{{email}} onemogućen/a", reactivateTitle: "Reaktiviraj korisnika", reactivateMessage: "Moći će se ponovno prijaviti svojom postojećom lozinkom.", reactivateConfirm: "Reaktiviraj", reactivateSuccess: "{{email}} reaktiviran/a", resetTitle: "Resetiraj lozinku", resetMessage: "Poslat ćemo korisniku poveznicu za reset. Trenutna lozinka i dalje radi dok ne postavi novu.", resetConfirm: "Pošalji e-poštu za reset", resetSuccess: "E-pošta za reset poslana na {{email}}", resendTitle: "Ponovno pošalji pozivnicu", resendMessage: "Poslat ćemo svježu poveznicu za aktivaciju. Prethodna poveznica više neće raditi.", resendConfirm: "Pošalji ponovno", resendSuccess: "Pozivnica ponovno poslana na {{email}}", loadError: "Greška pri učitavanju korisnika", createError: "Greška pri pozivanju korisnika", updateError: "Greška pri ažuriranju korisnika", actionError: "Akcija nije uspjela", deleteSuccess: "{{email}} obrisan/a", deleteError: "Greška pri brisanju korisnika" }, rw = { title: "Postavite lozinku", subtitle: "Odaberite lozinku za {{email}} kako biste aktivirali svoj račun.", password: "Lozinka", passwordPlaceholder: "Najmanje 8 znakova", confirmPassword: "Potvrdite lozinku", confirmPasswordPlaceholder: "Ponovno unesite lozinku", submit: "Aktiviraj račun", submitting: "Aktiviranje…", success: "Račun aktiviran", redirecting: "Preusmjeravanje na nadzornu ploču…", linkInvalidTitle: "Poveznica neispravna ili istekla", invalidLink: "Ova poveznica za aktivaciju više nije važeća. Zatražite od administratora novu pozivnicu.", passwordTooShort: "Lozinka mora imati barem 8 znakova.", passwordMismatch: "Lozinke se ne podudaraju.", submitError: "Aktivacija nije uspjela. Molimo pokušajte ponovno." }, iw = { title: "Resetirajte lozinku", subtitle: "Odaberite novu lozinku za {{email}}.", submit: "Postavi novu lozinku", success: "Lozinka ažurirana" }, sw = { title: "API ključevi", subtitle: "Upravljajte pristupnim tokenima za frontend integracije.", newKey: "Novi ključ", loading: "Učitavanje...", noKeys: "Još nema API ključeva.", emptyTitle: "Još nema API ključeva", emptyDescription: "Stvorite pristupne tokene za frontend ili integracije trećih strana.", new: "Novi ključ", colName: "Ime", colPrefix: "Prefiks", colRole: "Uloga", colLastUsed: "Zadnje korištenje", colActions: "Akcije", revoke: "Opozovi", createTitle: "Stvori API ključ", createDescription: "Ključevi se prikazuju jednom — kopirajte ih odmah nakon stvaranja.", roleSection: "Uloga", createName: "Ime", createNamePlaceholder: "npr. project-one-frontend", createRole: "Uloga", roleViewer: "Viewer — samo čitanje", roleEditor: "Editor — stvaranje i uređivanje", roleAdmin: "Admin — puni pristup", roleDeveloper: "Developer — razvojni pristup", createBtn: "Stvori", newKeyTitle: "Ključ stvoren — kopirajte ga odmah. Više se neće prikazivati.", copy: "Kopiraj", dismiss: "Odbaci", revokeTitle: "Opozovi API ključ", revokeBody: 'Opozvati "{{name}}"? Sve integracije koje koriste ovaj ključ prestat će raditi.', revokeMessage: "Sve integracije koje koriste ovaj ključ prestat će raditi odmah.", revokeConfirm: "Opozovi", never: "Nikad", revokeSuccess: 'API ključ "{{name}}" obrisan', revokeError: "Greška pri brisanju ključa", keyCount: "{{count}} API ključ", keyCount_other: "{{count}} API ključeva" }, lw = { title: "Postavke stranice", subtitle: "Globalna konfiguracija vašeg projekta.", save: "Spremi postavke", tabGeneral: "Općenito", tabLocales: "Jezici", tabSeo: "SEO zadane vrijednosti", tabEditorPrefs: "Postavke uređivača", tabAnalytics: "Analitika", tabDashboard: "Nadzorna ploča", dashboardHint: "Odaberite koje statističke kartice vidi svaka korisnička uloga na svojoj nadzornoj ploči. Neke kartice zahtijevaju minimalnu ulogu i ne mogu se uključiti za niže uloge.", dashboardRole_viewer: "Pregledatelj", dashboardRole_editor: "Urednik", dashboardRole_admin: "Administrator", dashboardRole_developer: "Razvojni programer", dashboardMinRole: "Zahtijeva ulogu {{role}} ili višu", tabApiKeys: "API ključevi", tabWebhooks: "Webhookovi", tabAdvanced: "Napredno", tabRobots: "Robots.txt", identitySection: "Identitet stranice", identityHint: "Kako se vaš CMS prikazuje korisnicima i javnosti.", brandSection: "Brand", brandHint: "Favicon prikazan u karticama preglednika i podijeljenim pregledima.", languagesHint: "Koje jezike projekt podržava.", thisDeviceNote: "(ovaj uređaj)", editorPrefsHint: "Osobne postavke pohranjene samo u ovom pregledniku.", analyticsHint: "Povežite svog pružatelja analitike.", advancedHint: "Ubacite sirovi HTML u svaku javnu stranicu.", email: { title: "E-pošta", hint: "Konfiguracija za pozivnice, resetiranje lozinke i drugu transakcijsku e-poštu. Iste vrijednosti koriste se i u razvojnom i u produkcijskom okruženju za ovaj projekt — postavite različite vjerodajnice u bazi svakog okruženja.", fromLabel: 'Zadana "Od" adresa', fromPlaceholder: "Moj CMS <noreply@primjer.hr>", fromHint: "Obična adresa ili RFC 5322 zapis. Domena pošiljatelja mora biti verificirana kod davatelja e-pošte (npr. Resend) — neverificirane domene bit će odbijene pri slanju.", transportTitle: "Prijenosni sloj", transportHint: "Način na koji se e-pošta zapravo šalje. Vjerodajnice se pohranjuju po projektu — zalijepite ih jednom ovdje i iste vrijednosti vrijede u dev-u i produkciji (svako okruženje ima svoju bazu).", transportLabel: "Način slanja", transportLabelHint: '"Auto" koristi varijable okruženja (RESEND_API_KEY / SMTP_HOST) kao rezervu. Ostale opcije koriste vjerodajnice koje unesete ispod.', transportAuto: "Auto (koristi varijable okruženja)", transportResend: "Resend (HTTP API)", transportSmtp: "SMTP (nodemailer)", transportNone: "Isključeno (odbaci sva slanja)", resendKeyLabel: "Resend API ključ", resendKeyHint: 'Dohvatite ga na resend.com → API Keys. Besplatni plan pokriva 100 e-poruka/dan. Ključevi počinju s "re_".', resendKeyPlaceholder: "re_xxxxxxxxxxxxxxxxxxxxxxxx", resendKeyPlaceholderStored: "Ostavite prazno za zadržavanje postojećeg ključa", smtpHostLabel: "SMTP host", smtpPortLabel: "SMTP port", smtpUserLabel: "SMTP korisničko ime", smtpPassLabel: "SMTP lozinka", smtpPassPlaceholderStored: "Ostavite prazno za zadržavanje postojeće lozinke", smtpSecureLabel: "Koristi TLS/SSL (port 465 obično ovo zahtijeva; port 587 obično ne)", configured: "Konfigurirano", show: "Prikaži", hide: "Sakrij", clear: "Obriši", saveTransport: "Spremi konfiguraciju e-pošte", saved: "Konfiguracija e-pošte spremljena", cleared: "Vjerodajnica obrisana", statusResend: "Resend povezan ({{source}})", statusSmtp: "SMTP povezan ({{source}})", statusConsole: "Nije konfiguriran prijenosni sloj — e-pošta će biti ispisana u stdout API-ja umjesto poslana", statusNone: "E-pošta je isključena — odlazna slanja bit će tiho odbačena", statusLoading: "Provjera prijenosnog sloja…", sourceProject: "ovaj projekt", sourceEnv: "iz okruženja", overrideActive: "Dev override aktivan: sva slanja preusmjeravaju se na {{email}}" }, noFavicon: "Nije postavljen favicon", faviconReady: "Aktivan na cijeloj stranici", faviconFallback: "Koristi se monogram brenda", faviconName: "favicon", siteTitle: "Naslov stranice", siteTitleHint: "Koristi se u kartici preglednika i kao rezervni OG naslov.", siteTitlePlaceholder: "Moja web stranica", tagline: "Podnaslov", taglineHint: "Kratki opis prikazan ispod naslova stranice.", taglinePlaceholder: "Gradimo stvari od 2024.", favicon: "Favicon", faviconHint: "Preporučeno: 32×32 PNG ili SVG.", faviconSet: "Favicon postavljen (media ID: {{id}}…)", faviconRemove: "Ukloni", faviconNone: "Favicon nije postavljen.", faviconSelect: "Odaberi favicon", faviconChange: "Promijeni favicon", uiLanguage: "Jezik admin sučelja", uiLanguageHint: "Jezik koji se koristi za sve oznake i poruke admin panela.", langEn: "Engleski", langHr: "Hrvatski", localeFallback: "Prazno polje prikazuje vrijednost iz {{locale}}", editorPrefsSection: "Postavke uređivača (ovaj uređaj)", autosaveEnabled: "Automatsko spremanje svakih 30 sekundi", autosaveEnabledHint: "U pozadini sprema skice dok uređujete. Ručno spremanje (Ctrl+S, gumb Spremi) i Objavi rade neovisno o ovome.", languagesSection: "Jezici sadržaja", availableLocales: "Dostupni jezici", availableLocalesHint: "Jezici na kojima će ovaj projekt objavljivati sadržaj.", defaultLocale: "Zadani jezik", defaultLocaleHint: "Fallback jezik koji se koristi na korijenu sajta i kada stranica nema prijevod na posjetiteljev jezik.", defaultLocaleNotAvailable: "Zadani jezik mora biti jedan od dostupnih jezika.", atLeastOneLocale: "Mora biti dostupan barem jedan jezik.", localeInUse: "Ne mogu ukloniti jezik {{locale}} — stranice još uvijek imaju sadržaj na njemu. Najprije uklonite taj sadržaj.", seoDefaultsHint: "Ove zadane vrijednosti koriste se kada stranica nema vlastita SEO polja.", defaultMetaTitle: "Zadani meta naslov", defaultMetaTitlePlaceholder: "Moja web stranica — Naslov stranice", defaultMetaDesc: "Zadani meta opis", defaultMetaDescPlaceholder: "Kratki opis vaše web stranice…", defaultOgImage: "Zadani OG URL slike", defaultOgImageHint: "Rezervna Open Graph slika za dijeljenje na društvenim mrežama.", defaultOgImagePlaceholder: "https://cdn.primjer.hr/og-zadano.jpg", analyticsId: "ID analitike", analyticsIdHint: "Google Analytics mjerni ID (G-XXXXXXXX) ili drugi identifikator analitike.", analyticsIdPlaceholder: "G-XXXXXXXXXX", advancedWarning: "HTML koji se ubacuje na svaku stranicu. Koristite s oprezom — nevažeći HTML može pokvariti vaš site.", customHeadHtml: "Prilagođeni <head> HTML", customHeadHtmlHint: "Ubacuje se unutar <head> prije </head>.", customHeadHtmlPlaceholder: "<!-- npr. skripte trećih strana, prilagođeni fontovi -->", customBodyHtml: "Prilagođeni <body> HTML", customBodyHtmlHint: "Ubacuje se neposredno prije </body>.", customBodyHtmlPlaceholder: "<!-- npr. widget za chat, cookie banner -->", robotsHint: "Sadržaj koji vraća GET /robots.txt kad je prisutan zaglavlje X-Project-Slug.", robotsLabel: "robots.txt sadržaj", robotsResetAllow: "Resetiraj na dopusti sve", robotsDisallowAll: "Zabrani sve (održavanje)", savedNotification: "Postavke spremljene", conflictTitle: "Konflikt uređivanja", conflictBody: "Netko drugi je spremio ove postavke dok ste ih uređivali. [Osvježi] za najnoviju verziju.", saveError: "Greška pri spremanju postavki" }, cw = { title: "Webhooks", subtitle: "Obavještavajte vanjske servise o promjenama sadržaja", addBtn: "Dodaj webhook", loading: "Učitavanje…", noWebhooks: "Nema konfiguriranih webhookova", emptyTitle: "Još nema webhookova", emptyDescription: "Obavijestite Slack, Vercel ili build pipeline kada se sadržaj promijeni.", add: "Dodaj webhook", addFirst: "Dodajte prvi webhook", colUrl: "URL", colEvents: "Događaji", colActive: "Aktivno", colCreated: "Stvoreno", colActions: "Akcije", count: "{{count}} webhook", count_other: "{{count}} webhookova", createUrlPlaceholder: "https://primjer.hr/webhook", createEventsLabel: "Događaji", cancel: "Odustani", createBtn: "Stvori webhook", createSuccess: "Webhook uspješno stvoren", secretHint: "Kopirajte i pohranite ovaj tajni ključ — više se neće prikazivati. Koristite ga za provjeru X-CMS-Signature zaglavlja na dolaznim zahtjevima.", done: "Gotovo", validationUrl: "URL mora počinjati s http:// ili https://", validationEvents: "Odaberite barem jedan događaj", createError: "Greška pri stvaranju webhookа", noDeliveries: "Još nema isporuka", viewLog: "Prikaži zapisnik isporuke", deleteWebhook: "Obriši webhook", deliveryLog: "Zapisnik isporuke", deleteTitle: "Obrisati webhook?", deleteBody: "Sva povijest isporuke za ovaj webhook bit će također obrisana.", deleteMessage: "Sva povijest isporuke bit će također obrisana.", deleteConfirm: "Obriši", deleteSuccess: "Webhook obrisan", updateError: "Greška pri ažuriranju webhookа", deleteError: "Greška pri brisanju webhookа", loadError: "Greška pri učitavanju webhookova" }, dw = { title: "Tekstovi", subtitle: "Uređujte fiksne tekstove na frontu bez izmjene koda.", colKey: "Ključ", colValue: "Vrijednost", addRow: "Dodaj tekst", addRowBlocked: "Najprije dovršite novi tekst — unesite ključ i vrijednost za svaki jezik.", removeRow: "Ukloni tekst", save: "Spremi", keyPlaceholder: "npr. hero_title", valuePlaceholder: "Prevedena vrijednost", defaultBadge: "zadano", emptyTitle: "Još nema tekstova", emptyState: "Za ovaj jezik još nije definiran nijedan tekst.", noLocales: "Nije konfiguriran nijedan jezik sadržaja. Konfigurirajte ih u Postavke → Općenito.", saveSuccess: "Tekstovi spremljeni", saveError: "Greška pri spremanju tekstova", loadError: "Greška pri učitavanju tekstova", deleteTitle: "Obrisati ovaj tekst?", deleteBody: 'Ključ "{{key}}" bit će uklonjen iz ovog jezika. Drugi jezici ostaju nepromijenjeni.', deleteMessage: "Ključ će biti uklonjen iz svih jezika.", deleteConfirm: "Obriši", deleteSuccess: "Tekst obrisan", deleteError: "Greška pri brisanju teksta", errorKeyRequired: "Ključ je obavezan", errorKeyFormat: "Dozvoljena su samo slova, brojevi, točka, podvlaka i crtica", errorKeyDuplicate: "Duplikat ključa u ovom jeziku", errorFixFirst: "Ispravite označene pogreške prije spremanja", rowCount: "{{count}} tekst" }, hw = { placeholder: "Pretraži stranice ili skočite na…", newPage: "Nova stranica", newPageDesc: "Stvori novu stranicu", mediaLibrary: "Knjižnica medija", mediaLibraryDesc: "Pregledaj i učitaj datoteke", viewActivity: "Prikaži aktivnost", viewActivityDesc: "Pogledaj zapisnik nedavne aktivnosti", pageHint: "{{slug}} · {{status}}", noResults: "Nema rezultata" }, pw = { title: "Zapisnik aktivnosti", subtitle: "Zapis svih promjena koje je vaš tim napravio.", colWhen: "Kada", colUser: "Korisnik", colAction: "Akcija", colResource: "Resurs", noActivity: "Još nema aktivnosti.", loadMore: "Učitaj više", filter: "Filtar", filterAll: "Sve", filterPages: "Stranice", filterMedia: "Mediji", filterUsers: "Korisnici", rangeLabel: "Vremenski raspon", rangeAll: "Sve vrijeme", range24h: "Zadnja 24 sata", range7d: "Zadnjih 7 dana", range30d: "Zadnjih 30 dana", actions: { page_created: "Stvoreno", page_updated: "Ažurirano", page_moved: "Premješteno", page_published: "Objavljeno", page_trashed: "Premješteno u koš", page_restored: "Vraćeno", page_deleted: "Trajno obrisano", page_locale_disabled: "Onemogućen prijevod", page_version_restored: "Vraćena verzija", menu_created: "Izbornik stvoren", menu_updated: "Izbornik ažuriran", menu_deleted: "Izbornik obrisan", media_uploaded: "Medij prenesen", media_deleted: "Medij obrisan", media_folder_created: "Mapa stvorena", media_folder_moved: "Mapa premještena", media_folder_renamed: "Mapa preimenovana", media_folder_deleted: "Mapa obrisana", media_config_updated: "Postavke medija ažurirane", block_template_created: "Predložak spremljen", block_template_deleted: "Predložak obrisan", page_type_created: "Tip stranice stvoren", page_type_updated: "Tip stranice ažuriran", page_type_deleted: "Tip stranice obrisan", settings_updated: "Postavke ažurirane", strings_updated: "Prijevodi ažurirani", strings_deleted: "Prijevod obrisan", user_invited: "Korisnik pozvan", user_activated: "Račun aktiviran", user_updated: "Korisnik ažuriran", user_disabled: "Korisnik onemogućen", user_reactivated: "Korisnik ponovno aktiviran", user_password_reset_requested: "Poslano resetiranje lozinke", user_password_reset_completed: "Lozinka resetirana", user_invite_resent: "Pozivnica ponovno poslana", user_deleted: "Korisnik obrisan" } }, uw = { saveTitle: "Spremi kao predložak", saveSubtitle: "Sprema trenutnih {{count}} blok(ova) kao predložak za ponovnu upotrebu.", nameLabel: "Naziv predloška", namePlaceholder: "npr. Hero + Dva stupca", nameRequired: "Naziv predloška je obavezan", saveFailed: "Greška pri spremanju predloška", saveBtn: "Spremi predložak", loadTitle: "Učitaj predložak", loadDescription: "Ovo će zamijeniti sve postojeće blokove na stranici.", loadWarning: "Učitavanje predloška zamijenit će sve trenutne blokove sadržaja.", loadNoTemplates: "Još nema spremljenih predložaka.", blockCount: "{{count}} blok(ova)", loadBtn: "Učitaj predložak", crossLocaleTitle: "Predložak iz drugog jezika", crossLocaleBody: "Ovaj predložak je napisan u {{source}}, ali trenutno uređujete {{target}}. Učitavanje će zalijepiti sadržaj na {{source}} u {{target}} karticu. Nastaviti?", crossLocaleConfirm: "Ipak učitaj" }, mw = { mixedContent: { blockLabel: "Blok miješanog sadržaja", widgetText: "Tekst", widgetVideo: "Video", widgetLink: "Veza", widgetAccordion: "Harmonika", widgetGallery: "Galerija", widgetSection: "Sekcija", layoutFull: "Puna širina", layoutHalf: "Pola / Pola", layout13_23: "1/3 + 2/3", layout23_13: "2/3 + 1/3", layoutThree: "Tri jednaka", layout14_34: "1/4 + 3/4", layout34_14: "3/4 + 1/4", chooseLayout: "Odaberite raspored za ovu sekciju:", addWidget: "Dodaj widget", addWidgetDescription: "Odaberite widget za umetanje u ovaj stupac.", cancelBtn: "Odustani", insertBtn: "Ubaci", textPlaceholder: "Upišite ovdje…", textEmpty: "Još nema teksta — kliknite ✏ za uređivanje", videoUrl: "URL videa", videoWidth: "Širina (px)", videoHeight: "Visina (px)", videoEmpty: "Nema URL-a videa — kliknite ✏ za uređivanje", linkEmpty: "Poveznica nije konfigurirana — kliknite ✏ za uređivanje", accordionEmpty: "Nema stavki — kliknite ✏ za dodavanje", accordionMainTitle: "Naslov (neobavezno)", accordionMainTitlePlaceholder: "npr. Često postavljana pitanja", notConfigured: "Nije konfigurirano", configure: "Konfiguriraj", addItem: "+ Dodaj stavku", accordionItem: "Stavka {{num}}", accordionTitle: "Naslov harmonike", accordionContent: "Sadržaj stavke…", galleryEmpty: "Još nema dodanih slika.", galleryEdit: "Uredi galeriju", gallerySelect: "Odaberi slike", resetLayout: "Resetiraj i odaberi drugi raspored", changeLayout: "Promijeni", columnLabel: "Stupac {{num}} ({{width}}/12)", addWidgetBtn: "+ Dodaj widget", sectionTitle: "Naslov sekcije (neobavezno)", changeLayoutBtn: "Promijeni raspored", discardTitle: "Odbaciti promjene?", discardBody: "Imate nespremljene promjene widgeta. Ako sada zatvorite, bit će izgubljene.", collapseWidget: "Sakrij pregled", expandWidget: "Prikaži pregled" } }, fw = { paragraph: "Paragraf", heading: "Naslov {{level}}", alignment: "Poravnanje", alignLeft: "Poravnaj lijevo", alignCenter: "Centriraj", alignRight: "Poravnaj desno", alignJustify: "Obostrano poravnanje", indent: "Uvuci", outdent: "Izvuci", table: "Tablica", insertTable: "Umetni tablicu {{rows}}×{{cols}}", tableRow: "Redak", addRowAbove: "Dodaj redak iznad", addRowBelow: "Dodaj redak ispod", deleteRow: "Izbriši redak", tableColumn: "Stupac", addColumnLeft: "Dodaj stupac lijevo", addColumnRight: "Dodaj stupac desno", deleteColumn: "Izbriši stupac", deleteTable: "Izbriši tablicu", addHeaderRow: "Dodaj zaglavni redak", removeHeaderRow: "Ukloni zaglavni redak", mergeCells: "Spoji ćelije", splitCell: "Razdvoji ćeliju", cellOptions: "Opcije ćelije", addImage: "Dodaj sliku", imageModal: { title: "Dodaj sliku", titleEdit: "Uredi sliku", add: "+ Dodaj", change: "Promijeni", imageTitle: "Naslov slike", imageTitlePlaceholder: "Unesite naslov slike", description: "Opis slike", descriptionPlaceholder: "Alternativni tekst za pristupačnost", alignment: "Poravnanje slike", alignDefault: "Zadano", alignLeft: "Lijevo", alignCenter: "Sredina", alignRight: "Desno", dimensions: "Dimenzije slike", originalDims: "Koristi originalne dimenzije", customDims: "Postavi prilagođene dimenzije", width: "Širina (px)", height: "Visina (px)", lockAspect: "Zaključaj omjer stranica", unlockAspect: "Otključaj omjer stranica" } }, yw = /* @__PURE__ */ JSON.parse('{"nav":{"store":"Trgovina","products":"Proizvodi","categories":"Kategorije","settings":"Postavke","customers":"Kupci","priceLists":"Cjenici","orders":"Narudžbe"},"checkoutModes":{"pay_now":"Plati odmah (kartica)","bank_transfer":"Bankovni prijenos","cod":"Pouzeće"},"products":{"new":"Novi proizvod","empty":"Još nema proizvoda","emptyHint":"Izradite prvi proizvod da biste počeli graditi katalog.","noMatches":"Nijedan proizvod ne odgovara filtrima.","createTitle":"Novi proizvod","create":"Izradi","createHint":"Cijenu, zalihu, varijante i sadržaj postavljate nakon izrade.","nameRequired":"Naziv je obavezan.","untitled":"(proizvod bez naziva)","backToList":"Proizvodi","searchPlaceholder":"Pretraži naziv ili SKU…","allStatuses":"Svi statusi","allTypes":"Sve vrste","colName":"Naziv","colStatus":"Status","colType":"Vrsta","colPrice":"Cijena","colStock":"Zaliha","variantCount":"{{n}} varijanti","save":"Spremi","saved":"Proizvod spremljen","delete":"Obriši","deleteTitle":"Obrisati proizvod?","deleteBody":"Ovo trajno briše proizvod i sve njegove varijante.","deleted":"Proizvod obrisan","slugTaken":"Drugi proizvod već koristi taj naziv na ovom jeziku.","leaveTitle":"Odbaciti nespremljene promjene?","leaveBody":"Imate nespremljene promjene ovog proizvoda. Izaći bez spremanja?","leaveConfirm":"Odbaci","editingLocale":"Uređivanje {{locale}} sadržaja","type":"Vrsta","typePhysical":"Fizički","typeDigital":"Digitalni","typeService":"Usluga","status":"Status","statusDraft":"Skica","statusActive":"Aktivan","sale":"Prodaja","saleBuy":"Za prodaju","saleInquiry":"Samo upit","inquiryHint":"Samo upit: bez izravnog plaćanja. Košarica s bilo kojim artiklom „samo upit” na blagajni postaje zahtjev za ponudu.","name":"Naziv","shortDescription":"Kratki opis","tabGeneral":"Općenito","tabVariants":"Varijante","tabCategories":"Kategorije","tabMedia":"Mediji","tabContent":"Sadržaj","tabSeo":"SEO","options":"Opcije","addOption":"Dodaj opciju","removeOption":"Ukloni opciju","noOptions":"Nema opcija — ovo je jednostavan proizvod s jednom varijantom. Dodajte opciju (npr. Veličina, Boja) za izradu varijanti.","optionNamePlaceholder":"Naziv opcije (npr. Veličina)","addValuePlaceholder":"Dodajte vrijednost i pritisnite Enter (npr. Mala)","applyOptions":"Primijeni opcije","optionsDirtyHint":"Nespremljene promjene opcija — primijenite za regeneraciju varijanti.","applyOptionsTitle":"Regenerirati varijante?","applyOptionsBody":"Primjenom ovih opcija ponovno se gradi matrica varijanti. Postojeće kombinacije zadržavaju svoj SKU i cijenu; uklonjene kombinacije (i njihova cijena/zaliha) se brišu.","optionsApplied":"Opcije primijenjene","variants":"Varijante","variantSaved":"Varijanta spremljena","saveVariants":"Spremi varijante","saveVariantsCount":"Spremi varijante ({{n}})","variantsSaved":"Spremljeno varijanti: {{n}}","variantsSavedPartial":"Spremljeno {{n}}; neke nisu uspjele: {{errors}}","rowUnsaved":"Nespremljene promjene","sku":"SKU","skuPlaceholder":"SKU","skuTaken":"Taj SKU već koristi druga varijanta.","price":"Cijena (€)","salePrice":"Akcija (€)","priceInvalid":"Unesite valjanu cijenu (npr. 12,99).","saleAbovePrice":"Akcijska cijena ne može biti viša od redovne cijene.","onHand":"Na zalihi","tracked":"Prati","backorder":"Bez zalihe","stockStatus":"Dostupnost","inStock":"{{n}} na zalihi","outOfStock":"Nema na zalihi","untracked":"Ne prati se","backordered":"Po narudžbi","onSale":"Na akciji","compareAtHint":"Referentna cijena (najniža u prethodnih 30 dana): {{price}}","categories":"Kategorije","noCategoriesYet":"Još ne postoje kategorije. Prvo izradite kategorije za dodjeljivanje ovog proizvoda.","assignedCategories":"Dodijeljene kategorije","pickCategories":"Odaberite kategorije…","primaryCategory":"Primarna kategorija","primaryHint":"Primarna kategorija određuje kanonski URL i navigacijski put proizvoda.","saveCategories":"Spremi kategorije","categoriesSaved":"Kategorije spremljene","gallery":"Galerija slika","galleryHint":"Zajedničke fotografije proizvoda (nisu po jeziku). Prva slika je glavna.","addImages":"Dodaj slike","noImages":"Još nema slika.","mainImage":"Glavna","removeImage":"Ukloni sliku","gallerySaveHint":"Promjene galerije spremaju se gumbom Spremi.","noSections":"Još nema sekcija sadržaja. Sadržajni blok je neobavezan — dodajte sekciju za bogati opis proizvoda.","addSection":"Dodaj novu sekciju","blockBodyHint":"Neobavezni dugi sadržaj prikazan na stranici proizvoda, uz kratki opis.","blockBodyReadOnly":"Samo za čitanje (nemate dopuštenje za uređivanje).","dragToReorder":"Povucite za promjenu redoslijeda","column":"Stupac {{n}}","metaTitle":"Meta naslov","metaDescription":"Meta opis","ogImage":"OG slika","pickImage":"Odaberi sliku","export":"Izvezi CSV","exportHint":"Samo kataloška polja — bez galerije slika i sadržaja blokova.","import":{"button":"Uvezi CSV","title":"Uvoz proizvoda iz CSV-a","help":"Skupno stvaranje ili ažuriranje proizvoda. Retci se grupiraju u proizvod prema stupcu \\"handle\\"; postojeći proizvod prepoznaje se po bilo kojem SKU-u koji nosi, a zatim po handle vrijednosti.","warning":"CSV sadrži samo kataloška polja — NE uključuje galeriju slika ni sadržaj blokova (Mixed Content). Uređivanje i ponovni uvoz ih čuva, ali brisanje proizvoda pa ponovni uvoz ih neće vratiti. Za potpunu sigurnosnu kopiju koristite snimku baze (db:export → db-snapshot.json).","chooseFile":"Odaberi CSV datoteku","pasteLabel":"Ili zalijepi CSV","pastePlaceholder":"handle,product_type,status,name:hr,sku,price,on_hand\\nwidget,physical,active,Vijak,WID-1,12.50,7","formatHint":"Jedan redak po varijanti. Stupci: handle, product_type, status, name:<jezik>, short_description:<jezik>, meta_title:<jezik>, meta_description:<jezik>, categories (putanje a>b|c), option1_name/value … option3_name/value, sku, price, sale_price, inventory_tracked, backorder, on_hand.","preview":"Pregled (probni)","run":"Uvezi","empty":"Najprije dodajte CSV datoteku ili zalijepite retke.","tooLargeOrInvalid":"CSV je neispravan ili prevelik.","previewBadge":"Pregled — ništa nije spremljeno","created":"{{n}} stvoreno","updated":"{{n}} ažurirano","skipped":"{{n}} preskočeno","variants":"{{n}} varijanti","categoriesCreated":"{{n}} kategorija stvoreno","errorsTitle":"{{n}} redaka preskočeno","lineLabel":"Redak {{n}}","success":"Uvoz dovršen.","done":"Uvezeno: {{created}} stvoreno, {{updated}} ažurirano.","donePartial":"Uvezeno {{created}} stvoreno, {{updated}} ažurirano; {{skipped}} preskočeno — pogledajte izvješće.","clear":"Očisti"},"taxClass":"Porezna klasa","taxClassDefault":"Koristi zadanu (trgovine)","checkoutMode":"Način naplate","checkoutModeDefault":"Koristi zadani (trgovine)","checkoutModeHint":"Ovaj proizvod zahtijeva odabrani način plaćanja na naplati — nadjačava zadani način trgovine za svaku košaricu koja ga sadrži."},"categories":{"new":"Nova kategorija","addChild":"Dodaj potkategoriju","empty":"Još nema kategorija","emptyHint":"Izradite prvu kategoriju za organizaciju proizvoda.","createTitle":"Nova kategorija","editTitle":"Uredi kategoriju","slug":"Slug","slugHelp":"Mala slova, riječi odvojene crticom (npr. elektricni-alati).","slugRequired":"Slug je obavezan.","parent":"Nadređena kategorija","root":"— Nijedna (najviša razina) —","label":"Naziv","description":"Opis","metaTitle":"Meta naslov","metaDescription":"Meta opis","heroImage":"Naslovna slika","pickImage":"Odaberi sliku","editingLocale":"Uređivanje {{locale}} sadržaja","labelRequired":"Naziv je obavezan za barem jedan jezik.","save":"Spremi","create":"Izradi","delete":"Obriši","deleteTitle":"Obrisati kategoriju?","deleteBody":"Ovo trajno briše kategoriju.","saved":"Kategorija spremljena","deleted":"Kategorija obrisana"},"errors":{"slug_taken":"Druga kategorija ovdje već koristi taj naziv.","has_children":"Prvo premjestite ili obrišite njezine potkategorije.","cycle_detected":"Kategorija se ne može premjestiti u vlastitu potkategoriju.","cannot_parent_self":"Kategorija ne može biti sama sebi nadređena.","parent_not_found":"Odabrana nadređena kategorija više ne postoji.","has_products":"Proizvodi su još povezani s ovom kategorijom. Prvo ih odvojite.","category_not_found":"Jedna od odabranih kategorija više ne postoji.","primary_not_in_set":"Primarna kategorija mora biti jedna od odabranih kategorija.","conflict":"Netko je drugi napravio promjenu dok ste uređivali. Osvježite i pokušajte ponovno.","generic":"Nešto je pošlo po krivu. Pokušajte ponovno.","invalid_price_list":"Taj cjenik više ne postoji.","unknown_variant":"Jedna od odabranih varijanti više ne postoji.","not_found":"Nije pronađeno.","already_erased":"Podaci ovog kupca već su izbrisani.","order_not_found":"Ova narudžba više ne postoji.","over_ship":"Ne možete poslati više nego što je naručeno.","no_voidable_payment":"Nema autorizirane uplate za poništavanje.","order_not_refundable":"Ova narudžba nema naplaćenu uplatu za povrat.","not_capturable":"Ova se uplata ne može naplatiti u trenutnom stanju.","not_acceptable":"Ova se ponuda ne može prihvatiti u trenutnom stanju.","insufficient_stock":"Nema dovoljno zalihe za rezervaciju ove narudžbe.","no_shipment_lines":"Odaberite barem jednu stavku za slanje.","quote_empty":"Dodajte barem jednu stavku u ponudu.","not_editable":"Ova se ponuda više ne može uređivati."},"orders":{"title":"Narudžbe","empty":"Još nema narudžbi.","searchPlaceholder":"Pretraži po broju narudžbe ili e-pošti","newQuote":"Nova ponuda","colOrder":"Narudžba","colCustomer":"Kupac","colStatus":"Status","colTotal":"Ukupno","colDate":"Datum","allLifecycles":"Sva stanja","allPayments":"Sve uplate","allFulfillments":"Sva ispunjenja","ordersTab":"Narudžbe","quotesTab":"Ponude","detailTitle":"Detalji narudžbe","payment":"Plaćanje","fulfillment":"Ispunjenje","lifecycle":"Stanje","quoteStatus":"Ponuda","items":"Stavke","qty":"Kol.","unit":"Jed. cijena","lineTotal":"Ukupno","shippedOf":"Poslano {{shipped}} od {{ordered}}","shippingAddress":"Adresa dostave","billingAddress":"Adresa za račun","totals":"Iznosi","subtotal":"Međuzbroj","shipping":"Dostava","surcharge":"Doplata","tax":"PDV","grandTotal":"Sveukupno","payments":"Uplate","shipments":"Pošiljke","noShipments":"Još nema pošiljki.","timeline":"Vremenska crta","note":"Napomena","validUntil":"Vrijedi do","paymentMethod":"Način plaćanja","actions":"Radnje","capture":"Naplati uplatu","void":"Poništi i otkaži","refund":"Povrat","refundAmount":"Iznos (€)","refundReason":"Razlog (neobavezno)","doRefund":"Izvrši povrat","cancelLine":"Otkaži stavku","createShipment":"Kreiraj pošiljku","shipSelected":"Pošalji odabrano","carrier":"Dostavljač","trackingNumber":"Broj za praćenje","trackingUrl":"URL za praćenje","markDelivered":"Označi dostavljeno","markPreparing":"Označi u pripremi","cancelOrder":"Otkaži narudžbu","sendQuote":"Pošalji ponudu","editQuote":"Uredi ponudu","acceptedByCustomer":"Kupac prihvatio","captured":"Uplata naplaćena.","voided":"Autorizacija poništena, narudžba otkazana.","refunded":"Povrat izvršen.","lineCancelled":"Stavka otkazana.","shipmentCreated":"Pošiljka kreirana.","delivered":"Označeno kao dostavljeno.","transitioned":"Narudžba ažurirana.","quoteCreated":"Ponuda spremljena.","quoteSent":"Ponuda poslana kupcu.","outOfStockVoided":"Zaliha je ponestala — autorizacija je poništena, a narudžba otkazana.","captureFailed":"Pristupnik nije mogao naplatiti ovu uplatu. Možda je potrebna ponovna autorizacija.","nothingCaptured":"Ništa još nije naplaćeno pa nema povrata.","quoteBuilderTitle":"Izrada ponude","customerEmail":"E-pošta kupca","addLine":"Dodaj stavku","variant":"Varijanta","customPrice":"Prilagođena jed. cijena (€, neobavezno)","saveDraft":"Spremi skicu","remove":"Ukloni","quotePill":"Ponuda","noPayments":"Još nema uplata."},"social":{"intro":"Omogućite kupcima prijavu putem društvenih mreža. Vjerodajnice su po trgovini; tajni ključ se samo upisuje i nikada se ne prikazuje natrag.","enabled":"Omogućeno","clientId":"Client ID","clientSecret":"Tajni ključ (client secret)","secretSet":"Tajni ključ je spremljen — ostavite prazno da ga zadržite.","secretUnset":"Tajni ključ još nije spremljen.","redirectHint":"Registrirajte ovaj redirect URI (s prefiksom osnovne adrese vašeg API-ja) kod pružatelja:","saved":"Pružatelj spremljen.","saveError":"Spremanje pružatelja nije uspjelo.","loadError":"Učitavanje pružatelja prijave nije uspjelo.","stub":"Razvojni stub","devOnly":"samo razvoj","stubHelp":"Lažni pružatelj za lokalno testiranje — nikada se ne učitava u produkciji. Postavite identitet koji vraća; prijava se dovršava bez stvarnih vjerodajnica. Koristite e-poštu postojećeg potvrđenog kupca za testiranje povezivanja računa.","stubEmail":"Vraćena e-pošta","firstName":"Ime","lastName":"Prezime","comingSoon":"uskoro","apple":{"serviceId":"Service ID","teamId":"Team ID","keyId":"Key ID","privateKey":"Privatni ključ (P8)","privateKeyHint":"Zalijepite sadržaj .p8 datoteke preuzete s Apple Developer portala."}},"payments":{"intro":"Prihvaćajte plaćanja karticom. Vjerodajnice su po trgovini; tajni ključ i tajni ključ za webhook samo se upisuju i nikada se ne prikazuju natrag. Testni ili produkcijski način prepoznaje se iz prefiksa ključa.","enabled":"Omogućeno","publishableKey":"Javni ključ (publishable)","publishableKeyHint":"pk_test_… (test) ili pk_live_… (produkcija). Smije biti javan — šalje se pregledniku za prikaz obrasca kartice.","secretKey":"Tajni ključ","secretKeyHint":"sk_test_… / sk_live_…. Čuva se na poslužitelju i ne prikazuje se ponovno.","secretSet":"Tajni ključ je spremljen — ostavite prazno da ga zadržite.","webhookSecret":"Tajni ključ za webhook","webhookSecretHint":"whsec_… s krajnje točke Stripe webhooka — koristi se za provjeru dolaznih događaja.","webhookUrlHint":"Dodajte ovu webhook krajnju točku (s prefiksom osnovne adrese vašeg API-ja) u Stripe nadzornoj ploči, pretplaćenu na payment_intent.succeeded / payment_failed / canceled i charge.refunded:","testMode":"Testni način","liveMode":"Produkcijski način","captureMode":"Način naplate","captureModeHint":"Automatski naplaćuje karticu odmah pri plaćanju. Ručni samo autorizira (rezervira) iznos pri plaćanju — naplatu kasnije pokrećete iz narudžbe (npr. pri slanju).","captureAutomatic":"Automatski (naplata pri plaćanju)","captureManual":"Ručni (autorizacija, naplata pri slanju)","saved":"Pružatelj plaćanja spremljen.","saveError":"Spremanje pružatelja plaćanja nije uspjelo.","loadError":"Učitavanje pružatelja plaćanja nije uspjelo."},"settings":{"title":"Postavke trgovine","loadError":"Učitavanje postavki nije uspjelo.","saved":"Postavke spremljene.","saveError":"Spremanje postavki nije uspjelo.","tabs":{"tax":"Porez i PDV","inventory":"Zalihe","shipping":"Dostava i pouzeće","payments":"Plaćanja","social":"Prijava društvenim mrežama"},"vatRegistered":{"label":"U sustavu PDV-a","help":"Kada je isključeno, cijene se prikazuju i naplaćuju bez PDV-a (porezni mehanizam je preskočen)."},"ossRegistered":{"label":"OSS registracija","help":"Naplata PDV-a države odredišta za prekogranične EU B2C prodaje (One-Stop-Shop). Isključeno = domaća stopa."},"defaultTaxClass":{"label":"Zadana porezna klasa","help":"Porezna klasa PDV-a koju koristi svaki proizvod postavljen na \\"Koristi zadanu\\". Promijenite je i svi takvi proizvodi je slijede — postavite konkretnu klasu na proizvodu za iznimku."},"taxClasses":{"standard":"Standardna","reduced":"Snižena","reduced_low":"Snižena (niža)","zero":"Nulta stopa"},"inventoryProvider":{"label":"Izvor zaliha","help":"Odakle trgovina čita stanje zaliha.","local":"Lokalno (CMS)","erp":"ERP (sinkronizirana predmemorija)"},"checkout":{"heading":"Naplata"},"defaultCheckoutMode":{"label":"Zadani način naplate","help":"Način plaćanja koji je unaprijed odabran na naplati. Proizvod ga može nadjačati; plaćanje pouzećem nudi se samo za načine dostave koji to podržavaju."},"cod":{"heading":"Plaćanje pouzećem (COD)"},"codEnabled":{"label":"Ponudi plaćanje pouzećem","help":"Dopusti plaćanje pouzećem (otkupnina). Dostupnost ovisi o načinu dostave."},"codSurcharge":{"label":"Naknada za pouzeće","help":"Dodaje se ukupnom iznosu narudžbe kada je odabrano pouzeće."},"shipping":{"heading":"Načini dostave","add":"Dodaj način","empty":"Još nema načina dostave. Dodajte jedan kako bi trgovina mogla ponuditi dostavu.","loadError":"Učitavanje načina dostave nije uspjelo.","saved":"Način dostave spremljen.","saveError":"Spremanje načina dostave nije uspjelo.","deleted":"Način dostave obrisan.","deleteError":"Brisanje načina dostave nije uspjelo.","codeRequired":"Šifra je obavezna.","codeTaken":"Tu šifru već koristi drugi način.","addTitle":"Novi način dostave","editTitle":"Uredi način dostave","deleteTitle":"Obriši način dostave","deleteConfirm":"Obrisati \\"{{name}}\\"? Ovo se ne može poništiti.","code":"Šifra","codeHelp":"Stabilni ključ (mala slova, brojke, _ ili -). Ne može se kasnije mijenjati.","codeImmutable":"Šifra se ne može mijenjati nakon stvaranja.","name":"Naziv","kind":"Vrsta","kinds":{"flat":"Fiksna cijena","weight":"Po težini","pickup_point":"Paketomat","store_pickup":"Preuzimanje u trgovini"},"taxClass":"Porezna klasa","requiresPickupPoint":"Zahtijeva paketomat","codAllowed":"Dostupno pouzeće","zones":"Zone i cijene","zonesHelp":"Uključite svaku zonu u koju dostavljate i postavite cijenu. Isključena zona se ne nudi.","zone":{"HR":"Hrvatska (domaća)","EU":"EU","INT":"Međunarodno"},"base":"Osnovna cijena","perKg":"Po kg","freeOver":"Besplatno iznad","freeOverShort":"besplatno ≥ {{amount}}","position":"Pozicija","activeLabel":"Aktivno","active":"Aktivno","inactive":"Neaktivno","col":{"name":"Naziv","kind":"Vrsta","zones":"Zone","cod":"Pouzeće","status":"Status"},"taxNote":"PDV na dostavu prati stopu proizvoda — ne postavlja se po načinu dostave.","untitled":"Bezimeni način","nameRequired":"Unesite naziv na barem jednom jeziku."},"homeRates":{"heading":"Stope PDV-a (Hrvatska)","help":"Stopa PDV-a za svaku poreznu klasu u domaćoj zemlji. Proizvod sprema klasu; stopa se računa odavde — pa je promjena zakona (npr. 25% → 21%) jedna izmjena ovdje, a ne mijenjanje svakog proizvoda.","note":"Prekogranične (OSS) stope odredišta održavaju se u kodu. Provjerite stope sa svojim računovođom."}},"customers":{"searchPlaceholder":"Pretraži e-poštu ili tvrtku…","allTypes":"Sve vrste","allStatuses":"Svi statusi","personal":"Privatni","business":"Poslovni","statusNone":"—","statusPending":"Na čekanju","statusApproved":"Odobreno","statusRejected":"Odbijeno","empty":"Još nema kupaca","colCustomer":"Kupac","colType":"Vrsta","colStatus":"Odobrenje","colPriceList":"Cjenik","detailTitle":"Kupac","verified":"Potvrđeno","unverified":"Nepotvrđeno","disabled":"Onemogućeno","company":"Tvrtka","vatId":"PDV ID","priceList":"Cjenik","priceListHint":"Dodjeljuje se odobrenom poslovnom kupcu — određuje neto cijene pri naplati.","noPriceList":"Bez cjenika","approve":"Odobri","reject":"Odbij","revoke":"Povuci odobrenje","saveAssignment":"Spremi cjenik","approved":"Kupac odobren","rejected":"Kupac odbijen","revoked":"Odobrenje povučeno","savedAssignment":"Cjenik ažuriran","personalHint":"Privatni računi kupuju po standardnim B2C uvjetima — odobrenje nije potrebno.","orders":"Narudžbe","noOrders":"Još nema narudžbi.","orderQuote":"Ponuda","gdpr":"Podaci i privatnost","gdprHint":"Izvoz daje kupcu kopiju njegovih podataka. Brisanje anonimizira osobne podatke, ali zadržava narudžbe za računovodstvo.","export":"Izvezi podatke","exported":"Podaci kupca izvezeni","erase":"Izbriši","erased":"Podaci kupca izbrisani","eraseTitle":"Izbrisati podatke kupca?","eraseBody":"Ovo anonimizira osobne podatke kupca i ne može se poništiti. Narudžbe se zadržavaju za računovodstvo, ali više ne prikazuju ime ni kontaktne podatke.","deletedCustomer":"Izbrisani kupac","erasedTag":"Izbrisano","erasedHint":"Osobni podaci ovog kupca anonimizirani su (GDPR brisanje). Narudžbe se zadržavaju, ali više ne sadrže osobne podatke."},"priceLists":{"new":"Novi cjenik","empty":"Još nema cjenika","emptyHint":"Izradite cjenik (kupac ili količina), zatim ga dodijelite poslovnom kupcu.","colName":"Naziv","colType":"Vrsta","colEntries":"Stavke","colAssigned":"Dodijeljeno","inactive":"Neaktivno","type_customer":"Kupac","type_volume":"Količina","createTitle":"Novi cjenik","editTitle":"Uredi cjenik","name":"Naziv","nameRequired":"Naziv je obavezan","type":"Vrsta","active":"Aktivno","customerHint":"Cjenik za kupca: određene (bruto) jedinične cijene za dodijeljenog poslovnog kupca.","volumeHint":"Količinski cjenik: cijene po količini (kupi ≥ N za nižu jediničnu cijenu).","entries":"Cijene","noProducts":"Najprije izradite proizvode — stavke se odnose na varijante proizvoda.","entryVariant":"Varijanta","entryMinQty":"Min. kol.","entryPrice":"Jedinična cijena","addEntry":"Dodaj cijenu","priceHint":"Cijene su bruto (s PDV-om), kao u katalogu — PDV se prikazuje samo u košarici.","delete":"Obriši","deleted":"Cjenik obrisan","saved":"Cjenik spremljen","deleteTitle":"Obrisati cjenik?","deleteBody":"Ovo uklanja cjenik i poništava dodjelu svim kupcima. Ne može se poništiti."}}'), gw = {
+pravom ritmu.`, subTagline: "Headless CMS za timove kojima su važni detalji.", welcomeBack: "Dobrodošli natrag", signInToWorkspace: "Prijavite se u svoj radni prostor", email: "E-pošta", emailPlaceholder: "vi@primjer.hr", password: "Lozinka", passwordPlaceholder: "Vaša lozinka", signIn: "Prijava", signingIn: "Prijava u tijeku…", forgotHint: "Zaboravili ste lozinku? Obratite se administratoru.", error: "Neispravna e-pošta ili lozinka" }, Fx = { cancel: "Odustani", save: "Spremi", delete: "Obriši", edit: "Uredi", create: "Stvori", close: "Zatvori", back: "Natrag", loading: "Učitavanje...", loadingEllipsis: "Učitavanje…", copy: "Kopiraj", copied: "Kopirano!", remove: "Ukloni", rename: "Preimenuj", upload: "Učitaj", download: "Preuzmi", preview: "Pregled", restore: "Vrati", never: "Nikad", dismiss: "Odbaci", done: "Gotovo", add: "Dodaj", change: "Promijeni", reset: "Resetiraj", search: "Pretraži", on: "uključeno", off: "isključeno", configure: "Konfiguriraj", backToList: "Natrag na popis", discard: "Odbaci", confirm: "Potvrdi", yes: "Da", no: "Ne" }, Ux = { dashboard: "Nadzorna ploča", pages: "Stranice", media: "Mediji", menus: "Izbornici", settings: "Postavke", users: "Korisnici", apiKeys: "API ključevi", activity: "Aktivnost", webhooks: "Webhooks", strings: "Tekstovi", workspace: "Radni prostor", system: "Sustav", toggleSidebar: "Preklopi bočnu traku", cmsAdmin: "ARTKOD CMS", lightMode: "Svijetli način", darkMode: "Tamni način", switchToLight: "Prebaci na svijetli način", switchToDark: "Prebaci na tamni način", signOut: "Odjava", contentLanguage: "Jezik sadržaja" }, Wx = { searchPages: "Pretraži stranice…", editPage: "Uredi stranicu", newPage: "Nova stranica", menuLabel: "Izbornik: {{label}}", backToList: "Natrag na popis", backToMenus: "Natrag na izbornike" }, Kx = { title: "Nadzorna ploča", subtitle: "Pregled sadržaja i nedavne aktivnosti.", newPage: "Nova stranica", mediaLibrary: "Mediji", publishedPages: "Objavljene stranice", draftPages: "Skice", mediaFiles: "Medijske datoteke", activityWeek: "Aktivnost (7 dana)", publishedThisWeek_one: "{{count}} ovaj tjedan", publishedThisWeek_few: "{{count}} ovaj tjedan", publishedThisWeek_other: "{{count}} ovaj tjedan", noneThisWeek: "Ništa ovaj tjedan", scheduledCount_one: "{{count}} u rasporedu", scheduledCount_few: "{{count}} u rasporedu", scheduledCount_other: "{{count}} u rasporedu", noneScheduled: "Ništa zakazano", storageUsed: "{{size}} iskorišteno", contributorsCount_one: "{{count}} suradnik", contributorsCount_few: "{{count}} suradnika", contributorsCount_other: "{{count}} suradnika", translationCoverage: "Pokrivenost prijevodima", translationMissing_one: "{{count}} prijevod nedostaje", translationMissing_few: "{{count}} prijevoda nedostaje", translationMissing_other: "{{count}} prijevoda nedostaje", translationComplete: "Potpuno prevedeno", staleContent: "Zastarjeli sadržaj", staleContentFooter: "Bez izmjena 3+ mjeseca", pendingDrafts: "Skice na čekanju", pendingDraftsFooter: "Čeka objavu", pagesByType: "Tipovi stranica u upotrebi", pagesByTypeFooter: "Najviše: {{type}} ({{count}})", trashedPages: "Stranice u smeću", trashedFooter: "U smeću", mediaByType: "Slike", mediaByTypeFooter_one: "{{count}} dokument", mediaByTypeFooter_few: "{{count}} dokumenta", mediaByTypeFooter_other: "{{count}} dokumenata", team: "Aktivni korisnici", teamFooter: "{{pending}} na čekanju · {{disabled}} onemogućeno", recentActivity: "Nedavna aktivnost", noActivity: "Još nema aktivnosti.", viewAllActivity: "Vidi sve", recentlyEdited: "Nedavno uređeno", noRecentEdits: "Još nema uređenih stranica.", quickActions: "Brze akcije", recentDrafts: "Nedavne skice", noRecentDrafts: "Nema nedavnih skica.", actionNewPage: "Stvori novu stranicu", actionNewPageDesc: "Počni prazan nacrt", actionUploadMedia: "Prenesi medij", actionUploadMediaDesc: "Dodaj slike i datoteke", actionSettings: "Postavke stranice", actionSettingsDesc: "Konfiguriraj projekt", greetingMorning: "Dobro jutro", greetingAfternoon: "Dobar dan", greetingEvening: "Dobra večer", greetingSubtitle: "Evo što se događa", actions: { created: "Stvoreno", updated: "Ažurirano", deleted: "Obrisano", published: "Objavljeno", restored: "Vraćeno", permDeleted: "Trajno obrisano" } }, Gx = { title: "Stranice", titleTrash: "Koš za smeće", subtitle: "Upravljajte objavljenim sadržajem i skicama.", subtitleTrash: "Obrisane stranice — vratite ih ili trajno uklonite.", newPage: "+ Nova stranica", exitTrash: "Izađi iz koša", enterTrash: "Koš za smeće", options: "Postavke", allStatuses: "Svi statusi", draft: "Skica", published: "Objavljeno", allTypes: "Svi tipovi", colTitle: "Naslov", colSlug: "Slug", colStatus: "Status", colActions: "Akcije", noResults: 'Nema rezultata za "{{query}}"', resultCount: '{{count}} rezultat(a) za "{{query}}"', trashEmpty: "Koš za smeće je prazan.", noMatch: "Nijedna stranica ne odgovara filtrima.", noPages: "Još nema stranica", createFirst: "Stvorite svoju prvu stranicu", pagination: "{{from}}–{{to}} od {{total}} stranica", restore: "Vrati", deleteForever: "Obriši zauvijek", delete: "Obriši", moveToTrash: "Premjesti u koš", moveToTrashConfirm: "Premjestiti stranicu u koš? Možete je kasnije vratiti.", permDeleteTitle: "Trajno brisanje stranice", permDeleteBody: "Ovo se ne može poništiti. Stranica i sve njene verzije bit će zauvijek izbrisane.", permDeleteConfirm: "Obriši zauvijek", scheduled: "Zakazano", draftBadge: "Nacrt", pendingDraft: "Čeka objavu", permDeleteSuccess: "Stranica trajno obrisana", permDeleteFailed: "Trajno brisanje stranice nije uspjelo", trashChildCount_one: "1 podstranica u košu", trashChildCount_few: "{{count}} podstranice u košu", trashChildCount_other: "{{count}} podstranica u košu", trashOrphan: "Bila pod: {{parent}}", trashOrphanUnknown: "obrisana stranica", trashTruncated: "Prikazano prvih {{count}} stranica iz koša. Vratite ili trajno obrišite neke da biste vidjeli ostale." }, Yx = { title: "Nova stranica", description: "Odaberite tip stranice za početak.", typeSection: "Tip stranice", chooseType: "Odaberite tip stranice:", requiresParent: "Zahtijeva nadređenu stranicu", parentNamed: "Nadređena: {{name}}", children: "Podstranice: {{types}}", globalLimit: "Dostignut globalni limit", parentRequired: "Nadređena stranica (obavezno)", parentOptional: "Nadređena stranica (neobavezno)", parentPlaceholder: "Odaberite nadređenu stranicu…", perParentLimit: 'Ova nadređena stranica već ima {{limit}} stranica tipa "{{label}}" (dostignut limit po roditelju).', cancel: "Odustani", createBtn: "Stvori {{label}}", defaultLabel: "Stranicu" }, Jx = { title: "Postavke tipa stranice", description: "Promijenite ponašanje za svaki tip stranice koji je projekt registrirao. Kodom definirane vrijednosti ostaju izvorni izvor — prazna polja se vraćaju na njih.", loading: "Učitavam…", empty: "Ovaj projekt nema registriranih tipova stranica.", deletable: "Može se obrisati", deletableHelp: "Kad je isključeno, gumb za brisanje sakriva se za stranice ovog tipa. Zadano: {{default}}", canBeRoot: "Može biti na korijenu", canBeRootHelp: "Kad je isključeno, stranice ovog tipa moraju imati nadređenu stranicu. Zadano: {{default}}", limit: "Maks. broj stranica (ukupno)", limitHelp: "Ukupno dopušteno stranica ovog tipa na cijelom projektu. Ostavite prazno za neograničeno. Zadano: {{default}}", perParentLimit: "Maks. po nadređenoj stranici", perParentLimitHelp: "Maks. broj stranica ovog tipa unutar jedne nadređene stranice. Ostavite prazno za neograničeno. Zadano: {{default}}", noLimit: "Bez ograničenja", reset: "Resetiraj", resetTooltip: "Vrati na vrijednosti definirane u kodu za ovaj tip", overridden: "Izmijenjeno — razlikuje se od zadanih vrijednosti", loadError: "Neuspjelo učitavanje postavki", saved: "Postavke tipa stranice su spremljene", saveError: "Neuspjelo spremanje postavki", deleted: "Tip stranice je obrisan", systemBadge: "sustav", addType: "Dodaj tip stranice", createTitle: "Stvori tip stranice", editTitle: "Uredi tip stranice", back: "Natrag", slugLabel: "Identifikator", slugHelp: "Mala slova, brojevi i crtice. Koristi se na frontendu za prikaz ovog tipa.", slugLocked: "Zaključano nakon stvaranja — preimenovanje bi razbilo frontend prikaz.", slugInvalid: "Samo mala slova, brojevi i crtice.", slugTaken: 'Identifikator "{{slug}}" je već zauzet.', slugShadowsCodeType: 'Identifikator "{{slug}}" već postoji.', labels: "Nazivi", labelFor: "Naziv ({{locale}})", allowedParentTypes: "Dopušteni nadređeni tipovi", allowedChildTypes: "Dopušteni podređeni tipovi", allowBlocks: "Dopusti sadržajne blokove", allowedBlockTypes: "Dopušteni tipovi blokova", allowedBlockTypesHint: "Ostavite prazno za sve registrirane tipove blokova.", fields: "Polja", fieldsEmpty: "Još nema polja. Dodajte jedno ispod.", addField: "Dodaj polje", fieldName: "Naziv (id)", fieldLabel: "Naziv", fieldType: "Tip", fieldRequired: "Obavezno", fieldPlaceholder: "Pomoćni tekst", fieldOptions: "Opcije", fieldOptionsHint: "Pritisnite Enter nakon svake opcije.", fieldNameInvalid: "Slova, brojevi i podvlaka. Mora započinjati slovom ili podvlakom.", removeField: "Ukloni polje", removeFieldConfirm: "Ukloniti ovo polje? Podaci stranica pohranjeni pod ovim nazivom postat će napušteni.", deleteType: "Obriši tip stranice", deleteConfirm: "Obrisati ovaj tip stranice? Brisanje je dopušteno samo ako ga niti jedna stranica više ne koristi.", deleteInUseError: "Nije moguće obrisati — {{count}} stranica još koristi ovaj tip. Prvo ih uklonite ili pretvorite." }, Zx = { subtitle: "Upravljajte objavljenim sadržajem, skicama i hijerarhijom stranica.", noPages: "Još nema stranica. Stvorite svoju prvu stranicu!", newPage: "Nova stranica", addChild: "Dodaj podstranicu", collapse: "Sažmi", expand: "Proširi", dragHandle: "Povuci za promjenu redoslijeda", previewPage: "Pregled stranice", deletePage: "Obriši", deleteTitle: "Obriši stranicu", deleteBody: "Obrisati ovu stranicu? Sve podstranice bit će premještene na razinu korijena.", deleteConfirm: "Obriši", previewNeedsFrontend: "Konfigurirajte frontendUrl u createAdmin() za pregled.", previewFailed: "Greška pri stvaranju pregleda", pageDeleted: "Stranica obrisana", deleteError: "Greška pri brisanju stranice", deleteParentBlocked: "Sadrži podstranice — može obrisati samo admin ili developer.", deleteCurrentLocaleInactive: "{{locale}} verzija je već onemogućena. Promijeni jezik za brisanje stranice.", deleteTypeNotDeletable: "Ovaj tip stranice se ne može obrisati.", moveError: { generic: "Premještanje stranice nije uspjelo.", parentInSubtree: "Stranicu nije moguće premjestiti ispod same sebe ili svojih podstranica.", parentNotFound: "Odredišna stranica više ne postoji.", parentTrashed: "Odredišna stranica je u košu.", invalidParentType: "Ovaj tip stranice nije dozvoljen ispod tog roditelja.", parentNoChildren: "Stranice tipa „{{parent}}“ ne mogu sadržavati podstranice.", invalidChildType: "Stranice tipa „{{parent}}“ ne mogu sadržavati stranice tipa „{{child}}“.", perParentLimit: "Odredišni roditelj već ima maksimalan broj stranica ovog tipa.", cannotBeRoot: "Ovaj tip stranice ne može biti na vrhu.", versionConflict: "Stranica je u međuvremenu izmijenjena — osvježi i pokušaj ponovno.", pageTrashed: "Stranica je u košu i ne može se premjestiti.", invalidInsertBefore: "Stranicu nije moguće postaviti na traženu poziciju." } }, Xx = { loading: "Provjeravam što će biti obrisano…", success: "Stranica premještena u koš", disableSuccess: "Verzija {{locale}} deaktivirana", confirm: { title: "Obrisati stranicu?", leaf_single: "Stranica {{title}} bit će premještena u koš. Možete je kasnije vratiti.", leaf_multi: "Sve {{count}} jezične verzije ({{locales}}) stranice {{title}} bit će premještene u koš.", cascade_one: "Stranica {{title}} i 1 podstranica ({{translationCount}} prijevoda u jezicima {{locales}}) bit će premještene u koš.", cascade_other: "Stranica {{title}} i {{count}} podstranica ({{translationCount}} prijevoda u jezicima {{locales}}) bit će premještene u koš.", intro_multilocale: "Ova stranica je aktivna u {{activeLocales}}. Možete obrisati cijelu stranicu (sve jezike) ili samo deaktivirati verziju {{currentLocale}}, a {{otherLocales}} ostaje aktivno.", deleteButton: "Obriši cijelu stranicu", disableButton: "Deaktiviraj samo verziju {{locale}}", disableExplain_one: "Skriva ovu stranicu posjetiteljima jezika {{locale}}. {{otherLocales}} ostaje aktivno.", disableExplain_other: "Skriva ovu stranicu i {{count}} podstranica posjetiteljima jezika {{locale}}. {{otherLocales}} ostaje aktivno.", presence: "Trenutno uređuju: {{emails}}", restoreHint: "Može se vratiti iz koša." }, blocked: { title: "Stranicu nije moguće obrisati", intro_one: "Stranicu nije moguće obrisati jer je još uvijek referencira 1 stavka izbornika ili poveznica:", intro_other: "Stranicu nije moguće obrisati jer je još uvijek referencira {{count}} stavki izbornika ili poveznica:", menusHeader_one: "1 stavka izbornika", menusHeader_other: "{{count}} stavki izbornika", pagesHeader_one: "1 stranica", pagesHeader_other: "{{count}} stranica", menuRow: "{{label}} · {{location}}", pageRow: "{{title}}", hint: "Otvorite navedene stavke, uklonite poveznicu i pokušajte ponovno.", close: "Zatvori" }, disableBlocked: { title: "Nije moguće deaktivirati verziju {{locale}}", intro_one: "Deaktivacija verzije {{locale}} pokvarila bi 1 poveznicu koja još uvijek upućuje na ovaj sadržaj:", intro_other: "Deaktivacija verzije {{locale}} pokvarila bi {{count}} poveznica koje još uvijek upućuju na ovaj sadržaj:" }, forbiddenParent: "Stranica ima podstranice — može je obrisati samo admin ili developer.", multiLocale: { activeIn: "aktivno u {{locales}}", intro: "Ova stranica postoji u više jezika. Odaberite način brisanja:", disableLocaleTitle: "Deaktiviraj samo verziju {{locale}}", disableLocaleHelp: "Skriva ovu stranicu posjetiteljima {{locale}}. {{other}} ostaje aktivno. Može se vratiti iz koša.", disableLocaleHelpDesc: "Skriva ovu stranicu i {{count}} podstranica posjetiteljima {{locale}}. {{other}} ostaje aktivno. Može se vratiti iz koša.", deleteEntireHelp: "Stranica {{subject}} i svi njezini prijevodi ({{locales}}) bit će premješteni u koš.", deleteEntireHelpDesc: "Stranica {{subject}} i {{count}} podstranica ({{locales}}) bit će premješteni u koš." } }, Qx = { title: "Vrati stranicu", loading: "Provjera mogućnosti vraćanja…", success: "Stranica vraćena", restoreButton: "Vrati", placementLabel: "Gdje vratiti ovu stranicu?", typeHint: "Tip stranice: {{type}}", option: { originalParent: 'Pod "{{title}}" (izvorni roditelj)', root: "Premjesti u korijen (najvišu razinu)", rootOriginal: "U korijen (najvišu razinu)", otherParent: "Pod drugu stranicu…", pickParent: "Odaberite roditeljsku stranicu", loading: "Učitavanje stranica…", noMatches: "Nema odgovarajućih stranica" }, cascade: { label_one: "Vrati i 1 obrisanu podstranicu", label_few: "Vrati i {{count}} obrisane podstranice", label_other: "Vrati i {{count}} obrisanih podstranica", hint: "Podstranice obrisane zajedno s ovom stranicom bit će vraćene na svoje izvorne pozicije." }, reason: { parent_trashed: "Izvorni roditelj je još u košu. Prvo ga vratite ili odaberite drugog roditelja.", type_mismatch: "Izvorni roditelj nije valjan tip roditelja za {{type}}.", per_parent_limit_reached: "Ovaj roditelj već ima maksimalan broj {{type}} stranica ({{limit}}).", cannot_be_root: "{{type}} stranice ne mogu biti na korijenskoj razini.", global_limit_reached: "Dosegnuto ograničenje broja {{type}} stranica na projektu ({{limit}})." }, blocked: { title: "Vraćanje nije moguće", typeNotRegistered: 'Tip stranice "{{type}}" više nije registriran u projektu. Vratite tip ili trajno obrišite stranicu.', noPlacement: "Trenutno nema valjanog mjesta za vraćanje ove {{type}} stranice.", suggestion: "Vratite (ili stvorite) stranicu tipa: {{parentTypes}}, a zatim pokušajte ponovno.", parentInTrash: 'Izvorni roditelj "{{parentTitle}}" je još u košu — vratite ga prvo da bi ova stranica imala dom.', globalLimit: "Dosegnuto ograničenje broja {{type}} stranica na projektu ({{limit}}). Obrišite ili premjestite u koš jednu aktivnu {{type}} stranicu." }, error: { generic: "Vraćanje stranice nije uspjelo. Pokušajte ponovno.", pickParent: "Molimo odaberite roditeljsku stranicu.", parentTrashed: "Odabrani roditelj je u košu. Odaberite aktivnu stranicu ili prvo vratite roditelja.", parentNotFound: "Odabrani roditelj više ne postoji.", parentInSubtree: "Stranica ne može biti premještena pod jednu od svojih podstranica.", invalidParentType: "Odabrani roditelj nije valjan tip roditelja za {{type}}.", perParentLimitReached: "Ovaj roditelj već ima maksimalan broj {{type}} stranica ({{limit}}).", cannotBeRoot: "{{type}} stranice ne mogu biti na korijenskoj razini.", globalLimitReached: "Dosegnuto ograničenje broja {{type}} stranica na projektu ({{limit}}).", slugTaken: '{{locale}} slug "{{slug}}" je već u upotrebi na aktivnoj stranici. Preimenujte ga prije vraćanja.' } }, ew = { titleEdit: "Uredi stranicu", titleNew: "Nova stranica", tabContent: "Sadržaj", tabSeo: "SEO", fieldTitle: "Naslov", placeholderTitle: "Naslov stranice", fieldStatus: "Status", statusDraft: "Skica", statusPublished: "Objavljeno", statusHint: "Samo admini i programeri mogu objavljivati ili povlačiti stranice", schedulePublish: "Zakazano objavljivanje", scheduleDescription: "Stranica će se automatski objaviti u odabrano vrijeme.", scheduleHint: "Ostavite prazno za neodređenu skicu", schedulePlaceholder: "Odaberite datum i vrijeme…", scheduledFor: "Zakazano za {{date}}", scheduleClear: "Obriši", scheduleConfirm: "Potvrdi", scheduleLeaveBlank: "Ostavite prazno za zadržavanje nacrta neograničeno.", parentRequired: "Nadređena stranica (obavezno)", parentOptional: "Nadređena stranica (neobavezno)", parentNone: "Bez nadređene (korijenski nivo)", fieldsSectionTitle: "Polja", contentSections: "Sekcije sadržaja", saveAsTemplate: "Spremi kao predložak", loadTemplate: "Učitaj predložak", noSections: "Još nema sekcija. Dodajte jednu ispod.", addSection: "+ Dodaj novu sekciju", addBlockLabel: "+ {{label}}", chooseBlockType: "Odaberite vrstu odjeljka", metaTitle: "Meta naslov", metaDescription: "Meta opis", metaDescriptionHint: "Kratki opis za tražilice", metaTitleCount: "{{count}}/60 znakova", metaTitleTooLong: "Meta naslov je predug", metaDescCount: "{{count}}/160 znakova", metaDescTooLong: "Meta opis je predug", ogImage: "OG slika", pickImage: "Odaberi sliku", canonicalUrl: "Kanonski URL", canonicalPlaceholder: "https://primjer.hr/moja-stranica", canonicalHint: "Ostavite prazno za korištenje zadanog URL-a stranice", noindex: "Sakrij od tražilica (noindex)", googlePreview: "Pregled u Googleu", noDescription: "Opis nije postavljen.", savePage: "Spremi", publishPage: "Objavi stranicu", publishSuccess: "Stranica objavljena", publishError: "Nije moguće objaviti stranicu", localeActiveCheckbox: "Aktivan na ovom jeziku", localeMissing: "Još nema sadržaja za {{locale}}", localeInactive: "{{locale}} je neaktivan — sadržaj se neće prikazivati na javnom sajtu", deactivateError: "Nije moguće provjeriti gdje je ova stranica korištena", deactivateBlockedTitle: "Ova stranica je još uvijek povezana u jeziku {{locale}}", deactivateBlockedBody: "Deaktivacija jezika {{locale}} bi tiho prekinula veze ispod. Najprije ih uklonite, zatim se vratite na deaktivaciju.", deactivateBlockedMenus: "Korišteno u izbornicima:", deactivateBlockedPages: "Linkano sa stranica:", cascadeBlockedTitle: "Nije moguće deaktivirati {{locale}} na podstranicama", cascadeBlockedBody: "Deaktivacija jezika {{locale}} na ovoj stranici bi deaktivirala isti jezik i na podstranicama, ali neke su još uvijek povezane sa sadržajem izvan ovog podstabla u istom jeziku. Uklonite veze ispod pa pokušajte ponovno.", cascadeBlockedPageLabel: "Podstranica: {{title}}", cascadeDoneNotification: "Jezik {{locale}} deaktiviran na {{count}} podstranica/e", cascadeConfirmTitle: "Deaktivirati {{locale}} i na podstranicama?", cascadeConfirmBody: "{{count}} podstranica trenutno aktivnih u jeziku {{locale}} također će biti deaktivirano prilikom spremanja. Akcija se izvršava prilikom spremanja i može se poništiti ponovnim aktiviranjem svake stranice pojedinačno.", cascadeConfirmAction: "Deaktiviraj na podstranicama", ancestorBlockedTitle: "Još nije moguće aktivirati {{locale}}", ancestorBlockedBody: "Jedna ili više nadređenih stranica još uvijek ima {{locale}} deaktiviran. Najprije aktivirajte {{locale}} na nadređenoj stranici, a zatim se vratite ovamo. Inače bi se ova stranica objavila na URL-u čiji nadređeni segment ne postoji.", cascadeFailedError: "Stranica je spremljena, ali nije bilo moguće prenijeti deaktivaciju jezika {{locale}} na podstranice", statusDraftBadge: "Skica", statusPublishedBadge: "Objavljeno", statusPendingBadge: "Objavljeno · Čeka objavu", leaveTitle: "Napustiti stranicu?", leaveBody: "Imate nespremljene promjene. Ako odete sada, promjene će biti izgubljene.", leaveConfirm: "Napusti", conflictTitle: "Konflikt uređivanja", conflictBody: "Netko drugi je spremio ovu stranicu dok ste je uređivali. [Osvježi] za najnoviju verziju.", savedNotification: "Stranica spremljena", saveError: "Greška pri spremanju stranice", siblingSlugTaken: "Druga stranica pod istim roditeljem već koristi ovaj naziv ({{locale}}). Preimenujte ovu stranicu da biste je spremili.", previewNeedsSave: "Najprije spremite stranicu za pregled", previewNeedsFrontend: "Konfigurirajte frontendUrl u createAdmin() za pregled", previewFailed: "Greška pri stvaranju pregleda", versionHistory: "Povijest verzija", versionHistoryDescription: "Povratite raniju verziju ove stranice.", versionCount: "{{count}} spremljena verzija", versionCount_other: "{{count}} spremljenih verzija", versionCurrent: "trenutna", noVersions: "Još nema verzija. Verzije se stvaraju pri svakom spremanju.", restoreVersion: "Vrati", restoreVersionTitle: "Vratiti verziju?", restoreVersionBody: "Ovo će zamijeniti trenutni sadržaj stranice s ovom verzijom. Trenutno stanje bit će spremljeno kao nova verzija.", restoreVersionFailed: "Greška pri vraćanju verzije", unknownBlock: "Nepoznati tip bloka: {{type}}", unsavedBadge: "Nespremljene promjene", lastSaved: "Zadnje spremljeno {{time}}", alsoEditing: "{{emails}} također uređuje", moreEditors: "+{{count}}" }, tw = { title: "Izbornici", subtitle: "Upravljajte navigacijskim izbornicima za vaš frontend.", newMenu: "Novi izbornik", loading: "Učitavanje…", noMenus: "Još nema izbornika. Stvorite prvi!", emptyTitle: "Još nema izbornika", emptyDescription: "Stvorite navigacijske izbornike za zaglavlje, podnožje i ostala područja frontenda.", locationPrimary: "primary — glavna navigacija", locationFooter: "footer — poveznice u podnožju", locationBadge_primary: "Glavna navigacija", locationBadge_footer: "Navigacija u podnožju", edit: "Uredi", delete: "Obriši", modeAuto: "Auto", modeManual: "Ručno", topLevelItems: "{{count}} stavka/stavki na vrhu", autoInfo: "{{types}} · dubina {{depth}}", deleteTitle: "Obriši izbornik", deleteBody: "Obrisati ovaj izbornik? Ovo se ne može poništiti.", deleteConfirm: "Obriši", createTitle: "Stvori izbornik", createDescription: "Navigacijski izbornici prikazuju se na vašem sučelju.", modeSection: "Način rada", modeManualSub: "Vi upravljate svakom stavkom", modeAutoSub: "Gradi se iz stabla stranica", locationSection: "Navigacijski slot", locationPrimaryTitle: "Primarna navigacija", locationPrimaryCardSub: "Navigacija u zaglavlju", locationFooterTitle: "Podnožje", locationFooterCardSub: "Poveznice u podnožju", alreadyAdded: "Već dodano", allLocationsUsed: "Sve lokacije izbornika su već u upotrebi.", cancel: "Odustani", createBtn: "Stvori izbornik" }, nw = { title: "Uređivač navigacijskog izbornika", alsoEditing: "{{emails}} također uređuje", moreEditors: "+{{count}}", save: "Spremi izbornik", modeLabel: "Način rada", modeAuto: "Auto (Pametni)", modeManual: "Ručni (Prilagođeni)", modeAutoHint: "Automatski generira stavke izbornika iz odabranih tipova stranica.", modeManualHint: "Ručno rasporedite stavke povlačenjem i ispuštanjem.", includeTypes: "Uključi tipove stranica", includeTypesHint: "Pojavit će se samo objavljene stranice ovih tipova.", includeTypesPlaceholder: "Odaberite tipove stranica…", maxDepth: "Maksimalna dubina", maxDepthHint: "Razine djece za uključiti (0 = samo korijen).", depth0: "0 — samo korijen", depth1: "1 razina", depth2: "2 razine", depth3: "3 razine", maxTypes: "Maks. odabranih tipova stranica", maxTypesHint: "Ograničite koliko tipova admini mogu odabrati.", previewLabel: "Pregled", previewLoading: "Učitavanje pregleda…", previewEmpty: "Nema objavljenih stranica koje odgovaraju odabranim tipovima.", itemsLabel: "Stavke", addItem: "Dodaj stavku", dndHint: "Povucite na stavku za ugniježđivanje · Ispustite gore/dolje za sortiranje · Koristite ◀ ▶ za promjenu razine", noItems: "Još nema stavki. Dodajte prvu stavku izbornika.", indentOut: "Premjesti na nadređenu razinu", indentIn: "Postavi kao dijete gornje stavke", itemLabelField: "Oznaka", itemLabelPlaceholder: "npr. Proizvodi", itemTypePage: "Stranica", itemTypeUrl: "Prilagođeni URL", itemPageLabel: "Stranica", itemPagePlaceholder: "Pretraži stranice…", itemUrlLabel: "URL", itemUrlPlaceholder: "https://… ili /relativno", itemNewTab: "Otvori u novoj kartici", editItem: "Uredi stavku", cancelItem: "Odustani", saveItem: "Spremi promjene", saveNewItem: "Dodaj stavku", removeItem: "Ukloni stavku", removeItemTitle: "Ukloniti ovu stavku i svu njenu djecu?", removeItemConfirm: "Ukloni", switchToAuto: "Prebaci na Auto način", switchToManual: "Prebaci na Ručni način", switchToAutoConfirm: "Prebacivanje na Auto način će odbaciti ručno konfigurirane stavke. Nastaviti?", switchToManualConfirm: "Prebaciti na Ručni način? Trenutna auto-generirana struktura koristit će se kao polazište.", switchManualImport: "Prebaci i uvezi stavke", switchAutoConfirm: "Prebaci na Auto", savedNotification: "Izbornik spremljen", conflictBody: "Netko drugi je spremio ovaj izbornik dok ste ga uređivali. [Osvježi] za najnoviju verziju.", saveError: "Greška pri spremanju izbornika", itemLabelFor: "Oznaka ({{locale}})", itemLabelFallback: "Koristi vrijednost iz {{locale}}", itemLabelMissing: "Nedostaje za: {{locales}}", itemLabelAutoHint: "Ostavite prazno za korištenje naslova stranice „{{title}}”.", itemLocaleBadge: "Nije u {{locale}}", itemLocaleTooltip: "Ova stranica nema aktivni prijevod u {{locale}}. Bit će sakrivena iz javnog izbornika za ovaj jezik.", previewLocaleHint: "Pregled za {{locale}}. Stranice bez aktivnog prijevoda u ovom jeziku su sakrivene." }, aw = { title: "Mediji", subtitle: "Učitajte i upravljajte slikama, dokumentima i ostalim datotekama.", searchPlaceholder: "Pretraži datoteke…", fileCount: "{{count}} datoteka/datoteke", viewLarge: "Veliko", viewSmall: "Malo", viewList: "Lista", settingsBtn: "Postavke", uploadBtn: "Učitaj", filterAll: "Sve", filterImages: "Slike", filterDocs: "Dokumenti", noResults: "Nema datoteka koje odgovaraju pretrazi.", noFiles: "Nema datoteka", uploadFiles: "Učitaj datoteke", foldersTitle: "Mape", allFiles: "Sve datoteke", unorganized: "Neorganizirano", newFolder: "Nova mapa", confirmDelete: "Potvrdi brisanje", confirmCreate: "Stvori", newSubfolder: "Nova podmapa", rename: "Preimenuj", delete: "Obriši", expand: "Proširi", collapse: "Skupi", folderActions: "Radnje mape", deleteFolderTitle: "Obrisati mapu?", deleteFolderMessage: "Ova radnja se ne može poništiti.", renameFileTitle: "Preimenuj datoteku", renameFileLabel: "Ime datoteke", cancel: "Odustani", save: "Spremi", renameFailed: "Greška pri preименовању.", fileInfoTitle: "Info o datoteci", fileInfoName: "Prikazano ime", fileInfoStorage: "Naziv pohrane", fileInfoType: "Tip", fileInfoSize: "Veličina", fileInfoUploaded: "Učitano", fileInfoModified: "Zadnja izmjena", fileInfoCdnUrl: "CDN URL", copy: "Kopiraj", copied: "Kopirano!", download: "Preuzmi", close: "Zatvori", copyUrl: "Kopiraj URL", fileInfo: "Info o datoteci", deleteFile: "Obriši", downloadSelected: "Preuzmi {{count}} odabranih", deleteSelected: "Obriši {{count}} odabranih", deleteFileTitle: "Obrisati datoteku?", deleteFileBody: "Obrisati <strong>{{name}}</strong>? Ovo se ne može poništiti.", deleteFileMessage: "Ovo se ne može poništiti.", deleteSelectedTitle: "Obrisati odabrane datoteke?", deleteSelectedBody: "Obrisati <strong>{{count}} odabranu/ih datoteku/a</strong>? Ovo se ne može poništiti.", deleteSelectedMessage: "Obrisati {{count}} odabranu/ih datoteku/a? Ovo se ne može poništiti.", deleteConfirm: "Obriši {{count}} datoteka/e", usedOnPages: "Koristi se na {{count}} stranici/ama:", removeFromPagesFirst: "Najprije uklonite ovu sliku s tih stranica.", sortNewest: "Dodano (najnovije)", sortOldest: "Dodano (najstarije)", sortModifiedNew: "Izmijenjeno (najnovije)", sortModifiedOld: "Izmijenjeno (najstarije)", sortNameAZ: "Ime (A → Ž)", sortNameZA: "Ime (Ž → A)", sortSizeLarge: "Veličina (najveće)", sortSizeSmall: "Veličina (najmanje)", dropUploadTo: 'Ispustite za učitavanje u "{{folder}}"', dropUpload: "Ispustite za učitavanje", skippedDuplicatesTitle: "Preskočeni duplikati", skippedDuplicates: "Preskočeno {{count}} datoteka koje već postoje u ovoj mapi: {{names}}", selectedCount: "{{count}} datoteka/e odabrano", selectAll: "Odaberi sve", showingRange: "{{from}}–{{to}} od {{total}}", moveToFolder: "Premjesti u mapu…", clearSelection: "Poništi", settingsTitle: "Bunny CDN pohrana", settingsConfigured: "Konfigurirano", settingsZoneName: "Naziv zone pohrane", settingsPathPrefix: "Prefiks putanje pohrane", settingsPathHint: "Putanja podmape unutar zone.", settingsApiKeyEdit: "API ključ pohrane (ostavite prazno za zadržavanje)", settingsApiKeyNew: "API ključ pohrane", settingsApiKeyPlaceholderHidden: "••••••••", settingsApiKeyPlaceholderNew: "Zalijepite lozinku zone pohrane", settingsRegion: "Regija pohrane", settingsCdnUrl: "URL CDN Pull Zone", settingsCdnPlaceholder: "https://mojazona.b-cdn.net", settingsSave: "Spremi konfiguraciju", settingsSaved: "Konfiguracija spremljena.", settingsHelp: "Naziv zone i lozinka: Bunny CDN → Storage → [Zona] → FTP & API Access. CDN URL: Bunny CDN → Pull Zones → [Zona] → hostname." }, ow = { title: "Korisnici", subtitle: "Upravljajte članovima tima i njihovim ulogama.", newUser: "Novi korisnik", loading: "Učitavanje…", noUsers: "Nisu pronađeni korisnici.", userCount: "{{count}} korisnik", userCount_other: "{{count}} korisnika", colName: "Ime", colUser: "Korisnik", colEmail: "E-pošta", colRole: "Uloga", colStatus: "Status", colCreated: "Stvoreno", colActions: "Akcije", searchPlaceholder: "Pretraži korisnike…", actionsMenu: "Akcije", edit: "Uredi", delete: "Obriši", disable: "Onemogući", reactivate: "Reaktiviraj", resetPassword: "Resetiraj lozinku", resendInvite: "Ponovno pošalji pozivnicu", status: { active: "Aktivan", pending: "Na čekanju", disabled: "Onemogućen" }, createTitle: "Pozovi korisnika", createDescription: "Postavite pristupne podatke novog člana tima.", inviteDescription: "Na ovu adresu bit će poslana poveznica za aktivaciju.", inviteEmailHint: "Poslat ćemo poveznicu za aktivaciju — korisnik sam odabire lozinku.", sendInvite: "Pošalji pozivnicu", inviteSent: "Pozivnica poslana na {{email}}", roleSection: "Uloga", createFirstName: "Ime", createFirstNamePlaceholder: "Ana", createLastName: "Prezime", createLastNamePlaceholder: "Horvat", createEmail: "E-pošta", createEmailPlaceholder: "korisnik@primjer.hr", createPassword: "Lozinka", createPasswordHint: "Minimalno 8 znakova", createRole: "Uloga", createRolePlaceholder: "Odaberite ulogu", cancel: "Odustani", create: "Stvori", editTitle: "Uredi {{email}}", editRole: "Uloga", editPasswordNote: 'Za promjenu lozinke ovog korisnika koristite "Resetiraj lozinku" iz izbornika retka — dobit će e-poštu.', editCancel: "Odustani", editSave: "Spremi", deleteTitle: "Obriši korisnika", deleteBody: "Obrisati {{email}}? Ovo se ne može poništiti.", deleteMessage: "Ovo trajno uklanja korisnika. Više se neće moći prijaviti.", disableTitle: "Onemogući korisnika", disableMessage: "Postojeća sesija će prestati i neće se moći prijaviti dok ne bude reaktiviran.", disableConfirm: "Onemogući", disableSuccess: "{{email}} onemogućen/a", reactivateTitle: "Reaktiviraj korisnika", reactivateMessage: "Moći će se ponovno prijaviti svojom postojećom lozinkom.", reactivateConfirm: "Reaktiviraj", reactivateSuccess: "{{email}} reaktiviran/a", resetTitle: "Resetiraj lozinku", resetMessage: "Poslat ćemo korisniku poveznicu za reset. Trenutna lozinka i dalje radi dok ne postavi novu.", resetConfirm: "Pošalji e-poštu za reset", resetSuccess: "E-pošta za reset poslana na {{email}}", resendTitle: "Ponovno pošalji pozivnicu", resendMessage: "Poslat ćemo svježu poveznicu za aktivaciju. Prethodna poveznica više neće raditi.", resendConfirm: "Pošalji ponovno", resendSuccess: "Pozivnica ponovno poslana na {{email}}", loadError: "Greška pri učitavanju korisnika", createError: "Greška pri pozivanju korisnika", updateError: "Greška pri ažuriranju korisnika", actionError: "Akcija nije uspjela", deleteSuccess: "{{email}} obrisan/a", deleteError: "Greška pri brisanju korisnika" }, rw = { title: "Postavite lozinku", subtitle: "Odaberite lozinku za {{email}} kako biste aktivirali svoj račun.", password: "Lozinka", passwordPlaceholder: "Najmanje 8 znakova", confirmPassword: "Potvrdite lozinku", confirmPasswordPlaceholder: "Ponovno unesite lozinku", submit: "Aktiviraj račun", submitting: "Aktiviranje…", success: "Račun aktiviran", redirecting: "Preusmjeravanje na nadzornu ploču…", linkInvalidTitle: "Poveznica neispravna ili istekla", invalidLink: "Ova poveznica za aktivaciju više nije važeća. Zatražite od administratora novu pozivnicu.", passwordTooShort: "Lozinka mora imati barem 8 znakova.", passwordMismatch: "Lozinke se ne podudaraju.", submitError: "Aktivacija nije uspjela. Molimo pokušajte ponovno." }, iw = { title: "Resetirajte lozinku", subtitle: "Odaberite novu lozinku za {{email}}.", submit: "Postavi novu lozinku", success: "Lozinka ažurirana" }, sw = { title: "API ključevi", subtitle: "Upravljajte pristupnim tokenima za frontend integracije.", newKey: "Novi ključ", loading: "Učitavanje...", noKeys: "Još nema API ključeva.", emptyTitle: "Još nema API ključeva", emptyDescription: "Stvorite pristupne tokene za frontend ili integracije trećih strana.", new: "Novi ključ", colName: "Ime", colPrefix: "Prefiks", colRole: "Uloga", colLastUsed: "Zadnje korištenje", colActions: "Akcije", revoke: "Opozovi", createTitle: "Stvori API ključ", createDescription: "Ključevi se prikazuju jednom — kopirajte ih odmah nakon stvaranja.", roleSection: "Uloga", createName: "Ime", createNamePlaceholder: "npr. project-one-frontend", createRole: "Uloga", roleViewer: "Viewer — samo čitanje", roleEditor: "Editor — stvaranje i uređivanje", roleAdmin: "Admin — puni pristup", roleDeveloper: "Developer — razvojni pristup", createBtn: "Stvori", newKeyTitle: "Ključ stvoren — kopirajte ga odmah. Više se neće prikazivati.", copy: "Kopiraj", dismiss: "Odbaci", revokeTitle: "Opozovi API ključ", revokeBody: 'Opozvati "{{name}}"? Sve integracije koje koriste ovaj ključ prestat će raditi.', revokeMessage: "Sve integracije koje koriste ovaj ključ prestat će raditi odmah.", revokeConfirm: "Opozovi", never: "Nikad", revokeSuccess: 'API ključ "{{name}}" obrisan', revokeError: "Greška pri brisanju ključa", keyCount: "{{count}} API ključ", keyCount_other: "{{count}} API ključeva" }, lw = { title: "Postavke stranice", subtitle: "Globalna konfiguracija vašeg projekta.", save: "Spremi postavke", tabGeneral: "Općenito", tabLocales: "Jezici", tabSeo: "SEO zadane vrijednosti", tabEditorPrefs: "Postavke uređivača", tabAnalytics: "Analitika", tabDashboard: "Nadzorna ploča", dashboardHint: "Odaberite koje statističke kartice vidi svaka korisnička uloga na svojoj nadzornoj ploči. Neke kartice zahtijevaju minimalnu ulogu i ne mogu se uključiti za niže uloge.", dashboardRole_viewer: "Pregledatelj", dashboardRole_editor: "Urednik", dashboardRole_admin: "Administrator", dashboardRole_developer: "Razvojni programer", dashboardMinRole: "Zahtijeva ulogu {{role}} ili višu", tabApiKeys: "API ključevi", tabWebhooks: "Webhookovi", tabAdvanced: "Napredno", tabRobots: "Robots.txt", identitySection: "Identitet stranice", identityHint: "Kako se vaš CMS prikazuje korisnicima i javnosti.", brandSection: "Brand", brandHint: "Favicon prikazan u karticama preglednika i podijeljenim pregledima.", languagesHint: "Koje jezike projekt podržava.", thisDeviceNote: "(ovaj uređaj)", editorPrefsHint: "Osobne postavke pohranjene samo u ovom pregledniku.", analyticsHint: "Povežite svog pružatelja analitike.", advancedHint: "Ubacite sirovi HTML u svaku javnu stranicu.", email: { title: "E-pošta", hint: "Konfiguracija za pozivnice, resetiranje lozinke i drugu transakcijsku e-poštu. Iste vrijednosti koriste se i u razvojnom i u produkcijskom okruženju za ovaj projekt — postavite različite vjerodajnice u bazi svakog okruženja.", fromLabel: 'Zadana "Od" adresa', fromPlaceholder: "Moj CMS <noreply@primjer.hr>", fromHint: "Obična adresa ili RFC 5322 zapis. Domena pošiljatelja mora biti verificirana kod davatelja e-pošte (npr. Resend) — neverificirane domene bit će odbijene pri slanju.", transportTitle: "Prijenosni sloj", transportHint: "Način na koji se e-pošta zapravo šalje. Vjerodajnice se pohranjuju po projektu — zalijepite ih jednom ovdje i iste vrijednosti vrijede u dev-u i produkciji (svako okruženje ima svoju bazu).", transportLabel: "Način slanja", transportLabelHint: '"Auto" koristi varijable okruženja (RESEND_API_KEY / SMTP_HOST) kao rezervu. Ostale opcije koriste vjerodajnice koje unesete ispod.', transportAuto: "Auto (koristi varijable okruženja)", transportResend: "Resend (HTTP API)", transportSmtp: "SMTP (nodemailer)", transportNone: "Isključeno (odbaci sva slanja)", resendKeyLabel: "Resend API ključ", resendKeyHint: 'Dohvatite ga na resend.com → API Keys. Besplatni plan pokriva 100 e-poruka/dan. Ključevi počinju s "re_".', resendKeyPlaceholder: "re_xxxxxxxxxxxxxxxxxxxxxxxx", resendKeyPlaceholderStored: "Ostavite prazno za zadržavanje postojećeg ključa", smtpHostLabel: "SMTP host", smtpPortLabel: "SMTP port", smtpUserLabel: "SMTP korisničko ime", smtpPassLabel: "SMTP lozinka", smtpPassPlaceholderStored: "Ostavite prazno za zadržavanje postojeće lozinke", smtpSecureLabel: "Koristi TLS/SSL (port 465 obično ovo zahtijeva; port 587 obično ne)", configured: "Konfigurirano", show: "Prikaži", hide: "Sakrij", clear: "Obriši", saveTransport: "Spremi konfiguraciju e-pošte", saved: "Konfiguracija e-pošte spremljena", cleared: "Vjerodajnica obrisana", statusResend: "Resend povezan ({{source}})", statusSmtp: "SMTP povezan ({{source}})", statusConsole: "Nije konfiguriran prijenosni sloj — e-pošta će biti ispisana u stdout API-ja umjesto poslana", statusNone: "E-pošta je isključena — odlazna slanja bit će tiho odbačena", statusLoading: "Provjera prijenosnog sloja…", sourceProject: "ovaj projekt", sourceEnv: "iz okruženja", overrideActive: "Dev override aktivan: sva slanja preusmjeravaju se na {{email}}" }, noFavicon: "Nije postavljen favicon", faviconReady: "Aktivan na cijeloj stranici", faviconFallback: "Koristi se monogram brenda", faviconName: "favicon", siteTitle: "Naslov stranice", siteTitleHint: "Koristi se u kartici preglednika i kao rezervni OG naslov.", siteTitlePlaceholder: "Moja web stranica", tagline: "Podnaslov", taglineHint: "Kratki opis prikazan ispod naslova stranice.", taglinePlaceholder: "Gradimo stvari od 2024.", favicon: "Favicon", faviconHint: "Preporučeno: 32×32 PNG ili SVG.", faviconSet: "Favicon postavljen (media ID: {{id}}…)", faviconRemove: "Ukloni", faviconNone: "Favicon nije postavljen.", faviconSelect: "Odaberi favicon", faviconChange: "Promijeni favicon", uiLanguage: "Jezik admin sučelja", uiLanguageHint: "Jezik koji se koristi za sve oznake i poruke admin panela.", langEn: "Engleski", langHr: "Hrvatski", localeFallback: "Prazno polje prikazuje vrijednost iz {{locale}}", editorPrefsSection: "Postavke uređivača (ovaj uređaj)", autosaveEnabled: "Automatsko spremanje svakih 30 sekundi", autosaveEnabledHint: "U pozadini sprema skice dok uređujete. Ručno spremanje (Ctrl+S, gumb Spremi) i Objavi rade neovisno o ovome.", languagesSection: "Jezici sadržaja", availableLocales: "Dostupni jezici", availableLocalesHint: "Jezici na kojima će ovaj projekt objavljivati sadržaj.", defaultLocale: "Zadani jezik", defaultLocaleHint: "Fallback jezik koji se koristi na korijenu sajta i kada stranica nema prijevod na posjetiteljev jezik.", defaultLocaleNotAvailable: "Zadani jezik mora biti jedan od dostupnih jezika.", atLeastOneLocale: "Mora biti dostupan barem jedan jezik.", localeInUse: "Ne mogu ukloniti jezik {{locale}} — stranice još uvijek imaju sadržaj na njemu. Najprije uklonite taj sadržaj.", seoDefaultsHint: "Ove zadane vrijednosti koriste se kada stranica nema vlastita SEO polja.", defaultMetaTitle: "Zadani meta naslov", defaultMetaTitlePlaceholder: "Moja web stranica — Naslov stranice", defaultMetaDesc: "Zadani meta opis", defaultMetaDescPlaceholder: "Kratki opis vaše web stranice…", defaultOgImage: "Zadani OG URL slike", defaultOgImageHint: "Rezervna Open Graph slika za dijeljenje na društvenim mrežama.", defaultOgImagePlaceholder: "https://cdn.primjer.hr/og-zadano.jpg", analyticsId: "ID analitike", analyticsIdHint: "Google Analytics mjerni ID (G-XXXXXXXX) ili drugi identifikator analitike.", analyticsIdPlaceholder: "G-XXXXXXXXXX", advancedWarning: "HTML koji se ubacuje na svaku stranicu. Koristite s oprezom — nevažeći HTML može pokvariti vaš site.", customHeadHtml: "Prilagođeni <head> HTML", customHeadHtmlHint: "Ubacuje se unutar <head> prije </head>.", customHeadHtmlPlaceholder: "<!-- npr. skripte trećih strana, prilagođeni fontovi -->", customBodyHtml: "Prilagođeni <body> HTML", customBodyHtmlHint: "Ubacuje se neposredno prije </body>.", customBodyHtmlPlaceholder: "<!-- npr. widget za chat, cookie banner -->", robotsHint: "Sadržaj koji vraća GET /robots.txt kad je prisutan zaglavlje X-Project-Slug.", robotsLabel: "robots.txt sadržaj", robotsResetAllow: "Resetiraj na dopusti sve", robotsDisallowAll: "Zabrani sve (održavanje)", savedNotification: "Postavke spremljene", conflictTitle: "Konflikt uređivanja", conflictBody: "Netko drugi je spremio ove postavke dok ste ih uređivali. [Osvježi] za najnoviju verziju.", saveError: "Greška pri spremanju postavki" }, cw = { title: "Webhooks", subtitle: "Obavještavajte vanjske servise o promjenama sadržaja", addBtn: "Dodaj webhook", loading: "Učitavanje…", noWebhooks: "Nema konfiguriranih webhookova", emptyTitle: "Još nema webhookova", emptyDescription: "Obavijestite Slack, Vercel ili build pipeline kada se sadržaj promijeni.", add: "Dodaj webhook", addFirst: "Dodajte prvi webhook", colUrl: "URL", colEvents: "Događaji", colActive: "Aktivno", colCreated: "Stvoreno", colActions: "Akcije", count: "{{count}} webhook", count_other: "{{count}} webhookova", createUrlPlaceholder: "https://primjer.hr/webhook", createEventsLabel: "Događaji", cancel: "Odustani", createBtn: "Stvori webhook", createSuccess: "Webhook uspješno stvoren", secretHint: "Kopirajte i pohranite ovaj tajni ključ — više se neće prikazivati. Koristite ga za provjeru X-CMS-Signature zaglavlja na dolaznim zahtjevima.", done: "Gotovo", validationUrl: "URL mora počinjati s http:// ili https://", validationEvents: "Odaberite barem jedan događaj", createError: "Greška pri stvaranju webhookа", noDeliveries: "Još nema isporuka", viewLog: "Prikaži zapisnik isporuke", deleteWebhook: "Obriši webhook", deliveryLog: "Zapisnik isporuke", deleteTitle: "Obrisati webhook?", deleteBody: "Sva povijest isporuke za ovaj webhook bit će također obrisana.", deleteMessage: "Sva povijest isporuke bit će također obrisana.", deleteConfirm: "Obriši", deleteSuccess: "Webhook obrisan", updateError: "Greška pri ažuriranju webhookа", deleteError: "Greška pri brisanju webhookа", loadError: "Greška pri učitavanju webhookova" }, dw = { title: "Tekstovi", subtitle: "Uređujte fiksne tekstove na frontu bez izmjene koda.", colKey: "Ključ", colValue: "Vrijednost", addRow: "Dodaj tekst", addRowBlocked: "Najprije dovršite novi tekst — unesite ključ i vrijednost za svaki jezik.", removeRow: "Ukloni tekst", save: "Spremi", keyPlaceholder: "npr. hero_title", valuePlaceholder: "Prevedena vrijednost", defaultBadge: "zadano", emptyTitle: "Još nema tekstova", emptyState: "Za ovaj jezik još nije definiran nijedan tekst.", noLocales: "Nije konfiguriran nijedan jezik sadržaja. Konfigurirajte ih u Postavke → Općenito.", saveSuccess: "Tekstovi spremljeni", saveError: "Greška pri spremanju tekstova", loadError: "Greška pri učitavanju tekstova", deleteTitle: "Obrisati ovaj tekst?", deleteBody: 'Ključ "{{key}}" bit će uklonjen iz ovog jezika. Drugi jezici ostaju nepromijenjeni.', deleteMessage: "Ključ će biti uklonjen iz svih jezika.", deleteConfirm: "Obriši", deleteSuccess: "Tekst obrisan", deleteError: "Greška pri brisanju teksta", errorKeyRequired: "Ključ je obavezan", errorKeyFormat: "Dozvoljena su samo slova, brojevi, točka, podvlaka i crtica", errorKeyDuplicate: "Duplikat ključa u ovom jeziku", errorFixFirst: "Ispravite označene pogreške prije spremanja", rowCount: "{{count}} tekst" }, hw = { placeholder: "Pretraži stranice ili skočite na…", newPage: "Nova stranica", newPageDesc: "Stvori novu stranicu", mediaLibrary: "Knjižnica medija", mediaLibraryDesc: "Pregledaj i učitaj datoteke", viewActivity: "Prikaži aktivnost", viewActivityDesc: "Pogledaj zapisnik nedavne aktivnosti", pageHint: "{{slug}} · {{status}}", noResults: "Nema rezultata" }, pw = { title: "Zapisnik aktivnosti", subtitle: "Zapis svih promjena koje je vaš tim napravio.", colWhen: "Kada", colUser: "Korisnik", colAction: "Akcija", colResource: "Resurs", noActivity: "Još nema aktivnosti.", loadMore: "Učitaj više", filter: "Filtar", filterAll: "Sve", filterPages: "Stranice", filterMedia: "Mediji", filterUsers: "Korisnici", rangeLabel: "Vremenski raspon", rangeAll: "Sve vrijeme", range24h: "Zadnja 24 sata", range7d: "Zadnjih 7 dana", range30d: "Zadnjih 30 dana", actions: { page_created: "Stvoreno", page_updated: "Ažurirano", page_moved: "Premješteno", page_published: "Objavljeno", page_trashed: "Premješteno u koš", page_restored: "Vraćeno", page_deleted: "Trajno obrisano", page_locale_disabled: "Onemogućen prijevod", page_version_restored: "Vraćena verzija", menu_created: "Izbornik stvoren", menu_updated: "Izbornik ažuriran", menu_deleted: "Izbornik obrisan", media_uploaded: "Medij prenesen", media_deleted: "Medij obrisan", media_folder_created: "Mapa stvorena", media_folder_moved: "Mapa premještena", media_folder_renamed: "Mapa preimenovana", media_folder_deleted: "Mapa obrisana", media_config_updated: "Postavke medija ažurirane", block_template_created: "Predložak spremljen", block_template_deleted: "Predložak obrisan", page_type_created: "Tip stranice stvoren", page_type_updated: "Tip stranice ažuriran", page_type_deleted: "Tip stranice obrisan", settings_updated: "Postavke ažurirane", strings_updated: "Prijevodi ažurirani", strings_deleted: "Prijevod obrisan", user_invited: "Korisnik pozvan", user_activated: "Račun aktiviran", user_updated: "Korisnik ažuriran", user_disabled: "Korisnik onemogućen", user_reactivated: "Korisnik ponovno aktiviran", user_password_reset_requested: "Poslano resetiranje lozinke", user_password_reset_completed: "Lozinka resetirana", user_invite_resent: "Pozivnica ponovno poslana", user_deleted: "Korisnik obrisan" } }, uw = { saveTitle: "Spremi kao predložak", saveSubtitle: "Sprema trenutnih {{count}} blok(ova) kao predložak za ponovnu upotrebu.", nameLabel: "Naziv predloška", namePlaceholder: "npr. Hero + Dva stupca", nameRequired: "Naziv predloška je obavezan", saveFailed: "Greška pri spremanju predloška", saveBtn: "Spremi predložak", loadTitle: "Učitaj predložak", loadDescription: "Ovo će zamijeniti sve postojeće blokove na stranici.", loadWarning: "Učitavanje predloška zamijenit će sve trenutne blokove sadržaja.", loadNoTemplates: "Još nema spremljenih predložaka.", blockCount: "{{count}} blok(ova)", loadBtn: "Učitaj predložak", crossLocaleTitle: "Predložak iz drugog jezika", crossLocaleBody: "Ovaj predložak je napisan u {{source}}, ali trenutno uređujete {{target}}. Učitavanje će zalijepiti sadržaj na {{source}} u {{target}} karticu. Nastaviti?", crossLocaleConfirm: "Ipak učitaj" }, mw = { mixedContent: { blockLabel: "Blok miješanog sadržaja", widgetText: "Tekst", widgetVideo: "Video", widgetLink: "Veza", widgetAccordion: "Harmonika", widgetGallery: "Galerija", widgetSection: "Sekcija", layoutFull: "Puna širina", layoutHalf: "Pola / Pola", layout13_23: "1/3 + 2/3", layout23_13: "2/3 + 1/3", layoutThree: "Tri jednaka", layout14_34: "1/4 + 3/4", layout34_14: "3/4 + 1/4", chooseLayout: "Odaberite raspored za ovu sekciju:", addWidget: "Dodaj widget", addWidgetDescription: "Odaberite widget za umetanje u ovaj stupac.", cancelBtn: "Odustani", insertBtn: "Ubaci", textPlaceholder: "Upišite ovdje…", textEmpty: "Još nema teksta — kliknite ✏ za uređivanje", videoUrl: "URL videa", videoWidth: "Širina (px)", videoHeight: "Visina (px)", videoEmpty: "Nema URL-a videa — kliknite ✏ za uređivanje", linkEmpty: "Poveznica nije konfigurirana — kliknite ✏ za uređivanje", accordionEmpty: "Nema stavki — kliknite ✏ za dodavanje", accordionMainTitle: "Naslov (neobavezno)", accordionMainTitlePlaceholder: "npr. Često postavljana pitanja", notConfigured: "Nije konfigurirano", configure: "Konfiguriraj", addItem: "+ Dodaj stavku", accordionItem: "Stavka {{num}}", accordionTitle: "Naslov harmonike", accordionContent: "Sadržaj stavke…", galleryEmpty: "Još nema dodanih slika.", galleryEdit: "Uredi galeriju", gallerySelect: "Odaberi slike", resetLayout: "Resetiraj i odaberi drugi raspored", changeLayout: "Promijeni", columnLabel: "Stupac {{num}} ({{width}}/12)", addWidgetBtn: "+ Dodaj widget", sectionTitle: "Naslov sekcije (neobavezno)", changeLayoutBtn: "Promijeni raspored", discardTitle: "Odbaciti promjene?", discardBody: "Imate nespremljene promjene widgeta. Ako sada zatvorite, bit će izgubljene.", collapseWidget: "Sakrij pregled", expandWidget: "Prikaži pregled" } }, fw = { paragraph: "Paragraf", heading: "Naslov {{level}}", alignment: "Poravnanje", alignLeft: "Poravnaj lijevo", alignCenter: "Centriraj", alignRight: "Poravnaj desno", alignJustify: "Obostrano poravnanje", indent: "Uvuci", outdent: "Izvuci", table: "Tablica", insertTable: "Umetni tablicu {{rows}}×{{cols}}", tableRow: "Redak", addRowAbove: "Dodaj redak iznad", addRowBelow: "Dodaj redak ispod", deleteRow: "Izbriši redak", tableColumn: "Stupac", addColumnLeft: "Dodaj stupac lijevo", addColumnRight: "Dodaj stupac desno", deleteColumn: "Izbriši stupac", deleteTable: "Izbriši tablicu", addHeaderRow: "Dodaj zaglavni redak", removeHeaderRow: "Ukloni zaglavni redak", mergeCells: "Spoji ćelije", splitCell: "Razdvoji ćeliju", cellOptions: "Opcije ćelije", addImage: "Dodaj sliku", imageModal: { title: "Dodaj sliku", titleEdit: "Uredi sliku", add: "+ Dodaj", change: "Promijeni", imageTitle: "Naslov slike", imageTitlePlaceholder: "Unesite naslov slike", description: "Opis slike", descriptionPlaceholder: "Alternativni tekst za pristupačnost", alignment: "Poravnanje slike", alignDefault: "Zadano", alignLeft: "Lijevo", alignCenter: "Sredina", alignRight: "Desno", dimensions: "Dimenzije slike", originalDims: "Koristi originalne dimenzije", customDims: "Postavi prilagođene dimenzije", width: "Širina (px)", height: "Visina (px)", lockAspect: "Zaključaj omjer stranica", unlockAspect: "Otključaj omjer stranica" } }, yw = /* @__PURE__ */ JSON.parse('{"nav":{"store":"Trgovina","products":"Proizvodi","categories":"Kategorije","settings":"Postavke","customers":"Kupci","priceLists":"Cjenici","orders":"Narudžbe"},"checkoutModes":{"pay_now":"Plati odmah (kartica)","bank_transfer":"Bankovni prijenos","cod":"Pouzeće"},"products":{"new":"Novi proizvod","empty":"Još nema proizvoda","emptyHint":"Izradite prvi proizvod da biste počeli graditi katalog.","noMatches":"Nijedan proizvod ne odgovara filtrima.","createTitle":"Novi proizvod","create":"Izradi","createHint":"Cijenu, zalihu, varijante i sadržaj postavljate nakon izrade.","nameRequired":"Naziv je obavezan.","untitled":"(proizvod bez naziva)","backToList":"Proizvodi","searchPlaceholder":"Pretraži naziv ili SKU…","allStatuses":"Svi statusi","allTypes":"Sve vrste","colName":"Naziv","colStatus":"Status","colType":"Vrsta","colPrice":"Cijena","colStock":"Zaliha","variantCount":"{{n}} varijanti","save":"Spremi","saved":"Proizvod spremljen","delete":"Obriši","deleteTitle":"Obrisati proizvod?","deleteBody":"Ovo trajno briše proizvod i sve njegove varijante.","deleted":"Proizvod obrisan","slugTaken":"Drugi proizvod već koristi taj naziv na ovom jeziku.","leaveTitle":"Odbaciti nespremljene promjene?","leaveBody":"Imate nespremljene promjene ovog proizvoda. Izaći bez spremanja?","leaveConfirm":"Odbaci","editingLocale":"Uređivanje {{locale}} sadržaja","type":"Vrsta","typePhysical":"Fizički","typeDigital":"Digitalni","typeService":"Usluga","status":"Status","statusDraft":"Skica","statusActive":"Aktivan","sale":"Prodaja","saleBuy":"Za prodaju","saleInquiry":"Samo upit","inquiryHint":"Samo upit: bez izravnog plaćanja. Košarica s bilo kojim artiklom „samo upit” na blagajni postaje zahtjev za ponudu.","name":"Naziv","shortDescription":"Kratki opis","tabGeneral":"Općenito","tabVariants":"Varijante","tabCategories":"Kategorije","tabMedia":"Mediji","tabContent":"Sadržaj","tabSeo":"SEO","options":"Opcije","addOption":"Dodaj opciju","removeOption":"Ukloni opciju","noOptions":"Nema opcija — ovo je jednostavan proizvod s jednom varijantom. Dodajte opciju (npr. Veličina, Boja) za izradu varijanti.","optionNamePlaceholder":"Naziv opcije (npr. Veličina)","addValuePlaceholder":"Dodajte vrijednost i pritisnite Enter (npr. Mala)","applyOptions":"Primijeni opcije","optionsDirtyHint":"Nespremljene promjene opcija — primijenite za regeneraciju varijanti.","applyOptionsTitle":"Regenerirati varijante?","applyOptionsBody":"Primjenom ovih opcija ponovno se gradi matrica varijanti. Postojeće kombinacije zadržavaju svoj SKU i cijenu; uklonjene kombinacije (i njihova cijena/zaliha) se brišu.","optionsApplied":"Opcije primijenjene","variants":"Varijante","variantSaved":"Varijanta spremljena","saveVariants":"Spremi varijante","saveVariantsCount":"Spremi varijante ({{n}})","variantsSaved":"Spremljeno varijanti: {{n}}","variantsSavedPartial":"Spremljeno {{n}}; neke nisu uspjele: {{errors}}","rowUnsaved":"Nespremljene promjene","sku":"SKU","skuPlaceholder":"SKU","skuTaken":"Taj SKU već koristi druga varijanta.","price":"Cijena (€)","salePrice":"Akcija (€)","priceInvalid":"Unesite valjanu cijenu (npr. 12,99).","saleAbovePrice":"Akcijska cijena ne može biti viša od redovne cijene.","onHand":"Na zalihi","tracked":"Prati","backorder":"Bez zalihe","stockStatus":"Dostupnost","inStock":"{{n}} na zalihi","outOfStock":"Nema na zalihi","untracked":"Ne prati se","backordered":"Po narudžbi","onSale":"Na akciji","compareAtHint":"Referentna cijena (najniža u prethodnih 30 dana): {{price}}","categories":"Kategorije","noCategoriesYet":"Još ne postoje kategorije. Prvo izradite kategorije za dodjeljivanje ovog proizvoda.","assignedCategories":"Dodijeljene kategorije","pickCategories":"Odaberite kategorije…","primaryCategory":"Primarna kategorija","primaryHint":"Primarna kategorija određuje kanonski URL i navigacijski put proizvoda.","saveCategories":"Spremi kategorije","categoriesSaved":"Kategorije spremljene","gallery":"Galerija slika","galleryHint":"Zajedničke fotografije proizvoda (nisu po jeziku). Prva slika je glavna.","addImages":"Dodaj slike","noImages":"Još nema slika.","mainImage":"Glavna","removeImage":"Ukloni sliku","gallerySaveHint":"Promjene galerije spremaju se gumbom Spremi.","noSections":"Još nema sekcija sadržaja. Sadržajni blok je neobavezan — dodajte sekciju za bogati opis proizvoda.","addSection":"Dodaj novu sekciju","blockBodyHint":"Neobavezni dugi sadržaj prikazan na stranici proizvoda, uz kratki opis.","blockBodyReadOnly":"Samo za čitanje (nemate dopuštenje za uređivanje).","dragToReorder":"Povucite za promjenu redoslijeda","column":"Stupac {{n}}","metaTitle":"Meta naslov","metaDescription":"Meta opis","ogImage":"OG slika","pickImage":"Odaberi sliku","export":"Izvezi CSV","exportHint":"Samo kataloška polja — bez galerije slika i sadržaja blokova.","import":{"button":"Uvezi CSV","title":"Uvoz proizvoda iz CSV-a","help":"Skupno stvaranje ili ažuriranje proizvoda. Retci se grupiraju u proizvod prema stupcu \\"handle\\"; postojeći proizvod prepoznaje se po bilo kojem SKU-u koji nosi, a zatim po handle vrijednosti.","warning":"CSV sadrži samo kataloška polja — NE uključuje galeriju slika ni sadržaj blokova (Mixed Content). Uređivanje i ponovni uvoz ih čuva, ali brisanje proizvoda pa ponovni uvoz ih neće vratiti. Za potpunu sigurnosnu kopiju koristite snimku baze (db:export → db-snapshot.json).","chooseFile":"Odaberi CSV datoteku","pasteLabel":"Ili zalijepi CSV","pastePlaceholder":"handle,product_type,status,name:hr,sku,price,on_hand\\nwidget,physical,active,Vijak,WID-1,12.50,7","formatHint":"Jedan redak po varijanti. Stupci: handle, product_type, status, name:<jezik>, short_description:<jezik>, meta_title:<jezik>, meta_description:<jezik>, categories (putanje a>b|c), option1_name/value … option3_name/value, sku, price, sale_price, inventory_tracked, backorder, on_hand.","preview":"Pregled (probni)","run":"Uvezi","empty":"Najprije dodajte CSV datoteku ili zalijepite retke.","tooLargeOrInvalid":"CSV je neispravan ili prevelik.","previewBadge":"Pregled — ništa nije spremljeno","created":"{{n}} stvoreno","updated":"{{n}} ažurirano","skipped":"{{n}} preskočeno","variants":"{{n}} varijanti","categoriesCreated":"{{n}} kategorija stvoreno","errorsTitle":"{{n}} redaka preskočeno","lineLabel":"Redak {{n}}","success":"Uvoz dovršen.","done":"Uvezeno: {{created}} stvoreno, {{updated}} ažurirano.","donePartial":"Uvezeno {{created}} stvoreno, {{updated}} ažurirano; {{skipped}} preskočeno — pogledajte izvješće.","clear":"Očisti"},"taxClass":"Porezna klasa","taxClassDefault":"Koristi zadanu (trgovine)","checkoutMode":"Način naplate","checkoutModeDefault":"Koristi zadani (trgovine)","checkoutModeHint":"Ovaj proizvod zahtijeva odabrani način plaćanja na naplati — nadjačava zadani način trgovine za svaku košaricu koja ga sadrži."},"categories":{"new":"Nova kategorija","addChild":"Dodaj potkategoriju","empty":"Još nema kategorija","emptyHint":"Izradite prvu kategoriju za organizaciju proizvoda.","createTitle":"Nova kategorija","editTitle":"Uredi kategoriju","slug":"Slug","slugHelp":"Mala slova, riječi odvojene crticom (npr. elektricni-alati).","slugRequired":"Slug je obavezan.","parent":"Nadređena kategorija","root":"— Nijedna (najviša razina) —","label":"Naziv","description":"Opis","metaTitle":"Meta naslov","metaDescription":"Meta opis","heroImage":"Naslovna slika","pickImage":"Odaberi sliku","editingLocale":"Uređivanje {{locale}} sadržaja","labelRequired":"Naziv je obavezan za barem jedan jezik.","save":"Spremi","create":"Izradi","delete":"Obriši","deleteTitle":"Obrisati kategoriju?","deleteBody":"Ovo trajno briše kategoriju.","saved":"Kategorija spremljena","deleted":"Kategorija obrisana"},"errors":{"slug_taken":"Druga kategorija ovdje već koristi taj naziv.","has_children":"Prvo premjestite ili obrišite njezine potkategorije.","cycle_detected":"Kategorija se ne može premjestiti u vlastitu potkategoriju.","cannot_parent_self":"Kategorija ne može biti sama sebi nadređena.","parent_not_found":"Odabrana nadređena kategorija više ne postoji.","has_products":"Proizvodi su još povezani s ovom kategorijom. Prvo ih odvojite.","category_not_found":"Jedna od odabranih kategorija više ne postoji.","primary_not_in_set":"Primarna kategorija mora biti jedna od odabranih kategorija.","conflict":"Netko je drugi napravio promjenu dok ste uređivali. Osvježite i pokušajte ponovno.","generic":"Nešto je pošlo po krivu. Pokušajte ponovno.","invalid_price_list":"Taj cjenik više ne postoji.","unknown_variant":"Jedna od odabranih varijanti više ne postoji.","not_found":"Nije pronađeno.","already_erased":"Podaci ovog kupca već su izbrisani.","order_not_found":"Ova narudžba više ne postoji.","over_ship":"Ne možete poslati više nego što je naručeno.","no_voidable_payment":"Nema autorizirane uplate za poništavanje.","order_not_refundable":"Ova narudžba nema naplaćenu uplatu za povrat.","refund_amount_invalid":"Povrat ne može premašiti preostali naplaćeni iznos.","not_refundable":"Ova se uplata ne može vratiti u trenutnom stanju.","refund_failed":"Pristupnik je odbio povrat. Pokušajte ponovno.","not_capturable":"Ova se uplata ne može naplatiti u trenutnom stanju.","not_acceptable":"Ova se ponuda ne može prihvatiti u trenutnom stanju.","insufficient_stock":"Nema dovoljno zalihe za rezervaciju ove narudžbe.","no_shipment_lines":"Odaberite barem jednu stavku za slanje.","quote_empty":"Dodajte barem jednu stavku u ponudu.","not_editable":"Ova se ponuda više ne može uređivati."},"orders":{"title":"Narudžbe","empty":"Još nema narudžbi.","searchPlaceholder":"Pretraži po broju narudžbe ili e-pošti","newQuote":"Nova ponuda","colOrder":"Narudžba","colCustomer":"Kupac","colStatus":"Status","colTotal":"Ukupno","colDate":"Datum","allLifecycles":"Sva stanja","allPayments":"Sve uplate","allFulfillments":"Sva ispunjenja","ordersTab":"Narudžbe","quotesTab":"Ponude","detailTitle":"Detalji narudžbe","payment":"Plaćanje","fulfillment":"Ispunjenje","lifecycle":"Stanje","quoteStatus":"Ponuda","items":"Stavke","qty":"Kol.","unit":"Jed. cijena","lineTotal":"Ukupno","shippedOf":"Poslano {{shipped}} od {{ordered}}","shippingAddress":"Adresa dostave","billingAddress":"Adresa za račun","totals":"Iznosi","subtotal":"Međuzbroj","shipping":"Dostava","surcharge":"Doplata","tax":"PDV","grandTotal":"Sveukupno","payments":"Uplate","shipments":"Pošiljke","noShipments":"Još nema pošiljki.","timeline":"Vremenska crta","note":"Napomena","validUntil":"Vrijedi do","paymentMethod":"Način plaćanja","actions":"Radnje","capture":"Naplati uplatu","void":"Poništi i otkaži","refund":"Povrat","refundAmount":"Iznos (€)","refundableRemaining":"Za povrat","refundReason":"Razlog (neobavezno)","doRefund":"Izvrši povrat","cancelLine":"Otkaži stavku","createShipment":"Kreiraj pošiljku","shipSelected":"Pošalji odabrano","carrier":"Dostavljač","trackingNumber":"Broj za praćenje","trackingUrl":"URL za praćenje","markDelivered":"Označi dostavljeno","markPreparing":"Označi u pripremi","cancelOrder":"Otkaži narudžbu","sendQuote":"Pošalji ponudu","editQuote":"Uredi ponudu","acceptedByCustomer":"Kupac prihvatio","captured":"Uplata naplaćena.","voided":"Autorizacija poništena, narudžba otkazana.","refunded":"Povrat izvršen.","lineCancelled":"Stavka otkazana.","shipmentCreated":"Pošiljka kreirana.","delivered":"Označeno kao dostavljeno.","transitioned":"Narudžba ažurirana.","quoteCreated":"Ponuda spremljena.","quoteSent":"Ponuda poslana kupcu.","outOfStockVoided":"Zaliha je ponestala — autorizacija je poništena, a narudžba otkazana.","captureFailed":"Pristupnik nije mogao naplatiti ovu uplatu. Možda je potrebna ponovna autorizacija.","nothingCaptured":"Ništa još nije naplaćeno pa nema povrata.","quoteBuilderTitle":"Izrada ponude","customerEmail":"E-pošta kupca","addLine":"Dodaj stavku","variant":"Varijanta","customPrice":"Prilagođena jed. cijena (€, neobavezno)","saveDraft":"Spremi skicu","remove":"Ukloni","quotePill":"Ponuda","noPayments":"Još nema uplata."},"social":{"intro":"Omogućite kupcima prijavu putem društvenih mreža. Vjerodajnice su po trgovini; tajni ključ se samo upisuje i nikada se ne prikazuje natrag.","enabled":"Omogućeno","clientId":"Client ID","clientSecret":"Tajni ključ (client secret)","secretSet":"Tajni ključ je spremljen — ostavite prazno da ga zadržite.","secretUnset":"Tajni ključ još nije spremljen.","redirectHint":"Registrirajte ovaj redirect URI (s prefiksom osnovne adrese vašeg API-ja) kod pružatelja:","saved":"Pružatelj spremljen.","saveError":"Spremanje pružatelja nije uspjelo.","loadError":"Učitavanje pružatelja prijave nije uspjelo.","stub":"Razvojni stub","devOnly":"samo razvoj","stubHelp":"Lažni pružatelj za lokalno testiranje — nikada se ne učitava u produkciji. Postavite identitet koji vraća; prijava se dovršava bez stvarnih vjerodajnica. Koristite e-poštu postojećeg potvrđenog kupca za testiranje povezivanja računa.","stubEmail":"Vraćena e-pošta","firstName":"Ime","lastName":"Prezime","comingSoon":"uskoro","apple":{"serviceId":"Service ID","teamId":"Team ID","keyId":"Key ID","privateKey":"Privatni ključ (P8)","privateKeyHint":"Zalijepite sadržaj .p8 datoteke preuzete s Apple Developer portala."}},"payments":{"intro":"Prihvaćajte plaćanja karticom. Vjerodajnice su po trgovini; tajni ključ i tajni ključ za webhook samo se upisuju i nikada se ne prikazuju natrag. Testni ili produkcijski način prepoznaje se iz prefiksa ključa.","enabled":"Omogućeno","publishableKey":"Javni ključ (publishable)","publishableKeyHint":"pk_test_… (test) ili pk_live_… (produkcija). Smije biti javan — šalje se pregledniku za prikaz obrasca kartice.","secretKey":"Tajni ključ","secretKeyHint":"sk_test_… / sk_live_…. Čuva se na poslužitelju i ne prikazuje se ponovno.","secretSet":"Tajni ključ je spremljen — ostavite prazno da ga zadržite.","webhookSecret":"Tajni ključ za webhook","webhookSecretHint":"whsec_… s krajnje točke Stripe webhooka — koristi se za provjeru dolaznih događaja.","webhookUrlHint":"Dodajte ovu webhook krajnju točku (s prefiksom osnovne adrese vašeg API-ja) u Stripe nadzornoj ploči, pretplaćenu na payment_intent.succeeded / payment_failed / canceled i charge.refunded:","testMode":"Testni način","liveMode":"Produkcijski način","captureMode":"Način naplate","captureModeHint":"Automatski naplaćuje karticu odmah pri plaćanju. Ručni samo autorizira (rezervira) iznos pri plaćanju — naplatu kasnije pokrećete iz narudžbe (npr. pri slanju).","captureAutomatic":"Automatski (naplata pri plaćanju)","captureManual":"Ručni (autorizacija, naplata pri slanju)","saved":"Pružatelj plaćanja spremljen.","saveError":"Spremanje pružatelja plaćanja nije uspjelo.","loadError":"Učitavanje pružatelja plaćanja nije uspjelo."},"settings":{"title":"Postavke trgovine","loadError":"Učitavanje postavki nije uspjelo.","saved":"Postavke spremljene.","saveError":"Spremanje postavki nije uspjelo.","tabs":{"tax":"Porez i PDV","inventory":"Zalihe","shipping":"Dostava i pouzeće","payments":"Plaćanja","social":"Prijava društvenim mrežama"},"vatRegistered":{"label":"U sustavu PDV-a","help":"Kada je isključeno, cijene se prikazuju i naplaćuju bez PDV-a (porezni mehanizam je preskočen)."},"ossRegistered":{"label":"OSS registracija","help":"Naplata PDV-a države odredišta za prekogranične EU B2C prodaje (One-Stop-Shop). Isključeno = domaća stopa."},"defaultTaxClass":{"label":"Zadana porezna klasa","help":"Porezna klasa PDV-a koju koristi svaki proizvod postavljen na \\"Koristi zadanu\\". Promijenite je i svi takvi proizvodi je slijede — postavite konkretnu klasu na proizvodu za iznimku."},"taxClasses":{"standard":"Standardna","reduced":"Snižena","reduced_low":"Snižena (niža)","zero":"Nulta stopa"},"inventoryProvider":{"label":"Izvor zaliha","help":"Odakle trgovina čita stanje zaliha.","local":"Lokalno (CMS)","erp":"ERP (sinkronizirana predmemorija)"},"checkout":{"heading":"Naplata"},"defaultCheckoutMode":{"label":"Zadani način naplate","help":"Način plaćanja koji je unaprijed odabran na naplati. Proizvod ga može nadjačati; plaćanje pouzećem nudi se samo za načine dostave koji to podržavaju."},"cod":{"heading":"Plaćanje pouzećem (COD)"},"codEnabled":{"label":"Ponudi plaćanje pouzećem","help":"Dopusti plaćanje pouzećem (otkupnina). Dostupnost ovisi o načinu dostave."},"codSurcharge":{"label":"Naknada za pouzeće","help":"Dodaje se ukupnom iznosu narudžbe kada je odabrano pouzeće."},"shipping":{"heading":"Načini dostave","add":"Dodaj način","empty":"Još nema načina dostave. Dodajte jedan kako bi trgovina mogla ponuditi dostavu.","loadError":"Učitavanje načina dostave nije uspjelo.","saved":"Način dostave spremljen.","saveError":"Spremanje načina dostave nije uspjelo.","deleted":"Način dostave obrisan.","deleteError":"Brisanje načina dostave nije uspjelo.","codeRequired":"Šifra je obavezna.","codeTaken":"Tu šifru već koristi drugi način.","addTitle":"Novi način dostave","editTitle":"Uredi način dostave","deleteTitle":"Obriši način dostave","deleteConfirm":"Obrisati \\"{{name}}\\"? Ovo se ne može poništiti.","code":"Šifra","codeHelp":"Stabilni ključ (mala slova, brojke, _ ili -). Ne može se kasnije mijenjati.","codeImmutable":"Šifra se ne može mijenjati nakon stvaranja.","name":"Naziv","kind":"Vrsta","kinds":{"flat":"Fiksna cijena","weight":"Po težini","pickup_point":"Paketomat","store_pickup":"Preuzimanje u trgovini"},"taxClass":"Porezna klasa","requiresPickupPoint":"Zahtijeva paketomat","codAllowed":"Dostupno pouzeće","zones":"Zone i cijene","zonesHelp":"Uključite svaku zonu u koju dostavljate i postavite cijenu. Isključena zona se ne nudi.","zone":{"HR":"Hrvatska (domaća)","EU":"EU","INT":"Međunarodno"},"base":"Osnovna cijena","perKg":"Po kg","freeOver":"Besplatno iznad","freeOverShort":"besplatno ≥ {{amount}}","position":"Pozicija","activeLabel":"Aktivno","active":"Aktivno","inactive":"Neaktivno","col":{"name":"Naziv","kind":"Vrsta","zones":"Zone","cod":"Pouzeće","status":"Status"},"taxNote":"PDV na dostavu prati stopu proizvoda — ne postavlja se po načinu dostave.","untitled":"Bezimeni način","nameRequired":"Unesite naziv na barem jednom jeziku."},"homeRates":{"heading":"Stope PDV-a (Hrvatska)","help":"Stopa PDV-a za svaku poreznu klasu u domaćoj zemlji. Proizvod sprema klasu; stopa se računa odavde — pa je promjena zakona (npr. 25% → 21%) jedna izmjena ovdje, a ne mijenjanje svakog proizvoda.","note":"Prekogranične (OSS) stope odredišta održavaju se u kodu. Provjerite stope sa svojim računovođom."}},"customers":{"searchPlaceholder":"Pretraži e-poštu ili tvrtku…","allTypes":"Sve vrste","allStatuses":"Svi statusi","personal":"Privatni","business":"Poslovni","statusNone":"—","statusPending":"Na čekanju","statusApproved":"Odobreno","statusRejected":"Odbijeno","empty":"Još nema kupaca","colCustomer":"Kupac","colType":"Vrsta","colStatus":"Odobrenje","colPriceList":"Cjenik","detailTitle":"Kupac","verified":"Potvrđeno","unverified":"Nepotvrđeno","disabled":"Onemogućeno","company":"Tvrtka","vatId":"PDV ID","priceList":"Cjenik","priceListHint":"Dodjeljuje se odobrenom poslovnom kupcu — određuje neto cijene pri naplati.","noPriceList":"Bez cjenika","approve":"Odobri","reject":"Odbij","revoke":"Povuci odobrenje","saveAssignment":"Spremi cjenik","approved":"Kupac odobren","rejected":"Kupac odbijen","revoked":"Odobrenje povučeno","savedAssignment":"Cjenik ažuriran","personalHint":"Privatni računi kupuju po standardnim B2C uvjetima — odobrenje nije potrebno.","orders":"Narudžbe","noOrders":"Još nema narudžbi.","orderQuote":"Ponuda","gdpr":"Podaci i privatnost","gdprHint":"Izvoz daje kupcu kopiju njegovih podataka. Brisanje anonimizira osobne podatke, ali zadržava narudžbe za računovodstvo.","export":"Izvezi podatke","exported":"Podaci kupca izvezeni","erase":"Izbriši","erased":"Podaci kupca izbrisani","eraseTitle":"Izbrisati podatke kupca?","eraseBody":"Ovo anonimizira osobne podatke kupca i ne može se poništiti. Narudžbe se zadržavaju za računovodstvo, ali više ne prikazuju ime ni kontaktne podatke.","deletedCustomer":"Izbrisani kupac","erasedTag":"Izbrisano","erasedHint":"Osobni podaci ovog kupca anonimizirani su (GDPR brisanje). Narudžbe se zadržavaju, ali više ne sadrže osobne podatke."},"priceLists":{"new":"Novi cjenik","empty":"Još nema cjenika","emptyHint":"Izradite cjenik (kupac ili količina), zatim ga dodijelite poslovnom kupcu.","colName":"Naziv","colType":"Vrsta","colEntries":"Stavke","colAssigned":"Dodijeljeno","inactive":"Neaktivno","type_customer":"Kupac","type_volume":"Količina","createTitle":"Novi cjenik","editTitle":"Uredi cjenik","name":"Naziv","nameRequired":"Naziv je obavezan","type":"Vrsta","active":"Aktivno","customerHint":"Cjenik za kupca: određene (bruto) jedinične cijene za dodijeljenog poslovnog kupca.","volumeHint":"Količinski cjenik: cijene po količini (kupi ≥ N za nižu jediničnu cijenu).","entries":"Cijene","noProducts":"Najprije izradite proizvode — stavke se odnose na varijante proizvoda.","entryVariant":"Varijanta","entryMinQty":"Min. kol.","entryPrice":"Jedinična cijena","addEntry":"Dodaj cijenu","priceHint":"Cijene su bruto (s PDV-om), kao u katalogu — PDV se prikazuje samo u košarici.","delete":"Obriši","deleted":"Cjenik obrisan","saved":"Cjenik spremljen","deleteTitle":"Obrisati cjenik?","deleteBody":"Ovo uklanja cjenik i poništava dodjelu svim kupcima. Ne može se poništiti."}}'), gw = {
   login: Bx,
   common: Fx,
   nav: Ux,
@@ -35055,24 +35055,24 @@ function K8e({ pageId: t, onClose: e, onRestored: n }) {
   const T = qe(
     () => s ? o.find((D) => D.type === s.page.type) : void 0,
     [o, s]
-  ), U = qe(() => T ? un(T.label, r) || un(T.label, i) : (s == null ? void 0 : s.page.type) ?? "", [T, s, r, i]), I = !!s && !T, $ = qe(() => {
+  ), U = qe(() => T ? un(T.label, r) || un(T.label, i) : (s == null ? void 0 : s.page.type) ?? "", [T, s, r, i]), I = !!s && !T, P = qe(() => {
     if (!s || !T) return null;
     const D = T.canBeRoot !== !1, E = T.allowedParentTypes, R = T.limit ?? null, F = T.perParentLimit ?? null;
-    let L = !1, W = null;
-    s.originalParent && (s.originalParent.available ? E && !E.includes(s.originalParent.type) ? W = "type_mismatch" : F !== null && s.originalParent.perParentCount >= F ? W = "per_parent_limit_reached" : L = !0 : W = "parent_trashed");
-    const B = s.page.originalParentId === null;
-    let P = !1, q = null;
-    D ? R !== null && s.counts.currentLiveCount >= R ? q = "global_limit_reached" : P = !0 : q = "cannot_be_root";
+    let H = !1, Y = null;
+    s.originalParent && (s.originalParent.available ? E && !E.includes(s.originalParent.type) ? Y = "type_mismatch" : F !== null && s.originalParent.perParentCount >= F ? Y = "per_parent_limit_reached" : H = !0 : Y = "parent_trashed");
+    const $ = s.page.originalParentId === null;
+    let L = !1, q = null;
+    D ? R !== null && s.counts.currentLiveCount >= R ? q = "global_limit_reached" : L = !0 : q = "cannot_be_root";
     let J = !1, te = null;
     return R !== null && s.counts.currentLiveCount >= R ? te = "global_limit_reached" : E && E.length === 0 ? J = !1 : J = !0, {
-      original: { available: B ? !1 : L, reason: W },
-      root: { available: P, reason: q },
+      original: { available: $ ? !1 : H, reason: Y },
+      root: { available: L, reason: q },
       other: { available: J, reason: te }
     };
   }, [s, T]);
   he(() => {
-    $ && ($.original.available ? N("original") : $.root.available ? N("root") : $.other.available && N("other"));
-  }, [$]), he(() => {
+    P && (P.original.available ? N("original") : P.root.available ? N("root") : P.other.available && N("other"));
+  }, [P]), he(() => {
     if (b !== "other" || !s || w !== null) return;
     let D = !1;
     return S(!0), (async () => {
@@ -35094,11 +35094,11 @@ function K8e({ pageId: t, onClose: e, onRestored: n }) {
     if (!w || !s) return [];
     const D = /* @__PURE__ */ new Set([s.page.id, ...s.trashedDescendants.ids]), E = T == null ? void 0 : T.allowedParentTypes, R = (T == null ? void 0 : T.perParentLimit) ?? null;
     return w.filter((F) => !D.has(F.id)).filter((F) => !E || E.includes(F.type)).filter(() => R === null || !0).map((F) => {
-      var B, P, q;
-      const L = (B = F.translations) == null ? void 0 : B[r], W = (L == null ? void 0 : L.title) || ((q = (P = F.translations) == null ? void 0 : P[i]) == null ? void 0 : q.title) || "(untitled)";
-      return { value: F.id, label: W };
+      var $, L, q;
+      const H = ($ = F.translations) == null ? void 0 : $[r], Y = (H == null ? void 0 : H.title) || ((q = (L = F.translations) == null ? void 0 : L[i]) == null ? void 0 : q.title) || "(untitled)";
+      return { value: F.id, label: Y };
     });
-  }, [w, s, T, r, i]), V = async () => {
+  }, [w, s, T, r, i]), B = async () => {
     if (!(!t || !s)) {
       m(!0), k(null);
       try {
@@ -35137,7 +35137,7 @@ function K8e({ pageId: t, onClose: e, onRestored: n }) {
         footer: null,
         children: /* @__PURE__ */ l(kt, { py: "xl", children: /* @__PURE__ */ v(pe, { align: "center", gap: "sm", children: [
           /* @__PURE__ */ l(St, { size: "sm" }),
-          /* @__PURE__ */ l(H, { size: "sm", c: "dimmed", children: a("restorePage.loading") })
+          /* @__PURE__ */ l(V, { size: "sm", c: "dimmed", children: a("restorePage.loading") })
         ] }) })
       }
     );
@@ -35168,11 +35168,11 @@ function K8e({ pageId: t, onClose: e, onRestored: n }) {
         icon: /* @__PURE__ */ l(_a, { size: 20 }),
         size: "sm",
         footer: /* @__PURE__ */ l("div", { className: "cms-m-foot", children: /* @__PURE__ */ l(ve, { variant: "secondary", onClick: e, children: a("common.close") }) }),
-        children: /* @__PURE__ */ l(H, { children: a("restorePage.blocked.typeNotRegistered", { type: s.page.type }) })
+        children: /* @__PURE__ */ l(V, { children: a("restorePage.blocked.typeNotRegistered", { type: s.page.type }) })
       }
     );
-  if (!!$ && !$.original.available && !$.root.available && !$.other.available && $) {
-    const D = $.root.reason === "global_limit_reached" || $.other.reason === "global_limit_reached";
+  if (!!P && !P.original.available && !P.root.available && !P.other.available && P) {
+    const D = P.root.reason === "global_limit_reached" || P.other.reason === "global_limit_reached";
     return /* @__PURE__ */ l(
       pn,
       {
@@ -35184,25 +35184,25 @@ function K8e({ pageId: t, onClose: e, onRestored: n }) {
         icon: /* @__PURE__ */ l(_a, { size: 20 }),
         size: "md",
         footer: /* @__PURE__ */ l("div", { className: "cms-m-foot", children: /* @__PURE__ */ l(ve, { variant: "secondary", onClick: e, children: a("common.close") }) }),
-        children: /* @__PURE__ */ l(pe, { gap: "sm", children: D ? /* @__PURE__ */ l(H, { children: a("restorePage.blocked.globalLimit", {
+        children: /* @__PURE__ */ l(pe, { gap: "sm", children: D ? /* @__PURE__ */ l(V, { children: a("restorePage.blocked.globalLimit", {
           type: U,
           limit: (T == null ? void 0 : T.limit) ?? 0
         }) }) : /* @__PURE__ */ v(Re, { children: [
-          /* @__PURE__ */ l(H, { children: a("restorePage.blocked.noPlacement", { type: U }) }),
-          (T == null ? void 0 : T.allowedParentTypes) && T.allowedParentTypes.length > 0 && /* @__PURE__ */ l(H, { size: "sm", c: "dimmed", children: a("restorePage.blocked.suggestion", {
+          /* @__PURE__ */ l(V, { children: a("restorePage.blocked.noPlacement", { type: U }) }),
+          (T == null ? void 0 : T.allowedParentTypes) && T.allowedParentTypes.length > 0 && /* @__PURE__ */ l(V, { size: "sm", c: "dimmed", children: a("restorePage.blocked.suggestion", {
             parentTypes: T.allowedParentTypes.map((E) => {
               const R = o.find((F) => F.type === E);
               return R ? un(R.label, r) || un(R.label, i) : E;
             }).join(", ")
           }) }),
-          s.originalParent && !s.originalParent.available && /* @__PURE__ */ l(H, { size: "sm", c: "dimmed", children: a("restorePage.blocked.parentInTrash", {
+          s.originalParent && !s.originalParent.available && /* @__PURE__ */ l(V, { size: "sm", c: "dimmed", children: a("restorePage.blocked.parentInTrash", {
             parentTitle: s.originalParent.title
           }) })
         ] }) })
       }
     );
   }
-  const G = b !== "other" || !!j;
+  const K = b !== "other" || !!j;
   return /* @__PURE__ */ v(
     pn,
     {
@@ -35220,40 +35220,40 @@ function K8e({ pageId: t, onClose: e, onRestored: n }) {
       ] }),
       size: "lg",
       loading: u,
-      onConfirm: V,
-      confirmDisabled: !G,
+      onConfirm: B,
+      confirmDisabled: !K,
       confirmLabel: a("restorePage.restoreButton"),
       cancelLabel: a("common.cancel"),
       children: [
         g && /* @__PURE__ */ l(Fn, { color: "red", icon: /* @__PURE__ */ l(Ro, { size: 16 }), children: g }),
         /* @__PURE__ */ l("p", { style: { fontWeight: 600, color: "var(--ink-1)", fontSize: 13, margin: "8px 0 4px" }, children: a("restorePage.placementLabel") }),
-        $ && s.page.originalParentId !== null && s.originalParent && /* @__PURE__ */ l(
+        P && s.page.originalParentId !== null && s.originalParent && /* @__PURE__ */ l(
           z1,
           {
             selected: b === "original",
-            disabled: !$.original.available,
+            disabled: !P.original.available,
             onSelect: () => N("original"),
             label: a("restorePage.option.originalParent", { title: s.originalParent.title }),
-            help: !$.original.available && $.original.reason ? a(`restorePage.reason.${$.original.reason}`, {
+            help: !P.original.available && P.original.reason ? a(`restorePage.reason.${P.original.reason}`, {
               type: U,
               limit: (T == null ? void 0 : T.perParentLimit) ?? 0
             }) : void 0
           }
         ),
-        $ && /* @__PURE__ */ l(
+        P && /* @__PURE__ */ l(
           z1,
           {
             selected: b === "root",
-            disabled: !$.root.available,
+            disabled: !P.root.available,
             onSelect: () => N("root"),
             label: s.page.originalParentId === null ? a("restorePage.option.rootOriginal") : a("restorePage.option.root"),
-            help: !$.root.available && $.root.reason ? a(`restorePage.reason.${$.root.reason}`, {
+            help: !P.root.available && P.root.reason ? a(`restorePage.reason.${P.root.reason}`, {
               type: U,
               limit: (T == null ? void 0 : T.limit) ?? 0
             }) : void 0
           }
         ),
-        $ && $.other.available && /* @__PURE__ */ l(
+        P && P.other.available && /* @__PURE__ */ l(
           z1,
           {
             selected: b === "other",
@@ -35286,11 +35286,11 @@ function K8e({ pageId: t, onClose: e, onRestored: n }) {
             onChange: (D) => x(D.currentTarget.checked),
             label: /* @__PURE__ */ v(pe, { gap: 2, children: [
               /* @__PURE__ */ l("span", { children: a("restorePage.cascade.label", { count: s.trashedDescendants.count }) }),
-              /* @__PURE__ */ l(H, { size: "xs", c: "dimmed", children: a("restorePage.cascade.hint") })
+              /* @__PURE__ */ l(V, { size: "xs", c: "dimmed", children: a("restorePage.cascade.hint") })
             ] })
           }
         ),
-        /* @__PURE__ */ v(H, { size: "xs", c: "dimmed", style: { display: "flex", alignItems: "center", gap: 6, marginTop: 12 }, children: [
+        /* @__PURE__ */ v(V, { size: "xs", c: "dimmed", style: { display: "flex", alignItems: "center", gap: 6, marginTop: 12 }, children: [
           /* @__PURE__ */ l(ig, { size: 12 }),
           a("restorePage.typeHint", { type: U })
         ] })
@@ -35358,21 +35358,21 @@ function en({
       }, A = () => {
         z || (N.style.opacity = "0");
       }, T = (O) => {
-        const V = k.getBoundingClientRect();
-        N.style.top = O.clientY - V.top + "px";
+        const B = k.getBoundingClientRect();
+        N.style.top = O.clientY - B.top + "px";
       }, U = (O) => {
         z = !0, x = O.clientX, w = k.getBoundingClientRect().width, N.style.opacity = "1", k.style.transition = "none", document.body.style.cursor = "col-resize", document.body.style.userSelect = "none", O.preventDefault();
       }, I = (O) => {
         if (!z) return;
-        const V = Math.min(S, Math.max(C, w + (x - O.clientX)));
-        k.style.width = V + "px";
-        const K = k.parentElement;
-        K && K.style.setProperty("--drawer-size", V + "px");
-      }, $ = () => {
+        const B = Math.min(S, Math.max(C, w + (x - O.clientX)));
+        k.style.width = B + "px";
+        const W = k.parentElement;
+        W && W.style.setProperty("--drawer-size", B + "px");
+      }, P = () => {
         z && (z = !1, k.style.transition = "", document.body.style.cursor = "", document.body.style.userSelect = "", N.style.opacity = "0");
       };
-      b.addEventListener("mouseenter", j), b.addEventListener("mouseleave", A), b.addEventListener("mousemove", T), b.addEventListener("mousedown", U), document.addEventListener("mousemove", I), document.addEventListener("mouseup", $), f.current = () => {
-        b.removeEventListener("mouseenter", j), b.removeEventListener("mouseleave", A), b.removeEventListener("mousemove", T), b.removeEventListener("mousedown", U), document.removeEventListener("mousemove", I), document.removeEventListener("mouseup", $), k.contains(b) && k.removeChild(b), k.style.position = "", k.style.width = "";
+      b.addEventListener("mouseenter", j), b.addEventListener("mouseleave", A), b.addEventListener("mousemove", T), b.addEventListener("mousedown", U), document.addEventListener("mousemove", I), document.addEventListener("mouseup", P), f.current = () => {
+        b.removeEventListener("mouseenter", j), b.removeEventListener("mouseleave", A), b.removeEventListener("mousemove", T), b.removeEventListener("mousedown", U), document.removeEventListener("mousemove", I), document.removeEventListener("mouseup", P), k.contains(b) && k.removeChild(b), k.style.position = "", k.style.width = "";
         const O = k.parentElement;
         O && O.style.removeProperty("--drawer-size");
       };
@@ -37560,28 +37560,28 @@ const vu = /* @__PURE__ */ k3(function(e) {
       data: (Ze = T == null ? void 0 : T.data) != null ? Ze : Qxe,
       rect: U
     } : null;
-  }, [M, T]), $ = Te(null), [O, V] = _(null), [K, G] = _(null), D = ms(y, Object.values(y)), E = Rs("DndDescribedBy", i), R = qe(() => A.getEnabled(), [A]), F = owe(m), {
-    droppableRects: L,
-    measureDroppableContainers: W,
-    measuringScheduled: B
+  }, [M, T]), P = Te(null), [O, B] = _(null), [W, K] = _(null), D = ms(y, Object.values(y)), E = Rs("DndDescribedBy", i), R = qe(() => A.getEnabled(), [A]), F = owe(m), {
+    droppableRects: H,
+    measureDroppableContainers: Y,
+    measuringScheduled: $
   } = qxe(R, {
     dragging: C,
     dependencies: [j.x, j.y],
     config: F.droppable
-  }), P = Ixe(S, M), q = qe(() => K ? hc(K) : null, [K]), J = ct(), te = Vxe(P, F.draggable.measure);
+  }), L = Ixe(S, M), q = qe(() => W ? hc(W) : null, [W]), J = ct(), te = Vxe(L, F.draggable.measure);
   rwe({
     activeNode: M != null ? S.get(M) : null,
     config: J.layoutShiftCompensation,
     initialRect: te,
     measure: F.draggable.measure
   });
-  const ee = j2(P, F.draggable.measure, te), de = j2(P ? P.parentElement : null), Y = Te({
+  const ee = j2(L, F.draggable.measure, te), de = j2(L ? L.parentElement : null), G = Te({
     activatorEvent: null,
     active: null,
-    activeNode: P,
+    activeNode: L,
     collisionRect: null,
     collisions: null,
-    droppableRects: L,
+    droppableRects: H,
     draggableNodes: S,
     draggingNode: null,
     draggingNodeRect: null,
@@ -37589,21 +37589,21 @@ const vu = /* @__PURE__ */ k3(function(e) {
     over: null,
     scrollableAncestors: [],
     scrollAdjustedTranslate: null
-  }), Z = A.getNodeFor((n = Y.current.over) == null ? void 0 : n.id), oe = Zxe({
+  }), Z = A.getNodeFor((n = G.current.over) == null ? void 0 : n.id), oe = Zxe({
     measure: F.dragOverlay.measure
-  }), le = (a = oe.nodeRef.current) != null ? a : P, ze = C ? (o = oe.rect) != null ? o : ee : null, fe = !!(oe.nodeRef.current && oe.rect), Me = Uxe(fe ? null : ee), Ue = $k(le ? Xn(le) : null), rt = Wxe(C ? Z ?? P : null), Rt = Jxe(rt), _t = Ik(f, {
+  }), le = (a = oe.nodeRef.current) != null ? a : L, ze = C ? (o = oe.rect) != null ? o : ee : null, fe = !!(oe.nodeRef.current && oe.rect), Me = Uxe(fe ? null : ee), Ue = $k(le ? Xn(le) : null), rt = Wxe(C ? Z ?? L : null), Rt = Jxe(rt), _t = Ik(f, {
     transform: {
       x: j.x - Me.x,
       y: j.y - Me.y,
       scaleX: 1,
       scaleY: 1
     },
-    activatorEvent: K,
+    activatorEvent: W,
     active: I,
     activeNodeRect: ee,
     containerNodeRect: de,
     draggingNodeRect: ze,
-    over: Y.current.over,
+    over: G.current.over,
     overlayNodeRect: oe.rect,
     scrollableAncestors: rt,
     scrollableAncestorRects: Rt,
@@ -37611,7 +37611,7 @@ const vu = /* @__PURE__ */ k3(function(e) {
   }), Gt = q ? ei(q, j) : null, It = Kxe(rt), bt = E2(It), ye = E2(It, [ee]), Ie = ei(_t, bt), Be = ze ? gxe(ze, _t) : null, Pe = I && Be ? u({
     active: I,
     collisionRect: Be,
-    droppableRects: L,
+    droppableRects: H,
     droppableContainers: R,
     pointerCoordinates: Gt
   }) : null, Ye = Ck(Pe, "id"), [et, lt] = _(null), hn = fe ? _t : ei(_t, ye), Je = fxe(hn, (r = et == null ? void 0 : et.rect) != null ? r : null, ee), X = Te(null), Ae = ht(
@@ -37620,19 +37620,19 @@ const vu = /* @__PURE__ */ k3(function(e) {
         sensor: Vt,
         options: ie
       } = Nt;
-      if ($.current == null)
+      if (P.current == null)
         return;
-      const Ee = S.get($.current);
+      const Ee = S.get(P.current);
       if (!Ee)
         return;
       const me = Ze.nativeEvent, $e = new Vt({
-        active: $.current,
+        active: P.current,
         activeNode: Ee,
         event: me,
         options: ie,
         // Sensors need to be instantiated with refs for arguments that change over time
         // otherwise they are frozen in time with the stale arguments
-        context: Y,
+        context: G,
         onAbort(Xe) {
           if (!S.get(Xe))
             return;
@@ -37663,7 +37663,7 @@ const vu = /* @__PURE__ */ k3(function(e) {
           });
         },
         onStart(Xe) {
-          const jt = $.current;
+          const jt = P.current;
           if (jt == null)
             return;
           const Yt = S.get(jt);
@@ -37687,7 +37687,7 @@ const vu = /* @__PURE__ */ k3(function(e) {
             }), N({
               type: "onDragStart",
               event: Qt
-            }), V(X.current), G(me);
+            }), B(X.current), K(me);
           });
         },
         onMove(Xe) {
@@ -37707,7 +37707,7 @@ const vu = /* @__PURE__ */ k3(function(e) {
             collisions: gt,
             over: Qt,
             scrollAdjustedTranslate: Bt
-          } = Y.current;
+          } = G.current;
           let nt = null;
           if (Yt && Bt) {
             const {
@@ -37721,10 +37721,10 @@ const vu = /* @__PURE__ */ k3(function(e) {
               over: Qt
             }, Xe === xn.DragEnd && typeof mt == "function" && await Promise.resolve(mt(nt)) && (Xe = xn.DragCancel);
           }
-          $.current = null, Zs(() => {
+          P.current = null, Zs(() => {
             b({
               type: Xe
-            }), w(wo.Uninitialized), lt(null), V(null), G(null), X.current = null;
+            }), w(wo.Uninitialized), lt(null), B(null), K(null), X.current = null;
             const mt = Xe === xn.DragEnd ? "onDragEnd" : "onDragCancel";
             if (nt) {
               const xt = D.current[mt];
@@ -37743,7 +37743,7 @@ const vu = /* @__PURE__ */ k3(function(e) {
     const Ee = Vt.nativeEvent, me = S.get(ie);
     if (
       // Another sensor is already instantiating
-      $.current !== null || // No active draggable
+      P.current !== null || // No active draggable
       !me || // Event has already been captured
       Ee.dndKit || Ee.defaultPrevented
     )
@@ -37753,7 +37753,7 @@ const vu = /* @__PURE__ */ k3(function(e) {
     };
     Ze(Vt, Nt.options, $e) === !0 && (Ee.dndKit = {
       capturedBy: Nt.sensor
-    }, $.current = ie, Ae(Vt, Nt));
+    }, P.current = ie, Ae(Vt, Nt));
   }, [S, Ae]), re = Hxe(p, Ve);
   Gxe(p), La(() => {
     ee && x === wo.Initializing && w(wo.Initialized);
@@ -37766,7 +37766,7 @@ const vu = /* @__PURE__ */ k3(function(e) {
         activatorEvent: Vt,
         collisions: ie,
         over: Ee
-      } = Y.current;
+      } = G.current;
       if (!Nt || !Vt)
         return;
       const me = {
@@ -37796,8 +37796,8 @@ const vu = /* @__PURE__ */ k3(function(e) {
         collisions: Vt,
         droppableContainers: ie,
         scrollAdjustedTranslate: Ee
-      } = Y.current;
-      if (!Ze || $.current == null || !Nt || !Ee)
+      } = G.current;
+      if (!Ze || P.current == null || !Nt || !Ee)
         return;
       const {
         onDragOver: me
@@ -37826,13 +37826,13 @@ const vu = /* @__PURE__ */ k3(function(e) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [Ye]
   ), La(() => {
-    Y.current = {
-      activatorEvent: K,
+    G.current = {
+      activatorEvent: W,
       active: I,
-      activeNode: P,
+      activeNode: L,
       collisionRect: Be,
       collisions: Pe,
-      droppableRects: L,
+      droppableRects: H,
       draggableNodes: S,
       draggingNode: le,
       draggingNodeRect: ze,
@@ -37844,7 +37844,7 @@ const vu = /* @__PURE__ */ k3(function(e) {
       initial: ze,
       translated: Be
     };
-  }, [I, P, Pe, Be, S, le, ze, L, A, et, rt, Ie]), Dxe({
+  }, [I, L, Pe, Be, S, le, ze, H, A, et, rt, Ie]), Dxe({
     ...J,
     delta: j,
     draggingRect: Be,
@@ -37854,24 +37854,24 @@ const vu = /* @__PURE__ */ k3(function(e) {
   });
   const De = qe(() => ({
     active: I,
-    activeNode: P,
+    activeNode: L,
     activeNodeRect: ee,
-    activatorEvent: K,
+    activatorEvent: W,
     collisions: Pe,
     containerNodeRect: de,
     dragOverlay: oe,
     draggableNodes: S,
     droppableContainers: A,
-    droppableRects: L,
+    droppableRects: H,
     over: et,
-    measureDroppableContainers: W,
+    measureDroppableContainers: Y,
     scrollableAncestors: rt,
     scrollableAncestorRects: Rt,
     measuringConfiguration: F,
-    measuringScheduled: B,
+    measuringScheduled: $,
     windowRect: Ue
-  }), [I, P, ee, K, Pe, de, oe, S, A, L, et, W, rt, Rt, F, B, Ue]), Oe = qe(() => ({
-    activatorEvent: K,
+  }), [I, L, ee, W, Pe, de, oe, S, A, H, et, Y, rt, Rt, F, $, Ue]), Oe = qe(() => ({
+    activatorEvent: W,
     activators: re,
     active: I,
     activeNodeRect: ee,
@@ -37881,8 +37881,8 @@ const vu = /* @__PURE__ */ k3(function(e) {
     dispatch: b,
     draggableNodes: S,
     over: et,
-    measureDroppableContainers: W
-  }), [K, re, I, ee, b, E, S, et, W]);
+    measureDroppableContainers: Y
+  }), [W, re, I, ee, b, E, S, et, Y]);
   return ut.createElement(Mk.Provider, {
     value: z
   }, ut.createElement(Hs.Provider, {
@@ -38615,11 +38615,11 @@ function qs(t) {
     active: T,
     activatorEvent: U,
     activeNodeRect: I,
-    attributes: $,
+    attributes: P,
     setNodeRef: O,
-    listeners: V,
-    isDragging: K,
-    over: G,
+    listeners: B,
+    isDragging: W,
+    over: K,
     setActivatorNodeRef: D,
     transform: E
   } = lwe({
@@ -38630,7 +38630,7 @@ function qs(t) {
       ...n
     },
     disabled: z.draggable
-  }), R = Y8e(A, O), F = !!T, L = F && !y && nl(m) && nl(k), W = !b && K, B = W && L ? E : null, q = L ? B ?? (s ?? N)({
+  }), R = Y8e(A, O), F = !!T, H = F && !y && nl(m) && nl(k), Y = !b && W, $ = Y && H ? E : null, q = H ? $ ?? (s ?? N)({
     rects: g,
     activeNodeRect: I,
     activeIndex: m,
@@ -38646,10 +38646,10 @@ function qs(t) {
     items: p,
     newIndex: J,
     containerId: u
-  }), de = p !== ee.current.items, Y = e({
+  }), de = p !== ee.current.items, G = e({
     active: T,
     containerId: u,
-    isDragging: K,
+    isDragging: W,
     isSorting: F,
     id: i,
     index: x,
@@ -38660,7 +38660,7 @@ function qs(t) {
     transition: d,
     wasDragging: ee.current.activeId != null
   }), Z = Pwe({
-    disabled: !Y,
+    disabled: !G,
     index: x,
     node: S,
     rect: M
@@ -38681,7 +38681,7 @@ function qs(t) {
   }, [te]), {
     active: T,
     activeIndex: m,
-    attributes: $,
+    attributes: P,
     data: w,
     rect: M,
     index: x,
@@ -38689,11 +38689,11 @@ function qs(t) {
     items: p,
     isOver: j,
     isSorting: F,
-    isDragging: K,
-    listeners: V,
+    isDragging: W,
+    listeners: B,
     node: S,
     overIndex: k,
-    over: G,
+    over: K,
     setNodeRef: R,
     setActivatorNodeRef: D,
     setDroppableNodeRef: A,
@@ -38708,7 +38708,7 @@ function qs(t) {
       de && ee.current.newIndex === x
     )
       return Ewe;
-    if (!(W && !Od(U) || !d) && (F || Y))
+    if (!(Y && !Od(U) || !d) && (F || G))
       return xa.Transition.toString({
         ...d,
         property: Wk
@@ -38841,7 +38841,7 @@ function Hwe({ value: t, onChange: e }) {
     y < 0 || g < 0 || c(kr(a, y, g));
   }
   return /* @__PURE__ */ v(pe, { gap: "xs", children: [
-    a.length === 0 && /* @__PURE__ */ l(H, { c: "dimmed", size: "sm", children: n("pageTypeOptions.fieldsEmpty", { defaultValue: "No fields yet. Add one below." }) }),
+    a.length === 0 && /* @__PURE__ */ l(V, { c: "dimmed", size: "sm", children: n("pageTypeOptions.fieldsEmpty", { defaultValue: "No fields yet. Add one below." }) }),
     /* @__PURE__ */ l(vu, { sensors: s, collisionDetection: ao, onDragEnd: m, children: /* @__PURE__ */ l(wi, { items: a.map((f) => f._rid), strategy: qd, children: /* @__PURE__ */ l(pe, { gap: "xs", children: a.map((f, y) => /* @__PURE__ */ l(
       qwe,
       {
@@ -39083,7 +39083,7 @@ function Wwe({ opened: t, onClose: e }) {
   function I() {
     u({ kind: "list" }), w(null), M(null), j(null);
   }
-  async function $() {
+  async function P() {
     if (!(p.kind !== "edit-code" || !x || !m)) {
       b(!0);
       try {
@@ -39142,21 +39142,21 @@ function Wwe({ opened: t, onClose: e }) {
       }
     }
   }
-  async function V(q) {
+  async function B(q) {
     try {
       await N8e(q.id), await i(), ne.ok(n("pageTypeOptions.deleted", { defaultValue: "Page type deleted" })), z(null), p.kind === "edit-runtime" && p.record.id === q.id && I();
     } catch (J) {
       J instanceof fk ? ne.err(n("pageTypeOptions.deleteInUseError", { count: J.count })) : ne.err(J instanceof Error ? J.message : n("pageTypeOptions.saveError"));
     }
   }
-  const K = qe(
+  const W = qe(
     () => a.filter((q) => q.type !== "default"),
     [a]
   );
-  function G() {
+  function K() {
     return /* @__PURE__ */ v(pe, { gap: "md", children: [
-      K.length === 0 && o.length === 0 && /* @__PURE__ */ l(H, { c: "dimmed", size: "sm", children: n("pageTypeOptions.empty") }),
-      K.map((q) => /* @__PURE__ */ l(
+      W.length === 0 && o.length === 0 && /* @__PURE__ */ l(V, { c: "dimmed", size: "sm", children: n("pageTypeOptions.empty") }),
+      W.map((q) => /* @__PURE__ */ l(
         H2,
         {
           title: un(q.label, s),
@@ -39199,7 +39199,7 @@ function Wwe({ opened: t, onClose: e }) {
       /* @__PURE__ */ v(pe, { gap: 10, children: [
         /* @__PURE__ */ v(se, { justify: "space-between", children: [
           /* @__PURE__ */ v(se, { gap: 6, children: [
-            /* @__PURE__ */ l(H, { size: "sm", children: n("pageTypeOptions.deletable") }),
+            /* @__PURE__ */ l(V, { size: "sm", children: n("pageTypeOptions.deletable") }),
             /* @__PURE__ */ l(
               Le,
               {
@@ -39223,7 +39223,7 @@ function Wwe({ opened: t, onClose: e }) {
         ] }),
         /* @__PURE__ */ v(se, { justify: "space-between", children: [
           /* @__PURE__ */ v(se, { gap: 6, children: [
-            /* @__PURE__ */ l(H, { size: "sm", children: n("pageTypeOptions.canBeRoot") }),
+            /* @__PURE__ */ l(V, { size: "sm", children: n("pageTypeOptions.canBeRoot") }),
             /* @__PURE__ */ l(
               Le,
               {
@@ -39271,7 +39271,7 @@ function Wwe({ opened: t, onClose: e }) {
             clampBehavior: "strict"
           }
         ),
-        (x.deletable !== J || x.canBeRoot !== te || (x.limit ?? null) !== (q.limit ?? null) || (x.perParentLimit ?? null) !== (q.perParentLimit ?? null)) && /* @__PURE__ */ l(H, { size: "xs", c: "orange.7", children: n("pageTypeOptions.overridden") })
+        (x.deletable !== J || x.canBeRoot !== te || (x.limit ?? null) !== (q.limit ?? null) || (x.perParentLimit ?? null) !== (q.perParentLimit ?? null)) && /* @__PURE__ */ l(V, { size: "xs", c: "orange.7", children: n("pageTypeOptions.overridden") })
       ] })
     ] });
   }
@@ -39282,7 +39282,7 @@ function Wwe({ opened: t, onClose: e }) {
     !q && S && J.delete(S.type);
     const te = Array.from(J).filter((le) => le !== "default"), ee = C.type.trim(), de = ee && !D2.test(ee) ? n("pageTypeOptions.slugInvalid", {
       defaultValue: "Lowercase letters, numbers, and hyphens only."
-    }) : null, Y = q && ee && J.has(ee) ? n("pageTypeOptions.slugShadowsCodeType", { slug: ee }) : null, Z = de || Y, oe = d.map((le) => ({ value: le.type, label: le.label }));
+    }) : null, G = q && ee && J.has(ee) ? n("pageTypeOptions.slugShadowsCodeType", { slug: ee }) : null, Z = de || G, oe = d.map((le) => ({ value: le.type, label: le.label }));
     return /* @__PURE__ */ v(pe, { gap: "md", children: [
       /* @__PURE__ */ l(
         je,
@@ -39297,7 +39297,7 @@ function Wwe({ opened: t, onClose: e }) {
         }
       ),
       /* @__PURE__ */ v(pe, { gap: "xs", children: [
-        /* @__PURE__ */ l(H, { size: "sm", fw: 500, children: n("pageTypeOptions.labels", { defaultValue: "Labels" }) }),
+        /* @__PURE__ */ l(V, { size: "sm", fw: 500, children: n("pageTypeOptions.labels", { defaultValue: "Labels" }) }),
         c.map((le) => /* @__PURE__ */ l(
           je,
           {
@@ -39312,7 +39312,7 @@ function Wwe({ opened: t, onClose: e }) {
         ))
       ] }),
       /* @__PURE__ */ v(se, { justify: "space-between", children: [
-        /* @__PURE__ */ l(H, { size: "sm", children: n("pageTypeOptions.deletable") }),
+        /* @__PURE__ */ l(V, { size: "sm", children: n("pageTypeOptions.deletable") }),
         /* @__PURE__ */ l(
           an,
           {
@@ -39322,7 +39322,7 @@ function Wwe({ opened: t, onClose: e }) {
         )
       ] }),
       /* @__PURE__ */ v(se, { justify: "space-between", children: [
-        /* @__PURE__ */ l(H, { size: "sm", children: n("pageTypeOptions.canBeRoot") }),
+        /* @__PURE__ */ l(V, { size: "sm", children: n("pageTypeOptions.canBeRoot") }),
         /* @__PURE__ */ l(
           an,
           {
@@ -39381,7 +39381,7 @@ function Wwe({ opened: t, onClose: e }) {
         }
       ),
       /* @__PURE__ */ v(se, { justify: "space-between", children: [
-        /* @__PURE__ */ l(H, { size: "sm", children: n("pageTypeOptions.allowBlocks") }),
+        /* @__PURE__ */ l(V, { size: "sm", children: n("pageTypeOptions.allowBlocks") }),
         /* @__PURE__ */ l(
           an,
           {
@@ -39408,7 +39408,7 @@ function Wwe({ opened: t, onClose: e }) {
         }
       ),
       /* @__PURE__ */ v(pe, { gap: "xs", children: [
-        /* @__PURE__ */ l(H, { size: "sm", fw: 500, children: n("pageTypeOptions.fields") }),
+        /* @__PURE__ */ l(V, { size: "sm", fw: 500, children: n("pageTypeOptions.fields") }),
         /* @__PURE__ */ l(
           Hwe,
           {
@@ -39435,7 +39435,7 @@ function Wwe({ opened: t, onClose: e }) {
     for (const J of C.fields)
       if (!J.name.trim() || !/^[a-zA-Z_][a-zA-Z0-9_]*$/.test(J.name) || !J.label.trim()) return !1;
     return !0;
-  }, [C, p.kind, a, o]), F = p.kind === "list" ? n("pageTypeOptions.title") : p.kind === "edit-code" || p.kind === "edit-runtime" ? n("pageTypeOptions.editTitle") : n("pageTypeOptions.createTitle"), L = p.kind === "list" ? n("pageTypeOptions.description") : void 0, W = p.kind !== "list" ? /* @__PURE__ */ l(
+  }, [C, p.kind, a, o]), F = p.kind === "list" ? n("pageTypeOptions.title") : p.kind === "edit-code" || p.kind === "edit-runtime" ? n("pageTypeOptions.editTitle") : n("pageTypeOptions.createTitle"), H = p.kind === "list" ? n("pageTypeOptions.description") : void 0, Y = p.kind !== "list" ? /* @__PURE__ */ l(
     ve,
     {
       variant: "ghost",
@@ -39444,9 +39444,9 @@ function Wwe({ opened: t, onClose: e }) {
       onClick: I,
       children: n("pageTypeOptions.back")
     }
-  ) : null, B = p.kind === "list" ? /* @__PURE__ */ l(ve, { variant: "primary", size: "xs", leftSection: /* @__PURE__ */ l(Ot, { size: 14 }), onClick: U, children: n("pageTypeOptions.addType") }) : null, P = p.kind === "list" ? /* @__PURE__ */ l("div", { className: "cms-drawer-footer", children: /* @__PURE__ */ l(ve, { variant: "secondary", onClick: e, children: n("common.close") }) }) : p.kind === "edit-code" ? /* @__PURE__ */ v("div", { className: "cms-drawer-footer", children: [
+  ) : null, $ = p.kind === "list" ? /* @__PURE__ */ l(ve, { variant: "primary", size: "xs", leftSection: /* @__PURE__ */ l(Ot, { size: 14 }), onClick: U, children: n("pageTypeOptions.addType") }) : null, L = p.kind === "list" ? /* @__PURE__ */ l("div", { className: "cms-drawer-footer", children: /* @__PURE__ */ l(ve, { variant: "secondary", onClick: e, children: n("common.close") }) }) : p.kind === "edit-code" ? /* @__PURE__ */ v("div", { className: "cms-drawer-footer", children: [
     /* @__PURE__ */ l(ve, { variant: "secondary", onClick: I, children: n("common.cancel") }),
-    /* @__PURE__ */ l(ve, { variant: "primary", loading: k, onClick: $, children: n("common.save") })
+    /* @__PURE__ */ l(ve, { variant: "primary", loading: k, onClick: P, children: n("common.save") })
   ] }) : /* @__PURE__ */ v("div", { className: "cms-drawer-footer", children: [
     /* @__PURE__ */ l(ve, { variant: "secondary", onClick: I, children: n("common.cancel") }),
     /* @__PURE__ */ l(
@@ -39467,15 +39467,15 @@ function Wwe({ opened: t, onClose: e }) {
         opened: t,
         onClose: e,
         title: F,
-        description: L,
+        description: H,
         size: 560,
-        footer: P,
+        footer: L,
         children: [
-          (W || B) && /* @__PURE__ */ v(se, { justify: "space-between", mb: "md", children: [
-            W ?? /* @__PURE__ */ l("span", {}),
-            B
+          (Y || $) && /* @__PURE__ */ v(se, { justify: "space-between", mb: "md", children: [
+            Y ?? /* @__PURE__ */ l("span", {}),
+            $
           ] }),
-          y ? /* @__PURE__ */ l(H, { c: "dimmed", size: "sm", children: n("pageTypeOptions.loading") }) : p.kind === "list" ? G() : p.kind === "edit-code" ? D() : E()
+          y ? /* @__PURE__ */ l(V, { c: "dimmed", size: "sm", children: n("pageTypeOptions.loading") }) : p.kind === "list" ? K() : p.kind === "edit-code" ? D() : E()
         ]
       }
     ),
@@ -39490,7 +39490,7 @@ function Wwe({ opened: t, onClose: e }) {
           defaultValue: "Delete this page type? It can only be deleted if no pages still use it."
         }),
         intent: "danger",
-        onConfirm: () => N && V(N),
+        onConfirm: () => N && B(N),
         onClose: () => z(null)
       }
     )
@@ -39530,7 +39530,7 @@ function H2({
   );
 }
 function Jk({ opened: t, onClose: e, onConfirm: n, allowedTypes: a, forceParentId: o }) {
-  var G, D;
+  var K, D;
   const { t: r } = we(), i = $s(), { user: s } = ra(), c = (s == null ? void 0 : s.role) === "developer", d = (a ? i.filter((E) => a.includes(E.type)) : i).filter((E) => (c || !E.system) && !E.hideFromTree), [p, u] = _(null), [m, f] = _(null), [y, g] = _({}), [k, b] = _(!1), [N, z] = _([]), [x, w] = _(0), [C, M] = _(!1);
   he(() => {
     if (!t) return;
@@ -39557,11 +39557,11 @@ function Jk({ opened: t, onClose: e, onConfirm: n, allowedTypes: a, forceParentI
     const E = i.find((F) => F.type === p);
     (R = E == null ? void 0 : E.allowedParentTypes) != null && R.length && (M(!0), Promise.all(
       E.allowedParentTypes.map(
-        (F) => Bn({ type: F, limit: 100 }).then((L) => L.data)
+        (F) => Bn({ type: F, limit: 100 }).then((H) => H.data)
       )
     ).then((F) => {
-      const L = F.flat();
-      z(L), E.canBeRoot === !1 && E.allowedParentTypes.length === 1 && L.length === 1 && f(L[0].id);
+      const H = F.flat();
+      z(H), E.canBeRoot === !1 && E.allowedParentTypes.length === 1 && H.length === 1 && f(H[0].id);
     }).finally(() => M(!1)));
   }, [p, o]), he(() => {
     if (w(0), !m || !p) return;
@@ -39577,7 +39577,7 @@ function Jk({ opened: t, onClose: e, onConfirm: n, allowedTypes: a, forceParentI
   }, A = d.filter((E) => {
     const R = y[E.type] ?? null;
     return !(E.limit != null && R != null && R >= E.limit);
-  }), T = i.find((E) => E.type === p), U = (T == null ? void 0 : T.canBeRoot) === !1, I = U && ((G = T == null ? void 0 : T.allowedParentTypes) == null ? void 0 : G.length) === 1 && N.length === 1 ? N[0] : null, $ = (T == null ? void 0 : T.perParentLimit) != null && m != null && x >= T.perParentLimit, O = o != null || !U || m != null, V = p != null && !$ && O, K = () => {
+  }), T = i.find((E) => E.type === p), U = (T == null ? void 0 : T.canBeRoot) === !1, I = U && ((K = T == null ? void 0 : T.allowedParentTypes) == null ? void 0 : K.length) === 1 && N.length === 1 ? N[0] : null, P = (T == null ? void 0 : T.perParentLimit) != null && m != null && x >= T.perParentLimit, O = o != null || !U || m != null, B = p != null && !P && O, W = () => {
     p && (n(p, m), e());
   };
   return /* @__PURE__ */ l(
@@ -39589,12 +39589,12 @@ function Jk({ opened: t, onClose: e, onConfirm: n, allowedTypes: a, forceParentI
       description: r("newPageModal.description"),
       footer: /* @__PURE__ */ v("div", { className: "cms-drawer-footer", children: [
         /* @__PURE__ */ l(ve, { variant: "secondary", onClick: e, children: r("newPageModal.cancel") }),
-        /* @__PURE__ */ l(ve, { variant: "primary", disabled: !V, onClick: K, children: r("newPageModal.createBtn", { label: T ? un(T.label, S) : r("newPageModal.defaultLabel") }) })
+        /* @__PURE__ */ l(ve, { variant: "primary", disabled: !B, onClick: W, children: r("newPageModal.createBtn", { label: T ? un(T.label, S) : r("newPageModal.defaultLabel") }) })
       ] }),
       children: /* @__PURE__ */ v(pe, { gap: "sm", children: [
         /* @__PURE__ */ l("div", { className: "cms-drawer-section", children: r("newPageModal.typeSection") }),
         k ? /* @__PURE__ */ l(kt, { py: "md", children: /* @__PURE__ */ l(St, { size: "sm" }) }) : /* @__PURE__ */ l("div", { style: { display: "flex", flexDirection: "column", gap: 8 }, children: A.map((E) => {
-          const R = y[E.type] ?? null, F = p === E.type, L = un(E.label, S), W = j(E);
+          const R = y[E.type] ?? null, F = p === E.type, H = un(E.label, S), Y = j(E);
           return /* @__PURE__ */ v(
             "div",
             {
@@ -39603,18 +39603,18 @@ function Jk({ opened: t, onClose: e, onConfirm: n, allowedTypes: a, forceParentI
               onClick: () => u(E.type),
               children: [
                 /* @__PURE__ */ v("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 8 }, children: [
-                  /* @__PURE__ */ l("div", { className: "cms-drawer-card-title", children: L }),
+                  /* @__PURE__ */ l("div", { className: "cms-drawer-card-title", children: H }),
                   E.limit != null && R != null && /* @__PURE__ */ v(Fe, { color: "gray", variant: "light", size: "xs", children: [
                     R,
                     "/",
                     E.limit
                   ] })
                 ] }),
-                E.canBeRoot === !1 && /* @__PURE__ */ l("div", { className: "cms-drawer-card-sub", children: W ? r("newPageModal.parentNamed", { name: W }) : r("newPageModal.requiresParent") }),
+                E.canBeRoot === !1 && /* @__PURE__ */ l("div", { className: "cms-drawer-card-sub", children: Y ? r("newPageModal.parentNamed", { name: Y }) : r("newPageModal.requiresParent") }),
                 E.allowedChildTypes && E.allowedChildTypes.length > 0 && /* @__PURE__ */ l("div", { className: "cms-drawer-card-sub", children: r("newPageModal.children", {
-                  types: E.allowedChildTypes.map((B) => {
-                    const P = i.find((q) => q.type === B);
-                    return P ? un(P.label, S) : B;
+                  types: E.allowedChildTypes.map(($) => {
+                    const L = i.find((q) => q.type === $);
+                    return L ? un(L.label, S) : $;
                   }).join(", ")
                 }) })
               ]
@@ -39634,7 +39634,7 @@ function Jk({ opened: t, onClose: e, onConfirm: n, allowedTypes: a, forceParentI
             required: U
           }
         ) : null,
-        $ && /* @__PURE__ */ l(Fn, { color: "red", variant: "light", children: r("newPageModal.perParentLimit", {
+        P && /* @__PURE__ */ l(Fn, { color: "red", variant: "light", children: r("newPageModal.perParentLimit", {
           limit: T == null ? void 0 : T.perParentLimit,
           label: T ? un(T.label, S) : ""
         }) })
@@ -39726,7 +39726,7 @@ function Gwe({ pageId: t, onClose: e, onDeleted: n, onOpenPage: a }) {
         intent: "danger",
         size: "sm",
         footer: /* @__PURE__ */ l("div", { className: "cms-m-foot", children: /* @__PURE__ */ l(ve, { variant: "secondary", onClick: e, children: o("common.close") }) }),
-        children: /* @__PURE__ */ l(H, { children: o("deletePage.forbiddenParent") })
+        children: /* @__PURE__ */ l(V, { children: o("deletePage.forbiddenParent") })
       }
     );
   if (p || !c && !C && !k)
@@ -39741,7 +39741,7 @@ function Gwe({ pageId: t, onClose: e, onDeleted: n, onOpenPage: a }) {
         footer: null,
         children: /* @__PURE__ */ l(kt, { py: "xl", children: /* @__PURE__ */ v(pe, { align: "center", gap: "sm", children: [
           /* @__PURE__ */ l(St, { size: "sm" }),
-          /* @__PURE__ */ l(H, { size: "sm", c: "dimmed", children: o("deletePage.loading") })
+          /* @__PURE__ */ l(V, { size: "sm", c: "dimmed", children: o("deletePage.loading") })
         ] }) })
       }
     );
@@ -39759,7 +39759,7 @@ function Gwe({ pageId: t, onClose: e, onDeleted: n, onOpenPage: a }) {
       }
     );
   if (U && A) {
-    const E = A.menus.length, R = A.pages.length, F = N === "disable" ? o("deletePage.disableBlocked.title", { locale: i.toUpperCase() }) : o("deletePage.blocked.title"), L = N === "disable" ? o("deletePage.disableBlocked.intro", { count: T, locale: i.toUpperCase() }) : o("deletePage.blocked.intro", { count: T });
+    const E = A.menus.length, R = A.pages.length, F = N === "disable" ? o("deletePage.disableBlocked.title", { locale: i.toUpperCase() }) : o("deletePage.blocked.title"), H = N === "disable" ? o("deletePage.disableBlocked.intro", { count: T, locale: i.toUpperCase() }) : o("deletePage.blocked.intro", { count: T });
     return /* @__PURE__ */ l(
       pn,
       {
@@ -39770,20 +39770,20 @@ function Gwe({ pageId: t, onClose: e, onDeleted: n, onOpenPage: a }) {
         size: "md",
         footer: /* @__PURE__ */ l("div", { className: "cms-m-foot", children: /* @__PURE__ */ l(ve, { variant: "secondary", onClick: e, children: o("deletePage.blocked.close") }) }),
         children: /* @__PURE__ */ v(pe, { gap: "md", children: [
-          /* @__PURE__ */ l(H, { children: L }),
+          /* @__PURE__ */ l(V, { children: H }),
           E > 0 && /* @__PURE__ */ v(pe, { gap: 6, children: [
-            /* @__PURE__ */ l(H, { fw: 600, size: "sm", children: o("deletePage.blocked.menusHeader", { count: E }) }),
-            A.menus.map((W) => /* @__PURE__ */ v(H, { size: "sm", children: [
+            /* @__PURE__ */ l(V, { fw: 600, size: "sm", children: o("deletePage.blocked.menusHeader", { count: E }) }),
+            A.menus.map((Y) => /* @__PURE__ */ v(V, { size: "sm", children: [
               "· ",
-              o("deletePage.blocked.menuRow", { label: W.label, location: W.location })
-            ] }, W.id))
+              o("deletePage.blocked.menuRow", { label: Y.label, location: Y.location })
+            ] }, Y.id))
           ] }),
           R > 0 && /* @__PURE__ */ v(pe, { gap: 6, children: [
-            /* @__PURE__ */ l(H, { fw: 600, size: "sm", children: o("deletePage.blocked.pagesHeader", { count: R }) }),
-            A.pages.map((W) => {
-              const B = s.length > 1 && !!W.locale, P = /* @__PURE__ */ v(se, { gap: 6, wrap: "nowrap", align: "center", children: [
-                /* @__PURE__ */ l("span", { children: W.title || "(untitled)" }),
-                B && /* @__PURE__ */ l(
+            /* @__PURE__ */ l(V, { fw: 600, size: "sm", children: o("deletePage.blocked.pagesHeader", { count: R }) }),
+            A.pages.map((Y) => {
+              const $ = s.length > 1 && !!Y.locale, L = /* @__PURE__ */ v(se, { gap: 6, wrap: "nowrap", align: "center", children: [
+                /* @__PURE__ */ l("span", { children: Y.title || "(untitled)" }),
+                $ && /* @__PURE__ */ l(
                   "span",
                   {
                     style: {
@@ -39796,51 +39796,51 @@ function Gwe({ pageId: t, onClose: e, onDeleted: n, onOpenPage: a }) {
                       color: "#198873",
                       border: "1px solid rgba(45,191,164,.32)"
                     },
-                    children: W.locale.toUpperCase()
+                    children: Y.locale.toUpperCase()
                   }
                 ),
                 a && /* @__PURE__ */ l(sg, { size: 12 })
               ] });
-              return /* @__PURE__ */ l(H, { size: "sm", component: "div", children: a ? /* @__PURE__ */ v(
+              return /* @__PURE__ */ l(V, { size: "sm", component: "div", children: a ? /* @__PURE__ */ v(
                 P3,
                 {
                   component: "button",
                   type: "button",
                   onClick: () => {
-                    a(W.id, W.locale || void 0), e();
+                    a(Y.id, Y.locale || void 0), e();
                   },
                   children: [
                     "· ",
-                    P
+                    L
                   ]
                 }
               ) : /* @__PURE__ */ v("span", { children: [
                 "· ",
-                P
-              ] }) }, `${W.id}::${W.locale}::${W.referencedPageId}`);
+                L
+              ] }) }, `${Y.id}::${Y.locale}::${Y.referencedPageId}`);
             })
           ] }),
-          /* @__PURE__ */ l(H, { size: "sm", c: "dimmed", children: o("deletePage.blocked.hint") })
+          /* @__PURE__ */ l(V, { size: "sm", c: "dimmed", children: o("deletePage.blocked.hint") })
         ] })
       }
     );
   }
   if (!c) return null;
-  const I = c.translations.locales.length, $ = qh(c.translations.locales), O = Object.values(c.translations.perLocale).reduce(
+  const I = c.translations.locales.length, P = qh(c.translations.locales), O = Object.values(c.translations.perLocale).reduce(
     (E, R) => E + R,
     0
-  ), V = c.descendants.count, K = s.length <= 1, G = !K && c.page.activeLocales.includes(i) && c.page.activeLocales.some((E) => E !== i), D = c.page.activeLocales.filter((E) => E !== i);
-  if (!G) {
+  ), B = c.descendants.count, W = s.length <= 1, K = !W && c.page.activeLocales.includes(i) && c.page.activeLocales.some((E) => E !== i), D = c.page.activeLocales.filter((E) => E !== i);
+  if (!K) {
     let E;
-    return V > 0 ? E = o("deletePage.confirm.cascade", {
+    return B > 0 ? E = o("deletePage.confirm.cascade", {
       title: c.page.title,
-      count: V,
+      count: B,
       translationCount: O,
-      locales: $
-    }) : K || I <= 1 ? E = o("deletePage.confirm.leaf_single", { title: c.page.title }) : E = o("deletePage.confirm.leaf_multi", {
+      locales: P
+    }) : W || I <= 1 ? E = o("deletePage.confirm.leaf_single", { title: c.page.title }) : E = o("deletePage.confirm.leaf_multi", {
       title: c.page.title,
       count: I,
-      locales: $
+      locales: P
     }), /* @__PURE__ */ l(
       Ut,
       {
@@ -39864,7 +39864,7 @@ function Gwe({ pageId: t, onClose: e, onDeleted: n, onOpenPage: a }) {
       impact: c,
       contentLocale: i,
       otherActiveLocales: D,
-      descCount: V,
+      descCount: B,
       deleting: m,
       disabling: y,
       onConfirm: (E) => {
@@ -40027,34 +40027,34 @@ function Xwe({
   onDragLeave: N,
   onDrop: z
 }) {
-  var F, L, W;
-  const { t: x } = we(), { locale: w, defaultLocale: C, availableLocales: M } = In(), { page: S, depth: j } = t, A = ki(S, w, C), T = (B) => {
-    const P = B.currentTarget.getBoundingClientRect(), q = B.clientY - P.top, J = P.height;
+  var F, H, Y;
+  const { t: x } = we(), { locale: w, defaultLocale: C, availableLocales: M } = In(), { page: S, depth: j } = t, A = ki(S, w, C), T = ($) => {
+    const L = $.currentTarget.getBoundingClientRect(), q = $.clientY - L.top, J = L.height;
     return q < J * 0.3 ? "before" : q > J * 0.7 ? "after" : "on";
-  }, U = d === "before" ? " is-drop-before" : d === "after" ? " is-drop-after" : d === "on" ? " is-drop-on" : "", I = e.find((B) => B.type === S.type), $ = !!(I != null && I.system), O = (((F = I == null ? void 0 : I.allowedChildTypes) == null ? void 0 : F.length) ?? 0) > 0, V = Math.min(j + 1, 5), K = S.status === "published", G = K && !!S.draftSnapshot, D = M.length <= 1 || !!((W = (L = S.translations) == null ? void 0 : L[w]) != null && W.active), E = M.length > 1 && M.some((B) => {
-    var P, q;
-    return B !== w && !!((q = (P = S.translations) == null ? void 0 : P[B]) != null && q.active);
+  }, U = d === "before" ? " is-drop-before" : d === "after" ? " is-drop-after" : d === "on" ? " is-drop-on" : "", I = e.find(($) => $.type === S.type), P = !!(I != null && I.system), O = (((F = I == null ? void 0 : I.allowedChildTypes) == null ? void 0 : F.length) ?? 0) > 0, B = Math.min(j + 1, 5), W = S.status === "published", K = W && !!S.draftSnapshot, D = M.length <= 1 || !!((Y = (H = S.translations) == null ? void 0 : H[w]) != null && Y.active), E = M.length > 1 && M.some(($) => {
+    var L, q;
+    return $ !== w && !!((q = (L = S.translations) == null ? void 0 : L[$]) != null && q.active);
   }), R = !D && E;
   return /* @__PURE__ */ v(
     "div",
     {
-      className: `cms-tree-row${U}${$ ? " is-system" : ""}`,
-      "data-level": V,
+      className: `cms-tree-row${U}${P ? " is-system" : ""}`,
+      "data-level": B,
       draggable: !0,
-      onDragStart: (B) => {
-        B.stopPropagation(), g();
+      onDragStart: ($) => {
+        $.stopPropagation(), g();
       },
-      onDragEnd: (B) => {
-        B.stopPropagation(), k();
+      onDragEnd: ($) => {
+        $.stopPropagation(), k();
       },
-      onDragOver: (B) => {
-        B.preventDefault(), B.stopPropagation(), b(T(B));
+      onDragOver: ($) => {
+        $.preventDefault(), $.stopPropagation(), b(T($));
       },
-      onDragLeave: (B) => {
-        B.currentTarget.contains(B.relatedTarget) || N();
+      onDragLeave: ($) => {
+        $.currentTarget.contains($.relatedTarget) || N();
       },
-      onDrop: (B) => {
-        B.preventDefault(), B.stopPropagation(), z(T(B));
+      onDrop: ($) => {
+        $.preventDefault(), $.stopPropagation(), z(T($));
       },
       style: {
         opacity: c ? 0.35 : 1,
@@ -40093,10 +40093,10 @@ function Xwe({
                       children: A.title
                     }
                   ),
-                  S.translations && M.length > 1 && /* @__PURE__ */ l("div", { className: "cms-lang-pills", children: M.map((B) => {
+                  S.translations && M.length > 1 && /* @__PURE__ */ l("div", { className: "cms-lang-pills", children: M.map(($) => {
                     var J;
-                    const P = (J = S.translations) == null ? void 0 : J[B], q = !!(P && P.active);
-                    return /* @__PURE__ */ l("span", { className: `cms-lang-badge${q ? " active" : ""}`, children: B.toUpperCase() }, B);
+                    const L = (J = S.translations) == null ? void 0 : J[$], q = !!(L && L.active);
+                    return /* @__PURE__ */ l("span", { className: `cms-lang-badge${q ? " active" : ""}`, children: $.toUpperCase() }, $);
                   }) })
                 ] }) })
               ]
@@ -40106,8 +40106,8 @@ function Xwe({
         /* @__PURE__ */ l("div", { className: "cms-card-part is-spacer" }),
         /* @__PURE__ */ l("div", { className: "cms-card-part is-spacer" }),
         /* @__PURE__ */ v("div", { className: "cms-card-part", children: [
-          !K && /* @__PURE__ */ l("span", { className: "cms-draft-badge", children: x("pageList.draftBadge") }),
-          G && /* @__PURE__ */ l("span", { className: "cms-draft-badge", children: x("pageList.pendingDraft") })
+          !W && /* @__PURE__ */ l("span", { className: "cms-draft-badge", children: x("pageList.draftBadge") }),
+          K && /* @__PURE__ */ l("span", { className: "cms-draft-badge", children: x("pageList.pendingDraft") })
         ] }),
         /* @__PURE__ */ l("div", { className: "cms-card-part", children: /* @__PURE__ */ l("span", { className: "cms-tag", children: un((I == null ? void 0 : I.label) ?? S.type, w) }) }),
         /* @__PURE__ */ l("div", { className: "cms-card-part is-spacer" }),
@@ -40190,7 +40190,7 @@ function Xwe({
 }
 function Qwe({ onEdit: t, onNew: e }) {
   var Nt, Vt;
-  const { t: n } = we(), { user: a } = ra(), o = $s(), { locale: r, defaultLocale: i, availableLocales: s } = In(), [c, d] = _([]), [p, u] = _({}), [m, f] = _(/* @__PURE__ */ new Set()), [y, g] = _(/* @__PURE__ */ new Set()), [k, b] = _(!0), [N, z] = _(!1), [x, w] = _(null), [C, M] = _(null), [S, j] = _(""), [A, T] = _(""), [U, I] = _(!1), [$, O] = _(null), [V, K] = _(null), [G, D] = _(!1), [E, R] = _(null), [F, L] = _([]), [W, B] = _(/* @__PURE__ */ new Set()), [P, q] = _(null), J = 0.07, te = 0.175, ee = 10, [de, Y] = _(null), Z = Te(null);
+  const { t: n } = we(), { user: a } = ra(), o = $s(), { locale: r, defaultLocale: i, availableLocales: s } = In(), [c, d] = _([]), [p, u] = _({}), [m, f] = _(/* @__PURE__ */ new Set()), [y, g] = _(/* @__PURE__ */ new Set()), [k, b] = _(!0), [N, z] = _(!1), [x, w] = _(null), [C, M] = _(null), [S, j] = _(""), [A, T] = _(""), [U, I] = _(!1), [P, O] = _(null), [B, W] = _(null), [K, D] = _(!1), [E, R] = _(null), [F, H] = _([]), [Y, $] = _(/* @__PURE__ */ new Set()), [L, q] = _(null), J = 0.07, te = 0.175, ee = 10, [de, G] = _(null), Z = Te(null);
   he(() => {
     Z.current = de;
   }, [de]);
@@ -40222,12 +40222,12 @@ function Qwe({ onEdit: t, onNew: e }) {
         limit: oe,
         trashed: !0
       });
-      if (L(ie), ie.length <= 30) {
+      if (H(ie), ie.length <= 30) {
         const Ee = /* @__PURE__ */ new Set();
         for (const me of ie) Ee.add(me.id);
-        B(Ee);
+        $(Ee);
       } else
-        B(/* @__PURE__ */ new Set());
+        $(/* @__PURE__ */ new Set());
     } catch (ie) {
       console.error(ie);
     } finally {
@@ -40235,11 +40235,11 @@ function Qwe({ onEdit: t, onNew: e }) {
     }
   }, []);
   he(() => {
-    G || bt();
-  }, [bt, G]), he(() => {
-    G && ye();
-  }, [ye, G]), he(() => {
-    if (!A || U || G) return;
+    K || bt();
+  }, [bt, K]), he(() => {
+    K && ye();
+  }, [ye, K]), he(() => {
+    if (!A || U || K) return;
     let ie = !1;
     return (async () => {
       var Ee;
@@ -40256,13 +40256,13 @@ function Qwe({ onEdit: t, onNew: e }) {
     })(), () => {
       ie = !0;
     };
-  }, [A, U, G]);
+  }, [A, U, K]);
   const Ie = ht(() => {
     const ie = Z.current;
     ie && (ie.mode === "collapse" && f((Ee) => {
       const me = new Set(Ee);
       return me.delete(ie.parentId), me;
-    }), Y(null));
+    }), G(null));
   }, []);
   he(() => {
     if (!de) return;
@@ -40270,7 +40270,7 @@ function Qwe({ onEdit: t, onNew: e }) {
       de.mode === "collapse" && f(($e) => {
         const He = new Set($e);
         return He.delete(de.parentId), He;
-      }), Y(null);
+      }), G(null);
     }, Ee);
     return () => window.clearTimeout(me);
   }, [de]);
@@ -40294,7 +40294,7 @@ function Qwe({ onEdit: t, onNew: e }) {
         });
         return;
       }
-      Y({
+      G({
         parentId: ie.id,
         mode: "collapse",
         rowIds: Yt,
@@ -40306,7 +40306,7 @@ function Qwe({ onEdit: t, onNew: e }) {
       const $e = P1(c, me, A, r, i), He = new Set(m).add(ie.id), Xe = $e ? /* @__PURE__ */ new Set([...He, ...$e.ancestors]) : He, jt = Ii(c, me, Xe, 0, ($e == null ? void 0 : $e.visibleIds) ?? null), Yt = $e ? /* @__PURE__ */ new Set([...m, ...$e.ancestors]) : m, gt = Ii(c, me, Yt, 0, ($e == null ? void 0 : $e.visibleIds) ?? null), Qt = new Set(gt.map((nt) => nt.page.id)), Bt = [];
       for (const nt of jt)
         Qt.has(nt.page.id) || Bt.push(nt.page.id);
-      Bt.length > 0 && Y({
+      Bt.length > 0 && G({
         parentId: ie.id,
         mode: "expand",
         rowIds: Bt,
@@ -40367,8 +40367,8 @@ function Qwe({ onEdit: t, onNew: e }) {
     const Ee = o.find(($e) => $e.type === ie.type), me = (Ee == null ? void 0 : Ee.allowedChildTypes) ?? [];
     me.length !== 0 && (me.length === 1 ? e(me[0], ie.id) : (w(ie), z(!0)));
   }, X = (ie, Ee) => {
-    const me = $;
-    if (K(null), O(null), !me || me === ie) return;
+    const me = P;
+    if (W(null), O(null), !me || me === ie) return;
     const $e = (nt) => {
       const mt = c.find((xt) => xt.id === nt);
       if (mt) return mt;
@@ -40496,11 +40496,11 @@ function Qwe({ onEdit: t, onNew: e }) {
     for (const $e of ie) {
       me.push({ page: $e, depth: Ee });
       const He = Oe.childrenByParent.get($e.id) ?? [];
-      He.length > 0 && W.has($e.id) && ct(He, Ee + 1, me);
+      He.length > 0 && Y.has($e.id) && ct(He, Ee + 1, me);
     }
     return me;
   }, Ze = (ie) => {
-    B((Ee) => {
+    $((Ee) => {
       const me = new Set(Ee);
       return me.has(ie) ? me.delete(ie) : me.add(ie), me;
     });
@@ -40510,10 +40510,10 @@ function Qwe({ onEdit: t, onNew: e }) {
       Da,
       {
         eyebrow: n("nav.workspace"),
-        title: n(G ? "pageList.titleTrash" : "pageList.title"),
-        subtitle: n(G ? "pageList.subtitleTrash" : "pageTree.subtitle"),
+        title: n(K ? "pageList.titleTrash" : "pageList.title"),
+        subtitle: n(K ? "pageList.subtitleTrash" : "pageTree.subtitle"),
         actions: /* @__PURE__ */ v(Re, { children: [
-          !G && /* @__PURE__ */ l(
+          !K && /* @__PURE__ */ l(
             je,
             {
               placeholder: n("topbar.searchPages"),
@@ -40526,14 +40526,14 @@ function Qwe({ onEdit: t, onNew: e }) {
           fe && /* @__PURE__ */ l(
             ve,
             {
-              variant: G ? "danger" : "secondary",
+              variant: K ? "danger" : "secondary",
               leftSection: /* @__PURE__ */ l(it, { size: 14 }),
               onClick: () => D((ie) => !ie),
-              children: n(G ? "pageList.exitTrash" : "pageList.enterTrash")
+              children: n(K ? "pageList.exitTrash" : "pageList.enterTrash")
             }
           ),
           !1,
-          !G && le && /* @__PURE__ */ l(
+          !K && le && /* @__PURE__ */ l(
             ve,
             {
               variant: "primary",
@@ -40549,14 +40549,14 @@ function Qwe({ onEdit: t, onNew: e }) {
       /* @__PURE__ */ l(Na, { height: 14, width: 14, radius: "sm" }),
       /* @__PURE__ */ l(Na, { height: 14, width: `${ie}%` }),
       /* @__PURE__ */ l(Na, { height: 20, width: 50, radius: "xl", ml: "auto" })
-    ] }, Ee)) }) : G ? (
+    ] }, Ee)) }) : K ? (
       /* Indented tree view — trashed pages nest under their (also trashed)
          parents. Top-level rows are pages whose parent is live (or null /
          hard-deleted) — they get a "Was under: X" hint when applicable. */
-      F.length === 0 ? /* @__PURE__ */ l(H, { c: "dimmed", mt: "md", children: n("pageList.trashEmpty") }) : /* @__PURE__ */ v(Re, { children: [
+      F.length === 0 ? /* @__PURE__ */ l(V, { c: "dimmed", mt: "md", children: n("pageList.trashEmpty") }) : /* @__PURE__ */ v(Re, { children: [
         /* @__PURE__ */ l("div", { className: "cms-tree-list is-trash", children: ct(Oe.topLevel, 0).map(({ page: ie, depth: Ee }) => {
           var jt;
-          const me = ki(ie, r, i), $e = ((jt = Oe.childrenByParent.get(ie.id)) == null ? void 0 : jt.length) ?? 0, He = W.has(ie.id), Xe = o.find((Yt) => Yt.type === ie.type);
+          const me = ki(ie, r, i), $e = ((jt = Oe.childrenByParent.get(ie.id)) == null ? void 0 : jt.length) ?? 0, He = Y.has(ie.id), Xe = o.find((Yt) => Yt.type === ie.type);
           return /* @__PURE__ */ v("div", { className: "cms-tree-row", "data-level": Math.min(Ee + 1, 5), children: [
             /* @__PURE__ */ v("div", { className: "cms-c-title", children: [
               /* @__PURE__ */ l("div", { className: "cms-indent", style: { width: Ee * Vh } }),
@@ -40604,14 +40604,14 @@ function Qwe({ onEdit: t, onNew: e }) {
             ] }) })
           ] }, ie.id);
         }) }),
-        F.length >= oe && /* @__PURE__ */ l(H, { size: "xs", c: "dimmed", mt: "sm", children: n("pageList.trashTruncated", { count: oe }) })
+        F.length >= oe && /* @__PURE__ */ l(V, { size: "xs", c: "dimmed", mt: "sm", children: n("pageList.trashTruncated", { count: oe }) })
       ] })
-    ) : De.length === 0 ? A ? /* @__PURE__ */ l(H, { c: "dimmed", mt: "md", children: n("pageList.noMatch") }) : /* @__PURE__ */ l(kt, { py: "xl", children: /* @__PURE__ */ v(pe, { align: "center", gap: "sm", children: [
+    ) : De.length === 0 ? A ? /* @__PURE__ */ l(V, { c: "dimmed", mt: "md", children: n("pageList.noMatch") }) : /* @__PURE__ */ l(kt, { py: "xl", children: /* @__PURE__ */ v(pe, { align: "center", gap: "sm", children: [
       /* @__PURE__ */ l(ca, { size: 48, color: "var(--cms-ink-4, #a9b4c2)" }),
-      /* @__PURE__ */ l(H, { c: "dimmed", fw: 500, children: n("pageList.noPages") }),
+      /* @__PURE__ */ l(V, { c: "dimmed", fw: 500, children: n("pageList.noPages") }),
       le && /* @__PURE__ */ l(ve, { variant: "primary", size: "sm", onClick: lt, children: n("pageList.createFirst") })
     ] }) }) : /* @__PURE__ */ l("div", { className: "cms-tree-list", children: De.map((ie) => {
-      const Ee = p[ie.page.id], me = Ee !== void 0 ? Ee.length > 0 : !!ie.page.hasChildren, $e = $ === ie.page.id, He = (V == null ? void 0 : V.id) === ie.page.id ? V.zone : null, Xe = de ? de.rowIds.indexOf(ie.page.id) : -1, jt = Xe !== -1, Yt = (de == null ? void 0 : de.parentId) === ie.page.id;
+      const Ee = p[ie.page.id], me = Ee !== void 0 ? Ee.length > 0 : !!ie.page.hasChildren, $e = P === ie.page.id, He = (B == null ? void 0 : B.id) === ie.page.id ? B.zone : null, Xe = de ? de.rowIds.indexOf(ie.page.id) : -1, jt = Xe !== -1, Yt = (de == null ? void 0 : de.parentId) === ie.page.id;
       let gt = "cms-tree-anim-wrap";
       const Qt = {};
       return jt && de ? Xe < ee ? (gt += de.mode === "expand" ? " is-expanding" : " is-collapsing", Qt["--anim-delay"] = `${Xe * J}s`, Qt.zIndex = de.rowIds.length - Xe) : gt += " is-deferred" : Yt && (Qt.zIndex = 1e3), /* @__PURE__ */ l("div", { className: gt, style: Qt, children: /* @__PURE__ */ l(
@@ -40636,10 +40636,10 @@ function Qwe({ onEdit: t, onNew: e }) {
             Ie(), O(ie.page.id);
           },
           onDragEnd: () => {
-            O(null), K(null);
+            O(null), W(null);
           },
-          onDragOver: (Bt) => K({ id: ie.page.id, zone: Bt }),
-          onDragLeave: () => K((Bt) => (Bt == null ? void 0 : Bt.id) === ie.page.id ? null : Bt),
+          onDragOver: (Bt) => W({ id: ie.page.id, zone: Bt }),
+          onDragLeave: () => W((Bt) => (Bt == null ? void 0 : Bt.id) === ie.page.id ? null : Bt),
           onDrop: (Bt) => X(ie.page.id, Bt)
         }
       ) }, ie.page.id);
@@ -40665,7 +40665,7 @@ function Qwe({ onEdit: t, onNew: e }) {
         onClose: () => M(null),
         onDeleted: () => {
           const ie = C;
-          M(null), ie && hn(ie), I(!1), G ? ye() : bt();
+          M(null), ie && hn(ie), I(!1), K ? ye() : bt();
         },
         onOpenPage: (ie) => t(ie)
       }
@@ -40673,7 +40673,7 @@ function Qwe({ onEdit: t, onNew: e }) {
     /* @__PURE__ */ l(
       K8e,
       {
-        pageId: P,
+        pageId: L,
         onClose: () => q(null),
         onRestored: Ye
       }
@@ -51830,16 +51830,16 @@ var A_e = (t, e, n, a = {}) => ({ editor: o, tr: r, state: i, dispatch: s, chain
   } : null, A = w ?? j, T = !!w && z.depth >= 1 && z.depth - w.depth <= 1, U = !!j;
   if ((T || U) && A) {
     if (A.node.type === f)
-      return C && U ? c().command(({ tr: I, dispatch: $ }) => {
+      return C && U ? c().command(({ tr: I, dispatch: P }) => {
         const O = j_e(I);
-        return O ? (I.setSelection(O), $ && $(I), !0) : !1;
+        return O ? (I.setSelection(O), P && P(I), !0) : !1;
       }).liftListItem(y).run() : d.liftListItem(y);
     if (X1(A.node.type.name, u) && f.validContent(A.node.content))
       return c().command(() => (r.setNodeMarkup(A.pos, f), !0)).command(() => Q1(r, f)).command(() => eh(r, f)).run();
   }
   return !n || !x || !s ? c().command(() => p().wrapInList(f, a) ? !0 : d.clearNodes()).wrapInList(f, a).command(() => Q1(r, f)).command(() => eh(r, f)).run() : c().command(() => {
-    const I = p().wrapInList(f, a), $ = x.filter((O) => m.includes(O.type.name));
-    return r.ensureMarks($), I ? !0 : d.clearNodes();
+    const I = p().wrapInList(f, a), P = x.filter((O) => m.includes(O.type.name));
+    return r.ensureMarks(P), I ? !0 : d.clearNodes();
   }).wrapInList(f, a).command(() => Q1(r, f)).command(() => eh(r, f)).run();
 }, E_e = (t, e = {}, n = {}) => ({ state: a, commands: o }) => {
   const { extendEmptyMarkRange: r = !1 } = n, i = yo(t, a.schema);
@@ -54081,26 +54081,26 @@ function lSe(t) {
               const U = S.slice(0, A);
               C = U.trim();
               const I = u.slice(0, w + A + j[0].length);
-              let $ = [];
+              let P = [];
               if (C)
                 if (s === "block")
-                  for ($ = f.blockTokens(U), $.forEach((O) => {
+                  for (P = f.blockTokens(U), P.forEach((O) => {
                     O.text && (!O.tokens || O.tokens.length === 0) && (O.tokens = f.inlineTokens(O.text));
-                  }); $.length > 0; ) {
-                    const O = $[$.length - 1];
+                  }); P.length > 0; ) {
+                    const O = P[P.length - 1];
                     if (O.type === "paragraph" && (!O.text || O.text.trim() === ""))
-                      $.pop();
+                      P.pop();
                     else
                       break;
                   }
                 else
-                  $ = f.inlineTokens(C);
+                  P = f.inlineTokens(C);
               return {
                 type: e,
                 raw: I,
                 attributes: z,
                 content: C,
-                tokens: $
+                tokens: P
               };
             }
           }
@@ -56411,12 +56411,12 @@ function JNe({
     // ＜＞
   ];
   for (let T = 0; T < A.length; T++) {
-    const [U, I] = A[T], $ = xe(x, U);
-    xe(w, U, $);
+    const [U, I] = A[T], P = xe(x, U);
+    xe(w, U, P);
     const O = pa(gl);
-    vt($, e, O);
-    const V = pa();
-    vt($, n, V), xe($, I, x), vt(O, e, O), vt(O, n, V), vt(V, e, O), vt(V, n, V), xe(O, I, x), xe(V, I, x);
+    vt(P, e, O);
+    const B = pa();
+    vt(P, n, B), xe(P, I, x), vt(O, e, O), vt(O, n, B), vt(B, e, O), vt(B, n, B), xe(O, I, x), xe(B, I, x);
   }
   return xe(o, Ns, b), xe(o, Xu, YNe), {
     start: o,
@@ -60820,75 +60820,75 @@ function po({
   onConfirm: i,
   zIndex: s
 }) {
-  const c = o === "document", [d, p] = _([]), [u, m] = _([]), [f, y] = _(void 0), [g, k] = _(""), [b, N] = _(!1), [z, x] = _(/* @__PURE__ */ new Map()), [w, C] = _(/* @__PURE__ */ new Set()), [M, S] = _(null), [j, A] = _(null), T = Te(!1), U = Te(null), I = Te(null), [$, O] = _(160), V = Te(!1), K = Te(0), G = Te(160);
+  const c = o === "document", [d, p] = _([]), [u, m] = _([]), [f, y] = _(void 0), [g, k] = _(""), [b, N] = _(!1), [z, x] = _(/* @__PURE__ */ new Map()), [w, C] = _(/* @__PURE__ */ new Set()), [M, S] = _(null), [j, A] = _(null), T = Te(!1), U = Te(null), I = Te(null), [P, O] = _(160), B = Te(!1), W = Te(0), K = Te(160);
   he(() => {
-    t && (C(new Set(r.map((L) => L.mediaId))), y(void 0), k(""), ck().then((L) => m(L.folders)).catch(() => null));
+    t && (C(new Set(r.map((H) => H.mediaId))), y(void 0), k(""), ck().then((H) => m(H.folders)).catch(() => null));
   }, [t]), he(() => {
     if (!t) return;
     N(!0);
-    const L = setTimeout(() => {
-      const W = { type: o, limit: 200 };
-      f !== void 0 && (W.folderId = f), g && (W.q = g), Pd(W).then((B) => {
-        p(B.data), x((P) => {
-          const q = new Map(P);
-          return B.data.forEach((J) => q.set(J.id, J)), q;
+    const H = setTimeout(() => {
+      const Y = { type: o, limit: 200 };
+      f !== void 0 && (Y.folderId = f), g && (Y.q = g), Pd(Y).then(($) => {
+        p($.data), x((L) => {
+          const q = new Map(L);
+          return $.data.forEach((J) => q.set(J.id, J)), q;
         });
       }).catch(() => null).finally(() => N(!1));
     }, g ? 300 : 0);
-    return () => clearTimeout(L);
+    return () => clearTimeout(H);
   }, [t, f, g, o]), he(() => {
     if (!t || a === "single") return;
-    const L = (q, J) => {
+    const H = (q, J) => {
       const te = I.current, ee = te == null ? void 0 : te.getBoundingClientRect();
       return {
         cX: q - ((ee == null ? void 0 : ee.left) ?? 0) + ((te == null ? void 0 : te.scrollLeft) ?? 0),
         cY: J - ((ee == null ? void 0 : ee.top) ?? 0) + ((te == null ? void 0 : te.scrollTop) ?? 0)
       };
-    }, W = (q) => {
+    }, Y = (q) => {
       if (!T.current || !U.current) return;
-      const { cX: J, cY: te } = L(q.clientX, q.clientY);
+      const { cX: J, cY: te } = H(q.clientX, q.clientY);
       A({ x1: U.current.cX, y1: U.current.cY, x2: J, y2: te });
-    }, B = (q) => {
+    }, $ = (q) => {
       if (!T.current) return;
       T.current = !1;
       const J = U.current;
       if (J) {
-        const te = Math.min(J.vpX, q.clientX), ee = Math.max(J.vpX, q.clientX), de = Math.min(J.vpY, q.clientY), Y = Math.max(J.vpY, q.clientY);
-        ee - te > 6 || Y - de > 6 ? C((Z) => {
+        const te = Math.min(J.vpX, q.clientX), ee = Math.max(J.vpX, q.clientX), de = Math.min(J.vpY, q.clientY), G = Math.max(J.vpY, q.clientY);
+        ee - te > 6 || G - de > 6 ? C((Z) => {
           const oe = new Set(Z);
           return document.querySelectorAll("[data-gallery-img-id]").forEach((le) => {
             const ze = le.getBoundingClientRect();
-            ze.right >= te && ze.left <= ee && ze.bottom >= de && ze.top <= Y && le.dataset.galleryImgId && oe.add(le.dataset.galleryImgId);
+            ze.right >= te && ze.left <= ee && ze.bottom >= de && ze.top <= G && le.dataset.galleryImgId && oe.add(le.dataset.galleryImgId);
           }), oe;
         }) : C(/* @__PURE__ */ new Set());
       }
       A(null), U.current = null;
-    }, P = (q) => {
+    }, L = (q) => {
       q.key === "Escape" && T.current && (T.current = !1, A(null), U.current = null);
     };
-    return window.addEventListener("mousemove", W), window.addEventListener("mouseup", B), window.addEventListener("keydown", P), () => {
-      window.removeEventListener("mousemove", W), window.removeEventListener("mouseup", B), window.removeEventListener("keydown", P);
+    return window.addEventListener("mousemove", Y), window.addEventListener("mouseup", $), window.addEventListener("keydown", L), () => {
+      window.removeEventListener("mousemove", Y), window.removeEventListener("mouseup", $), window.removeEventListener("keydown", L);
     };
   }, [t, a]), he(() => {
-    const L = (B) => {
-      if (!V.current) return;
-      const P = B.clientX - K.current;
-      O(Math.max(120, Math.min(320, G.current + P)));
-    }, W = () => {
-      V.current && (V.current = !1, document.body.style.cursor = "", document.body.style.userSelect = "");
+    const H = ($) => {
+      if (!B.current) return;
+      const L = $.clientX - W.current;
+      O(Math.max(120, Math.min(320, K.current + L)));
+    }, Y = () => {
+      B.current && (B.current = !1, document.body.style.cursor = "", document.body.style.userSelect = "");
     };
-    return window.addEventListener("mousemove", L), window.addEventListener("mouseup", W), () => {
-      window.removeEventListener("mousemove", L), window.removeEventListener("mouseup", W);
+    return window.addEventListener("mousemove", H), window.addEventListener("mouseup", Y), () => {
+      window.removeEventListener("mousemove", H), window.removeEventListener("mouseup", Y);
     };
   }, []);
-  const D = (L) => C((W) => {
-    const B = new Set(W);
-    return B.has(L) ? B.delete(L) : B.add(L), B;
-  }), E = (L) => {
-    a === "single" ? (i([If(L)]), e()) : D(L.id);
+  const D = (H) => C((Y) => {
+    const $ = new Set(Y);
+    return $.has(H) ? $.delete(H) : $.add(H), $;
+  }), E = (H) => {
+    a === "single" ? (i([If(H)]), e()) : D(H.id);
   }, R = () => {
-    const L = r.filter((P) => w.has(P.mediaId)), W = new Set(L.map((P) => P.mediaId)), B = [...w].filter((P) => !W.has(P)).map((P) => z.get(P)).filter((P) => !!P).map(If);
-    i([...L, ...B]);
+    const H = r.filter((L) => w.has(L.mediaId)), Y = new Set(H.map((L) => L.mediaId)), $ = [...w].filter((L) => !Y.has(L)).map((L) => z.get(L)).filter((L) => !!L).map(If);
+    i([...H, ...$]);
   }, F = _je(u);
   return /* @__PURE__ */ v(
     mi,
@@ -60902,8 +60902,8 @@ function po({
       styles: { body: { overflow: "hidden" } },
       children: [
         /* @__PURE__ */ v(ae, { style: { display: "flex", gap: 12, height: 460 }, children: [
-          /* @__PURE__ */ v(Vo, { style: { width: $, flexShrink: 0, paddingRight: 8 }, type: "auto", children: [
-            /* @__PURE__ */ l(H, { size: "xs", fw: 600, c: "dimmed", tt: "uppercase", mb: 6, style: { letterSpacing: "0.07em", paddingLeft: 8 }, children: "Folders" }),
+          /* @__PURE__ */ v(Vo, { style: { width: P, flexShrink: 0, paddingRight: 8 }, type: "auto", children: [
+            /* @__PURE__ */ l(V, { size: "xs", fw: 600, c: "dimmed", tt: "uppercase", mb: 6, style: { letterSpacing: "0.07em", paddingLeft: 8 }, children: "Folders" }),
             /* @__PURE__ */ v(pe, { gap: 1, children: [
               /* @__PURE__ */ v(
                 "div",
@@ -60928,15 +60928,15 @@ function po({
                 }
               ),
               F.length > 0 && /* @__PURE__ */ l(ae, { style: { height: 1, background: "#dee2e6", margin: "4px 0" } }),
-              F.map((L) => /* @__PURE__ */ l(
+              F.map((H) => /* @__PURE__ */ l(
                 Qb,
                 {
-                  node: L,
+                  node: H,
                   depth: 0,
                   folderFilter: f,
                   onSelect: y
                 },
-                L.id
+                H.id
               ))
             ] })
           ] }),
@@ -60944,8 +60944,8 @@ function po({
             ae,
             {
               style: { width: 8, flexShrink: 0, alignSelf: "stretch", display: "flex", alignItems: "center", justifyContent: "center", cursor: "col-resize", zIndex: 5 },
-              onMouseDown: (L) => {
-                L.preventDefault(), V.current = !0, K.current = L.clientX, G.current = $, document.body.style.cursor = "col-resize", document.body.style.userSelect = "none";
+              onMouseDown: (H) => {
+                H.preventDefault(), B.current = !0, W.current = H.clientX, K.current = P, document.body.style.cursor = "col-resize", document.body.style.userSelect = "none";
               },
               children: /* @__PURE__ */ l(ae, { style: { width: 3, height: 32, borderRadius: 2, background: "#ced4da" } })
             }
@@ -60957,7 +60957,7 @@ function po({
                 placeholder: "Search by name…",
                 size: "xs",
                 value: g,
-                onChange: (L) => k(L.target.value),
+                onChange: (H) => k(H.target.value),
                 rightSection: g ? /* @__PURE__ */ l(ae, { style: { cursor: "pointer", color: "#adb5bd", fontSize: 12, lineHeight: 1 }, onClick: () => k(""), children: "✕" }) : void 0
               }
             ),
@@ -60966,22 +60966,22 @@ function po({
               {
                 ref: I,
                 style: { flex: 1, minWidth: 0, overflowY: "auto", overflowX: "hidden", position: "relative", userSelect: "none" },
-                onMouseDown: (L) => {
-                  if (a === "single" || L.button !== 0 || L.target.closest("[data-gallery-img-id]")) return;
-                  L.preventDefault();
-                  const W = I.current, B = W == null ? void 0 : W.getBoundingClientRect(), P = L.clientX - ((B == null ? void 0 : B.left) ?? 0) + ((W == null ? void 0 : W.scrollLeft) ?? 0), q = L.clientY - ((B == null ? void 0 : B.top) ?? 0) + ((W == null ? void 0 : W.scrollTop) ?? 0);
-                  T.current = !0, U.current = { vpX: L.clientX, vpY: L.clientY, cX: P, cY: q }, A({ x1: P, y1: q, x2: P, y2: q });
+                onMouseDown: (H) => {
+                  if (a === "single" || H.button !== 0 || H.target.closest("[data-gallery-img-id]")) return;
+                  H.preventDefault();
+                  const Y = I.current, $ = Y == null ? void 0 : Y.getBoundingClientRect(), L = H.clientX - (($ == null ? void 0 : $.left) ?? 0) + ((Y == null ? void 0 : Y.scrollLeft) ?? 0), q = H.clientY - (($ == null ? void 0 : $.top) ?? 0) + ((Y == null ? void 0 : Y.scrollTop) ?? 0);
+                  T.current = !0, U.current = { vpX: H.clientX, vpY: H.clientY, cX: L, cY: q }, A({ x1: L, y1: q, x2: L, y2: q });
                 },
                 children: [
-                  b ? /* @__PURE__ */ l(kt, { h: "100%", children: /* @__PURE__ */ l(St, { size: "sm" }) }) : d.length === 0 ? /* @__PURE__ */ l(kt, { h: "100%", children: /* @__PURE__ */ l(H, { size: "sm", c: "dimmed", children: c ? "No documents found." : "No images found." }) }) : /* @__PURE__ */ l(ae, { style: { display: "grid", gridTemplateColumns: "repeat(auto-fill, 100px)", gap: 6, padding: 2 }, children: d.map((L) => {
-                    const W = w.has(L.id);
+                  b ? /* @__PURE__ */ l(kt, { h: "100%", children: /* @__PURE__ */ l(St, { size: "sm" }) }) : d.length === 0 ? /* @__PURE__ */ l(kt, { h: "100%", children: /* @__PURE__ */ l(V, { size: "sm", c: "dimmed", children: c ? "No documents found." : "No images found." }) }) : /* @__PURE__ */ l(ae, { style: { display: "grid", gridTemplateColumns: "repeat(auto-fill, 100px)", gap: 6, padding: 2 }, children: d.map((H) => {
+                    const Y = w.has(H.id);
                     return /* @__PURE__ */ v(
                       ae,
                       {
-                        "data-gallery-img-id": L.id,
+                        "data-gallery-img-id": H.id,
                         style: { position: "relative", cursor: "pointer", borderRadius: 5, overflow: "hidden", aspectRatio: "1 / 1", width: 100, height: 100 },
-                        onClick: () => E(L),
-                        onMouseEnter: () => S(L.id),
+                        onClick: () => E(H),
+                        onMouseEnter: () => S(H.id),
                         onMouseLeave: () => S(null),
                         children: [
                           c ? /* @__PURE__ */ v(
@@ -61001,11 +61001,11 @@ function po({
                               children: [
                                 /* @__PURE__ */ l(ca, { size: 28, color: "#868e96", style: { flexShrink: 0 } }),
                                 /* @__PURE__ */ l(
-                                  H,
+                                  V,
                                   {
                                     lineClamp: 2,
                                     style: { fontSize: 10, lineHeight: 1.2, color: "#495057", wordBreak: "break-word" },
-                                    children: L.originalName
+                                    children: H.originalName
                                   }
                                 )
                               ]
@@ -61013,18 +61013,18 @@ function po({
                           ) : /* @__PURE__ */ l(
                             Bo,
                             {
-                              src: L.cdnUrl,
+                              src: H.cdnUrl,
                               h: "100%",
                               fit: "cover",
-                              style: { display: "block", transition: "transform 120ms ease", transform: M === L.id ? "scale(1.06)" : "scale(1)" }
+                              style: { display: "block", transition: "transform 120ms ease", transform: M === H.id ? "scale(1.06)" : "scale(1)" }
                             }
                           ),
-                          M === L.id && !W && /* @__PURE__ */ l(ae, { style: { position: "absolute", inset: 0, background: "rgba(0,0,0,0.18)", borderRadius: 5, pointerEvents: "none" } }),
-                          W && /* @__PURE__ */ l(ae, { style: { position: "absolute", inset: 0, border: "2.5px solid var(--cms-teal, #2dbfa4)", borderRadius: 5, background: "rgba(45,191,164,0.18)", pointerEvents: "none" } }),
-                          W && /* @__PURE__ */ l(ae, { style: { position: "absolute", top: 4, right: 4, width: 16, height: 16, borderRadius: 3, background: "var(--cms-teal, #2dbfa4)", display: "flex", alignItems: "center", justifyContent: "center", pointerEvents: "none" }, children: /* @__PURE__ */ l(H, { style: { lineHeight: 1, fontSize: 10, color: "#fff" }, children: "✓" }) })
+                          M === H.id && !Y && /* @__PURE__ */ l(ae, { style: { position: "absolute", inset: 0, background: "rgba(0,0,0,0.18)", borderRadius: 5, pointerEvents: "none" } }),
+                          Y && /* @__PURE__ */ l(ae, { style: { position: "absolute", inset: 0, border: "2.5px solid var(--cms-teal, #2dbfa4)", borderRadius: 5, background: "rgba(45,191,164,0.18)", pointerEvents: "none" } }),
+                          Y && /* @__PURE__ */ l(ae, { style: { position: "absolute", top: 4, right: 4, width: 16, height: 16, borderRadius: 3, background: "var(--cms-teal, #2dbfa4)", display: "flex", alignItems: "center", justifyContent: "center", pointerEvents: "none" }, children: /* @__PURE__ */ l(V, { style: { lineHeight: 1, fontSize: 10, color: "#fff" }, children: "✓" }) })
                         ]
                       },
-                      L.id
+                      H.id
                     );
                   }) }),
                   j && /* @__PURE__ */ l(ae, { style: {
@@ -61045,13 +61045,13 @@ function po({
           ] })
         ] }),
         /* @__PURE__ */ v(se, { justify: "space-between", mt: "sm", children: [
-          a === "multi" ? /* @__PURE__ */ v(H, { size: "sm", c: "dimmed", children: [
+          a === "multi" ? /* @__PURE__ */ v(V, { size: "sm", c: "dimmed", children: [
             w.size,
             " ",
             c ? "document" : "image",
             w.size !== 1 ? "s" : "",
             " selected"
-          ] }) : /* @__PURE__ */ v(H, { size: "sm", c: "dimmed", children: [
+          ] }) : /* @__PURE__ */ v(V, { size: "sm", c: "dimmed", children: [
             "Click a ",
             c ? "document" : "image",
             " to select it"
@@ -61144,16 +61144,16 @@ function n5({ data: t, onChange: e, mode: n, currentLocale: a, showTextFields: o
     const O = setTimeout(async () => {
       N(!0);
       try {
-        const V = await Bn({
+        const B = await Bn({
           status: "published",
           q: f || void 0,
           locale: d,
           limit: 30
-        }), K = d ? V.data.filter((G) => {
+        }), W = d ? B.data.filter((K) => {
           var D, E;
-          return !!((E = (D = G.translations) == null ? void 0 : D[d]) != null && E.active);
-        }) : V.data;
-        k(K);
+          return !!((E = (D = K.translations) == null ? void 0 : D[d]) != null && E.active);
+        }) : B.data;
+        k(W);
       } catch {
         k([]);
       } finally {
@@ -61163,16 +61163,16 @@ function n5({ data: t, onChange: e, mode: n, currentLocale: a, showTextFields: o
     return () => clearTimeout(O);
   }, [f, u.linkType, d]);
   const M = (O) => {
-    var G, D;
+    var K, D;
     C(O);
-    const V = p(O), K = d && ((D = (G = O.translations) == null ? void 0 : G[d]) == null ? void 0 : D.slug) || O.slug;
+    const B = p(O), W = d && ((D = (K = O.translations) == null ? void 0 : K[d]) == null ? void 0 : D.slug) || O.slug;
     e({
       ...u,
       pageId: O.id,
-      pageSlug: K,
-      pageTitle: V,
+      pageSlug: W,
+      pageTitle: B,
       // Auto-fill link text from the selected page's title only on first pick.
-      linkText: u.linkText || V
+      linkText: u.linkText || B
     });
   }, S = /* @__PURE__ */ v(pe, { gap: "xs", children: [
     /* @__PURE__ */ l(
@@ -61184,7 +61184,7 @@ function n5({ data: t, onChange: e, mode: n, currentLocale: a, showTextFields: o
         size: "xs"
       }
     ),
-    /* @__PURE__ */ l(Vo, { h: 160, style: { border: "1px solid #dee2e6", borderRadius: 4 }, children: b ? /* @__PURE__ */ l(ae, { ta: "center", py: "sm", children: /* @__PURE__ */ l(St, { size: "xs" }) }) : g.length === 0 ? /* @__PURE__ */ l(H, { size: "xs", c: "dimmed", ta: "center", py: "sm", children: f ? "No pages found" : "Type to search published pages" }) : g.map((O) => /* @__PURE__ */ l(
+    /* @__PURE__ */ l(Vo, { h: 160, style: { border: "1px solid #dee2e6", borderRadius: 4 }, children: b ? /* @__PURE__ */ l(ae, { ta: "center", py: "sm", children: /* @__PURE__ */ l(St, { size: "xs" }) }) : g.length === 0 ? /* @__PURE__ */ l(V, { size: "xs", c: "dimmed", ta: "center", py: "sm", children: f ? "No pages found" : "Type to search published pages" }) : g.map((O) => /* @__PURE__ */ l(
       ae,
       {
         px: "sm",
@@ -61196,7 +61196,7 @@ function n5({ data: t, onChange: e, mode: n, currentLocale: a, showTextFields: o
           borderLeft: (w == null ? void 0 : w.id) === O.id ? "3px solid var(--mantine-color-blue-filled)" : "3px solid transparent"
         },
         onClick: () => M(O),
-        children: /* @__PURE__ */ l(H, { size: "xs", fw: (w == null ? void 0 : w.id) === O.id ? 600 : 400, children: p(O) })
+        children: /* @__PURE__ */ l(V, { size: "xs", fw: (w == null ? void 0 : w.id) === O.id ? 600 : 400, children: p(O) })
       },
       O.id
     )) }),
@@ -61251,25 +61251,25 @@ function n5({ data: t, onChange: e, mode: n, currentLocale: a, showTextFields: o
       }
     )
   ] }), T = (O) => {
-    const V = O[0];
-    V && e({
+    const B = O[0];
+    B && e({
       ...u,
-      fileUrl: V.cdnUrl,
-      fileMediaId: V.mediaId,
-      fileName: V.name,
-      fileSize: V.size,
-      fileMimeType: V.mimeType,
+      fileUrl: B.cdnUrl,
+      fileMediaId: B.mediaId,
+      fileName: B.name,
+      fileSize: B.size,
+      fileMimeType: B.mimeType,
       // Auto-fill link text from the document name on first pick.
-      linkText: u.linkText || V.name || ""
+      linkText: u.linkText || B.name || ""
     }), x(!1);
   }, U = /* @__PURE__ */ v(pe, { gap: "xs", children: [
     u.fileUrl ? /* @__PURE__ */ v(se, { gap: 8, align: "center", wrap: "nowrap", style: { minWidth: 0 }, children: [
       /* @__PURE__ */ l(ca, { size: 18, style: { flexShrink: 0, color: "var(--cms-ink-3, #6c7686)" } }),
       /* @__PURE__ */ v(pe, { gap: 0, style: { minWidth: 0 }, children: [
-        /* @__PURE__ */ l(H, { size: "xs", truncate: !0, children: u.fileName || u.fileUrl }),
-        Hf(u.fileSize) && /* @__PURE__ */ l(H, { size: "xs", c: "dimmed", children: Hf(u.fileSize) })
+        /* @__PURE__ */ l(V, { size: "xs", truncate: !0, children: u.fileName || u.fileUrl }),
+        Hf(u.fileSize) && /* @__PURE__ */ l(V, { size: "xs", c: "dimmed", children: Hf(u.fileSize) })
       ] })
-    ] }) : /* @__PURE__ */ l(H, { size: "xs", c: "dimmed", children: "No document selected" }),
+    ] }) : /* @__PURE__ */ l(V, { size: "xs", c: "dimmed", children: "No document selected" }),
     /* @__PURE__ */ l(
       ve,
       {
@@ -61322,7 +61322,7 @@ function n5({ data: t, onChange: e, mode: n, currentLocale: a, showTextFields: o
         size: "xs"
       }
     )
-  ] }) : null, $ = n === "widget" ? /* @__PURE__ */ v(ae, { mt: "md", children: [
+  ] }) : null, P = n === "widget" ? /* @__PURE__ */ v(ae, { mt: "md", children: [
     /* @__PURE__ */ l(
       an,
       {
@@ -61379,7 +61379,7 @@ function n5({ data: t, onChange: e, mode: n, currentLocale: a, showTextFields: o
         )
       ] }),
       /* @__PURE__ */ v(ae, { children: [
-        /* @__PURE__ */ l(H, { size: "xs", c: "dimmed", mb: 4, children: "Button preview:" }),
+        /* @__PURE__ */ l(V, { size: "xs", c: "dimmed", mb: 4, children: "Button preview:" }),
         /* @__PURE__ */ l(
           ae,
           {
@@ -61427,7 +61427,7 @@ function n5({ data: t, onChange: e, mode: n, currentLocale: a, showTextFields: o
       }
     ),
     I,
-    $
+    P
   ] });
 }
 function a5({
@@ -61576,7 +61576,7 @@ function Eje({
   }, [t]);
   const U = () => {
     e();
-  }, I = (d == null ? void 0 : d.cdnUrl) ?? u, $ = () => {
+  }, I = (d == null ? void 0 : d.cdnUrl) ?? u, P = () => {
     !I || !f.trim() || (n({
       src: I,
       alt: g,
@@ -61597,11 +61597,11 @@ function Eje({
       E.naturalWidth && E.naturalHeight && (T.current = E.naturalWidth / E.naturalHeight);
     }, E.src = D;
   }, [d, u]);
-  const V = (D) => {
+  const B = (D) => {
     C(D), j && T.current && D !== "" && S(Math.round(Number(D) / T.current));
-  }, K = (D) => {
+  }, W = (D) => {
     S(D), j && T.current && D !== "" && C(Math.round(Number(D) * T.current));
-  }, G = [
+  }, K = [
     { value: "left", icon: /* @__PURE__ */ l(nc, { size: 14 }), label: o("rte.imageModal.alignLeft") },
     { value: "center", icon: /* @__PURE__ */ l(ec, { size: 14 }), label: o("rte.imageModal.alignCenter") },
     { value: "right", icon: /* @__PURE__ */ l(tc, { size: 14 }), label: o("rte.imageModal.alignRight") }
@@ -61642,7 +61642,7 @@ function Eje({
                     style: { maxWidth: "100%", maxHeight: 180, objectFit: "contain" },
                     alt: ""
                   }
-                ) : /* @__PURE__ */ v(H, { c: "blue", size: "sm", fw: 500, children: [
+                ) : /* @__PURE__ */ v(V, { c: "blue", size: "sm", fw: 500, children: [
                   "+ ",
                   o("rte.imageModal.add")
                 ] }),
@@ -61661,7 +61661,7 @@ function Eje({
                     },
                     onMouseEnter: (D) => D.currentTarget.style.opacity = "1",
                     onMouseLeave: (D) => D.currentTarget.style.opacity = "0",
-                    children: /* @__PURE__ */ l(H, { c: "white", size: "xs", fw: 600, children: o("rte.imageModal.change") })
+                    children: /* @__PURE__ */ l(V, { c: "white", size: "xs", fw: 600, children: o("rte.imageModal.change") })
                   }
                 )
               ]
@@ -61687,8 +61687,8 @@ function Eje({
               }
             ),
             /* @__PURE__ */ v(ae, { children: [
-              /* @__PURE__ */ l(H, { size: "sm", fw: 500, mb: 6, children: o("rte.imageModal.alignment") }),
-              /* @__PURE__ */ l(se, { gap: 4, children: G.map(({ value: D, icon: E, label: R }) => /* @__PURE__ */ l(Le, { label: R, withArrow: !0, fz: "xs", openDelay: 300, children: /* @__PURE__ */ l(
+              /* @__PURE__ */ l(V, { size: "sm", fw: 500, mb: 6, children: o("rte.imageModal.alignment") }),
+              /* @__PURE__ */ l(se, { gap: 4, children: K.map(({ value: D, icon: E, label: R }) => /* @__PURE__ */ l(Le, { label: R, withArrow: !0, fz: "xs", openDelay: 300, children: /* @__PURE__ */ l(
                 Mt,
                 {
                   variant: b === D ? "filled" : "default",
@@ -61699,7 +61699,7 @@ function Eje({
               ) }, D)) })
             ] }),
             /* @__PURE__ */ v(ae, { children: [
-              /* @__PURE__ */ l(H, { size: "sm", fw: 500, mb: 6, children: o("rte.imageModal.dimensions") }),
+              /* @__PURE__ */ l(V, { size: "sm", fw: 500, mb: 6, children: o("rte.imageModal.dimensions") }),
               /* @__PURE__ */ l(
                 Gi.Group,
                 {
@@ -61718,7 +61718,7 @@ function Eje({
                 {
                   label: o("rte.imageModal.width"),
                   value: w,
-                  onChange: V,
+                  onChange: B,
                   min: 1,
                   allowDecimal: !1,
                   style: { flex: 1 }
@@ -61746,7 +61746,7 @@ function Eje({
                 {
                   label: o("rte.imageModal.height"),
                   value: M,
-                  onChange: K,
+                  onChange: W,
                   min: 1,
                   allowDecimal: !1,
                   style: { flex: 1 }
@@ -61761,7 +61761,7 @@ function Eje({
             ve,
             {
               variant: "primary",
-              onClick: $,
+              onClick: P,
               disabled: !I || !f.trim(),
               children: o("common.confirm")
             }
@@ -61848,54 +61848,54 @@ function a1({
       Tje
     ],
     content: t ?? "",
-    onSelectionUpdate: () => p((B) => B + 1),
-    onUpdate: ({ editor: B }) => {
-      d.current(B.getJSON());
+    onSelectionUpdate: () => p(($) => $ + 1),
+    onUpdate: ({ editor: $ }) => {
+      d.current($.getJSON());
     }
   });
   he(() => {
     !u || o || u.commands.setContent(t ?? "");
   }, [u, o, t]), he(() => {
     if (!u) return;
-    const B = u.view.dom, P = (ee, de) => {
+    const $ = u.view.dom, L = (ee, de) => {
       var oe, le;
-      const Y = u.view.posAtCoords({ left: ee, top: de });
-      if (!Y) return null;
-      const Z = u.state.doc.resolve(Y.pos);
+      const G = u.view.posAtCoords({ left: ee, top: de });
+      if (!G) return null;
+      const Z = u.state.doc.resolve(G.pos);
       return Z.marks().find((ze) => ze.type.name === "link") ?? ((oe = Z.nodeAfter) == null ? void 0 : oe.marks.find((ze) => ze.type.name === "link")) ?? ((le = Z.nodeBefore) == null ? void 0 : le.marks.find((ze) => ze.type.name === "link")) ?? null;
     }, q = (ee) => {
       if (!ee.metaKey && !ee.ctrlKey) return;
-      const de = P(ee.clientX, ee.clientY);
+      const de = L(ee.clientX, ee.clientY);
       if (!(de != null && de.attrs.href)) return;
-      let Y = de.attrs.href;
-      if (Y.startsWith("/")) {
+      let G = de.attrs.href;
+      if (G.startsWith("/")) {
         const Z = oc(), oe = c.current;
-        Y = Z ? `${Z}/${oe}${Y}` : `/${oe}${Y}`;
+        G = Z ? `${Z}/${oe}${G}` : `/${oe}${G}`;
       }
-      window.open(Y, "_blank", "noopener,noreferrer");
+      window.open(G, "_blank", "noopener,noreferrer");
     }, J = (ee) => {
       if (!ee.metaKey && !ee.ctrlKey) {
-        B.style.cursor = "";
+        $.style.cursor = "";
         return;
       }
-      B.style.cursor = P(ee.clientX, ee.clientY) ? "pointer" : "";
+      $.style.cursor = L(ee.clientX, ee.clientY) ? "pointer" : "";
     }, te = () => {
-      B.style.cursor = "";
+      $.style.cursor = "";
     };
-    return B.addEventListener("click", q), B.addEventListener("mousemove", J), document.addEventListener("keyup", te), () => {
-      B.removeEventListener("click", q), B.removeEventListener("mousemove", J), document.removeEventListener("keyup", te), B.style.cursor = "";
+    return $.addEventListener("click", q), $.addEventListener("mousemove", J), document.addEventListener("keyup", te), () => {
+      $.removeEventListener("click", q), $.removeEventListener("mousemove", J), document.removeEventListener("keyup", te), $.style.cursor = "";
     };
   }, [u]), he(() => {
     if (!u) return;
-    const B = () => {
-      if ($.current) return;
+    const $ = () => {
+      if (P.current) return;
       if (!u.isActive("table") || !j.current) {
         T(null);
         return;
       }
-      const { from: P } = u.state.selection;
+      const { from: L } = u.state.selection;
       try {
-        const q = u.view.domAtPos(P);
+        const q = u.view.domAtPos(L);
         let J = q.node instanceof Element ? q.node : q.node.parentElement;
         for (; J && J !== u.view.dom; ) {
           if (J.tagName === "TD" || J.tagName === "TH") {
@@ -61912,57 +61912,57 @@ function a1({
       }
       T(null);
     };
-    return u.on("selectionUpdate", B), u.on("transaction", B), () => {
-      u.off("selectionUpdate", B), u.off("transaction", B);
+    return u.on("selectionUpdate", $), u.on("transaction", $), () => {
+      u.off("selectionUpdate", $), u.off("transaction", $);
     };
   }, [u]);
-  const [m, f] = _(!1), [y, g] = _({}), [k, b] = _(!1), [N, z] = _(!1), [x, w] = _([0, 0]), [C, M] = _(null), S = Te(null), j = Te(null), [A, T] = _(null), [U, I] = _(!1), $ = Te(!1), O = () => {
+  const [m, f] = _(!1), [y, g] = _({}), [k, b] = _(!1), [N, z] = _(!1), [x, w] = _([0, 0]), [C, M] = _(null), S = Te(null), j = Te(null), [A, T] = _(null), [U, I] = _(!1), P = Te(!1), O = () => {
     if (u) {
       if (u.isActive("link")) {
         u.chain().focus().unsetLink().run();
         return;
       }
       if (u.state.selection.empty) {
-        const { $anchor: B } = u.state.selection, P = B.parent.textContent, q = B.parentOffset, J = (de) => /[\p{L}\p{N}_]/u.test(de);
+        const { $anchor: $ } = u.state.selection, L = $.parent.textContent, q = $.parentOffset, J = (de) => /[\p{L}\p{N}_]/u.test(de);
         let te = q;
-        for (; te > 0 && J(P[te - 1]); ) te--;
+        for (; te > 0 && J(L[te - 1]); ) te--;
         let ee = q;
-        for (; ee < P.length && J(P[ee]); ) ee++;
+        for (; ee < L.length && J(L[ee]); ) ee++;
         te < ee && u.chain().focus().setTextSelection({
-          from: B.start() + te,
-          to: B.start() + ee
+          from: $.start() + te,
+          to: $.start() + ee
         }).run();
       }
       g({}), f(!0);
     }
-  }, V = (B) => {
+  }, B = ($) => {
     if (!u) return;
-    const P = e5(B);
-    P ? u.chain().focus().setLink({ href: P, target: B.openInNewTab ? "_blank" : "" }).run() : u.chain().focus().unsetLink().run(), f(!1);
-  }, K = (B) => {
+    const L = e5($);
+    L ? u.chain().focus().setLink({ href: L, target: $.openInNewTab ? "_blank" : "" }).run() : u.chain().focus().unsetLink().run(), f(!1);
+  }, W = ($) => {
     if (!u) return;
-    let P = u.chain().focus();
-    S.current !== null && (P = P.setNodeSelection(S.current), S.current = null), P.setImage({
-      src: B.src,
-      alt: B.alt,
-      title: B.title,
+    let L = u.chain().focus();
+    S.current !== null && (L = L.setNodeSelection(S.current), S.current = null), L.setImage({
+      src: $.src,
+      alt: $.alt,
+      title: $.title,
       // @ts-expect-error custom attrs
-      alignment: B.alignment,
-      width: B.width ?? void 0,
-      height: B.height ?? void 0
+      alignment: $.alignment,
+      width: $.width ?? void 0,
+      height: $.height ?? void 0
     }).run();
   };
   if (!u) return null;
-  const G = () => {
-    for (let B = 1; B <= 6; B++)
-      if (u.isActive("heading", { level: B })) return `h${B}`;
+  const K = () => {
+    for (let $ = 1; $ <= 6; $++)
+      if (u.isActive("heading", { level: $ })) return `h${$}`;
     return "p";
-  }, D = (B) => {
-    if (!B || B === "p")
+  }, D = ($) => {
+    if (!$ || $ === "p")
       u.chain().focus().setParagraph().run();
     else {
-      const P = parseInt(B[1]);
-      u.chain().focus().setHeading({ level: P }).run();
+      const L = parseInt($[1]);
+      u.chain().focus().setHeading({ level: L }).run();
     }
   }, E = [
     { value: "p", label: i("rte.paragraph") },
@@ -61980,26 +61980,26 @@ function a1({
     h4: { fontSize: 14, fontWeight: 600 },
     h5: { fontSize: 13, fontWeight: 600 },
     h6: { fontSize: 12, fontWeight: 600 }
-  }, F = (B) => u.isActive({ textAlign: B }), L = () => {
+  }, F = ($) => u.isActive({ textAlign: $ }), H = () => {
     var q;
-    const { from: B } = u.state.selection, P = u.state.doc.resolve(B);
-    for (let J = P.depth; J > 0; J--) {
-      const te = P.node(J);
+    const { from: $ } = u.state.selection, L = u.state.doc.resolve($);
+    for (let J = L.depth; J > 0; J--) {
+      const te = L.node(J);
       if (te.type.name === "table") {
         const ee = (q = te.firstChild) == null ? void 0 : q.firstChild;
         return (ee == null ? void 0 : ee.type.name) === "tableHeader";
       }
     }
     return !1;
-  }, W = () => {
+  }, Y = () => {
     var de;
-    const { state: B } = u, { from: P } = B.selection, q = B.doc.resolve(P), J = B.schema, te = J.nodes.tableHeader, ee = J.nodes.tableRow;
+    const { state: $ } = u, { from: L } = $.selection, q = $.doc.resolve(L), J = $.schema, te = J.nodes.tableHeader, ee = J.nodes.tableRow;
     if (!(!te || !ee))
-      for (let Y = q.depth; Y > 0; Y--) {
-        const Z = q.node(Y);
+      for (let G = q.depth; G > 0; G--) {
+        const Z = q.node(G);
         if (Z.type.name === "table") {
           const oe = ((de = Z.firstChild) == null ? void 0 : de.childCount) ?? 1, le = Array.from({ length: oe }, () => te.createAndFill()), ze = ee.create({}, le);
-          u.view.dispatch(B.tr.insert(q.start(Y), ze));
+          u.view.dispatch($.tr.insert(q.start(G), ze));
           return;
         }
       }
@@ -62009,7 +62009,7 @@ function a1({
       /* @__PURE__ */ l(
         Tt,
         {
-          value: G(),
+          value: K(),
           onChange: D,
           data: E,
           size: "sm",
@@ -62018,11 +62018,11 @@ function a1({
           maxDropdownHeight: 300,
           comboboxProps: { width: 160, dropdownPadding: 4 },
           styles: { input: { fontWeight: 500 } },
-          renderOption: ({ option: B, checked: P }) => {
-            const q = R[B.value] ?? R.p;
+          renderOption: ({ option: $, checked: L }) => {
+            const q = R[$.value] ?? R.p;
             return /* @__PURE__ */ v(se, { gap: 6, wrap: "nowrap", align: "center", children: [
-              /* @__PURE__ */ l(ae, { w: 12, style: { flexShrink: 0, display: "flex", alignItems: "center" }, children: P && /* @__PURE__ */ l(ja, { size: 10, color: "var(--mantine-color-teal-6)" }) }),
-              /* @__PURE__ */ l(ae, { style: { fontSize: q.fontSize, fontWeight: q.fontWeight, lineHeight: 1.2 }, children: B.label })
+              /* @__PURE__ */ l(ae, { w: 12, style: { flexShrink: 0, display: "flex", alignItems: "center" }, children: L && /* @__PURE__ */ l(ja, { size: 10, color: "var(--mantine-color-teal-6)" }) }),
+              /* @__PURE__ */ l(ae, { style: { fontSize: q.fontSize, fontWeight: q.fontWeight, lineHeight: 1.2 }, children: $.label })
             ] });
           }
         }
@@ -62066,15 +62066,15 @@ function a1({
       ),
       /* @__PURE__ */ l(Vr, {}),
       (() => {
-        const B = F("center") ? ec : F("right") ? tc : F("justify") ? Lh : nc, P = F("center") || F("right") || F("justify");
+        const $ = F("center") ? ec : F("right") ? tc : F("justify") ? Lh : nc, L = F("center") || F("right") || F("justify");
         return /* @__PURE__ */ v(be, { shadow: "md", width: 190, position: "bottom-start", withinPortal: !0, children: [
           /* @__PURE__ */ l(be.Target, { children: /* @__PURE__ */ l(Le, { label: i("rte.alignment"), withArrow: !0, fz: "xs", openDelay: 400, children: /* @__PURE__ */ l(
             Mt,
             {
               size: "lg",
-              variant: P ? "filled" : "subtle",
-              color: P ? "blue" : "gray",
-              children: /* @__PURE__ */ l(B, { size: 16 })
+              variant: L ? "filled" : "subtle",
+              color: L ? "blue" : "gray",
+              children: /* @__PURE__ */ l($, { size: 16 })
             }
           ) }) }),
           /* @__PURE__ */ v(be.Dropdown, { children: [
@@ -62189,8 +62189,8 @@ function a1({
           position: "bottom-start",
           withinPortal: !0,
           opened: N,
-          onChange: (B) => {
-            z(B), B || w([0, 0]);
+          onChange: ($) => {
+            z($), $ || w([0, 0]);
           },
           children: [
             /* @__PURE__ */ l(be.Target, { children: /* @__PURE__ */ l(Le, { label: i("rte.table"), withArrow: !0, fz: "xs", openDelay: 400, children: /* @__PURE__ */ l(
@@ -62212,8 +62212,8 @@ function a1({
                     gap: 3
                   },
                   onMouseLeave: () => w([0, 0]),
-                  children: Array.from({ length: 100 }, (B, P) => {
-                    const q = Math.floor(P / 10), J = P % 10, te = q < x[0] && J < x[1];
+                  children: Array.from({ length: 100 }, ($, L) => {
+                    const q = Math.floor(L / 10), J = L % 10, te = q < x[0] && J < x[1];
                     return /* @__PURE__ */ l(
                       ae,
                       {
@@ -62231,12 +62231,12 @@ function a1({
                           x[0] !== 0 && (u.chain().focus().insertTable({ rows: x[0], cols: x[1], withHeaderRow: !1 }).run(), w([0, 0]), z(!1));
                         }
                       },
-                      P
+                      L
                     );
                   })
                 }
               ),
-              /* @__PURE__ */ l(H, { ta: "center", fz: "xs", c: "dimmed", mt: 6, style: { minHeight: 16 }, children: x[0] > 0 ? `${x[0]} × ${x[1]}` : " " })
+              /* @__PURE__ */ l(V, { ta: "center", fz: "xs", c: "dimmed", mt: 6, style: { minHeight: 16 }, children: x[0] > 0 ? `${x[0]} × ${x[1]}` : " " })
             ] }) })
           ]
         }
@@ -62248,14 +62248,14 @@ function a1({
           active: u.isActive("image"),
           onClick: () => {
             if (u.isActive("image")) {
-              const B = u.getAttributes("image");
+              const $ = u.getAttributes("image");
               S.current = u.state.selection.from, M({
-                src: B.src ?? "",
-                alt: B.alt ?? "",
-                title: B.title ?? "",
-                alignment: B.alignment ?? "default",
-                width: B.width ?? null,
-                height: B.height ?? null
+                src: $.src ?? "",
+                alt: $.alt ?? "",
+                title: $.title ?? "",
+                alignment: $.alignment ?? "default",
+                width: $.width ?? null,
+                height: $.height ?? null
               });
             } else
               S.current = null, M(null);
@@ -62290,7 +62290,7 @@ function a1({
         onClose: () => f(!1),
         mode: "rte",
         initialData: y,
-        onConfirm: V
+        onConfirm: B
       }
     ),
     /* @__PURE__ */ l(
@@ -62298,7 +62298,7 @@ function a1({
       {
         opened: k,
         onClose: () => b(!1),
-        onConfirm: K,
+        onConfirm: W,
         initialData: C
       }
     ),
@@ -62309,8 +62309,8 @@ function a1({
         position: "bottom-end",
         withinPortal: !0,
         opened: U,
-        onChange: (B) => {
-          $.current = B, I(B);
+        onChange: ($) => {
+          P.current = $, I($);
         },
         children: [
           /* @__PURE__ */ l(be.Target, { children: /* @__PURE__ */ l(Le, { label: i("rte.cellOptions"), withArrow: !0, fz: "xs", openDelay: 600, children: /* @__PURE__ */ l(
@@ -62327,8 +62327,8 @@ function a1({
                 opacity: 0.55,
                 transition: "opacity 120ms"
               },
-              onMouseEnter: (B) => B.currentTarget.style.opacity = "1",
-              onMouseLeave: (B) => B.currentTarget.style.opacity = "0.55",
+              onMouseEnter: ($) => $.currentTarget.style.opacity = "1",
+              onMouseLeave: ($) => $.currentTarget.style.opacity = "0.55",
               children: /* @__PURE__ */ l(jr, { size: 12 })
             }
           ) }) }),
@@ -62343,7 +62343,7 @@ function a1({
             /* @__PURE__ */ l(be.Item, { onClick: () => u.chain().focus().addColumnAfter().run(), children: i("rte.addColumnRight") }),
             /* @__PURE__ */ l(be.Item, { color: "red", onClick: () => u.chain().focus().deleteColumn().run(), children: i("rte.deleteColumn") }),
             /* @__PURE__ */ l(be.Divider, {}),
-            /* @__PURE__ */ l(be.Item, { onClick: () => L() ? u.chain().focus().toggleHeaderRow().run() : W(), children: L() ? i("rte.removeHeaderRow") : i("rte.addHeaderRow") }),
+            /* @__PURE__ */ l(be.Item, { onClick: () => H() ? u.chain().focus().toggleHeaderRow().run() : Y(), children: H() ? i("rte.removeHeaderRow") : i("rte.addHeaderRow") }),
             /* @__PURE__ */ l(be.Divider, {}),
             /* @__PURE__ */ l(
               be.Item,
@@ -62661,8 +62661,8 @@ function $je({
                 className: "cms-acc-item-hd",
                 onClick: () => s(m.id),
                 children: [
-                  /* @__PURE__ */ l(H, { size: "xs", className: "cms-acc-chev", style: { width: 10, flexShrink: 0 }, children: y ? "▾" : "▸" }),
-                  /* @__PURE__ */ l(H, { size: "xs", fw: 500, c: "dimmed", style: { flex: 1 }, truncate: !0, children: m.title || n("blocks.mixedContent.accordionItem", { num: f + 1 }) }),
+                  /* @__PURE__ */ l(V, { size: "xs", className: "cms-acc-chev", style: { width: 10, flexShrink: 0 }, children: y ? "▾" : "▸" }),
+                  /* @__PURE__ */ l(V, { size: "xs", fw: 500, c: "dimmed", style: { flex: 1 }, truncate: !0, children: m.title || n("blocks.mixedContent.accordionItem", { num: f + 1 }) }),
                   o.length > 1 && /* @__PURE__ */ l(
                     Nn,
                     {
@@ -62732,7 +62732,7 @@ function Dje({
         ]
       },
       s.mediaId
-    )) }) : /* @__PURE__ */ l(H, { size: "xs", c: "dimmed", mb: 8, children: n("blocks.mixedContent.galleryEmpty") }),
+    )) }) : /* @__PURE__ */ l(V, { size: "xs", c: "dimmed", mb: 8, children: n("blocks.mixedContent.galleryEmpty") }),
     /* @__PURE__ */ l(ve, { variant: "secondary", size: "xs", onClick: () => r(!0), children: a.length > 0 ? `${n("blocks.mixedContent.galleryEdit")} (${a.length})` : n("blocks.mixedContent.gallerySelect") }),
     /* @__PURE__ */ l(
       po,
@@ -62877,7 +62877,7 @@ function Ije({
 }) {
   const { t: a } = we();
   if (!t)
-    return /* @__PURE__ */ l(H, { size: "xs", c: "dimmed", fs: "italic", children: a("blocks.mixedContent.videoEmpty") });
+    return /* @__PURE__ */ l(V, { size: "xs", c: "dimmed", fs: "italic", children: a("blocks.mixedContent.videoEmpty") });
   const o = Rje(t);
   if (o) {
     const r = /* @__PURE__ */ l(
@@ -62912,8 +62912,8 @@ function Hje({ title: t, items: e }) {
     const c = new Set(s);
     return c.has(i) ? c.delete(i) : c.add(i), c;
   });
-  return e.length === 0 && !t ? /* @__PURE__ */ l(H, { size: "xs", c: "dimmed", fs: "italic", children: n("blocks.mixedContent.accordionEmpty") }) : /* @__PURE__ */ v(pe, { gap: 6, children: [
-    t && /* @__PURE__ */ l(H, { size: "sm", fw: 700, c: "dark", mb: 2, children: t }),
+  return e.length === 0 && !t ? /* @__PURE__ */ l(V, { size: "xs", c: "dimmed", fs: "italic", children: n("blocks.mixedContent.accordionEmpty") }) : /* @__PURE__ */ v(pe, { gap: 6, children: [
+    t && /* @__PURE__ */ l(V, { size: "sm", fw: 700, c: "dark", mb: 2, children: t }),
     e.map((i, s) => {
       const c = a.has(i.id), d = u5(i.content);
       return /* @__PURE__ */ v(
@@ -62928,11 +62928,11 @@ function Hje({ title: t, items: e }) {
                 className: "cms-acc-item-hd",
                 children: [
                   /* @__PURE__ */ l("span", { className: "cms-acc-chev", children: "▸" }),
-                  /* @__PURE__ */ l(H, { size: "sm", fw: 600, className: "cms-acc-item-title", style: { flex: 1 }, children: i.title || n("blocks.mixedContent.accordionItem", { num: s + 1 }) })
+                  /* @__PURE__ */ l(V, { size: "sm", fw: 600, className: "cms-acc-item-title", style: { flex: 1 }, children: i.title || n("blocks.mixedContent.accordionItem", { num: s + 1 }) })
                 ]
               }
             ),
-            /* @__PURE__ */ l(As, { in: c, children: /* @__PURE__ */ l(ae, { p: 12, children: d ? /* @__PURE__ */ l(H, { size: "xs", c: "dimmed", fs: "italic", children: "—" }) : /* @__PURE__ */ l(
+            /* @__PURE__ */ l(As, { in: c, children: /* @__PURE__ */ l(ae, { p: 12, children: d ? /* @__PURE__ */ l(V, { size: "xs", c: "dimmed", fs: "italic", children: "—" }) : /* @__PURE__ */ l(
               a1,
               {
                 value: i.content,
@@ -63070,7 +63070,7 @@ function qje({
 }
 function Vje({ images: t }) {
   const { t: e } = we(), [n, a] = _(null);
-  return t.length === 0 ? /* @__PURE__ */ l(H, { size: "xs", c: "dimmed", fs: "italic", children: e("blocks.mixedContent.galleryEmpty") }) : /* @__PURE__ */ v(Re, { children: [
+  return t.length === 0 ? /* @__PURE__ */ l(V, { size: "xs", c: "dimmed", fs: "italic", children: e("blocks.mixedContent.galleryEmpty") }) : /* @__PURE__ */ v(Re, { children: [
     /* @__PURE__ */ l(ae, { style: { display: "flex", flexWrap: "wrap", gap: 6 }, children: t.map((o, r) => /* @__PURE__ */ l(
       ae,
       {
@@ -63123,7 +63123,7 @@ function Bje({
   }, b = ((C = l5(r).find((M) => M.type === t.type)) == null ? void 0 : C.label) ?? t.type, N = o1[t.type], z = !!o5[t.type], x = (() => {
     if (t.type === "text") {
       const M = u5(t.data.json);
-      return /* @__PURE__ */ l(ae, { p: 10, children: M ? /* @__PURE__ */ l(H, { size: "xs", c: "dimmed", fs: "italic", children: r("blocks.mixedContent.textEmpty") }) : /* @__PURE__ */ l(
+      return /* @__PURE__ */ l(ae, { p: 10, children: M ? /* @__PURE__ */ l(V, { size: "xs", c: "dimmed", fs: "italic", children: r("blocks.mixedContent.textEmpty") }) : /* @__PURE__ */ l(
         a1,
         {
           value: t.data.json ?? null,
@@ -63146,24 +63146,24 @@ function Bje({
     if (t.type === "link") {
       const M = Pje(t.data, r), S = t.data.linkText, j = !t.data.linkType, A = !!t.data.asButton;
       if (j)
-        return /* @__PURE__ */ l(ae, { p: 10, children: /* @__PURE__ */ l(H, { size: "xs", c: "dimmed", fs: "italic", children: r("blocks.mixedContent.linkEmpty") }) });
+        return /* @__PURE__ */ l(ae, { p: 10, children: /* @__PURE__ */ l(V, { size: "xs", c: "dimmed", fs: "italic", children: r("blocks.mixedContent.linkEmpty") }) });
       if (A) {
-        const T = t.data.buttonSize || "md", U = t.data.buttonType || "primary", I = U === "secondary" ? "outline" : U === "tertiary" ? "subtle" : "filled", $ = t.data.buttonPosition || "left";
-        return /* @__PURE__ */ l(ae, { p: 10, style: { display: "flex", justifyContent: $ === "center" ? "center" : $ === "right" ? "flex-end" : "flex-start" }, children: /* @__PURE__ */ l(
+        const T = t.data.buttonSize || "md", U = t.data.buttonType || "primary", I = U === "secondary" ? "outline" : U === "tertiary" ? "subtle" : "filled", P = t.data.buttonPosition || "left";
+        return /* @__PURE__ */ l(ae, { p: 10, style: { display: "flex", justifyContent: P === "center" ? "center" : P === "right" ? "flex-end" : "flex-start" }, children: /* @__PURE__ */ l(
           yt,
           {
             size: T,
             variant: I,
-            onClick: (V) => V.stopPropagation(),
-            onPointerDown: (V) => V.stopPropagation(),
-            onMouseDown: (V) => V.stopPropagation(),
+            onClick: (B) => B.stopPropagation(),
+            onPointerDown: (B) => B.stopPropagation(),
+            onMouseDown: (B) => B.stopPropagation(),
             children: S || (M !== r("blocks.mixedContent.notConfigured") ? M : "Button")
           }
         ) });
       }
       return /* @__PURE__ */ l(ae, { p: 10, children: /* @__PURE__ */ v(pe, { gap: 2, children: [
-        S && /* @__PURE__ */ l(H, { size: "sm", fw: 600, c: "teal", children: S }),
-        /* @__PURE__ */ l(H, { size: "xs", c: "dimmed", style: { overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }, children: M })
+        S && /* @__PURE__ */ l(V, { size: "sm", fw: 600, c: "teal", children: S }),
+        /* @__PURE__ */ l(V, { size: "xs", c: "dimmed", style: { overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }, children: M })
       ] }) });
     }
     if (t.type === "accordion") {
@@ -63367,51 +63367,51 @@ function m5({
 }
 function Fje({ data: t, onChange: e, blockIdx: n = 0 }) {
   var U;
-  const { t: a } = we(), o = t, r = o.layout ?? null, i = o.columns ?? [], s = t.title || "", [c, d] = _(!1), [p, u] = _(0), [m, f] = _(null), [y, g] = _(!1), k = (I, $) => {
-    e({ ...t, layout: I, columns: $ });
+  const { t: a } = we(), o = t, r = o.layout ?? null, i = o.columns ?? [], s = t.title || "", [c, d] = _(!1), [p, u] = _(0), [m, f] = _(null), [y, g] = _(!1), k = (I, P) => {
+    e({ ...t, layout: I, columns: P });
   }, b = (I) => k(I, d5(I)), N = (I) => {
-    const $ = i.flatMap((V) => V.widgets), O = I.map((V, K) => ({ id: pi(), width: V, widgets: K === 0 ? $ : [] }));
+    const P = i.flatMap((B) => B.widgets), O = I.map((B, W) => ({ id: pi(), width: B, widgets: W === 0 ? P : [] }));
     k(I, O), g(!1);
   }, z = (I) => {
     k(r, I(i));
   }, x = (I) => {
     u(I), f(null), d(!0);
-  }, w = (I, $) => {
-    u(I), f($), d(!0);
-  }, C = (I, $) => {
+  }, w = (I, P) => {
+    u(I), f(P), d(!0);
+  }, C = (I, P) => {
     z(
       m ? (O) => O.map(
-        (V, K) => K !== p ? V : {
-          ...V,
-          widgets: V.widgets.map(
-            (G) => G.id === m ? { ...G, data: $ } : G
+        (B, W) => W !== p ? B : {
+          ...B,
+          widgets: B.widgets.map(
+            (K) => K.id === m ? { ...K, data: P } : K
           )
         }
       ) : (O) => O.map(
-        (V, K) => K !== p ? V : {
-          ...V,
+        (B, W) => W !== p ? B : {
+          ...B,
           widgets: [
-            ...V.widgets,
-            { id: pi(), type: I, data: $ }
+            ...B.widgets,
+            { id: pi(), type: I, data: P }
           ]
         }
       )
     );
-  }, M = m ? (U = i[p]) == null ? void 0 : U.widgets.find((I) => I.id === m) : null, S = (I, $, O) => {
+  }, M = m ? (U = i[p]) == null ? void 0 : U.widgets.find((I) => I.id === m) : null, S = (I, P, O) => {
     z(
-      (V) => V.map(
-        (K, G) => G !== I ? K : {
-          ...K,
-          widgets: K.widgets.map(
-            (D) => D.id === $ ? { ...D, data: O } : D
+      (B) => B.map(
+        (W, K) => K !== I ? W : {
+          ...W,
+          widgets: W.widgets.map(
+            (D) => D.id === P ? { ...D, data: O } : D
           )
         }
       )
     );
-  }, j = (I, $) => {
+  }, j = (I, P) => {
     z(
       (O) => O.map(
-        (V, K) => K !== I ? V : { ...V, widgets: V.widgets.filter((G) => G.id !== $) }
+        (B, W) => W !== I ? B : { ...B, widgets: B.widgets.filter((K) => K.id !== P) }
       )
     );
   }, A = /* @__PURE__ */ l(
@@ -63478,7 +63478,7 @@ function Fje({ data: t, onChange: e, blockIdx: n = 0 }) {
             I.currentTarget.style.color = "var(--cms-ink-4)";
           },
           onClick: (I) => {
-            I.stopPropagation(), g(($) => !$);
+            I.stopPropagation(), g((P) => !P);
           },
           children: [
             r.join(" + "),
@@ -63503,7 +63503,7 @@ function Fje({ data: t, onChange: e, blockIdx: n = 0 }) {
           },
           onClick: (I) => I.stopPropagation(),
           children: T.map((I) => {
-            const $ = JSON.stringify(r) === JSON.stringify(I.columns);
+            const P = JSON.stringify(r) === JSON.stringify(I.columns);
             return /* @__PURE__ */ v(
               "div",
               {
@@ -63516,16 +63516,16 @@ function Fje({ data: t, onChange: e, blockIdx: n = 0 }) {
                   borderRadius: 6,
                   cursor: "pointer",
                   fontSize: 13,
-                  fontWeight: $ ? 700 : 400,
-                  color: $ ? "var(--cms-teal)" : "var(--cms-ink-2)",
-                  background: $ ? "var(--cms-teal-50)" : "transparent",
+                  fontWeight: P ? 700 : 400,
+                  color: P ? "var(--cms-teal)" : "var(--cms-ink-2)",
+                  background: P ? "var(--cms-teal-50)" : "transparent",
                   transition: "background .1s"
                 },
                 onMouseEnter: (O) => {
-                  $ || (O.currentTarget.style.background = "var(--cms-bg)");
+                  P || (O.currentTarget.style.background = "var(--cms-bg)");
                 },
                 onMouseLeave: (O) => {
-                  $ || (O.currentTarget.style.background = "transparent");
+                  P || (O.currentTarget.style.background = "transparent");
                 },
                 children: [
                   /* @__PURE__ */ l("span", { children: I.label }),
@@ -63541,16 +63541,16 @@ function Fje({ data: t, onChange: e, blockIdx: n = 0 }) {
         }
       )
     ] }),
-    /* @__PURE__ */ l(wi, { items: i.map((I) => I.id), strategy: Vk, children: /* @__PURE__ */ l("div", { style: { display: "grid", gridTemplateColumns: r.map((I) => `${I}fr`).join(" "), gap: 10 }, children: i.map((I, $) => /* @__PURE__ */ l(
+    /* @__PURE__ */ l(wi, { items: i.map((I) => I.id), strategy: Vk, children: /* @__PURE__ */ l("div", { style: { display: "grid", gridTemplateColumns: r.map((I) => `${I}fr`).join(" "), gap: 10 }, children: i.map((I, P) => /* @__PURE__ */ l(
       m5,
       {
         column: I,
-        colIdx: $,
+        colIdx: P,
         totalColumns: i.length,
-        onAddWidget: () => x($),
-        onEditWidget: (O) => w($, O),
-        onUpdateWidget: (O, V) => S($, O, V),
-        onRemoveWidget: (O) => j($, O)
+        onAddWidget: () => x(P),
+        onEditWidget: (O) => w(P, O),
+        onUpdateWidget: (O, B) => S(P, O, B),
+        onRemoveWidget: (O) => j(P, O)
       },
       I.id
     )) }) }),
@@ -63622,7 +63622,7 @@ function Wje({
             autoFocus: !0
           }
         ),
-        m.length === 0 ? /* @__PURE__ */ v(H, { size: "sm", c: "dimmed", ta: "center", py: "xl", children: [
+        m.length === 0 ? /* @__PURE__ */ v(V, { size: "sm", c: "dimmed", ta: "center", py: "xl", children: [
           "No icons match “",
           i,
           "”."
@@ -63657,7 +63657,7 @@ function Wje({
             })
           }
         ) }),
-        f > 0 && /* @__PURE__ */ v(H, { size: "xs", c: "dimmed", mt: "xs", children: [
+        f > 0 && /* @__PURE__ */ v(V, { size: "xs", c: "dimmed", mt: "xs", children: [
           "Showing ",
           m.length,
           " of ",
@@ -63671,7 +63671,7 @@ function Wje({
 function Kje({ value: t, onChange: e, label: n, required: a, modalTitle: o }) {
   const [r, i] = _(!1), s = r1(t);
   return /* @__PURE__ */ v(ae, { children: [
-    n && /* @__PURE__ */ v(H, { size: "sm", fw: 500, mb: 4, children: [
+    n && /* @__PURE__ */ v(V, { size: "sm", fw: 500, mb: 4, children: [
       n,
       a && /* @__PURE__ */ l("span", { style: { color: "var(--mantine-color-red-6)" }, children: " *" })
     ] }),
@@ -63694,7 +63694,7 @@ function Kje({ value: t, onChange: e, label: n, required: a, modalTitle: o }) {
           children: /* @__PURE__ */ l(s, { size: 22 })
         }
       ),
-      /* @__PURE__ */ l(H, { size: "xs", c: "dimmed", style: { flex: 1, minWidth: 0 }, truncate: !0, children: t }),
+      /* @__PURE__ */ l(V, { size: "xs", c: "dimmed", style: { flex: 1, minWidth: 0 }, truncate: !0, children: t }),
       /* @__PURE__ */ l(ve, { variant: "secondary", size: "xs", onClick: () => i(!0), children: "Change" }),
       /* @__PURE__ */ l(ve, { variant: "danger-ghost", size: "xs", onClick: () => e(null), children: "Remove" })
     ] }) : /* @__PURE__ */ l(ve, { variant: "secondary", size: "sm", onClick: () => i(!0), children: "Choose an icon" }),
@@ -63716,21 +63716,21 @@ function Gje(t) {
 function Yje({ label: t, value: e, required: n, onChange: a }) {
   const [o, r] = _(!1), i = Gje(e) ? e : null;
   return /* @__PURE__ */ v(pe, { gap: 4, children: [
-    /* @__PURE__ */ v(H, { size: "sm", fw: 500, children: [
+    /* @__PURE__ */ v(V, { size: "sm", fw: 500, children: [
       t,
       n && /* @__PURE__ */ l("span", { style: { color: "var(--mantine-color-red-6)" }, children: " *" })
     ] }),
     i ? /* @__PURE__ */ v(se, { gap: "sm", align: "flex-start", children: [
       /* @__PURE__ */ l(ae, { style: { width: 80, height: 60, borderRadius: 6, overflow: "hidden", flexShrink: 0, background: "#f1f3f5" }, children: /* @__PURE__ */ l(Bo, { src: i.cdnUrl, w: 80, h: 60, fit: "cover" }) }),
       /* @__PURE__ */ v(pe, { gap: 4, style: { flex: 1, minWidth: 0 }, children: [
-        /* @__PURE__ */ l(H, { size: "xs", c: "dimmed", truncate: !0, style: { maxWidth: 260 }, children: i.cdnUrl.split("/").pop() }),
+        /* @__PURE__ */ l(V, { size: "xs", c: "dimmed", truncate: !0, style: { maxWidth: 260 }, children: i.cdnUrl.split("/").pop() }),
         /* @__PURE__ */ v(se, { gap: "xs", children: [
           /* @__PURE__ */ l(ve, { variant: "secondary", size: "xs", onClick: () => r(!0), children: "Change" }),
           /* @__PURE__ */ l(ve, { variant: "danger-ghost", size: "xs", onClick: () => a(null), children: "Remove" })
         ] })
       ] })
     ] }) : (!i && typeof e == "string" && e ? e : null) ? /* @__PURE__ */ v(se, { gap: "sm", align: "flex-start", children: [
-      /* @__PURE__ */ l(H, { size: "xs", c: "orange", style: { flex: 1 }, children: "Legacy URL (no media ID). Re-select from library to track references." }),
+      /* @__PURE__ */ l(V, { size: "xs", c: "orange", style: { flex: 1 }, children: "Legacy URL (no media ID). Re-select from library to track references." }),
       /* @__PURE__ */ l(ve, { variant: "secondary", size: "xs", onClick: () => r(!0), children: "Re-select" }),
       /* @__PURE__ */ l(Nn, { variant: "danger", label: "Remove", size: "sm", onClick: () => a(null), children: /* @__PURE__ */ l(it, { size: 12 }) })
     ] }) : /* @__PURE__ */ l(ve, { variant: "secondary", size: "sm", onClick: () => r(!0), children: "Choose from Media Library" }),
@@ -63767,14 +63767,14 @@ function Xje({ label: t, value: e, required: n, onChange: a }) {
   var c;
   const [o, r] = _(!1), i = Jje(e) ? e : null, s = i ? e5(i) : null;
   return /* @__PURE__ */ v(pe, { gap: 4, children: [
-    /* @__PURE__ */ v(H, { size: "sm", fw: 500, children: [
+    /* @__PURE__ */ v(V, { size: "sm", fw: 500, children: [
       t,
       n && /* @__PURE__ */ l("span", { style: { color: "var(--mantine-color-red-6)" }, children: " *" })
     ] }),
     i ? /* @__PURE__ */ v(se, { gap: "sm", align: "center", children: [
       /* @__PURE__ */ v(pe, { gap: 0, style: { flex: 1, minWidth: 0 }, children: [
-        /* @__PURE__ */ l(H, { size: "sm", children: ((c = i.linkText) == null ? void 0 : c.trim()) || Zje(i) }),
-        s && /* @__PURE__ */ l(H, { size: "xs", c: "dimmed", truncate: !0, style: { maxWidth: 320 }, children: s })
+        /* @__PURE__ */ l(V, { size: "sm", children: ((c = i.linkText) == null ? void 0 : c.trim()) || Zje(i) }),
+        s && /* @__PURE__ */ l(V, { size: "xs", c: "dimmed", truncate: !0, style: { maxWidth: 320 }, children: s })
       ] }),
       /* @__PURE__ */ l(ve, { variant: "secondary", size: "xs", onClick: () => r(!0), children: "Change" }),
       /* @__PURE__ */ l(ve, { variant: "danger-ghost", size: "xs", onClick: () => a(null), children: "Remove" })
@@ -64025,7 +64025,7 @@ function aAe({ opened: t, onClose: e, onLoad: n, currentLocale: a }) {
         ] }),
         children: /* @__PURE__ */ v(pe, { gap: "sm", children: [
           s && /* @__PURE__ */ l(se, { justify: "center", py: "md", children: /* @__PURE__ */ l(St, { size: "sm" }) }),
-          !s && r.length === 0 && /* @__PURE__ */ l(H, { c: "dimmed", ta: "center", py: "md", children: o("templates.loadNoTemplates") }),
+          !s && r.length === 0 && /* @__PURE__ */ l(V, { c: "dimmed", ta: "center", py: "md", children: o("templates.loadNoTemplates") }),
           !s && r.map((x) => /* @__PURE__ */ l(
             "div",
             {
@@ -64037,7 +64037,7 @@ function aAe({ opened: t, onClose: e, onLoad: n, currentLocale: a }) {
                   /* @__PURE__ */ v(se, { gap: "xs", mt: 4, children: [
                     /* @__PURE__ */ l(Fe, { size: "xs", variant: "light", children: o("templates.blockCount", { count: x.blocks.length }) }),
                     x.locale && /* @__PURE__ */ l(Fe, { size: "xs", variant: "outline", color: a && x.locale !== a ? "yellow" : "gray", children: x.locale.toUpperCase() }),
-                    /* @__PURE__ */ l(H, { size: "xs", c: "dimmed", children: N(x.blocks) })
+                    /* @__PURE__ */ l(V, { size: "xs", c: "dimmed", children: N(x.blocks) })
                   ] })
                 ] }),
                 /* @__PURE__ */ l(Nn, { variant: "danger", label: o("common.delete"), size: "sm", loading: u === x.id, onClick: (w) => g(x.id, w), children: /* @__PURE__ */ l(it, { size: 13 }) })
@@ -64422,7 +64422,7 @@ function uAe({
 }
 function mAe({ pageId: t, initialType: e, initialParentId: n, onBack: a, onDirtyChange: o }) {
   var S0, N0, z0;
-  const { t: r } = we(), { user: i } = ra(), s = Yk(), c = $s(), { locale: d, defaultLocale: p, availableLocales: u } = In(), [m] = f5(), y = Dp("light", { getInitialValueInEffect: !0 }) === "dark", [g, k] = _(d), [b, N] = _({}), [z, x] = _(""), [w, C] = _(void 0), [M, S] = _(""), [j, A] = _("draft"), [T, U] = _(!1), [I, $] = _(e ?? "default"), [O, V] = _({}), [K, G] = _(n ?? null), [D, E] = _([]), [R, F] = _([]), [L, W] = _({}), [B, P] = _(/* @__PURE__ */ new Set()), [q, J] = _(!1), [te, ee] = _(!1), [de, Y] = _(!!t), [Z, oe] = _(t), [le, ze] = _(!1), [fe, Me] = _(!1), [Ue, rt] = _(!1), [Rt, _t] = _(null), [Gt, It] = _(""), [bt, ye] = _(""), [Ie, Be] = _(null), [Pe, Ye] = _(""), [et, lt] = _(!1), [hn, Je] = _(!1), [X, Ae] = _(""), [Ve, re] = _(null), [De, Oe] = _("content"), [ct, Ze] = _(!1), [Nt, Vt] = _(null), [ie, Ee] = _(!1), [me, $e] = _(!1), [He, Xe] = _(!1), [jt, Yt] = _([]), [gt, Qt] = _(!1), [Bt, nt] = _(null), [mt, xt] = _(!1), [Et, _n] = _(null), [Hn, go] = _({}), [_i, k0] = _([]), Pr = Te(null), ko = Te(null), V5 = pu(
+  const { t: r } = we(), { user: i } = ra(), s = Yk(), c = $s(), { locale: d, defaultLocale: p, availableLocales: u } = In(), [m] = f5(), y = Dp("light", { getInitialValueInEffect: !0 }) === "dark", [g, k] = _(d), [b, N] = _({}), [z, x] = _(""), [w, C] = _(void 0), [M, S] = _(""), [j, A] = _("draft"), [T, U] = _(!1), [I, P] = _(e ?? "default"), [O, B] = _({}), [W, K] = _(n ?? null), [D, E] = _([]), [R, F] = _([]), [H, Y] = _({}), [$, L] = _(/* @__PURE__ */ new Set()), [q, J] = _(!1), [te, ee] = _(!1), [de, G] = _(!!t), [Z, oe] = _(t), [le, ze] = _(!1), [fe, Me] = _(!1), [Ue, rt] = _(!1), [Rt, _t] = _(null), [Gt, It] = _(""), [bt, ye] = _(""), [Ie, Be] = _(null), [Pe, Ye] = _(""), [et, lt] = _(!1), [hn, Je] = _(!1), [X, Ae] = _(""), [Ve, re] = _(null), [De, Oe] = _("content"), [ct, Ze] = _(!1), [Nt, Vt] = _(null), [ie, Ee] = _(!1), [me, $e] = _(!1), [He, Xe] = _(!1), [jt, Yt] = _([]), [gt, Qt] = _(!1), [Bt, nt] = _(null), [mt, xt] = _(!1), [Et, _n] = _(null), [Hn, go] = _({}), [_i, k0] = _([]), Pr = Te(null), ko = Te(null), V5 = pu(
     uc(Is, { activationConstraint: { distance: 6 } })
   ), [v0, s1] = _(null), vn = c.find((Q) => Q.type === I), B5 = (vn == null ? void 0 : vn.allowBlocks) !== !1, F5 = (((S0 = vn == null ? void 0 : vn.fields) == null ? void 0 : S0.length) ?? 0) > 0, $r = vn != null && vn.allowedBlockTypes ? s.filter((Q) => vn.allowedBlockTypes.includes(Q.type)) : s, b0 = ((N0 = vn == null ? void 0 : vn.allowedBlockTypes) == null ? void 0 : N0.length) === 1 && !vn.multiBlock;
   he(() => {
@@ -64466,7 +64466,7 @@ function mAe({ pageId: t, initialType: e, initialParentId: n, onBack: a, onDirty
         const wt = tt && Se && "publishAt" in Se ? Se.publishAt : ce.publishAt;
         return wt ? new Date(wt).toISOString().slice(0, 16) : "";
       })();
-      N(At), k(zt), x(Ht.title), S(Ht.slug), A(ge), U(tt), $(Ha), V(Ht.typeData), G(Qn), _t(ce.parentTitle ?? null), F(Ht.blocks.map((wt) => ({ _id: Xo(), type: wt.type, data: wt.data }))), It(Ht.metaTitle), ye(Ht.metaDescription), Be(Ht.ogImageUrl), Ye(Ht.canonicalUrl), lt(Ht.noindex), Ae(qn), ko.current = ce.version ?? null, Y(!1), Pr.current = JSON.stringify({
+      N(At), k(zt), x(Ht.title), S(Ht.slug), A(ge), U(tt), P(Ha), B(Ht.typeData), K(Qn), _t(ce.parentTitle ?? null), F(Ht.blocks.map((wt) => ({ _id: Xo(), type: wt.type, data: wt.data }))), It(Ht.metaTitle), ye(Ht.metaDescription), Be(Ht.ogImageUrl), Ye(Ht.canonicalUrl), lt(Ht.noindex), Ae(qn), ko.current = ce.version ?? null, G(!1), Pr.current = JSON.stringify({
         type: Ha,
         parentId: Qn,
         publishAt: qn,
@@ -64486,11 +64486,11 @@ function mAe({ pageId: t, initialType: e, initialParentId: n, onBack: a, onDirty
       )
     ).then((ge) => E(ge.flat()));
   }, [I, c]), he(() => {
-    K || _t(null);
-  }, [K]);
+    W || _t(null);
+  }, [W]);
   const x0 = (() => {
-    if (!K) return null;
-    const Q = D.find((ce) => ce.id === K);
+    if (!W) return null;
+    const Q = D.find((ce) => ce.id === W);
     return Q ? ki(Q, g, p).title : Rt;
   })(), l1 = () => {
     var ce;
@@ -64513,7 +64513,7 @@ function mAe({ pageId: t, initialType: e, initialParentId: n, onBack: a, onDirty
   }, U5 = (Q) => {
     if (Q === g) return;
     const ce = l1(), ge = ce[Q] ?? { ...tr(), active: !1 }, Se = ce[Q] ? ce : { ...ce, [Q]: ge };
-    N(Se), k(Q), x(ge.title), S(ge.slug), V(ge.typeData), F(ge.blocks.map((tt) => ({ _id: Xo(), type: tt.type, data: tt.data }))), It(ge.metaTitle), ye(ge.metaDescription), Be(ge.ogImageUrl), Ye(ge.canonicalUrl), lt(ge.noindex), W({}), C((ge.title.trim(), void 0));
+    N(Se), k(Q), x(ge.title), S(ge.slug), B(ge.typeData), F(ge.blocks.map((tt) => ({ _id: Xo(), type: tt.type, data: tt.data }))), It(ge.metaTitle), ye(ge.metaDescription), Be(ge.ogImageUrl), Ye(ge.canonicalUrl), lt(ge.noindex), Y({}), C((ge.title.trim(), void 0));
   };
   he(() => {
     de || u.includes(d) && d !== g && U5(d);
@@ -64590,7 +64590,7 @@ function mAe({ pageId: t, initialType: e, initialParentId: n, onBack: a, onDirty
     }
   }, Ia = Pr.current !== null && JSON.stringify({
     type: I,
-    parentId: K,
+    parentId: W,
     publishAt: X,
     localeCache: l1()
   }) !== Pr.current;
@@ -64642,18 +64642,18 @@ function mAe({ pageId: t, initialType: e, initialParentId: n, onBack: a, onDirty
   }, Y5 = (Q, ce) => {
     F((ge) => ge.map((Se) => Se._id === Q ? { ...Se, data: ce } : Se));
   }, J5 = (Q) => {
-    F((ce) => ce.filter((ge) => ge._id !== Q)), W((ce) => {
+    F((ce) => ce.filter((ge) => ge._id !== Q)), Y((ce) => {
       const ge = { ...ce };
       return delete ge[Q], ge;
     });
   }, Z5 = (Q) => {
-    W((ce) => ({ ...ce, [Q]: !ce[Q] }));
+    Y((ce) => ({ ...ce, [Q]: !ce[Q] }));
   }, Ys = Te(null), M0 = () => {
     const Q = Ys.current;
-    Q && (Ys.current = null, Q.kind === "block" ? W((ce) => {
+    Q && (Ys.current = null, Q.kind === "block" ? Y((ce) => {
       const ge = { ...ce };
       return Q.wasCollapsed ? ge[Q.id] = !0 : delete ge[Q.id], ge;
-    }) : P((ce) => {
+    }) : L((ce) => {
       const ge = ce.has(Q.id);
       if (Q.wasCollapsed === ge) return ce;
       const Se = new Set(ce);
@@ -64669,7 +64669,7 @@ function mAe({ pageId: t, initialType: e, initialParentId: n, onBack: a, onDirty
       id: ge,
       width: Se == null ? void 0 : Se.width,
       height: Se == null ? void 0 : Se.height
-    }), ce === "block" ? (Ys.current = { kind: "block", id: ge, wasCollapsed: L[ge] ?? !1 }, W((at) => ({ ...at, [ge]: !0 }))) : ce === "widget" && (Ys.current = { kind: "widget", id: ge, wasCollapsed: B.has(ge) }, P((at) => {
+    }), ce === "block" ? (Ys.current = { kind: "block", id: ge, wasCollapsed: H[ge] ?? !1 }, Y((at) => ({ ...at, [ge]: !0 }))) : ce === "widget" && (Ys.current = { kind: "widget", id: ge, wasCollapsed: $.has(ge) }, L((at) => {
       if (at.has(ge)) return at;
       const Lt = new Set(at);
       return Lt.add(ge), Lt;
@@ -64777,7 +64777,7 @@ function mAe({ pageId: t, initialType: e, initialParentId: n, onBack: a, onDirty
       locale: g
     }), ze(!1);
   }, a3 = (Q) => {
-    F(Q.map((ce) => ({ _id: Xo(), type: ce.type, data: ce.data }))), W({}), Me(!1);
+    F(Q.map((ce) => ({ _id: Xo(), type: ce.type, data: ce.data }))), Y({}), Me(!1);
   }, C0 = async () => {
     const Q = l1(), ce = {};
     for (const [tt, at] of Object.entries(Q))
@@ -64795,7 +64795,7 @@ function mAe({ pageId: t, initialType: e, initialParentId: n, onBack: a, onDirty
       });
     const ge = {
       type: I,
-      parentId: K,
+      parentId: W,
       publishAt: X || null,
       translations: ce,
       ...ko.current !== null ? { version: ko.current } : {}
@@ -64826,7 +64826,7 @@ function mAe({ pageId: t, initialType: e, initialParentId: n, onBack: a, onDirty
     }
     return Pr.current = JSON.stringify({
       type: I,
-      parentId: K,
+      parentId: W,
       publishAt: X,
       localeCache: Q
     }), re(/* @__PURE__ */ new Date()), Se;
@@ -64958,11 +64958,11 @@ function mAe({ pageId: t, initialType: e, initialParentId: n, onBack: a, onDirty
           };
         N(at);
         const Lt = at[g] ?? tr();
-        x(Lt.title), S(Lt.slug), V(Lt.typeData), F(Lt.blocks.map((At) => ({ _id: Xo(), type: At.type, data: At.data }))), It(Lt.metaTitle), ye(Lt.metaDescription), Be(Lt.ogImageUrl), Ye(Lt.canonicalUrl), lt(Lt.noindex);
+        x(Lt.title), S(Lt.slug), B(Lt.typeData), F(Lt.blocks.map((At) => ({ _id: Xo(), type: At.type, data: At.data }))), It(Lt.metaTitle), ye(Lt.metaDescription), Be(Lt.ogImageUrl), Ye(Lt.canonicalUrl), lt(Lt.noindex);
         const nn = (ge = (ce = Se.snapshot) == null ? void 0 : ce.page) != null && ge.publishAt ? String(Se.snapshot.page.publishAt) : "";
-        Ae(nn), W({}), Pr.current = JSON.stringify({
+        Ae(nn), Y({}), Pr.current = JSON.stringify({
           type: I,
-          parentId: K,
+          parentId: W,
           publishAt: nn,
           localeCache: at
         }), Xe(!1), nt(null), xt(!1), ne.ok(r("pageEditor.restoreVersion"));
@@ -64970,7 +64970,7 @@ function mAe({ pageId: t, initialType: e, initialParentId: n, onBack: a, onDirty
         ne.err(Se instanceof Error ? Se.message : r("pageEditor.restoreVersionFailed"));
       }
   };
-  if (de) return /* @__PURE__ */ l(H, { children: r("common.loading") });
+  if (de) return /* @__PURE__ */ l(V, { children: r("common.loading") });
   const c3 = Gt || z || r("pageEditor.placeholderTitle"), d3 = bt || r("pageEditor.noDescription"), h3 = Pe || `/${M || "page-slug"}`;
   !!X && r("pageEditor.scheduledFor", { date: new Date(X).toLocaleString() });
   const p3 = X ? "scheduled" : j === "published" ? T ? "pending" : "published" : "draft", u3 = X ? r("pageEditor.scheduledFor", {
@@ -65058,7 +65058,7 @@ function mAe({ pageId: t, initialType: e, initialParentId: n, onBack: a, onDirty
             onChange: (Q) => G5(Q.target.value)
           }
         ),
-        w && /* @__PURE__ */ l(H, { size: "xs", c: "red", mt: 4, children: w })
+        w && /* @__PURE__ */ l(V, { size: "xs", c: "red", mt: 4, children: w })
       ] }),
       /* @__PURE__ */ v("div", { className: "cms-seg-tabs", children: [
         /* @__PURE__ */ v(
@@ -65091,7 +65091,7 @@ function mAe({ pageId: t, initialType: e, initialParentId: n, onBack: a, onDirty
             " ",
             r("pageEditor.fieldsSectionTitle")
           ] }),
-          /* @__PURE__ */ l(tAe, { fields: vn.fields, data: O, onChange: V })
+          /* @__PURE__ */ l(tAe, { fields: vn.fields, data: O, onChange: B })
         ] }),
         B5 && /* @__PURE__ */ v(Re, { children: [
           /* @__PURE__ */ v("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 16, marginTop: 16 }, children: [
@@ -65123,8 +65123,8 @@ function mAe({ pageId: t, initialType: e, initialParentId: n, onBack: a, onDirty
           /* @__PURE__ */ l(
             s5,
             {
-              collapsedIds: B,
-              setCollapsedIds: P,
+              collapsedIds: $,
+              setCollapsedIds: L,
               children: /* @__PURE__ */ v(
                 vu,
                 {
@@ -65147,7 +65147,7 @@ function mAe({ pageId: t, initialType: e, initialParentId: n, onBack: a, onDirty
                             hAe,
                             {
                               block: Q,
-                              collapsed: L[Q._id] ?? !1,
+                              collapsed: H[Q._id] ?? !1,
                               onToggleCollapse: () => Z5(Q._id),
                               onRemove: () => J5(Q._id),
                               removable: !b0,
@@ -65160,7 +65160,7 @@ function mAe({ pageId: t, initialType: e, initialParentId: n, onBack: a, onDirty
                                   onChange: (tt) => Y5(Q._id, tt),
                                   blockIdx: ce
                                 }
-                              ) : /* @__PURE__ */ l(H, { c: "dimmed", size: "sm", children: r("pageEditor.unknownBlock", { type: Q.type }) })
+                              ) : /* @__PURE__ */ l(V, { c: "dimmed", size: "sm", children: r("pageEditor.unknownBlock", { type: Q.type }) })
                             },
                             Q._id
                           );
@@ -65257,7 +65257,7 @@ function mAe({ pageId: t, initialType: e, initialParentId: n, onBack: a, onDirty
           }
         ),
         /* @__PURE__ */ v(ae, { children: [
-          /* @__PURE__ */ l(H, { size: "sm", fw: 500, mb: 4, children: r("pageEditor.ogImage") }),
+          /* @__PURE__ */ l(V, { size: "sm", fw: 500, mb: 4, children: r("pageEditor.ogImage") }),
           Ie ? /* @__PURE__ */ v(se, { gap: "xs", align: "flex-start", children: [
             /* @__PURE__ */ l(
               ae,
@@ -65342,10 +65342,10 @@ function mAe({ pageId: t, initialType: e, initialParentId: n, onBack: a, onDirty
               borderColor: y ? "#3c4043" : void 0
             },
             children: [
-              /* @__PURE__ */ l(H, { size: "xs", c: "dimmed", mb: 8, tt: "uppercase", fw: 600, children: r("pageEditor.googlePreview") }),
+              /* @__PURE__ */ l(V, { size: "xs", c: "dimmed", mb: 8, tt: "uppercase", fw: 600, children: r("pageEditor.googlePreview") }),
               /* @__PURE__ */ v(pe, { gap: 2, children: [
                 /* @__PURE__ */ l(
-                  H,
+                  V,
                   {
                     size: "sm",
                     c: y ? "#8ab4f8" : "#1a0dab",
@@ -65360,7 +65360,7 @@ function mAe({ pageId: t, initialType: e, initialParentId: n, onBack: a, onDirty
                   }
                 ),
                 /* @__PURE__ */ l(
-                  H,
+                  V,
                   {
                     size: "xs",
                     c: y ? "#34a853" : "#006621",
@@ -65370,7 +65370,7 @@ function mAe({ pageId: t, initialType: e, initialParentId: n, onBack: a, onDirty
                   }
                 ),
                 /* @__PURE__ */ l(
-                  H,
+                  V,
                   {
                     size: "xs",
                     c: y ? "#bdc1c6" : "#545454",
@@ -65416,7 +65416,7 @@ function mAe({ pageId: t, initialType: e, initialParentId: n, onBack: a, onDirty
               popoverProps: { zIndex: 400 }
             }
           ),
-          /* @__PURE__ */ l(H, { size: "xs", c: "dimmed", children: r("pageEditor.scheduleHint") })
+          /* @__PURE__ */ l(V, { size: "xs", c: "dimmed", children: r("pageEditor.scheduleHint") })
         ] })
       }
     ),
@@ -65459,13 +65459,13 @@ function mAe({ pageId: t, initialType: e, initialParentId: n, onBack: a, onDirty
         cancelLabel: r("common.close"),
         footer: /* @__PURE__ */ l("div", { className: "cms-dialog-foot", children: /* @__PURE__ */ l(ve, { variant: "secondary", onClick: () => d1(null), children: r("common.close") }) }),
         children: /* @__PURE__ */ v(pe, { gap: "sm", children: [
-          /* @__PURE__ */ l(H, { size: "sm", children: r("pageEditor.deactivateBlockedBody", { locale: g.toUpperCase() }) }),
+          /* @__PURE__ */ l(V, { size: "sm", children: r("pageEditor.deactivateBlockedBody", { locale: g.toUpperCase() }) }),
           Jo && Jo.menus.length > 0 && /* @__PURE__ */ v("div", { children: [
-            /* @__PURE__ */ l(H, { size: "sm", fw: 600, mb: 4, children: r("pageEditor.deactivateBlockedMenus") }),
+            /* @__PURE__ */ l(V, { size: "sm", fw: 600, mb: 4, children: r("pageEditor.deactivateBlockedMenus") }),
             /* @__PURE__ */ l(Va, { size: "sm", children: Jo.menus.map((Q) => /* @__PURE__ */ v(Va.Item, { children: [
               Q.label,
               " ",
-              /* @__PURE__ */ v(H, { span: !0, size: "xs", c: "dimmed", children: [
+              /* @__PURE__ */ v(V, { span: !0, size: "xs", c: "dimmed", children: [
                 "(",
                 Q.location,
                 ")"
@@ -65473,11 +65473,11 @@ function mAe({ pageId: t, initialType: e, initialParentId: n, onBack: a, onDirty
             ] }, Q.id)) })
           ] }),
           Jo && Jo.pages.length > 0 && /* @__PURE__ */ v("div", { children: [
-            /* @__PURE__ */ l(H, { size: "sm", fw: 600, mb: 4, children: r("pageEditor.deactivateBlockedPages") }),
+            /* @__PURE__ */ l(V, { size: "sm", fw: 600, mb: 4, children: r("pageEditor.deactivateBlockedPages") }),
             /* @__PURE__ */ l(Va, { size: "sm", children: Jo.pages.map((Q) => /* @__PURE__ */ v(Va.Item, { children: [
               Q.title,
               " ",
-              /* @__PURE__ */ v(H, { span: !0, size: "xs", c: "dimmed", children: [
+              /* @__PURE__ */ v(V, { span: !0, size: "xs", c: "dimmed", children: [
                 "/",
                 Q.slug
               ] })
@@ -65496,15 +65496,15 @@ function mAe({ pageId: t, initialType: e, initialParentId: n, onBack: a, onDirty
         cancelLabel: r("common.close"),
         footer: /* @__PURE__ */ l("div", { className: "cms-dialog-foot", children: /* @__PURE__ */ l(ve, { variant: "secondary", onClick: () => Gs(null), children: r("common.close") }) }),
         children: /* @__PURE__ */ v(pe, { gap: "sm", children: [
-          /* @__PURE__ */ l(H, { size: "sm", children: r("pageEditor.cascadeBlockedBody", { locale: g.toUpperCase() }) }),
+          /* @__PURE__ */ l(V, { size: "sm", children: r("pageEditor.cascadeBlockedBody", { locale: g.toUpperCase() }) }),
           Ks == null ? void 0 : Ks.map((Q) => /* @__PURE__ */ v("div", { children: [
-            /* @__PURE__ */ l(H, { size: "sm", fw: 600, mb: 4, children: r("pageEditor.cascadeBlockedPageLabel", { title: Q.pageTitle }) }),
+            /* @__PURE__ */ l(V, { size: "sm", fw: 600, mb: 4, children: r("pageEditor.cascadeBlockedPageLabel", { title: Q.pageTitle }) }),
             Q.menus.length > 0 && /* @__PURE__ */ v(Re, { children: [
-              /* @__PURE__ */ l(H, { size: "xs", c: "dimmed", mt: 2, children: r("pageEditor.deactivateBlockedMenus") }),
+              /* @__PURE__ */ l(V, { size: "xs", c: "dimmed", mt: 2, children: r("pageEditor.deactivateBlockedMenus") }),
               /* @__PURE__ */ l(Va, { size: "sm", children: Q.menus.map((ce) => /* @__PURE__ */ v(Va.Item, { children: [
                 ce.label,
                 " ",
-                /* @__PURE__ */ v(H, { span: !0, size: "xs", c: "dimmed", children: [
+                /* @__PURE__ */ v(V, { span: !0, size: "xs", c: "dimmed", children: [
                   "(",
                   ce.location,
                   ")"
@@ -65512,11 +65512,11 @@ function mAe({ pageId: t, initialType: e, initialParentId: n, onBack: a, onDirty
               ] }, ce.id)) })
             ] }),
             Q.pages.length > 0 && /* @__PURE__ */ v(Re, { children: [
-              /* @__PURE__ */ l(H, { size: "xs", c: "dimmed", mt: 2, children: r("pageEditor.deactivateBlockedPages") }),
+              /* @__PURE__ */ l(V, { size: "xs", c: "dimmed", mt: 2, children: r("pageEditor.deactivateBlockedPages") }),
               /* @__PURE__ */ l(Va, { size: "sm", children: Q.pages.map((ce) => /* @__PURE__ */ v(Va.Item, { children: [
                 ce.title,
                 " ",
-                /* @__PURE__ */ v(H, { span: !0, size: "xs", c: "dimmed", children: [
+                /* @__PURE__ */ v(V, { span: !0, size: "xs", c: "dimmed", children: [
                   "/",
                   ce.slug
                 ] })
@@ -65536,11 +65536,11 @@ function mAe({ pageId: t, initialType: e, initialParentId: n, onBack: a, onDirty
         cancelLabel: r("common.close"),
         footer: /* @__PURE__ */ l("div", { className: "cms-dialog-foot", children: /* @__PURE__ */ l(ve, { variant: "secondary", onClick: () => u1(null), children: r("common.close") }) }),
         children: /* @__PURE__ */ v(pe, { gap: "sm", children: [
-          /* @__PURE__ */ l(H, { size: "sm", children: r("pageEditor.ancestorBlockedBody", { locale: (Ra == null ? void 0 : Ra.locale.toUpperCase()) ?? "" }) }),
+          /* @__PURE__ */ l(V, { size: "sm", children: r("pageEditor.ancestorBlockedBody", { locale: (Ra == null ? void 0 : Ra.locale.toUpperCase()) ?? "" }) }),
           /* @__PURE__ */ l(Va, { size: "sm", children: Ra == null ? void 0 : Ra.ancestors.map((Q) => /* @__PURE__ */ v(Va.Item, { children: [
             Q.title,
             " ",
-            Q.slug && /* @__PURE__ */ v(H, { span: !0, size: "xs", c: "dimmed", children: [
+            Q.slug && /* @__PURE__ */ v(V, { span: !0, size: "xs", c: "dimmed", children: [
               "/",
               Q.slug
             ] })
@@ -65586,7 +65586,7 @@ function mAe({ pageId: t, initialType: e, initialParentId: n, onBack: a, onDirty
         description: r("pageEditor.versionHistoryDescription"),
         size: "md",
         footer: /* @__PURE__ */ l("div", { className: "cms-drawer-footer", style: { justifyContent: "flex-start" }, children: /* @__PURE__ */ l("span", { style: { fontSize: 12.5, color: "var(--ink-3)" }, children: r("pageEditor.versionCount", { count: jt.length }) }) }),
-        children: gt ? /* @__PURE__ */ l(H, { c: "dimmed", children: r("common.loading") }) : jt.length === 0 ? /* @__PURE__ */ l(H, { c: "dimmed", children: r("pageEditor.noVersions") }) : /* @__PURE__ */ l(Re, { children: jt.map((Q, ce) => /* @__PURE__ */ v(
+        children: gt ? /* @__PURE__ */ l(V, { c: "dimmed", children: r("common.loading") }) : jt.length === 0 ? /* @__PURE__ */ l(V, { c: "dimmed", children: r("pageEditor.noVersions") }) : /* @__PURE__ */ l(Re, { children: jt.map((Q, ce) => /* @__PURE__ */ v(
           "div",
           {
             style: {
@@ -65681,7 +65681,7 @@ function mAe({ pageId: t, initialType: e, initialParentId: n, onBack: a, onDirty
       ),
       /* @__PURE__ */ l(Bh, { status: p3, children: u3 }),
       Ia && /* @__PURE__ */ l(Bh, { status: "unsaved", children: r("pageEditor.unsavedBadge") }),
-      !Ia && Ve && /* @__PURE__ */ l(H, { size: "xs", c: "dimmed", children: r("pageEditor.lastSaved", { time: pAe(Ve) }) }),
+      !Ia && Ve && /* @__PURE__ */ l(V, { size: "xs", c: "dimmed", children: r("pageEditor.lastSaved", { time: pAe(Ve) }) }),
       /* @__PURE__ */ l("div", { className: "cms-action-bar-sep" }),
       Z && /* @__PURE__ */ l(
         Nn,
@@ -65931,7 +65931,7 @@ function xAe(t) {
   return t === "developer" ? ["developer", "admin", "editor", "viewer"] : t === "admin" ? ["editor", "viewer"] : [];
 }
 function wAe({ currentUserId: t }) {
-  const { t: e } = we(), { user: n } = ra(), [a, o] = _([]), [r, i] = _(!0), [s, c] = _(null), [d, p] = _(""), [u, m] = _(!1), [f, y] = _(""), [g, k] = _(""), [b, N] = _(""), [z, x] = _(null), [w, C] = _(null), [M, S] = _(!1), [j, A] = _(null), [T, U] = _(null), [I, $] = _(""), [O, V] = _(""), [K, G] = _(null), [D, E] = _(!1), [R, F] = _(null), L = xAe((n == null ? void 0 : n.role) ?? ""), W = async () => {
+  const { t: e } = we(), { user: n } = ra(), [a, o] = _([]), [r, i] = _(!0), [s, c] = _(null), [d, p] = _(""), [u, m] = _(!1), [f, y] = _(""), [g, k] = _(""), [b, N] = _(""), [z, x] = _(null), [w, C] = _(null), [M, S] = _(!1), [j, A] = _(null), [T, U] = _(null), [I, P] = _(""), [O, B] = _(""), [W, K] = _(null), [D, E] = _(!1), [R, F] = _(null), H = xAe((n == null ? void 0 : n.role) ?? ""), Y = async () => {
     i(!0), c(null);
     try {
       o(await J6e());
@@ -65942,9 +65942,9 @@ function wAe({ currentUserId: t }) {
     }
   };
   he(() => {
-    W();
+    Y();
   }, []);
-  const B = async () => {
+  const $ = async () => {
     if (!(!f || !z) && !(!g.trim() || !b.trim())) {
       S(!0), C(null);
       try {
@@ -65953,47 +65953,47 @@ function wAe({ currentUserId: t }) {
           role: z,
           firstName: g.trim(),
           lastName: b.trim()
-        }), m(!1), y(""), k(""), N(""), x(null), ne.ok(e("users.inviteSent", { email: f.trim() })), W();
-      } catch (Y) {
-        C(Y instanceof Error ? Y.message : e("users.createError"));
+        }), m(!1), y(""), k(""), N(""), x(null), ne.ok(e("users.inviteSent", { email: f.trim() })), Y();
+      } catch (G) {
+        C(G instanceof Error ? G.message : e("users.createError"));
       } finally {
         S(!1);
       }
     }
-  }, P = (Y) => {
-    A(Y), U(Y.role), $(Y.firstName ?? ""), V(Y.lastName ?? ""), G(null);
+  }, L = (G) => {
+    A(G), U(G.role), P(G.firstName ?? ""), B(G.lastName ?? ""), K(null);
   }, q = async () => {
     if (j) {
-      E(!0), G(null);
+      E(!0), K(null);
       try {
-        const Y = {};
-        T && T !== j.role && (Y.role = T);
+        const G = {};
+        T && T !== j.role && (G.role = T);
         const Z = I.trim(), oe = O.trim();
-        if (Z !== (j.firstName ?? "") && (Y.firstName = Z), oe !== (j.lastName ?? "") && (Y.lastName = oe), Object.keys(Y).length === 0) {
+        if (Z !== (j.firstName ?? "") && (G.firstName = Z), oe !== (j.lastName ?? "") && (G.lastName = oe), Object.keys(G).length === 0) {
           A(null);
           return;
         }
-        await X6e(j.id, Y), A(null), W();
-      } catch (Y) {
-        G(Y instanceof Error ? Y.message : e("users.updateError"));
+        await X6e(j.id, G), A(null), Y();
+      } catch (G) {
+        K(G instanceof Error ? G.message : e("users.updateError"));
       } finally {
         E(!1);
       }
     }
   }, J = async () => {
     if (!R) return;
-    const { kind: Y, user: Z } = R;
+    const { kind: G, user: Z } = R;
     try {
-      Y === "disable" ? (await Q6e(Z.id), ne.ok(e("users.disableSuccess", { email: Z.email }))) : Y === "reactivate" ? (await e8e(Z.id), ne.ok(e("users.reactivateSuccess", { email: Z.email }))) : Y === "reset" ? (await t8e(Z.id), ne.ok(e("users.resetSuccess", { email: Z.email }))) : Y === "resend" ? (await n8e(Z.id), ne.ok(e("users.resendSuccess", { email: Z.email }))) : Y === "delete" && (await a8e(Z.id), ne.ok(e("users.deleteSuccess", { email: Z.email }))), F(null), W();
+      G === "disable" ? (await Q6e(Z.id), ne.ok(e("users.disableSuccess", { email: Z.email }))) : G === "reactivate" ? (await e8e(Z.id), ne.ok(e("users.reactivateSuccess", { email: Z.email }))) : G === "reset" ? (await t8e(Z.id), ne.ok(e("users.resetSuccess", { email: Z.email }))) : G === "resend" ? (await n8e(Z.id), ne.ok(e("users.resendSuccess", { email: Z.email }))) : G === "delete" && (await a8e(Z.id), ne.ok(e("users.deleteSuccess", { email: Z.email }))), F(null), Y();
     } catch (oe) {
       ne.err(oe instanceof Error ? oe.message : e("users.actionError"));
     }
   };
   if (r) return /* @__PURE__ */ l("span", { style: { color: "var(--ink-3)", fontSize: 13 }, children: e("users.loading") });
-  const te = d.trim().toLowerCase(), ee = te ? a.filter((Y) => [Y.firstName, Y.lastName].filter(Boolean).join(" ").toLowerCase().includes(te) || Y.email.toLowerCase().includes(te)) : a, de = (() => {
+  const te = d.trim().toLowerCase(), ee = te ? a.filter((G) => [G.firstName, G.lastName].filter(Boolean).join(" ").toLowerCase().includes(te) || G.email.toLowerCase().includes(te)) : a, de = (() => {
     if (!R) return null;
-    const Y = R.user.email;
-    return R.kind === "disable" ? { title: e("users.disableTitle"), subject: Y, message: e("users.disableMessage"), intent: "danger", confirmLabel: e("users.disableConfirm") } : R.kind === "reactivate" ? { title: e("users.reactivateTitle"), subject: Y, message: e("users.reactivateMessage"), intent: "brand", confirmLabel: e("users.reactivateConfirm") } : R.kind === "reset" ? { title: e("users.resetTitle"), subject: Y, message: e("users.resetMessage"), intent: "brand", confirmLabel: e("users.resetConfirm") } : R.kind === "resend" ? { title: e("users.resendTitle"), subject: Y, message: e("users.resendMessage"), intent: "brand", confirmLabel: e("users.resendConfirm") } : { title: e("users.deleteTitle"), subject: Y, message: e("users.deleteMessage"), intent: "danger", confirmLabel: e("users.delete") };
+    const G = R.user.email;
+    return R.kind === "disable" ? { title: e("users.disableTitle"), subject: G, message: e("users.disableMessage"), intent: "danger", confirmLabel: e("users.disableConfirm") } : R.kind === "reactivate" ? { title: e("users.reactivateTitle"), subject: G, message: e("users.reactivateMessage"), intent: "brand", confirmLabel: e("users.reactivateConfirm") } : R.kind === "reset" ? { title: e("users.resetTitle"), subject: G, message: e("users.resetMessage"), intent: "brand", confirmLabel: e("users.resetConfirm") } : R.kind === "resend" ? { title: e("users.resendTitle"), subject: G, message: e("users.resendMessage"), intent: "brand", confirmLabel: e("users.resendConfirm") } : { title: e("users.deleteTitle"), subject: G, message: e("users.deleteMessage"), intent: "danger", confirmLabel: e("users.delete") };
   })();
   return /* @__PURE__ */ v(pe, { children: [
     /* @__PURE__ */ l(
@@ -66008,7 +66008,7 @@ function wAe({ currentUserId: t }) {
             {
               placeholder: e("users.searchPlaceholder"),
               value: d,
-              onChange: (Y) => p(Y.currentTarget.value),
+              onChange: (G) => p(G.currentTarget.value),
               leftSection: /* @__PURE__ */ l(fo, { size: 14 }),
               style: { width: 260 }
             }
@@ -66027,30 +66027,30 @@ function wAe({ currentUserId: t }) {
           /* @__PURE__ */ l("th", { children: e("users.colCreated") }),
           /* @__PURE__ */ l("th", { "aria-label": e("users.colActions") })
         ] }) }),
-        /* @__PURE__ */ l("tbody", { children: ee.map((Y) => {
-          const oe = !(Y.id === t) && L.includes(Y.role), le = [Y.firstName, Y.lastName].filter(Boolean).join(" "), ze = Y.status;
+        /* @__PURE__ */ l("tbody", { children: ee.map((G) => {
+          const oe = !(G.id === t) && H.includes(G.role), le = [G.firstName, G.lastName].filter(Boolean).join(" "), ze = G.status;
           return /* @__PURE__ */ v("tr", { children: [
             /* @__PURE__ */ l("td", { children: /* @__PURE__ */ v("div", { className: "cms-user-cell", children: [
-              /* @__PURE__ */ l("div", { className: `cms-user-avatar role-${Y.role}`, children: bAe(Y.firstName, Y.lastName, Y.email) }),
+              /* @__PURE__ */ l("div", { className: `cms-user-avatar role-${G.role}`, children: bAe(G.firstName, G.lastName, G.email) }),
               /* @__PURE__ */ v("div", { className: "cms-user-cell-text", children: [
-                /* @__PURE__ */ l("div", { className: "cms-user-name", children: le || Y.email }),
-                le && /* @__PURE__ */ l("div", { className: "cms-user-handle", children: Y.email })
+                /* @__PURE__ */ l("div", { className: "cms-user-name", children: le || G.email }),
+                le && /* @__PURE__ */ l("div", { className: "cms-user-handle", children: G.email })
               ] })
             ] }) }),
-            /* @__PURE__ */ l("td", { children: /* @__PURE__ */ l("span", { className: `cms-role-tag role-tag-${Y.role}`, children: Y.role }) }),
+            /* @__PURE__ */ l("td", { children: /* @__PURE__ */ l("span", { className: `cms-role-tag role-tag-${G.role}`, children: G.role }) }),
             /* @__PURE__ */ l("td", { children: /* @__PURE__ */ l("span", { className: `cms-status-pill status-pill-${ze}`, children: e(`users.status.${ze}`) }) }),
-            /* @__PURE__ */ l("td", { children: /* @__PURE__ */ l("span", { className: "cms-col-meta", children: new Date(Y.createdAt).toLocaleDateString() }) }),
+            /* @__PURE__ */ l("td", { children: /* @__PURE__ */ l("span", { className: "cms-col-meta", children: new Date(G.createdAt).toLocaleDateString() }) }),
             /* @__PURE__ */ l("td", { className: "cms-col-act", children: /* @__PURE__ */ l("div", { className: "cms-row-actions", children: oe && /* @__PURE__ */ v(be, { shadow: "md", position: "bottom-end", withinPortal: !0, children: [
               /* @__PURE__ */ l(be.Target, { children: /* @__PURE__ */ l(Le, { label: e("users.actionsMenu"), withArrow: !0, openDelay: 300, children: /* @__PURE__ */ l("button", { className: "cms-a-btn", "aria-label": e("users.actionsMenu"), children: /* @__PURE__ */ l(jr, { size: 14 }) }) }) }),
               /* @__PURE__ */ v(be.Dropdown, { children: [
-                /* @__PURE__ */ l(be.Item, { leftSection: /* @__PURE__ */ l(Yn, { size: 14 }), onClick: () => P(Y), children: e("users.edit") }),
-                ze === "pending" ? /* @__PURE__ */ l(be.Item, { leftSection: /* @__PURE__ */ l(Zl, { size: 14 }), onClick: () => F({ kind: "resend", user: Y }), children: e("users.resendInvite") }) : /* @__PURE__ */ l(be.Item, { leftSection: /* @__PURE__ */ l(Ls, { size: 14 }), onClick: () => F({ kind: "reset", user: Y }), children: e("users.resetPassword") }),
-                ze === "disabled" ? /* @__PURE__ */ l(be.Item, { leftSection: /* @__PURE__ */ l(ac, { size: 14 }), onClick: () => F({ kind: "reactivate", user: Y }), children: e("users.reactivate") }) : /* @__PURE__ */ l(be.Item, { leftSection: /* @__PURE__ */ l(nu, { size: 14 }), onClick: () => F({ kind: "disable", user: Y }), children: e("users.disable") }),
+                /* @__PURE__ */ l(be.Item, { leftSection: /* @__PURE__ */ l(Yn, { size: 14 }), onClick: () => L(G), children: e("users.edit") }),
+                ze === "pending" ? /* @__PURE__ */ l(be.Item, { leftSection: /* @__PURE__ */ l(Zl, { size: 14 }), onClick: () => F({ kind: "resend", user: G }), children: e("users.resendInvite") }) : /* @__PURE__ */ l(be.Item, { leftSection: /* @__PURE__ */ l(Ls, { size: 14 }), onClick: () => F({ kind: "reset", user: G }), children: e("users.resetPassword") }),
+                ze === "disabled" ? /* @__PURE__ */ l(be.Item, { leftSection: /* @__PURE__ */ l(ac, { size: 14 }), onClick: () => F({ kind: "reactivate", user: G }), children: e("users.reactivate") }) : /* @__PURE__ */ l(be.Item, { leftSection: /* @__PURE__ */ l(nu, { size: 14 }), onClick: () => F({ kind: "disable", user: G }), children: e("users.disable") }),
                 /* @__PURE__ */ l(be.Divider, {}),
-                /* @__PURE__ */ l(be.Item, { color: "red", leftSection: /* @__PURE__ */ l(it, { size: 14 }), onClick: () => F({ kind: "delete", user: Y }), children: e("users.delete") })
+                /* @__PURE__ */ l(be.Item, { color: "red", leftSection: /* @__PURE__ */ l(it, { size: 14 }), onClick: () => F({ kind: "delete", user: G }), children: e("users.delete") })
               ] })
             ] }) }) })
-          ] }, Y.id);
+          ] }, G.id);
         }) })
       ] }),
       /* @__PURE__ */ l("div", { className: "cms-users-foot", children: e("users.userCount", { count: ee.length, defaultValue: `${ee.length} users` }) })
@@ -66068,7 +66068,7 @@ function wAe({ currentUserId: t }) {
             ve,
             {
               variant: "primary",
-              onClick: B,
+              onClick: $,
               loading: M,
               disabled: !f.trim() || !z || !g.trim() || !b.trim(),
               children: e("users.sendInvite")
@@ -66078,8 +66078,8 @@ function wAe({ currentUserId: t }) {
         children: /* @__PURE__ */ v(pe, { gap: "sm", children: [
           w && /* @__PURE__ */ l(Fn, { color: "red", children: w }),
           /* @__PURE__ */ v("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }, children: [
-            /* @__PURE__ */ l(je, { label: e("users.createFirstName"), placeholder: e("users.createFirstNamePlaceholder"), value: g, onChange: (Y) => k(Y.currentTarget.value), required: !0 }),
-            /* @__PURE__ */ l(je, { label: e("users.createLastName"), placeholder: e("users.createLastNamePlaceholder"), value: b, onChange: (Y) => N(Y.currentTarget.value), required: !0 })
+            /* @__PURE__ */ l(je, { label: e("users.createFirstName"), placeholder: e("users.createFirstNamePlaceholder"), value: g, onChange: (G) => k(G.currentTarget.value), required: !0 }),
+            /* @__PURE__ */ l(je, { label: e("users.createLastName"), placeholder: e("users.createLastNamePlaceholder"), value: b, onChange: (G) => N(G.currentTarget.value), required: !0 })
           ] }),
           /* @__PURE__ */ l(
             je,
@@ -66088,19 +66088,19 @@ function wAe({ currentUserId: t }) {
               placeholder: e("users.createEmailPlaceholder"),
               description: e("users.inviteEmailHint"),
               value: f,
-              onChange: (Y) => y(Y.currentTarget.value),
+              onChange: (G) => y(G.currentTarget.value),
               required: !0
             }
           ),
           /* @__PURE__ */ l("div", { className: "cms-drawer-section", children: e("users.roleSection") }),
-          /* @__PURE__ */ l("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }, children: L.map((Y) => /* @__PURE__ */ l(
+          /* @__PURE__ */ l("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }, children: H.map((G) => /* @__PURE__ */ l(
             "div",
             {
-              className: `cms-drawer-card${z === Y ? " selected" : ""}`,
-              onClick: () => x(Y),
-              children: /* @__PURE__ */ l("div", { className: "cms-drawer-card-title", children: Y.charAt(0).toUpperCase() + Y.slice(1) })
+              className: `cms-drawer-card${z === G ? " selected" : ""}`,
+              onClick: () => x(G),
+              children: /* @__PURE__ */ l("div", { className: "cms-drawer-card-title", children: G.charAt(0).toUpperCase() + G.slice(1) })
             },
-            Y
+            G
           )) })
         ] })
       }
@@ -66125,20 +66125,20 @@ function wAe({ currentUserId: t }) {
           )
         ] }),
         children: /* @__PURE__ */ v(pe, { gap: "sm", children: [
-          K && /* @__PURE__ */ l(Fn, { color: "red", children: K }),
+          W && /* @__PURE__ */ l(Fn, { color: "red", children: W }),
           /* @__PURE__ */ v("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }, children: [
-            /* @__PURE__ */ l(je, { label: e("users.createFirstName"), placeholder: e("users.createFirstNamePlaceholder"), value: I, onChange: (Y) => $(Y.currentTarget.value) }),
-            /* @__PURE__ */ l(je, { label: e("users.createLastName"), placeholder: e("users.createLastNamePlaceholder"), value: O, onChange: (Y) => V(Y.currentTarget.value) })
+            /* @__PURE__ */ l(je, { label: e("users.createFirstName"), placeholder: e("users.createFirstNamePlaceholder"), value: I, onChange: (G) => P(G.currentTarget.value) }),
+            /* @__PURE__ */ l(je, { label: e("users.createLastName"), placeholder: e("users.createLastNamePlaceholder"), value: O, onChange: (G) => B(G.currentTarget.value) })
           ] }),
           /* @__PURE__ */ l("div", { className: "cms-drawer-section", children: e("users.roleSection") }),
-          /* @__PURE__ */ l("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }, children: L.map((Y) => /* @__PURE__ */ l(
+          /* @__PURE__ */ l("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }, children: H.map((G) => /* @__PURE__ */ l(
             "div",
             {
-              className: `cms-drawer-card${T === Y ? " selected" : ""}`,
-              onClick: () => U(Y),
-              children: /* @__PURE__ */ l("div", { className: "cms-drawer-card-title", children: Y.charAt(0).toUpperCase() + Y.slice(1) })
+              className: `cms-drawer-card${T === G ? " selected" : ""}`,
+              onClick: () => U(G),
+              children: /* @__PURE__ */ l("div", { className: "cms-drawer-card-title", children: G.charAt(0).toUpperCase() + G.slice(1) })
             },
-            Y
+            G
           )) }),
           /* @__PURE__ */ l("div", { style: { fontSize: 12, color: "var(--ink-3)", marginTop: 4 }, children: e("users.editPasswordNote") })
         ] })
@@ -66265,15 +66265,15 @@ function _Ae({
         ] }),
         /* @__PURE__ */ v(se, { p: "sm", justify: "space-between", children: [
           /* @__PURE__ */ v(ae, { children: [
-            /* @__PURE__ */ l(H, { size: "sm", fw: 500, children: s.originalName }),
-            /* @__PURE__ */ v(H, { size: "xs", c: "dimmed", children: [
+            /* @__PURE__ */ l(V, { size: "sm", fw: 500, children: s.originalName }),
+            /* @__PURE__ */ v(V, { size: "xs", c: "dimmed", children: [
               Sr(s.size),
               " · ",
               (c = s.mimeType.split("/")[1]) == null ? void 0 : c.toUpperCase()
             ] })
           ] }),
           /* @__PURE__ */ v(se, { gap: "xs", children: [
-            o.length > 1 && /* @__PURE__ */ v(H, { size: "xs", c: "dimmed", children: [
+            o.length > 1 && /* @__PURE__ */ v(V, { size: "xs", c: "dimmed", children: [
               r + 1,
               " / ",
               o.length
@@ -66318,7 +66318,7 @@ function SAe({ file: t, onClose: e }) {
           /* @__PURE__ */ v(ue.Tr, { children: [
             /* @__PURE__ */ l(ue.Td, { style: { color: "var(--mantine-color-dimmed)", fontSize: 12 }, children: n("media.fileInfoCdnUrl") }),
             /* @__PURE__ */ l(ue.Td, { children: /* @__PURE__ */ v(se, { gap: 4, wrap: "nowrap", children: [
-              /* @__PURE__ */ l(H, { size: "xs", style: { flex: 1, wordBreak: "break-all" }, children: t.cdnUrl }),
+              /* @__PURE__ */ l(V, { size: "xs", style: { flex: 1, wordBreak: "break-all" }, children: t.cdnUrl }),
               /* @__PURE__ */ l(Nn, { variant: "ghost", label: n(a ? "media.copied" : "media.copy"), size: "xs", onClick: r, children: a ? /* @__PURE__ */ l(ja, { size: 12 }) : /* @__PURE__ */ l(gi, { size: 12 }) })
             ] }) })
           ] })
@@ -66362,11 +66362,11 @@ function NAe({ file: t, onRename: e, onClose: n }) {
             onKeyDown: (f) => f.key === "Enter" && m(),
             autoFocus: !0,
             "data-autofocus": !0,
-            rightSection: r ? /* @__PURE__ */ l(H, { size: "xs", c: "dimmed", style: { paddingRight: 6 }, children: r }) : void 0,
+            rightSection: r ? /* @__PURE__ */ l(V, { size: "xs", c: "dimmed", style: { paddingRight: 6 }, children: r }) : void 0,
             rightSectionWidth: r ? Math.max(40, r.length * 8 + 8) : void 0
           }
         ),
-        p && /* @__PURE__ */ l(H, { size: "xs", c: "red", children: p })
+        p && /* @__PURE__ */ l(V, { size: "xs", c: "red", children: p })
       ] })
     }
   );
@@ -66386,42 +66386,42 @@ function M5(t, e = /* @__PURE__ */ new Set()) {
 function TAe({ folders: t, rootCount: e, current: n, onSelect: a, onMoveFile: o, onMoveFiles: r, onUploadToFolder: i, onRefreshFolders: s }) {
   const { t: c } = we(), [d, p] = _(null), [u, m] = _(null), [f, y] = _(""), [g, k] = _(null), [b, N] = _(!1), [z, x] = _(/* @__PURE__ */ new Set()), [w, C] = _(null), [M, S] = _(""), [j, A] = _(""), T = Te(null), U = Te(null);
   he(() => {
-    const P = U.current, q = T.current;
-    if (!P || !q) return;
+    const L = U.current, q = T.current;
+    if (!L || !q) return;
     let J = !1, te = 0, ee = 0;
-    const de = 200, Y = 520, Z = () => {
-      P.classList.add("is-hovered");
+    const de = 200, G = 520, Z = () => {
+      L.classList.add("is-hovered");
     }, oe = () => {
-      J || P.classList.remove("is-hovered");
+      J || L.classList.remove("is-hovered");
     }, le = (Ue) => {
-      const rt = P.getBoundingClientRect();
-      P.style.setProperty("--y", Ue.clientY - rt.top + "px");
+      const rt = L.getBoundingClientRect();
+      L.style.setProperty("--y", Ue.clientY - rt.top + "px");
     }, ze = (Ue) => {
-      J = !0, te = Ue.clientX, ee = q.getBoundingClientRect().width, P.classList.add("is-active"), document.body.style.cursor = "col-resize", document.body.style.userSelect = "none", Ue.preventDefault();
+      J = !0, te = Ue.clientX, ee = q.getBoundingClientRect().width, L.classList.add("is-active"), document.body.style.cursor = "col-resize", document.body.style.userSelect = "none", Ue.preventDefault();
     }, fe = (Ue) => {
       if (!J) return;
-      const rt = Math.min(Y, Math.max(de, ee + (Ue.clientX - te)));
+      const rt = Math.min(G, Math.max(de, ee + (Ue.clientX - te)));
       q.style.width = rt + "px", q.style.flex = `0 0 ${rt}px`, document.documentElement.style.setProperty("--cms-folder-w", rt + "px");
     }, Me = () => {
-      J && (J = !1, document.body.style.cursor = "", document.body.style.userSelect = "", P.classList.remove("is-active"));
+      J && (J = !1, document.body.style.cursor = "", document.body.style.userSelect = "", L.classList.remove("is-active"));
     };
-    return P.addEventListener("mouseenter", Z), P.addEventListener("mouseleave", oe), P.addEventListener("mousemove", le), P.addEventListener("mousedown", ze), document.addEventListener("mousemove", fe), document.addEventListener("mouseup", Me), () => {
-      P.removeEventListener("mouseenter", Z), P.removeEventListener("mouseleave", oe), P.removeEventListener("mousemove", le), P.removeEventListener("mousedown", ze), document.removeEventListener("mousemove", fe), document.removeEventListener("mouseup", Me);
+    return L.addEventListener("mouseenter", Z), L.addEventListener("mouseleave", oe), L.addEventListener("mousemove", le), L.addEventListener("mousedown", ze), document.addEventListener("mousemove", fe), document.addEventListener("mouseup", Me), () => {
+      L.removeEventListener("mouseenter", Z), L.removeEventListener("mouseleave", oe), L.removeEventListener("mousemove", le), L.removeEventListener("mousedown", ze), document.removeEventListener("mousemove", fe), document.removeEventListener("mouseup", Me);
     };
   }, []);
-  const I = Te(/* @__PURE__ */ new Set()), $ = (P, q) => {
-    if (P.target.closest("input, button")) {
-      P.preventDefault();
+  const I = Te(/* @__PURE__ */ new Set()), P = (L, q) => {
+    if (L.target.closest("input, button")) {
+      L.preventDefault();
       return;
     }
-    P.dataTransfer.setData("text/media-folder-id", q.id), P.dataTransfer.effectAllowed = "move";
+    L.dataTransfer.setData("text/media-folder-id", q.id), L.dataTransfer.effectAllowed = "move";
     const te = M5(q);
     te.add(q.id), I.current = te, p(null);
   }, O = () => {
     I.current = /* @__PURE__ */ new Set(), p(null);
-  }, V = async (P, q) => {
-    P.preventDefault(), P.stopPropagation(), p(null);
-    const J = P.dataTransfer.getData("text/media-folder-id");
+  }, B = async (L, q) => {
+    L.preventDefault(), L.stopPropagation(), p(null);
+    const J = L.dataTransfer.getData("text/media-folder-id");
     if (J) {
       if (J === q || q !== null && I.current.has(q)) return;
       try {
@@ -66431,23 +66431,23 @@ function TAe({ folders: t, rootCount: e, current: n, onSelect: a, onMoveFile: o,
       }
       return;
     }
-    const te = P.dataTransfer.getData("text/media-file-ids");
+    const te = L.dataTransfer.getData("text/media-file-ids");
     if (te) {
       await r(JSON.parse(te), q);
       return;
     }
-    const ee = P.dataTransfer.getData("text/media-file-id");
+    const ee = L.dataTransfer.getData("text/media-file-id");
     if (ee) {
       await o(ee, q);
       return;
     }
-    P.dataTransfer.files.length > 0 && await i(Array.from(P.dataTransfer.files), q);
-  }, K = (P, q) => {
-    const J = P.dataTransfer.types.includes("text/media-folder-id"), te = P.dataTransfer.types.includes("text/media-file-id") || P.dataTransfer.types.includes("text/media-file-ids"), ee = P.dataTransfer.types.includes("Files");
-    !J && !te && !ee || J && q !== "root" && I.current.has(q) || (P.preventDefault(), P.stopPropagation(), P.dataTransfer.dropEffect = J || te ? "move" : "copy", p(q));
-  }, G = (P) => x((q) => {
+    L.dataTransfer.files.length > 0 && await i(Array.from(L.dataTransfer.files), q);
+  }, W = (L, q) => {
+    const J = L.dataTransfer.types.includes("text/media-folder-id"), te = L.dataTransfer.types.includes("text/media-file-id") || L.dataTransfer.types.includes("text/media-file-ids"), ee = L.dataTransfer.types.includes("Files");
+    !J && !te && !ee || J && q !== "root" && I.current.has(q) || (L.preventDefault(), L.stopPropagation(), L.dataTransfer.dropEffect = J || te ? "move" : "copy", p(q));
+  }, K = (L) => x((q) => {
     const J = new Set(q);
-    return J.has(P) ? J.delete(P) : J.add(P), J;
+    return J.has(L) ? J.delete(L) : J.add(L), J;
   }), D = async () => {
     if (!(!u || !f.trim()))
       try {
@@ -66460,53 +66460,53 @@ function TAe({ folders: t, rootCount: e, current: n, onSelect: a, onMoveFile: o,
       A(""), N(!0);
       try {
         await s8e(g.id), n === g.id && a(void 0), s(), k(null);
-      } catch (P) {
-        P instanceof dk ? A(`"${g.name}" contains ${P.count} item${P.count !== 1 ? "s" : ""}. Move or delete them first.`) : A("Failed to delete folder."), k(null);
+      } catch (L) {
+        L instanceof dk ? A(`"${g.name}" contains ${L.count} item${L.count !== 1 ? "s" : ""}. Move or delete them first.`) : A("Failed to delete folder."), k(null);
       } finally {
         N(!1);
       }
     }
-  }, R = (P) => {
-    C(P), S(""), P !== "root" && x((q) => new Set(q).add(P));
+  }, R = (L) => {
+    C(L), S(""), L !== "root" && x((q) => new Set(q).add(L));
   }, F = async () => {
-    const P = M.trim();
-    if (P)
+    const L = M.trim();
+    if (L)
       try {
-        await o8e(P, w === "root" ? null : w), C(null), S(""), s();
+        await o8e(L, w === "root" ? null : w), C(null), S(""), s();
       } catch {
         A("Failed to create folder.");
       }
-  }, L = () => {
+  }, H = () => {
     C(null), S("");
-  }, W = (P, q) => {
-    const J = z.has(P.id), te = n === P.id, ee = d === P.id, de = u === P.id, Y = 8 + q * 24, Z = I.current.has(P.id);
+  }, Y = (L, q) => {
+    const J = z.has(L.id), te = n === L.id, ee = d === L.id, de = u === L.id, G = 8 + q * 24, Z = I.current.has(L.id);
     return /* @__PURE__ */ v(ut.Fragment, { children: [
       /* @__PURE__ */ v(
         "div",
         {
           className: `cms-folder-row${te ? " active" : ""}${ee ? " drag-over" : ""}`,
           style: {
-            paddingLeft: Y,
+            paddingLeft: G,
             cursor: de ? void 0 : "grab",
             opacity: Z && I.current.size > 0 ? 0.4 : 1
           },
-          onClick: () => !de && a(P.id),
+          onClick: () => !de && a(L.id),
           draggable: !de,
-          onDragStart: (oe) => $(oe, P),
+          onDragStart: (oe) => P(oe, L),
           onDragEnd: O,
-          onDragOver: (oe) => K(oe, P.id),
+          onDragOver: (oe) => W(oe, L.id),
           onDragLeave: () => p(null),
-          onDrop: (oe) => V(oe, P.id),
+          onDrop: (oe) => B(oe, L.id),
           children: [
             /* @__PURE__ */ l(
               "button",
               {
                 type: "button",
-                className: `cms-folder-chev${P.children.length === 0 ? " is-empty" : ""}${J ? " is-expanded" : ""}`,
+                className: `cms-folder-chev${L.children.length === 0 ? " is-empty" : ""}${J ? " is-expanded" : ""}`,
                 onClick: (oe) => {
-                  oe.stopPropagation(), G(P.id);
+                  oe.stopPropagation(), K(L.id);
                 },
-                tabIndex: P.children.length === 0 ? -1 : 0,
+                tabIndex: L.children.length === 0 ? -1 : 0,
                 "aria-label": c(J ? "media.collapse" : "media.expand"),
                 children: /* @__PURE__ */ l(wa, { size: 12 })
               }
@@ -66527,7 +66527,7 @@ function TAe({ folders: t, rootCount: e, current: n, onSelect: a, onMoveFile: o,
               }
             ) : /* @__PURE__ */ v(Re, { children: [
               /* @__PURE__ */ l("span", { className: "cms-folder-ico", "aria-hidden": "true", children: /* @__PURE__ */ l(co, { size: 14 }) }),
-              /* @__PURE__ */ l("span", { className: "cms-folder-name", title: P.name, children: P.name }),
+              /* @__PURE__ */ l("span", { className: "cms-folder-name", title: L.name, children: L.name }),
               /* @__PURE__ */ v(be, { shadow: "md", position: "bottom-end", withinPortal: !0, children: [
                 /* @__PURE__ */ l(be.Target, { children: /* @__PURE__ */ l(
                   "button",
@@ -66540,21 +66540,21 @@ function TAe({ folders: t, rootCount: e, current: n, onSelect: a, onMoveFile: o,
                   }
                 ) }),
                 /* @__PURE__ */ v(be.Dropdown, { children: [
-                  /* @__PURE__ */ l(be.Item, { leftSection: /* @__PURE__ */ l(Gp, { size: 13 }), onClick: () => R(P.id), children: c("media.newSubfolder") }),
+                  /* @__PURE__ */ l(be.Item, { leftSection: /* @__PURE__ */ l(Gp, { size: 13 }), onClick: () => R(L.id), children: c("media.newSubfolder") }),
                   /* @__PURE__ */ l(be.Item, { leftSection: /* @__PURE__ */ l(Yn, { size: 13 }), onClick: () => {
-                    m(P.id), y(P.name);
+                    m(L.id), y(L.name);
                   }, children: c("media.rename") }),
                   /* @__PURE__ */ l(be.Divider, {}),
-                  /* @__PURE__ */ l(be.Item, { color: "red", leftSection: /* @__PURE__ */ l(it, { size: 13 }), onClick: () => k(P), children: c("media.delete") })
+                  /* @__PURE__ */ l(be.Item, { color: "red", leftSection: /* @__PURE__ */ l(it, { size: 13 }), onClick: () => k(L), children: c("media.delete") })
                 ] })
               ] }),
-              /* @__PURE__ */ l("span", { className: "cms-folder-count", children: P.totalCount })
+              /* @__PURE__ */ l("span", { className: "cms-folder-count", children: L.totalCount })
             ] })
           ]
         }
       ),
-      J && P.children.map((oe) => W(oe, q + 1)),
-      w === P.id && J && /* @__PURE__ */ l("div", { style: { paddingLeft: Y + 14, paddingRight: 8, paddingTop: 4, paddingBottom: 4 }, children: /* @__PURE__ */ v(se, { gap: 4, wrap: "nowrap", children: [
+      J && L.children.map((oe) => Y(oe, q + 1)),
+      w === L.id && J && /* @__PURE__ */ l("div", { style: { paddingLeft: G + 14, paddingRight: 8, paddingTop: 4, paddingBottom: 4 }, children: /* @__PURE__ */ v(se, { gap: 4, wrap: "nowrap", children: [
         /* @__PURE__ */ l(
           je,
           {
@@ -66563,17 +66563,17 @@ function TAe({ folders: t, rootCount: e, current: n, onSelect: a, onMoveFile: o,
             value: M,
             onChange: (oe) => S(oe.target.value),
             onKeyDown: (oe) => {
-              oe.key === "Enter" && F(), oe.key === "Escape" && L();
+              oe.key === "Enter" && F(), oe.key === "Escape" && H();
             },
             autoFocus: !0,
             style: { flex: 1 }
           }
         ),
         /* @__PURE__ */ l(Nn, { variant: "ghost", label: c("media.confirmCreate"), size: "sm", onClick: F, disabled: !M.trim(), children: /* @__PURE__ */ l(ja, { size: 12 }) }),
-        /* @__PURE__ */ l(Nn, { variant: "ghost", label: c("common.cancel"), size: "sm", onClick: L, children: /* @__PURE__ */ l(da, { size: 12 }) })
+        /* @__PURE__ */ l(Nn, { variant: "ghost", label: c("common.cancel"), size: "sm", onClick: H, children: /* @__PURE__ */ l(da, { size: 12 }) })
       ] }) })
-    ] }, P.id);
-  }, B = zAe(t);
+    ] }, L.id);
+  }, $ = zAe(t);
   return /* @__PURE__ */ v(ae, { className: "cms-folder-panel", ref: T, children: [
     /* @__PURE__ */ l("div", { className: "cms-folder-resizer", ref: U, "aria-hidden": "true" }),
     /* @__PURE__ */ v("div", { className: "cms-folder-label", children: [
@@ -66596,16 +66596,16 @@ function TAe({ folders: t, rootCount: e, current: n, onSelect: a, onMoveFile: o,
           size: "xs",
           placeholder: c("media.newFolder"),
           value: M,
-          onChange: (P) => S(P.target.value),
-          onKeyDown: (P) => {
-            P.key === "Enter" && F(), P.key === "Escape" && L();
+          onChange: (L) => S(L.target.value),
+          onKeyDown: (L) => {
+            L.key === "Enter" && F(), L.key === "Escape" && H();
           },
           autoFocus: !0,
           style: { flex: 1 }
         }
       ),
       /* @__PURE__ */ l(Mt, { size: "sm", variant: "light", color: "teal", onClick: F, disabled: !M.trim(), children: /* @__PURE__ */ l(ja, { size: 12 }) }),
-      /* @__PURE__ */ l(Mt, { size: "sm", variant: "subtle", color: "gray", onClick: L, children: /* @__PURE__ */ l(da, { size: 12 }) })
+      /* @__PURE__ */ l(Mt, { size: "sm", variant: "subtle", color: "gray", onClick: H, children: /* @__PURE__ */ l(da, { size: 12 }) })
     ] }) }),
     /* @__PURE__ */ v(Vo, { className: "cms-folder-scroll", type: "auto", children: [
       /* @__PURE__ */ v(
@@ -66614,12 +66614,12 @@ function TAe({ folders: t, rootCount: e, current: n, onSelect: a, onMoveFile: o,
           className: `cms-folder-row${n === void 0 ? " active" : ""}${d === "all" ? " drag-over" : ""}`,
           style: { paddingLeft: 8 },
           onClick: () => a(void 0),
-          onDragOver: (P) => {
-            P.dataTransfer.types.includes("text/media-folder-id") && (P.preventDefault(), P.stopPropagation(), P.dataTransfer.dropEffect = "move", p("all"));
+          onDragOver: (L) => {
+            L.dataTransfer.types.includes("text/media-folder-id") && (L.preventDefault(), L.stopPropagation(), L.dataTransfer.dropEffect = "move", p("all"));
           },
           onDragLeave: () => p(null),
-          onDrop: (P) => {
-            P.dataTransfer.types.includes("text/media-folder-id") && V(P, null);
+          onDrop: (L) => {
+            L.dataTransfer.types.includes("text/media-folder-id") && B(L, null);
           },
           children: [
             /* @__PURE__ */ l("span", { className: "cms-folder-chev is-empty", "aria-hidden": "true" }),
@@ -66634,9 +66634,9 @@ function TAe({ folders: t, rootCount: e, current: n, onSelect: a, onMoveFile: o,
           className: `cms-folder-row${n === null ? " active" : ""}${d === "root" ? " drag-over" : ""}`,
           style: { paddingLeft: 8 },
           onClick: () => a(null),
-          onDragOver: (P) => K(P, "root"),
+          onDragOver: (L) => W(L, "root"),
           onDragLeave: () => p(null),
-          onDrop: (P) => V(P, null),
+          onDrop: (L) => B(L, null),
           children: [
             /* @__PURE__ */ l("span", { className: "cms-folder-chev is-empty", "aria-hidden": "true" }),
             /* @__PURE__ */ l("span", { className: "cms-folder-ico", "aria-hidden": "true", children: /* @__PURE__ */ l(co, { size: 14 }) }),
@@ -66645,10 +66645,10 @@ function TAe({ folders: t, rootCount: e, current: n, onSelect: a, onMoveFile: o,
           ]
         }
       ),
-      B.length > 0 && /* @__PURE__ */ l("div", { style: { height: 1, background: "var(--border-subtle, var(--border))", margin: "6px 14px" } }),
-      B.map((P) => W(P, 0))
+      $.length > 0 && /* @__PURE__ */ l("div", { style: { height: 1, background: "var(--border-subtle, var(--border))", margin: "6px 14px" } }),
+      $.map((L) => Y(L, 0))
     ] }),
-    j && /* @__PURE__ */ l(Fn, { color: "red", p: "xs", withCloseButton: !0, onClose: () => A(""), children: /* @__PURE__ */ l(H, { size: "xs", children: j }) }),
+    j && /* @__PURE__ */ l(Fn, { color: "red", p: "xs", withCloseButton: !0, onClose: () => A(""), children: /* @__PURE__ */ l(V, { size: "xs", children: j }) }),
     /* @__PURE__ */ l(
       Ut,
       {
@@ -66670,12 +66670,12 @@ function h0(t, e, n) {
 function p0({ refs: t, onClose: e }) {
   const { t: n } = we();
   return /* @__PURE__ */ v(Fn, { color: "orange", variant: "light", p: "xs", withCloseButton: !0, onClose: e, children: [
-    /* @__PURE__ */ l(H, { size: "xs", fw: 600, mb: 4, children: n("media.usedOnPages", { count: t.length }) }),
-    /* @__PURE__ */ l(pe, { gap: 2, children: t.map((a) => /* @__PURE__ */ v(H, { size: "xs", c: "dimmed", children: [
+    /* @__PURE__ */ l(V, { size: "xs", fw: 600, mb: 4, children: n("media.usedOnPages", { count: t.length }) }),
+    /* @__PURE__ */ l(pe, { gap: 2, children: t.map((a) => /* @__PURE__ */ v(V, { size: "xs", c: "dimmed", children: [
       "— ",
       a.pageTitle
     ] }, a.pageId)) }),
-    /* @__PURE__ */ l(H, { size: "xs", mt: 4, c: "dimmed", children: n("media.removeFromPagesFirst") })
+    /* @__PURE__ */ l(V, { size: "xs", mt: 4, c: "dimmed", children: n("media.removeFromPagesFirst") })
   ] });
 }
 function u0({ file: t, onConfirm: e, onClose: n, loading: a }) {
@@ -66752,8 +66752,8 @@ function jAe({ file: t, onPreview: e, onInfo: n, onRename: a, onDelete: o, onDel
     b(!0), g(null);
     try {
       await o(t.id), u(!1);
-    } catch ($) {
-      $ instanceof oi && (g($.refs), u(!1));
+    } catch (P) {
+      P instanceof oi && (g(P.refs), u(!1));
     } finally {
       b(!1);
     }
@@ -66774,9 +66774,9 @@ function jAe({ file: t, onPreview: e, onInfo: n, onRename: a, onDelete: o, onDel
         "data-file-id": t.id,
         className: `cms-media-card${x ? " is-selected" : ""}`,
         draggable: !0,
-        onDragStart: ($) => h0($, t.id, s),
-        onClick: ($) => {
-          ($.ctrlKey || $.metaKey) && ($.preventDefault(), $.stopPropagation(), c(t.id));
+        onDragStart: (P) => h0(P, t.id, s),
+        onClick: (P) => {
+          (P.ctrlKey || P.metaKey) && (P.preventDefault(), P.stopPropagation(), c(t.id));
         },
         children: [
           /* @__PURE__ */ v(
@@ -66784,9 +66784,9 @@ function jAe({ file: t, onPreview: e, onInfo: n, onRename: a, onDelete: o, onDel
             {
               className: "cms-media-thumb",
               style: { cursor: ga(t.mimeType) ? w ? "grab" : "zoom-in" : "default" },
-              onClick: ($) => {
+              onClick: (P) => {
                 if (w) {
-                  $.stopPropagation(), c(t.id);
+                  P.stopPropagation(), c(t.id);
                   return;
                 }
                 ga(t.mimeType) && e(t);
@@ -66803,7 +66803,7 @@ function jAe({ file: t, onPreview: e, onInfo: n, onRename: a, onDelete: o, onDel
                     {
                       type: "button",
                       className: "cms-media-card-menu",
-                      onClick: ($) => $.stopPropagation(),
+                      onClick: (P) => P.stopPropagation(),
                       "aria-label": d("media.fileInfo"),
                       children: /* @__PURE__ */ l(jr, { size: 14 })
                     }
@@ -66991,11 +66991,11 @@ function EAe({ file: t, onPreview: e, onInfo: n, onRename: a, onDelete: o, onDel
               children: ga(t.mimeType) ? /* @__PURE__ */ l(Bo, { src: t.cdnUrl, w: 36, h: 36, fit: "cover", alt: "", loading: "lazy" }) : /* @__PURE__ */ l(d0, { mimeType: t.mimeType, size: 18 })
             }
           ) }),
-          /* @__PURE__ */ l(ue.Td, { style: { maxWidth: 220 }, children: /* @__PURE__ */ l(H, { size: "xs", fw: 500, truncate: !0, title: t.originalName, children: t.originalName }) }),
+          /* @__PURE__ */ l(ue.Td, { style: { maxWidth: 220 }, children: /* @__PURE__ */ l(V, { size: "xs", fw: 500, truncate: !0, title: t.originalName, children: t.originalName }) }),
           /* @__PURE__ */ l(ue.Td, { style: { width: 90 }, children: /* @__PURE__ */ l(Fe, { size: "xs", variant: "light", color: "gray", children: t.originalName.includes(".") ? (A = t.originalName.split(".").pop()) == null ? void 0 : A.toUpperCase() : t.mimeType.split("/")[1] }) }),
-          /* @__PURE__ */ l(ue.Td, { style: { width: 80 }, children: /* @__PURE__ */ l(H, { size: "xs", c: "dimmed", children: Sr(t.size) }) }),
-          /* @__PURE__ */ l(ue.Td, { style: { width: 140 }, children: /* @__PURE__ */ l(H, { size: "xs", c: "dimmed", children: ld(t.createdAt) }) }),
-          /* @__PURE__ */ l(ue.Td, { style: { width: 140 }, children: /* @__PURE__ */ l(H, { size: "xs", c: "dimmed", children: ld(t.updatedAt) }) }),
+          /* @__PURE__ */ l(ue.Td, { style: { width: 80 }, children: /* @__PURE__ */ l(V, { size: "xs", c: "dimmed", children: Sr(t.size) }) }),
+          /* @__PURE__ */ l(ue.Td, { style: { width: 140 }, children: /* @__PURE__ */ l(V, { size: "xs", c: "dimmed", children: ld(t.createdAt) }) }),
+          /* @__PURE__ */ l(ue.Td, { style: { width: 140 }, children: /* @__PURE__ */ l(V, { size: "xs", c: "dimmed", children: ld(t.updatedAt) }) }),
           /* @__PURE__ */ l(ue.Td, { style: { width: 60 }, children: /* @__PURE__ */ v(be, { shadow: "md", position: "bottom-end", withinPortal: !0, children: [
             /* @__PURE__ */ l(be.Target, { children: /* @__PURE__ */ l(Mt, { size: "sm", variant: "subtle", color: "gray", children: /* @__PURE__ */ l(jr, { size: 14 }) }) }),
             /* @__PURE__ */ l(be.Dropdown, { children: C ? /* @__PURE__ */ v(Re, { children: [
@@ -67049,7 +67049,7 @@ function LAe({ opened: t, onClose: e }) {
         r && /* @__PURE__ */ l(Fe, { color: "green", size: "sm", variant: "light", children: n("media.settingsConfigured") })
       ] }),
       footer: /* @__PURE__ */ v("div", { className: "cms-drawer-footer", children: [
-        d && /* @__PURE__ */ l(H, { size: "xs", c: d.ok ? "green" : "red", style: { marginRight: "auto" }, children: d.text }),
+        d && /* @__PURE__ */ l(V, { size: "xs", c: d.ok ? "green" : "red", style: { marginRight: "auto" }, children: d.text }),
         /* @__PURE__ */ l(ve, { variant: "secondary", onClick: e, disabled: s, children: n("common.close") }),
         /* @__PURE__ */ l(ve, { variant: "primary", onClick: u, loading: s, children: n("media.settingsSave") })
       ] }),
@@ -67059,14 +67059,14 @@ function LAe({ opened: t, onClose: e }) {
         /* @__PURE__ */ l(yr, { label: n(r ? "media.settingsApiKeyEdit" : "media.settingsApiKeyNew"), placeholder: n(r ? "media.settingsApiKeyPlaceholderHidden" : "media.settingsApiKeyPlaceholderNew"), value: a.storageApiKey, onChange: (m) => o({ ...a, storageApiKey: m.target.value }) }),
         /* @__PURE__ */ l(Tt, { label: n("media.settingsRegion"), data: CAe, value: a.storageEndpoint, onChange: (m) => o({ ...a, storageEndpoint: m ?? "storage.bunnycdn.com" }) }),
         /* @__PURE__ */ l(je, { label: n("media.settingsCdnUrl"), placeholder: n("media.settingsCdnPlaceholder"), value: a.cdnUrl, onChange: (m) => o({ ...a, cdnUrl: m.target.value }) }),
-        /* @__PURE__ */ l(H, { size: "xs", c: "dimmed", children: n("media.settingsHelp") })
+        /* @__PURE__ */ l(V, { size: "xs", c: "dimmed", children: n("media.settingsHelp") })
       ] })
     }
   );
 }
 function PAe() {
   var Ve;
-  const { t } = we(), { user: e } = ra(), [n, a] = _([]), [o, r] = _(0), [i, s] = _(1), [c, d] = _(!0), [p, u] = _(""), [m, f] = _(""), [y, g] = _("all"), [k, b] = _(!1), [N, z] = _(!1), [x, w] = _(() => localStorage.getItem("cms-media-view") ?? "large"), [C, M] = _(() => localStorage.getItem("cms-media-sort") ?? "added-desc"), [S, j] = _([]), [A, T] = _(0), [U, I] = _(void 0), [$, O] = _(null), [V, K] = _(null), [G, D] = _(null), [E, R] = _(!1), [F, L] = _(/* @__PURE__ */ new Set()), [W, B] = _(null), P = Te(null), q = Te(!1), J = Te(null), te = Te(null), ee = (e == null ? void 0 : e.role) === "developer", de = MAe(t), Y = ht(async () => {
+  const { t } = we(), { user: e } = ra(), [n, a] = _([]), [o, r] = _(0), [i, s] = _(1), [c, d] = _(!0), [p, u] = _(""), [m, f] = _(""), [y, g] = _("all"), [k, b] = _(!1), [N, z] = _(!1), [x, w] = _(() => localStorage.getItem("cms-media-view") ?? "large"), [C, M] = _(() => localStorage.getItem("cms-media-sort") ?? "added-desc"), [S, j] = _([]), [A, T] = _(0), [U, I] = _(void 0), [P, O] = _(null), [B, W] = _(null), [K, D] = _(null), [E, R] = _(!1), [F, H] = _(/* @__PURE__ */ new Set()), [Y, $] = _(null), L = Te(null), q = Te(!1), J = Te(null), te = Te(null), ee = (e == null ? void 0 : e.role) === "developer", de = MAe(t), G = ht(async () => {
     try {
       const re = await ck();
       j(re.folders), T(re.rootCount);
@@ -67084,7 +67084,7 @@ function PAe() {
       };
       U !== void 0 && (re.folderId = U);
       const De = await Pd(re);
-      a(De.data), r(De.total), L(/* @__PURE__ */ new Set());
+      a(De.data), r(De.total), H(/* @__PURE__ */ new Set());
     } catch (re) {
       u(re instanceof Error ? re.message : "Failed to load media");
     } finally {
@@ -67094,18 +67094,18 @@ function PAe() {
   he(() => {
     Z();
   }, [Z]), he(() => {
-    Y();
-  }, [Y]), he(() => {
+    G();
+  }, [G]), he(() => {
     const re = (ct) => {
-      ct.key === "Escape" && (L(/* @__PURE__ */ new Set()), B(null), q.current = !1);
+      ct.key === "Escape" && (H(/* @__PURE__ */ new Set()), $(null), q.current = !1);
     }, De = (ct) => {
       if (!q.current || !J.current) return;
       const Ze = { x1: J.current.x, y1: J.current.y, x2: ct.clientX, y2: ct.clientY };
-      P.current = Ze, B(Ze);
+      L.current = Ze, $(Ze);
     }, Oe = (ct) => {
       if (!q.current) return;
       q.current = !1;
-      const Ze = P.current;
+      const Ze = L.current;
       if (Ze) {
         const Nt = Math.min(Ze.x1, ct.clientX), Vt = Math.max(Ze.x1, ct.clientX), ie = Math.min(Ze.y1, ct.clientY), Ee = Math.max(Ze.y1, ct.clientY);
         if (Vt - Nt > 6 || Ee - ie > 6) {
@@ -67113,11 +67113,11 @@ function PAe() {
           document.querySelectorAll("[data-file-id]").forEach(($e) => {
             const He = $e.getBoundingClientRect();
             He.right >= Nt && He.left <= Vt && He.bottom >= ie && He.top <= Ee && $e.dataset.fileId && me.add($e.dataset.fileId);
-          }), L(me);
+          }), H(me);
         } else
-          L(/* @__PURE__ */ new Set());
+          H(/* @__PURE__ */ new Set());
       }
-      B(null), P.current = null, J.current = null;
+      $(null), L.current = null, J.current = null;
     };
     return window.addEventListener("keydown", re), window.addEventListener("mousemove", De), window.addEventListener("mouseup", Oe), () => {
       window.removeEventListener("keydown", re), window.removeEventListener("mousemove", De), window.removeEventListener("mouseup", Oe);
@@ -67153,7 +67153,7 @@ function PAe() {
           }
           throw Ze;
         }
-      await Z(), await Y();
+      await Z(), await G();
     } catch (ct) {
       u(ct instanceof Error ? ct.message : "Upload failed");
     } finally {
@@ -67163,7 +67163,7 @@ function PAe() {
       t("media.skippedDuplicates", { count: Oe.length, names: Oe.join(", ") }),
       t("media.skippedDuplicatesTitle")
     );
-  }, [Z, Y, t]);
+  }, [Z, G, t]);
   he(() => {
     const re = (De) => {
       var Oe;
@@ -67178,7 +67178,7 @@ function PAe() {
     rt(Array.from(re.target.files ?? []), De), te.current && (te.current.value = "");
   }, _t = typeof U == "string" ? U : null, Gt = typeof U == "string" ? (Ve = S.find((re) => re.id === U)) == null ? void 0 : Ve.name : void 0, It = async (re) => {
     try {
-      await b2(re), a((De) => De.filter((Oe) => Oe.id !== re)), r((De) => De - 1), await Y();
+      await b2(re), a((De) => De.filter((Oe) => Oe.id !== re)), r((De) => De - 1), await G();
     } catch (De) {
       if (De instanceof oi) throw De;
       u(De instanceof Error ? De.message : "Delete failed");
@@ -67188,7 +67188,7 @@ function PAe() {
     a((ct) => ct.map((Ze) => Ze.id === re ? Oe : Ze));
   }, ye = async (re, De) => {
     try {
-      await v2(re, De), await Z(), await Y();
+      await v2(re, De), await Z(), await G();
     } catch {
       u("Failed to move file.");
     }
@@ -67203,26 +67203,26 @@ function PAe() {
     let ct = 0;
     De.forEach((Ze, Nt) => {
       Ze.status === "fulfilled" ? Oe.add(re[Nt]) : Ze.reason instanceof oi && ct++;
-    }), Oe.size > 0 && (a((Ze) => Ze.filter((Nt) => !Oe.has(Nt.id))), r((Ze) => Ze - Oe.size), L((Ze) => {
+    }), Oe.size > 0 && (a((Ze) => Ze.filter((Nt) => !Oe.has(Nt.id))), r((Ze) => Ze - Oe.size), H((Ze) => {
       const Nt = new Set(Ze);
       return Oe.forEach((Vt) => Nt.delete(Vt)), Nt;
-    }), await Y()), ct > 0 && u(`${ct} file${ct !== 1 ? "s" : ""} could not be deleted because they are in use on a page.`);
-  }, [Y]), Pe = ht(async (re, De) => {
+    }), await G()), ct > 0 && u(`${ct} file${ct !== 1 ? "s" : ""} could not be deleted because they are in use on a page.`);
+  }, [G]), Pe = ht(async (re, De) => {
     try {
-      await Promise.all(re.map((Oe) => v2(Oe, De))), L(/* @__PURE__ */ new Set()), await Z(), await Y();
+      await Promise.all(re.map((Oe) => v2(Oe, De))), H(/* @__PURE__ */ new Set()), await Z(), await G();
     } catch {
       u("Failed to move files.");
     }
-  }, [Z, Y]), Ye = ht(async (re) => {
+  }, [Z, G]), Ye = ht(async (re) => {
     await Pe([...F], re);
   }, [F, Pe]), et = n, lt = ht((re) => {
-    L((De) => {
+    H((De) => {
       const Oe = new Set(De);
       return Oe.has(re) ? Oe.delete(re) : Oe.add(re), Oe;
     });
   }, []), hn = n.length > 0 && n.every((re) => F.has(re.id)), Je = n.some((re) => F.has(re.id)), X = ht(() => {
-    L((re) => n.length > 0 && n.every((Oe) => re.has(Oe.id)) ? /* @__PURE__ */ new Set() : new Set(n.map((Oe) => Oe.id)));
-  }, [n]), Ae = { onPreview: O, onInfo: K, onRename: D, onDelete: It, onDeleteMultiple: Be, onDownloadMultiple: Ie, selectedIds: F, onToggleSelect: lt };
+    H((re) => n.length > 0 && n.every((Oe) => re.has(Oe.id)) ? /* @__PURE__ */ new Set() : new Set(n.map((Oe) => Oe.id)));
+  }, [n]), Ae = { onPreview: O, onInfo: W, onRename: D, onDelete: It, onDeleteMultiple: Be, onDownloadMultiple: Ie, selectedIds: F, onToggleSelect: lt };
   return /* @__PURE__ */ v(Re, { children: [
     /* @__PURE__ */ l(
       Da,
@@ -67304,7 +67304,7 @@ function PAe() {
             onMoveFile: ye,
             onMoveFiles: Pe,
             onUploadToFolder: rt,
-            onRefreshFolders: Y
+            onRefreshFolders: G
           }
         ),
         /* @__PURE__ */ l("div", { className: "cms-media-main", children: /* @__PURE__ */ v(
@@ -67328,7 +67328,7 @@ function PAe() {
               if (re.button !== 0 || re.target.closest("[data-file-id]") || re.target.closest("button,a,input,[role='button'],[role='menuitem']") || E) return;
               re.preventDefault(), q.current = !0, J.current = { x: re.clientX, y: re.clientY };
               const De = { x1: re.clientX, y1: re.clientY, x2: re.clientX, y2: re.clientY };
-              P.current = De, B(De), !re.ctrlKey && !re.metaKey && L(/* @__PURE__ */ new Set());
+              L.current = De, $(De), !re.ctrlKey && !re.metaKey && H(/* @__PURE__ */ new Set());
             },
             onDragOver: (re) => {
               re.dataTransfer.types.includes("Files") && (re.preventDefault(), re.dataTransfer.dropEffect = "copy", R(!0));
@@ -67342,7 +67342,7 @@ function PAe() {
             children: [
               E && /* @__PURE__ */ l(ae, { style: { position: "absolute", inset: 0, zIndex: 10, display: "flex", alignItems: "center", justifyContent: "center", pointerEvents: "none", borderRadius: 8 }, children: /* @__PURE__ */ v(pe, { align: "center", gap: "xs", children: [
                 /* @__PURE__ */ l(ps, { size: 48, color: "var(--teal-500)" }),
-                /* @__PURE__ */ l(H, { fw: 600, style: { color: "var(--teal-500)" }, children: Gt ? t("media.dropUploadTo", { folder: Gt }) : t("media.dropUpload") })
+                /* @__PURE__ */ l(V, { fw: 600, style: { color: "var(--teal-500)" }, children: Gt ? t("media.dropUploadTo", { folder: Gt }) : t("media.dropUpload") })
               ] }) }),
               !c && n.length > 0 && /* @__PURE__ */ v(
                 se,
@@ -67369,9 +67369,9 @@ function PAe() {
                           children: hn ? /* @__PURE__ */ l(ja, { size: 11, color: "#fff", strokeWidth: 3 }) : Je ? /* @__PURE__ */ l(Lg, { size: 11, color: "#fff", strokeWidth: 3 }) : null
                         }
                       ),
-                      /* @__PURE__ */ l(H, { size: "sm", children: t("media.selectAll") })
+                      /* @__PURE__ */ l(V, { size: "sm", children: t("media.selectAll") })
                     ] }),
-                    /* @__PURE__ */ l(H, { size: "xs", c: "dimmed", children: t("media.showingRange", {
+                    /* @__PURE__ */ l(V, { size: "xs", c: "dimmed", children: t("media.showingRange", {
                       from: (i - 1) * Di + 1,
                       to: (i - 1) * Di + n.length,
                       total: o
@@ -67385,8 +67385,8 @@ function PAe() {
                 /* @__PURE__ */ l(Na, { height: 14, width: 60, ml: "auto" })
               ] }, De)) }) : /* @__PURE__ */ l("div", { className: `cms-media-grid${x === "small" ? " is-small" : ""}`, children: Array.from({ length: 12 }).map((re, De) => /* @__PURE__ */ l(Na, { height: x === "small" ? 100 : 160, radius: "sm" }, De)) }) : n.length === 0 ? /* @__PURE__ */ l(kt, { py: "xl", children: /* @__PURE__ */ v(pe, { gap: "sm", align: "center", children: [
                 /* @__PURE__ */ l(ps, { size: 48, color: "var(--ink-4, #a9b4c2)" }),
-                m ? /* @__PURE__ */ l(H, { c: "dimmed", size: "sm", children: t("media.noResults") }) : /* @__PURE__ */ v(Re, { children: [
-                  /* @__PURE__ */ l(H, { c: "dimmed", size: "sm", children: t("media.noFiles") }),
+                m ? /* @__PURE__ */ l(V, { c: "dimmed", size: "sm", children: t("media.noResults") }) : /* @__PURE__ */ v(Re, { children: [
+                  /* @__PURE__ */ l(V, { c: "dimmed", size: "sm", children: t("media.noFiles") }),
                   /* @__PURE__ */ l(
                     ve,
                     {
@@ -67437,7 +67437,7 @@ function PAe() {
                 marginTop: 8,
                 flexShrink: 0
               }, children: [
-                /* @__PURE__ */ l(H, { size: "sm", fw: 600, style: { color: "var(--teal-600)" }, children: t("media.selectedCount", { count: F.size }) }),
+                /* @__PURE__ */ l(V, { size: "sm", fw: 600, style: { color: "var(--teal-600)" }, children: t("media.selectedCount", { count: F.size }) }),
                 /* @__PURE__ */ v(se, { gap: "xs", children: [
                   /* @__PURE__ */ l(
                     Tt,
@@ -67455,7 +67455,7 @@ function PAe() {
                       }
                     }
                   ),
-                  /* @__PURE__ */ l(ve, { variant: "ghost", size: "xs", onClick: () => L(/* @__PURE__ */ new Set()), children: t("media.clearSelection") })
+                  /* @__PURE__ */ l(ve, { variant: "ghost", size: "xs", onClick: () => H(/* @__PURE__ */ new Set()), children: t("media.clearSelection") })
                 ] })
               ] })
             ]
@@ -67463,21 +67463,21 @@ function PAe() {
         ) })
       ] })
     ] }),
-    W && /* @__PURE__ */ l(ae, { style: {
+    Y && /* @__PURE__ */ l(ae, { style: {
       position: "fixed",
       zIndex: 9998,
       pointerEvents: "none",
-      left: Math.min(W.x1, W.x2),
-      top: Math.min(W.y1, W.y2),
-      width: Math.abs(W.x2 - W.x1),
-      height: Math.abs(W.y2 - W.y1),
+      left: Math.min(Y.x1, Y.x2),
+      top: Math.min(Y.y1, Y.y2),
+      width: Math.abs(Y.x2 - Y.x1),
+      height: Math.abs(Y.y2 - Y.y1),
       border: "1px solid var(--cms-teal, #2dbfa4)",
       background: "rgba(45,191,164,0.1)",
       borderRadius: 2
     } }),
-    $ && /* @__PURE__ */ l(_Ae, { file: $, files: et, onClose: () => O(null) }),
-    V && /* @__PURE__ */ l(SAe, { file: V, onClose: () => K(null) }),
-    G && /* @__PURE__ */ l(NAe, { file: G, onRename: bt, onClose: () => D(null) }),
+    P && /* @__PURE__ */ l(_Ae, { file: P, files: et, onClose: () => O(null) }),
+    B && /* @__PURE__ */ l(SAe, { file: B, onClose: () => W(null) }),
+    K && /* @__PURE__ */ l(NAe, { file: K, onRename: bt, onClose: () => D(null) }),
     ee && /* @__PURE__ */ l(LAe, { opened: N, onClose: () => z(!1) })
   ] });
 }
@@ -67601,7 +67601,7 @@ function $Ae({ onEdit: t }) {
         actions: /* @__PURE__ */ l(ve, { variant: "primary", leftSection: /* @__PURE__ */ l(Ot, { size: 14 }), onClick: x, disabled: c, children: e("menuList.newMenu") })
       }
     ),
-    o ? /* @__PURE__ */ l(H, { c: "dimmed", children: e("menuList.loading") }) : n.length === 0 ? /* @__PURE__ */ l(
+    o ? /* @__PURE__ */ l(V, { c: "dimmed", children: e("menuList.loading") }) : n.length === 0 ? /* @__PURE__ */ l(
       i1,
       {
         icon: Xp,
@@ -67671,7 +67671,7 @@ function $Ae({ onEdit: t }) {
               M.value
             );
           }) }),
-          N.size === 2 && /* @__PURE__ */ l(H, { size: "xs", c: "orange", children: e("menuList.allLocationsUsed") }),
+          N.size === 2 && /* @__PURE__ */ l(V, { size: "xs", c: "orange", children: e("menuList.allLocationsUsed") }),
           /* @__PURE__ */ l("div", { className: "cms-drawer-section", children: e("menuList.modeSection") }),
           /* @__PURE__ */ v("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }, children: [
             /* @__PURE__ */ v(
@@ -67760,7 +67760,7 @@ function S5({ item: t, depth: e = 0 }) {
   return /* @__PURE__ */ v(Re, { children: [
     /* @__PURE__ */ v("div", { style: { display: "flex", alignItems: "center", gap: 6, paddingLeft: e * 20, padding: "5px 8px 5px " + (8 + e * 20) + "px", borderRadius: 6 }, children: [
       e > 0 && /* @__PURE__ */ l(wa, { size: 12, style: { color: "var(--cms-ink-4)", flexShrink: 0 } }),
-      /* @__PURE__ */ l(H, { size: "sm", style: { color: "var(--cms-ink-2)" }, children: n })
+      /* @__PURE__ */ l(V, { size: "sm", style: { color: "var(--cms-ink-2)" }, children: n })
     ] }),
     (a = t.children) == null ? void 0 : a.map((o) => /* @__PURE__ */ l(S5, { item: o, depth: e + 1 }, o.id))
   ] });
@@ -67810,7 +67810,7 @@ function HAe({ item: t, resolvedLabel: e, labelIsFallback: n, pageInactiveInLoca
       children: [
         /* @__PURE__ */ l("div", { style: { cursor: "grab", color: "var(--cms-ink-4)", display: "flex", flexShrink: 0 }, children: /* @__PURE__ */ l(aa, { size: 14 }) }),
         /* @__PURE__ */ v("div", { style: { flex: 1, minWidth: 0, display: "flex", alignItems: "center", gap: 8 }, children: [
-          /* @__PURE__ */ l(H, { size: "sm", fw: 500, fs: n ? "italic" : void 0, style: { whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", color: n ? "var(--cms-ink-3)" : void 0 }, children: e || `(${o})` }),
+          /* @__PURE__ */ l(V, { size: "sm", fw: 500, fs: n ? "italic" : void 0, style: { whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", color: n ? "var(--cms-ink-3)" : void 0 }, children: e || `(${o})` }),
           a && /* @__PURE__ */ l(Le, { label: b("menuEditor.itemLocaleTooltip", { locale: o.toUpperCase() }), withArrow: !0, children: /* @__PURE__ */ l(Fe, { size: "sm", color: "orange", variant: "light", style: { flexShrink: 0 }, children: b("menuEditor.itemLocaleBadge", { locale: o.toUpperCase() }) }) })
         ] }),
         /* @__PURE__ */ v(se, { gap: 2, wrap: "nowrap", children: [
@@ -67832,9 +67832,9 @@ function Uf({ opened: t, initial: e, pages: n, contentLocale: a, defaultLocale: 
   const z = r.length > 1, x = d[a] ?? "", w = d[o] ?? "", C = z && !x.trim() && !!w.trim() && a !== o, M = z ? r.filter((I) => I !== a && !(d[I] ?? "").trim()) : [], S = u === "page" && f ? ((U = n.find((I) => I.value === f)) == null ? void 0 : U.label) ?? "" : "", j = Object.values(d).some((I) => I.trim()), A = u === "page" ? !!f : !!g.trim() && j, T = () => {
     if (!A) return;
     const I = {};
-    for (const [$, O] of Object.entries(d)) {
-      const V = O.trim();
-      V && (I[$] = V);
+    for (const [P, O] of Object.entries(d)) {
+      const B = O.trim();
+      B && (I[P] = B);
     }
     i({
       id: (e == null ? void 0 : e.id) ?? DAe(),
@@ -67871,8 +67871,8 @@ function Uf({ opened: t, initial: e, pages: n, contentLocale: a, defaultLocale: 
             label: z ? c("menuEditor.itemLabelFor", { locale: a.toUpperCase() }) : c("menuEditor.itemLabelField"),
             value: x,
             onChange: (I) => {
-              const $ = I.currentTarget.value;
-              p((O) => ({ ...O, [a]: $ }));
+              const P = I.currentTarget.value;
+              p((O) => ({ ...O, [a]: P }));
             },
             placeholder: S || c("menuEditor.itemLabelPlaceholder"),
             required: u === "url",
@@ -67880,40 +67880,40 @@ function Uf({ opened: t, initial: e, pages: n, contentLocale: a, defaultLocale: 
             description: u === "page" && S ? c("menuEditor.itemLabelAutoHint", { title: S }) : C ? c("menuEditor.itemLabelFallback", { locale: o.toUpperCase() }) : void 0
           }
         ),
-        u === "url" && M.length > 0 && /* @__PURE__ */ l(H, { size: "xs", c: "dimmed", children: c("menuEditor.itemLabelMissing", { locales: M.map((I) => I.toUpperCase()).join(", ") }) }),
+        u === "url" && M.length > 0 && /* @__PURE__ */ l(V, { size: "xs", c: "dimmed", children: c("menuEditor.itemLabelMissing", { locales: M.map((I) => I.toUpperCase()).join(", ") }) }),
         /* @__PURE__ */ l(an, { label: c("menuEditor.itemNewTab"), checked: b, onChange: (I) => N(I.currentTarget.checked) })
       ] })
     }
   );
 }
 function qAe({ menu: t, onBack: e }) {
-  const { t: n } = we(), a = $s(), { user: o } = ra(), r = (o == null ? void 0 : o.role) === "developer", { locale: i, defaultLocale: s, availableLocales: c } = In(), [d, p] = _(t), [u, m] = _(() => Tp(t.items, s)), [f, y] = _(!1), [g, k] = _(!1), b = Te(t.version ?? 1), [N, z] = _(t.autoPageTypes), [x, w] = _(String(t.autoMaxDepth)), [C, M] = _(t.autoMaxTypes ?? 10), [S, j] = _([]), [A, T] = _(!1), [U, I] = _(!1), [$, O] = _(null), [V, K] = _(null), [G, D] = _(!1), [E, R] = _(null), [F, L] = _([]), [W, B] = _([]);
+  const { t: n } = we(), a = $s(), { user: o } = ra(), r = (o == null ? void 0 : o.role) === "developer", { locale: i, defaultLocale: s, availableLocales: c } = In(), [d, p] = _(t), [u, m] = _(() => Tp(t.items, s)), [f, y] = _(!1), [g, k] = _(!1), b = Te(t.version ?? 1), [N, z] = _(t.autoPageTypes), [x, w] = _(String(t.autoMaxDepth)), [C, M] = _(t.autoMaxTypes ?? 10), [S, j] = _([]), [A, T] = _(!1), [U, I] = _(!1), [P, O] = _(null), [B, W] = _(null), [K, D] = _(!1), [E, R] = _(null), [F, H] = _([]), [Y, $] = _([]);
   he(() => {
     rc({ status: "published" }).then(({ data: ye }) => {
-      L(ye);
+      H(ye);
       const Be = c.length > 1 ? ye.filter((Pe) => {
         var Ye, et;
         return !!((et = (Ye = Pe.translations) == null ? void 0 : Ye[i]) != null && et.active);
       }) : ye;
-      B(Be.map((Pe) => {
+      $(Be.map((Pe) => {
         const Ye = ki(Pe, i, s);
         return { value: Pe.id, label: Ye.title };
       }));
     }).catch(console.error);
   }, [i, s, c]);
-  const P = (ye) => {
+  const L = (ye) => {
     const Ie = F.find((Be) => Be.id === ye);
     return Ie != null && Ie.translations ? c.filter((Be) => {
       var Ye;
       const Pe = (Ye = Ie.translations) == null ? void 0 : Ye[Be];
       return !Pe || !Pe.active;
     }) : [];
-  }, [q, J] = _(null), [te, ee] = _(null), [de, Y] = _([]);
+  }, [q, J] = _(null), [te, ee] = _(null), [de, G] = _([]);
   he(() => {
-    lc("menu", t.id).then(Y).catch(() => {
+    lc("menu", t.id).then(G).catch(() => {
     });
     const ye = setInterval(() => {
-      lc("menu", t.id).then(Y).catch(() => {
+      lc("menu", t.id).then(G).catch(() => {
       });
     }, 3e4);
     return () => {
@@ -67992,14 +67992,14 @@ function qAe({ menu: t, onBack: e }) {
   }, Ue = (ye) => {
     m((Ie) => Ie.map((Be) => Be.id === ye.id ? { ...Be, ...ye } : Be)), Z();
   }, rt = () => {
-    V && (m((ye) => {
-      const Ie = ye.findIndex((Ye) => Ye.id === V);
+    B && (m((ye) => {
+      const Ie = ye.findIndex((Ye) => Ye.id === B);
       if (Ie < 0) return ye;
       const Be = ye[Ie].depth;
       let Pe = Ie + 1;
       for (; Pe < ye.length && ye[Pe].depth > Be; ) Pe++;
       return [...ye.slice(0, Ie), ...ye.slice(Pe)];
-    }), K(null), Z());
+    }), W(null), Z());
   }, Rt = (ye) => {
     m((Ie) => {
       const Be = Ie.findIndex((lt) => lt.id === ye);
@@ -68060,7 +68060,7 @@ function qAe({ menu: t, onBack: e }) {
     } finally {
       y(!1);
     }
-  }, bt = $ ? u.find((ye) => ye.id === $) : void 0;
+  }, bt = P ? u.find((ye) => ye.id === P) : void 0;
   return /* @__PURE__ */ v(pe, { children: [
     /* @__PURE__ */ l(
       Da,
@@ -68079,7 +68079,7 @@ function qAe({ menu: t, onBack: e }) {
       }
     ),
     /* @__PURE__ */ v("div", { style: { background: "var(--surface-card)", border: "1px solid var(--cms-border)", borderRadius: 10, padding: 16 }, children: [
-      /* @__PURE__ */ l(H, { size: "sm", fw: 600, mb: "xs", children: n("menuEditor.modeLabel") }),
+      /* @__PURE__ */ l(V, { size: "sm", fw: 600, mb: "xs", children: n("menuEditor.modeLabel") }),
       /* @__PURE__ */ l(
         Qr,
         {
@@ -68091,7 +68091,7 @@ function qAe({ menu: t, onBack: e }) {
           ]
         }
       ),
-      /* @__PURE__ */ l(H, { size: "xs", c: "dimmed", mt: "xs", children: d.mode === "auto" ? n("menuEditor.modeAutoHint") : n("menuEditor.modeManualHint") })
+      /* @__PURE__ */ l(V, { size: "xs", c: "dimmed", mt: "xs", children: d.mode === "auto" ? n("menuEditor.modeAutoHint") : n("menuEditor.modeManualHint") })
     ] }),
     d.mode === "auto" && /* @__PURE__ */ l("div", { style: { background: "var(--surface-card)", border: "1px solid var(--cms-border)", borderRadius: 10, padding: 16 }, children: /* @__PURE__ */ v(pe, { gap: "sm", children: [
       /* @__PURE__ */ l(
@@ -68143,21 +68143,21 @@ function qAe({ menu: t, onBack: e }) {
         )
       ] }),
       /* @__PURE__ */ l(Gn, { label: n("menuEditor.previewLabel"), labelPosition: "left" }),
-      c.length > 1 && /* @__PURE__ */ l(H, { size: "xs", c: "dimmed", children: n("menuEditor.previewLocaleHint", { locale: i.toUpperCase() }) }),
-      A ? /* @__PURE__ */ l(H, { size: "sm", c: "dimmed", children: n("menuEditor.previewLoading") }) : S.length === 0 ? /* @__PURE__ */ l(H, { size: "sm", c: "dimmed", children: n("menuEditor.previewEmpty") }) : /* @__PURE__ */ l("div", { style: { background: "var(--cms-bg)", borderRadius: 8, padding: 8 }, children: S.map((ye) => /* @__PURE__ */ l(S5, { item: ye }, ye.id)) })
+      c.length > 1 && /* @__PURE__ */ l(V, { size: "xs", c: "dimmed", children: n("menuEditor.previewLocaleHint", { locale: i.toUpperCase() }) }),
+      A ? /* @__PURE__ */ l(V, { size: "sm", c: "dimmed", children: n("menuEditor.previewLoading") }) : S.length === 0 ? /* @__PURE__ */ l(V, { size: "sm", c: "dimmed", children: n("menuEditor.previewEmpty") }) : /* @__PURE__ */ l("div", { style: { background: "var(--cms-bg)", borderRadius: 8, padding: 8 }, children: S.map((ye) => /* @__PURE__ */ l(S5, { item: ye }, ye.id)) })
     ] }) }),
     d.mode === "manual" && /* @__PURE__ */ v("div", { style: { background: "var(--surface-card)", border: "1px solid var(--cms-border)", borderRadius: 10, padding: 16 }, children: [
       /* @__PURE__ */ v(se, { justify: "space-between", mb: 4, children: [
-        /* @__PURE__ */ l(H, { size: "sm", fw: 600, children: n("menuEditor.itemsLabel") }),
+        /* @__PURE__ */ l(V, { size: "sm", fw: 600, children: n("menuEditor.itemsLabel") }),
         /* @__PURE__ */ l(ve, { variant: "secondary", size: "xs", leftSection: /* @__PURE__ */ l(Ot, { size: 12 }), onClick: () => I(!0), children: n("menuEditor.addItem") })
       ] }),
-      /* @__PURE__ */ l(H, { size: "xs", c: "dimmed", mb: "sm", children: n("menuEditor.dndHint") }),
-      u.length === 0 ? /* @__PURE__ */ l(H, { size: "sm", c: "dimmed", children: n("menuEditor.noItems") }) : /* @__PURE__ */ l("div", { children: u.map((ye, Ie) => {
+      /* @__PURE__ */ l(V, { size: "xs", c: "dimmed", mb: "sm", children: n("menuEditor.dndHint") }),
+      u.length === 0 ? /* @__PURE__ */ l(V, { size: "sm", c: "dimmed", children: n("menuEditor.noItems") }) : /* @__PURE__ */ l("div", { children: u.map((ye, Ie) => {
         var X, Ae;
         const Be = (ye.label[i] ?? "").trim(), Pe = ye.pageId ? F.find((Ve) => Ve.id === ye.pageId) : void 0, Ye = (X = Pe == null ? void 0 : Pe.translations) == null ? void 0 : X[i], et = Ye != null && Ye.active && ((Ae = Ye.title) != null && Ae.trim()) ? Ye.title.trim() : "";
         let lt, hn;
         Be ? (lt = Be, hn = !1) : et ? (lt = et, hn = !1) : (lt = p8e(ye.label, i, s), hn = c.length > 1 && !!lt);
-        const Je = !!ye.pageId && c.length > 1 && P(ye.pageId).includes(i);
+        const Je = !!ye.pageId && c.length > 1 && L(ye.pageId).includes(i);
         return /* @__PURE__ */ l(
           HAe,
           {
@@ -68176,7 +68176,7 @@ function qAe({ menu: t, onBack: e }) {
             onDragLeave: () => ee((Ve) => (Ve == null ? void 0 : Ve.id) === ye.id ? null : Ve),
             onDrop: (Ve) => fe(ye.id, Ve),
             onEdit: (Ve) => O(Ve),
-            onDelete: (Ve) => K(Ve),
+            onDelete: (Ve) => W(Ve),
             onIndent: Rt,
             onOutdent: _t,
             canIndent: Gt(Ie)
@@ -68189,7 +68189,7 @@ function qAe({ menu: t, onBack: e }) {
       Uf,
       {
         opened: U,
-        pages: W,
+        pages: Y,
         contentLocale: i,
         defaultLocale: s,
         availableLocales: c,
@@ -68200,9 +68200,9 @@ function qAe({ menu: t, onBack: e }) {
     /* @__PURE__ */ l(
       Uf,
       {
-        opened: !!$,
+        opened: !!P,
         initial: bt,
-        pages: W,
+        pages: Y,
         contentLocale: i,
         defaultLocale: s,
         availableLocales: c,
@@ -68213,18 +68213,18 @@ function qAe({ menu: t, onBack: e }) {
     /* @__PURE__ */ l(
       Ut,
       {
-        opened: !!V,
+        opened: !!B,
         title: n("menuEditor.removeItem"),
         message: n("menuEditor.removeItemTitle"),
         confirmLabel: n("menuEditor.removeItemConfirm"),
         onConfirm: rt,
-        onClose: () => K(null)
+        onClose: () => W(null)
       }
     ),
     /* @__PURE__ */ l(
       Ut,
       {
-        opened: G,
+        opened: K,
         title: n(E === "auto" ? "menuEditor.switchToAuto" : "menuEditor.switchToManual"),
         message: n(E === "auto" ? "menuEditor.switchToAutoConfirm" : "menuEditor.switchToManualConfirm"),
         confirmLabel: n(E === "manual" ? "menuEditor.switchManualImport" : "menuEditor.switchAutoConfirm"),
@@ -68415,8 +68415,8 @@ function FAe({ onCreated: t, onClose: e }) {
     }
   };
   return d ? /* @__PURE__ */ v(pe, { gap: "md", children: [
-    /* @__PURE__ */ l(H, { fw: 600, size: "sm", children: n("webhooks.createSuccess") }),
-    /* @__PURE__ */ l(H, { size: "sm", c: "dimmed", children: n("webhooks.secretHint") }),
+    /* @__PURE__ */ l(V, { fw: 600, size: "sm", children: n("webhooks.createSuccess") }),
+    /* @__PURE__ */ l(V, { size: "sm", c: "dimmed", children: n("webhooks.secretHint") }),
     /* @__PURE__ */ l(Eo, { p: "md", withBorder: !0, style: { background: "#f8f9fa" }, children: /* @__PURE__ */ l(Oo, { style: { wordBreak: "break-all", fontSize: 13 }, children: d }) }),
     /* @__PURE__ */ l(ve, { variant: "primary", onClick: e, children: n("webhooks.done") })
   ] }) : /* @__PURE__ */ v(pe, { gap: "md", children: [
@@ -68431,7 +68431,7 @@ function FAe({ onCreated: t, onClose: e }) {
       }
     ),
     /* @__PURE__ */ v(pe, { gap: "xs", children: [
-      /* @__PURE__ */ l(H, { size: "sm", fw: 500, children: n("webhooks.createEventsLabel") }),
+      /* @__PURE__ */ l(V, { size: "sm", fw: 500, children: n("webhooks.createEventsLabel") }),
       BAe.map((m) => /* @__PURE__ */ l(
         Ao,
         {
@@ -68452,7 +68452,7 @@ function UAe({ webhookId: t }) {
   const { t: e } = we(), [n, a] = _([]), [o, r] = _(!0);
   return he(() => {
     M8e(t).then(a).catch(() => ne.err("Failed to load deliveries")).finally(() => r(!1));
-  }, [t]), o ? /* @__PURE__ */ l(kt, { py: "xl", children: /* @__PURE__ */ l(St, { size: "sm" }) }) : n.length === 0 ? /* @__PURE__ */ l(H, { c: "dimmed", size: "sm", ta: "center", py: "xl", children: e("webhooks.noDeliveries") }) : /* @__PURE__ */ l(Vo, { children: /* @__PURE__ */ l(pe, { gap: "xs", children: n.map((i) => /* @__PURE__ */ v(Eo, { p: "sm", withBorder: !0, children: [
+  }, [t]), o ? /* @__PURE__ */ l(kt, { py: "xl", children: /* @__PURE__ */ l(St, { size: "sm" }) }) : n.length === 0 ? /* @__PURE__ */ l(V, { c: "dimmed", size: "sm", ta: "center", py: "xl", children: e("webhooks.noDeliveries") }) : /* @__PURE__ */ l(Vo, { children: /* @__PURE__ */ l(pe, { gap: "xs", children: n.map((i) => /* @__PURE__ */ v(Eo, { p: "sm", withBorder: !0, children: [
     /* @__PURE__ */ v(se, { justify: "space-between", mb: 4, children: [
       /* @__PURE__ */ v(se, { gap: "xs", children: [
         i.succeededAt ? /* @__PURE__ */ l(ng, { size: 14, style: { color: "var(--cms-published)" } }) : i.attempts >= 3 ? /* @__PURE__ */ l(Up, { size: 14, style: { color: "var(--cms-danger)" } }) : /* @__PURE__ */ l(Wp, { size: 14, style: { color: "var(--cms-ink-3)" } }),
@@ -68467,7 +68467,7 @@ function UAe({ webhookId: t }) {
             children: i.responseStatus
           }
         ),
-        /* @__PURE__ */ v(H, { size: "xs", c: "dimmed", children: [
+        /* @__PURE__ */ v(V, { size: "xs", c: "dimmed", children: [
           new Date(i.createdAt).toLocaleString(),
           " · attempt ",
           i.attempts
@@ -68690,21 +68690,21 @@ function QAe() {
       localStorage.setItem("cms-ui-locale", X);
     } catch {
     }
-  }, [k, b] = _(JAe), [N, z] = _(!0), [x, w] = _(!1), [C, M] = _(!1), [S, j] = _(!1), [A, T] = _("editor"), U = Te(1), [I, $] = _(null), [O, V] = _(null), [K, G] = _("auto"), [D, E] = _(""), [R, F] = _(""), [L, W] = _(""), [B, P] = _(""), [q, J] = _(""), [te, ee] = _(!1), [de, Y] = _(!1), [Z, oe] = _(!1), [le, ze] = _(!1), [fe, Me] = _(!1), Ue = () => {
-    o && (tl().then((X) => X && $(X)).catch(() => {
+  }, [k, b] = _(JAe), [N, z] = _(!0), [x, w] = _(!1), [C, M] = _(!1), [S, j] = _(!1), [A, T] = _("editor"), U = Te(1), [I, P] = _(null), [O, B] = _(null), [W, K] = _("auto"), [D, E] = _(""), [R, F] = _(""), [H, Y] = _(""), [$, L] = _(""), [q, J] = _(""), [te, ee] = _(!1), [de, G] = _(!1), [Z, oe] = _(!1), [le, ze] = _(!1), [fe, Me] = _(!1), Ue = () => {
+    o && (tl().then((X) => X && P(X)).catch(() => {
     }), j8e().then((X) => {
-      X && (V(X), G(X.transport ?? "auto"), E(""), F(X.smtpHost), W(X.smtpPort != null ? String(X.smtpPort) : ""), P(X.smtpUser), J(""), ee(X.smtpSecure), Y(!1));
+      X && (B(X), K(X.transport ?? "auto"), E(""), F(X.smtpHost), Y(X.smtpPort != null ? String(X.smtpPort) : ""), L(X.smtpUser), J(""), ee(X.smtpSecure), G(!1));
     }).catch(() => {
     }));
   };
   he(() => {
     Ue();
   }, [o]);
-  const rt = () => Y(!0), Rt = async () => {
+  const rt = () => G(!0), Rt = async () => {
     oe(!0);
     try {
       const X = await N1({ resendApiKey: null });
-      V(X), E(""), ne.ok(t("settings.email.cleared")), tl().then((Ae) => Ae && $(Ae)).catch(() => {
+      B(X), E(""), ne.ok(t("settings.email.cleared")), tl().then((Ae) => Ae && P(Ae)).catch(() => {
       });
     } catch (X) {
       ne.err(X instanceof Error ? X.message : t("settings.saveError"));
@@ -68715,7 +68715,7 @@ function QAe() {
     oe(!0);
     try {
       const X = await N1({ smtpPass: null });
-      V(X), J(""), ne.ok(t("settings.email.cleared")), tl().then((Ae) => Ae && $(Ae)).catch(() => {
+      B(X), J(""), ne.ok(t("settings.email.cleared")), tl().then((Ae) => Ae && P(Ae)).catch(() => {
       });
     } catch (X) {
       ne.err(X instanceof Error ? X.message : t("settings.saveError"));
@@ -68726,15 +68726,15 @@ function QAe() {
     oe(!0);
     try {
       const X = {
-        transport: K === "auto" ? null : K,
+        transport: W === "auto" ? null : W,
         smtpHost: R,
-        smtpPort: L === "" ? null : Number(L),
-        smtpUser: B,
+        smtpPort: H === "" ? null : Number(H),
+        smtpUser: $,
         smtpSecure: te
       };
       D !== "" && (X.resendApiKey = D), q !== "" && (X.smtpPass = q);
       const Ae = await N1(X);
-      V(Ae), E(""), J(""), Y(!1), ne.ok(t("settings.email.saved")), tl().then((Ve) => Ve && $(Ve)).catch(() => {
+      B(Ae), E(""), J(""), G(!1), ne.ok(t("settings.email.saved")), tl().then((Ve) => Ve && P(Ve)).catch(() => {
       });
     } catch (X) {
       ne.err(X instanceof Error ? X.message : t("settings.saveError"));
@@ -69181,9 +69181,9 @@ function QAe() {
                     "select",
                     {
                       className: "cms-field-input",
-                      value: K,
+                      value: W,
                       onChange: (X) => {
-                        G(X.currentTarget.value), rt();
+                        K(X.currentTarget.value), rt();
                       },
                       children: [
                         /* @__PURE__ */ l("option", { value: "auto", children: t("settings.email.transportAuto") }),
@@ -69195,7 +69195,7 @@ function QAe() {
                   ),
                   /* @__PURE__ */ l("span", { className: "cms-field-hint", children: t("settings.email.transportLabelHint") })
                 ] }),
-                K === "resend" && /* @__PURE__ */ v("div", { className: "cms-field cms-form-row-full", children: [
+                W === "resend" && /* @__PURE__ */ v("div", { className: "cms-field cms-form-row-full", children: [
                   /* @__PURE__ */ v("label", { className: "cms-field-label", children: [
                     t("settings.email.resendKeyLabel"),
                     (O == null ? void 0 : O.hasResendApiKey) && !D && /* @__PURE__ */ v("span", { style: { marginLeft: 8, fontSize: 11, color: "#198873", fontWeight: 600 }, children: [
@@ -69242,7 +69242,7 @@ function QAe() {
                   ] }),
                   /* @__PURE__ */ l("span", { className: "cms-field-hint", children: t("settings.email.resendKeyHint") })
                 ] }),
-                K === "smtp" && /* @__PURE__ */ v(Re, { children: [
+                W === "smtp" && /* @__PURE__ */ v(Re, { children: [
                   /* @__PURE__ */ v("div", { className: "cms-field", children: [
                     /* @__PURE__ */ l("label", { className: "cms-field-label", children: t("settings.email.smtpHostLabel") }),
                     /* @__PURE__ */ l(
@@ -69266,9 +69266,9 @@ function QAe() {
                       {
                         type: "number",
                         className: "cms-field-input",
-                        value: L,
+                        value: H,
                         onChange: (X) => {
-                          W(X.currentTarget.value), rt();
+                          Y(X.currentTarget.value), rt();
                         },
                         placeholder: "587",
                         min: 1,
@@ -69283,9 +69283,9 @@ function QAe() {
                       {
                         type: "text",
                         className: "cms-field-input",
-                        value: B,
+                        value: $,
                         onChange: (X) => {
-                          P(X.currentTarget.value), rt();
+                          L(X.currentTarget.value), rt();
                         },
                         autoComplete: "username",
                         spellCheck: !1
@@ -69489,9 +69489,9 @@ function eEe() {
         for (const U of Object.keys(S))
           for (const I of Object.keys(S[U] ?? {})) A.add(I);
         const T = Array.from(A).sort().map((U) => {
-          var $;
+          var P;
           const I = {};
-          for (const O of j) I[O] = (($ = S[O]) == null ? void 0 : $[U]) ?? "";
+          for (const O of j) I[O] = ((P = S[O]) == null ? void 0 : P[U]) ?? "";
           return { rowId: Kf(), key: U, values: I, origKey: U };
         });
         d(T);
@@ -69578,7 +69578,7 @@ function eEe() {
       r(!1);
     }
   };
-  return n ? /* @__PURE__ */ l(kt, { py: "xl", children: /* @__PURE__ */ l(St, {}) }) : i.length === 0 ? /* @__PURE__ */ l(pe, { gap: "md", children: /* @__PURE__ */ l(H, { c: "dimmed", children: t("strings.noLocales") }) }) : /* @__PURE__ */ v(pe, { gap: "lg", children: [
+  return n ? /* @__PURE__ */ l(kt, { py: "xl", children: /* @__PURE__ */ l(St, {}) }) : i.length === 0 ? /* @__PURE__ */ l(pe, { gap: "md", children: /* @__PURE__ */ l(V, { c: "dimmed", children: t("strings.noLocales") }) }) : /* @__PURE__ */ v(pe, { gap: "lg", children: [
     /* @__PURE__ */ l(
       Da,
       {
@@ -69701,7 +69701,7 @@ function nEe({
       /* @__PURE__ */ l("div", { style: { color: "var(--cms-ink-4)", opacity: 0.65, display: "flex" }, children: t })
     ] }),
     n === null ? /* @__PURE__ */ l(St, { size: "sm", color: "teal", mt: 4 }) : /* @__PURE__ */ v(
-      H,
+      V,
       {
         style: {
           fontSize: 32,
@@ -69747,10 +69747,10 @@ function aEe(t) {
   return `${n.toFixed(n >= 10 ? 0 : 1)} ${e[a]}`;
 }
 function oEe({ onNew: t, onOpenMedia: e, onOpenSettings: n, onViewActivity: a, onEditPage: o }) {
-  var Y;
-  const { t: r, i18n: i } = we(), { user: s } = ra(), [c, d] = _(!1), [p, u] = _(null), [m, f] = _(null), [y, g] = _(null), [k, b] = _(null), [N, z] = _(null), [x, w] = _(null), [C, M] = _(null), [S, j] = _(null), [A, T] = _(null), [U, I] = _(null), [$, O] = _(null), [V, K] = _(null), [G, D] = _(null), [E, R] = _(null), F = (s == null ? void 0 : s.role) ?? "viewer", L = F === "admin" || F === "developer", W = F !== "viewer";
+  var G;
+  const { t: r, i18n: i } = we(), { user: s } = ra(), [c, d] = _(!1), [p, u] = _(null), [m, f] = _(null), [y, g] = _(null), [k, b] = _(null), [N, z] = _(null), [x, w] = _(null), [C, M] = _(null), [S, j] = _(null), [A, T] = _(null), [U, I] = _(null), [P, O] = _(null), [B, W] = _(null), [K, D] = _(null), [E, R] = _(null), F = (s == null ? void 0 : s.role) ?? "viewer", H = F === "admin" || F === "developer", Y = F !== "viewer";
   he(() => {
-    const Z = new Date(Date.now() - 6048e5), oe = L ? Ph(10) : Promise.resolve([]), le = L ? f2(Z) : Promise.resolve(0), ze = L ? f2(Z, "page.published") : Promise.resolve(0), fe = L ? j6e(Z) : Promise.resolve(0), Me = L ? Promise.resolve({ data: [], total: 0 }) : Bn({ sort: "updatedAt", limit: 8 }), Ue = W ? g8e().catch(() => null) : Promise.resolve(null);
+    const Z = new Date(Date.now() - 6048e5), oe = H ? Ph(10) : Promise.resolve([]), le = H ? f2(Z) : Promise.resolve(0), ze = H ? f2(Z, "page.published") : Promise.resolve(0), fe = H ? j6e(Z) : Promise.resolve(0), Me = H ? Promise.resolve({ data: [], total: 0 }) : Bn({ sort: "updatedAt", limit: 8 }), Ue = Y ? g8e().catch(() => null) : Promise.resolve(null);
     Promise.all([
       Bn({ status: "published", limit: 1 }),
       Bn({ status: "draft", limit: 1 }),
@@ -69781,11 +69781,11 @@ function oEe({ onNew: t, onOpenMedia: e, onOpenSettings: n, onViewActivity: a, o
         et,
         lt
       ]) => {
-        u(rt.total), f(Rt.total + _t.total), K(_t.total), g(Gt.total), I(Gt.totalSize), b(bt), z(It.slice(0, 10)), w(ye.data), j(Ie), T(Be.total), O(Pe), M(Ye.data), R(et ?? {}), D(lt);
+        u(rt.total), f(Rt.total + _t.total), W(_t.total), g(Gt.total), I(Gt.totalSize), b(bt), z(It.slice(0, 10)), w(ye.data), j(Ie), T(Be.total), O(Pe), M(Ye.data), R(et ?? {}), D(lt);
       }
     ).catch(console.error);
   }, []);
-  const B = (/* @__PURE__ */ new Date()).getHours(), P = B < 12 ? r("dashboard.greetingMorning") : B < 17 ? r("dashboard.greetingAfternoon") : r("dashboard.greetingEvening"), q = ((Y = s == null ? void 0 : s.firstName) == null ? void 0 : Y.trim()) ?? "", J = q ? `${P}, ${q}` : P;
+  const $ = (/* @__PURE__ */ new Date()).getHours(), L = $ < 12 ? r("dashboard.greetingMorning") : $ < 17 ? r("dashboard.greetingAfternoon") : r("dashboard.greetingEvening"), q = ((G = s == null ? void 0 : s.firstName) == null ? void 0 : G.trim()) ?? "", J = q ? `${L}, ${q}` : L;
   function te(Z) {
     switch (Z) {
       case "published":
@@ -69806,10 +69806,10 @@ function oEe({ onNew: t, onOpenMedia: e, onOpenSettings: n, onViewActivity: a, o
       case "activity":
         return {
           value: k,
-          footer: $ === null ? null : { text: r("dashboard.contributorsCount", { count: $ }), tone: "mute" }
+          footer: P === null ? null : { text: r("dashboard.contributorsCount", { count: P }), tone: "mute" }
         };
       case "translationCoverage": {
-        const oe = G == null ? void 0 : G.translationCoverage;
+        const oe = K == null ? void 0 : K.translationCoverage;
         if (!oe) return { value: null, suffix: "%" };
         const le = oe.locales.reduce((Me, Ue) => Me + Ue.active, 0), ze = oe.locales.reduce((Me, Ue) => Me + Ue.total, 0);
         return {
@@ -69820,16 +69820,16 @@ function oEe({ onNew: t, onOpenMedia: e, onOpenSettings: n, onViewActivity: a, o
       }
       case "staleContent":
         return {
-          value: G ? G.staleContent : null,
-          footer: G ? { text: r("dashboard.staleContentFooter"), tone: G.staleContent > 0 ? "warn" : "mute" } : null
+          value: K ? K.staleContent : null,
+          footer: K ? { text: r("dashboard.staleContentFooter"), tone: K.staleContent > 0 ? "warn" : "mute" } : null
         };
       case "pendingDrafts":
         return {
-          value: V,
-          footer: V === null ? null : { text: r("dashboard.pendingDraftsFooter"), tone: V > 0 ? "warn" : "mute" }
+          value: B,
+          footer: B === null ? null : { text: r("dashboard.pendingDraftsFooter"), tone: B > 0 ? "warn" : "mute" }
         };
       case "pagesByType": {
-        const oe = G == null ? void 0 : G.pagesByType;
+        const oe = K == null ? void 0 : K.pagesByType;
         if (!oe) return { value: null };
         const le = oe[0];
         return {
@@ -69839,15 +69839,15 @@ function oEe({ onNew: t, onOpenMedia: e, onOpenSettings: n, onViewActivity: a, o
       }
       case "trashedPages":
         return {
-          value: (G == null ? void 0 : G.trashed) ?? null,
-          footer: G != null && G.trashed ? { text: r("dashboard.trashedFooter"), tone: "mute" } : null
+          value: (K == null ? void 0 : K.trashed) ?? null,
+          footer: K != null && K.trashed ? { text: r("dashboard.trashedFooter"), tone: "mute" } : null
         };
       case "mediaByType": {
-        const oe = G == null ? void 0 : G.mediaByType;
+        const oe = K == null ? void 0 : K.mediaByType;
         return oe ? { value: oe.image, footer: { text: r("dashboard.mediaByTypeFooter", { count: oe.document }), tone: "mute" } } : { value: null };
       }
       case "team": {
-        const oe = G == null ? void 0 : G.team;
+        const oe = K == null ? void 0 : K.team;
         return oe ? { value: oe.active, footer: { text: r("dashboard.teamFooter", { pending: oe.pending, disabled: oe.disabled }), tone: "mute" } } : { value: null };
       }
       default:
@@ -69905,12 +69905,12 @@ function oEe({ onNew: t, onOpenMedia: e, onOpenSettings: n, onViewActivity: a, o
       );
     }) }),
     /* @__PURE__ */ v("div", { className: "cms-dash-2col", children: [
-      L ? /* @__PURE__ */ v("div", { className: "cms-activity-card", children: [
+      H ? /* @__PURE__ */ v("div", { className: "cms-activity-card", children: [
         /* @__PURE__ */ v("div", { className: "cms-activity-hd", children: [
           /* @__PURE__ */ l("span", { className: "cms-activity-hd-title", children: r("dashboard.recentActivity") }),
           /* @__PURE__ */ l("button", { className: "cms-activity-hd-link", onClick: a, children: r("dashboard.viewAllActivity") })
         ] }),
-        N === null ? /* @__PURE__ */ l("div", { className: "cms-activity-state", children: /* @__PURE__ */ l(St, { size: "sm" }) }) : N.length === 0 ? /* @__PURE__ */ l("div", { className: "cms-activity-state", children: /* @__PURE__ */ l(H, { c: "dimmed", size: "sm", children: r("dashboard.noActivity") }) }) : (() => {
+        N === null ? /* @__PURE__ */ l("div", { className: "cms-activity-state", children: /* @__PURE__ */ l(St, { size: "sm" }) }) : N.length === 0 ? /* @__PURE__ */ l("div", { className: "cms-activity-state", children: /* @__PURE__ */ l(V, { c: "dimmed", size: "sm", children: r("dashboard.noActivity") }) }) : (() => {
           const Z = [];
           return N.forEach((oe) => {
             const le = new Date(oe.createdAt), ze = c0(le), fe = Z.find((Me) => Me.key === ze);
@@ -69938,8 +69938,8 @@ function oEe({ onNew: t, onOpenMedia: e, onOpenSettings: n, onViewActivity: a, o
           ] }, oe.key));
         })()
       ] }) : /* @__PURE__ */ v(Eo, { withBorder: !0, radius: "md", style: { padding: 20 }, children: [
-        /* @__PURE__ */ l(H, { fw: 700, mb: 16, style: { fontSize: 14, color: "var(--cms-ink)" }, children: r("dashboard.recentlyEdited") }),
-        C === null ? /* @__PURE__ */ l(St, { size: "sm" }) : C.length === 0 ? /* @__PURE__ */ l(H, { c: "dimmed", size: "sm", children: r("dashboard.noRecentEdits") }) : /* @__PURE__ */ l(pe, { gap: 0, children: C.map((Z, oe) => /* @__PURE__ */ v(
+        /* @__PURE__ */ l(V, { fw: 700, mb: 16, style: { fontSize: 14, color: "var(--cms-ink)" }, children: r("dashboard.recentlyEdited") }),
+        C === null ? /* @__PURE__ */ l(St, { size: "sm" }) : C.length === 0 ? /* @__PURE__ */ l(V, { c: "dimmed", size: "sm", children: r("dashboard.noRecentEdits") }) : /* @__PURE__ */ l(pe, { gap: 0, children: C.map((Z, oe) => /* @__PURE__ */ v(
           "div",
           {
             onClick: () => o(Z.id),
@@ -70001,7 +70001,7 @@ function oEe({ onNew: t, onOpenMedia: e, onOpenSettings: n, onViewActivity: a, o
       ] }),
       /* @__PURE__ */ v(pe, { gap: 14, children: [
         /* @__PURE__ */ v(Eo, { withBorder: !0, radius: "md", style: { padding: 20 }, children: [
-          /* @__PURE__ */ l(H, { fw: 700, mb: 12, style: { fontSize: 14, color: "var(--cms-ink)" }, children: r("dashboard.quickActions") }),
+          /* @__PURE__ */ l(V, { fw: 700, mb: 12, style: { fontSize: 14, color: "var(--cms-ink)" }, children: r("dashboard.quickActions") }),
           /* @__PURE__ */ l(pe, { gap: 4, children: de.map((Z) => /* @__PURE__ */ v(
             "div",
             {
@@ -70043,8 +70043,8 @@ function oEe({ onNew: t, onOpenMedia: e, onOpenSettings: n, onViewActivity: a, o
           )) })
         ] }),
         /* @__PURE__ */ v(Eo, { withBorder: !0, radius: "md", style: { padding: 20 }, children: [
-          /* @__PURE__ */ l(H, { fw: 700, mb: 12, style: { fontSize: 14, color: "var(--cms-ink)" }, children: r("dashboard.recentDrafts") }),
-          x === null ? /* @__PURE__ */ l(St, { size: "sm" }) : x.length === 0 ? /* @__PURE__ */ l(H, { c: "dimmed", size: "sm", children: r("dashboard.noRecentDrafts") }) : /* @__PURE__ */ l(pe, { gap: 0, children: x.map((Z, oe) => /* @__PURE__ */ v(
+          /* @__PURE__ */ l(V, { fw: 700, mb: 12, style: { fontSize: 14, color: "var(--cms-ink)" }, children: r("dashboard.recentDrafts") }),
+          x === null ? /* @__PURE__ */ l(St, { size: "sm" }) : x.length === 0 ? /* @__PURE__ */ l(V, { c: "dimmed", size: "sm", children: r("dashboard.noRecentDrafts") }) : /* @__PURE__ */ l(pe, { gap: 0, children: x.map((Z, oe) => /* @__PURE__ */ v(
             "div",
             {
               onClick: () => o(Z.id),
@@ -70325,50 +70325,50 @@ function hEe() {
   f.current = { section: r, view: s };
   const y = Te(!1), g = Te(!1), k = Te(!1), b = Te(!1), [N, z] = _(null);
   he(() => {
-    const $ = { cms: { section: r, view: s } };
+    const P = { cms: { section: r, view: s } };
     if (!g.current) {
-      g.current = !0, window.history.replaceState($, "");
+      g.current = !0, window.history.replaceState(P, "");
       return;
     }
     if (y.current) {
       y.current = !1;
       return;
     }
-    window.history.pushState($, "");
+    window.history.pushState(P, "");
   }, [r, s]), he(() => {
-    const $ = (O) => {
-      const V = O.state && O.state.cms || null;
-      if (!V) return;
-      const K = f.current;
-      if (K.view.name === "editor" && k.current && V.view.name !== "editor" && !b.current) {
-        window.history.pushState({ cms: K }, ""), z(V);
+    const P = (O) => {
+      const B = O.state && O.state.cms || null;
+      if (!B) return;
+      const W = f.current;
+      if (W.view.name === "editor" && k.current && B.view.name !== "editor" && !b.current) {
+        window.history.pushState({ cms: W }, ""), z(B);
         return;
       }
-      b.current = !1, y.current = !0, i(V.section), c(V.view);
+      b.current = !1, y.current = !0, i(B.section), c(B.view);
     };
-    return window.addEventListener("popstate", $), () => window.removeEventListener("popstate", $);
+    return window.addEventListener("popstate", P), () => window.removeEventListener("popstate", P);
   }, []), he(() => {
-    const $ = localStorage.getItem("cms-ui-locale");
-    $ && $ !== on.language && on.changeLanguage($);
+    const P = localStorage.getItem("cms-ui-locale");
+    P && P !== on.language && on.changeLanguage(P);
   }, []);
   const x = () => {
-    const $ = !d;
-    p($);
+    const P = !d;
+    p(P);
     try {
-      localStorage.setItem("cms-sidebar", $ ? "expanded" : "collapsed");
+      localStorage.setItem("cms-sidebar", P ? "expanded" : "collapsed");
     } catch {
     }
-  }, w = ($) => {
-    i($), c({ name: "list" });
+  }, w = (P) => {
+    i(P), c({ name: "list" });
   };
   if (n)
     return /* @__PURE__ */ l(kt, { h: "100vh", children: /* @__PURE__ */ l(St, {}) });
   if (!e) return /* @__PURE__ */ l(D8e, {});
   const C = s.name === "editor", M = s.name === "menu-editor", S = C ? s : null, j = M ? s : null, A = o.filter(
-    ($) => ($.roles ?? ["developer", "admin", "editor", "viewer"]).includes(e.role)
-  ), T = A.find(($) => $.key === r) ?? null, U = A5() && typeof r == "string" && r.startsWith("commerce:") ? L5(e == null ? void 0 : e.role).find(($) => $.key === r) ?? null : null, I = {
-    openPageEditor: ($) => c({ name: "editor", pageId: $ }),
-    createPage: ($, O) => c({ name: "editor", initialType: $, initialParentId: O ?? void 0 })
+    (P) => (P.roles ?? ["developer", "admin", "editor", "viewer"]).includes(e.role)
+  ), T = A.find((P) => P.key === r) ?? null, U = A5() && typeof r == "string" && r.startsWith("commerce:") ? L5(e == null ? void 0 : e.role).find((P) => P.key === r) ?? null : null, I = {
+    openPageEditor: (P) => c({ name: "editor", pageId: P }),
+    createPage: (P, O) => c({ name: "editor", initialType: P, initialParentId: O ?? void 0 })
   };
   return /* @__PURE__ */ v("div", { className: "cms-shell", children: [
     /* @__PURE__ */ l(
@@ -70424,8 +70424,8 @@ function hEe() {
           initialType: S == null ? void 0 : S.initialType,
           initialParentId: S == null ? void 0 : S.initialParentId,
           onBack: () => c({ name: "list" }),
-          onDirtyChange: ($) => {
-            k.current = $;
+          onDirtyChange: (P) => {
+            k.current = P;
           }
         }
       ) }) : M ? /* @__PURE__ */ l(
@@ -70437,21 +70437,21 @@ function hEe() {
       ) : r === "dashboard" ? /* @__PURE__ */ l(
         oEe,
         {
-          onNew: ($, O) => c({ name: "editor", initialType: $, initialParentId: O ?? void 0 }),
+          onNew: (P, O) => c({ name: "editor", initialType: P, initialParentId: O ?? void 0 }),
           onOpenMedia: () => w("media"),
           onOpenSettings: () => w("settings"),
           onViewActivity: () => w("activity"),
-          onEditPage: ($) => {
-            w("pages"), c({ name: "editor", pageId: $ });
+          onEditPage: (P) => {
+            w("pages"), c({ name: "editor", pageId: P });
           }
         }
       ) : r === "pages" ? /* @__PURE__ */ l(
         Qwe,
         {
-          onEdit: ($) => c({ name: "editor", pageId: $ }),
-          onNew: ($, O) => c({ name: "editor", initialType: $, initialParentId: O ?? void 0 })
+          onEdit: (P) => c({ name: "editor", pageId: P }),
+          onNew: (P, O) => c({ name: "editor", initialType: P, initialParentId: O ?? void 0 })
         }
-      ) : r === "media" ? /* @__PURE__ */ l(Cl, { children: /* @__PURE__ */ l(PAe, {}) }) : r === "menus" ? /* @__PURE__ */ l($Ae, { onEdit: ($) => c({ name: "menu-editor", menu: $ }) }) : r === "settings" ? /* @__PURE__ */ l(QAe, {}) : r === "users" ? /* @__PURE__ */ l(wAe, { currentUserId: e.id }) : r === "strings" ? /* @__PURE__ */ l(eEe, {}) : U ? /* @__PURE__ */ l(Cl, { children: /* @__PURE__ */ l(x3, { fallback: /* @__PURE__ */ l(kt, { h: 300, children: /* @__PURE__ */ l(St, {}) }), children: /* @__PURE__ */ l(U.Component, {}) }) }) : T ? /* @__PURE__ */ l(Cl, { children: /* @__PURE__ */ l(T.component, { ...I }) }) : /* @__PURE__ */ l(vAe, {}) })
+      ) : r === "media" ? /* @__PURE__ */ l(Cl, { children: /* @__PURE__ */ l(PAe, {}) }) : r === "menus" ? /* @__PURE__ */ l($Ae, { onEdit: (P) => c({ name: "menu-editor", menu: P }) }) : r === "settings" ? /* @__PURE__ */ l(QAe, {}) : r === "users" ? /* @__PURE__ */ l(wAe, { currentUserId: e.id }) : r === "strings" ? /* @__PURE__ */ l(eEe, {}) : U ? /* @__PURE__ */ l(Cl, { children: /* @__PURE__ */ l(x3, { fallback: /* @__PURE__ */ l(kt, { h: 300, children: /* @__PURE__ */ l(St, {}) }), children: /* @__PURE__ */ l(U.Component, {}) }) }) : T ? /* @__PURE__ */ l(Cl, { children: /* @__PURE__ */ l(T.component, { ...I }) }) : /* @__PURE__ */ l(vAe, {}) })
     ] }),
     /* @__PURE__ */ l(
       Ut,
@@ -70611,7 +70611,7 @@ function wPe({
           /* @__PURE__ */ l(ft.Tab, { value: "image", children: "Images" }),
           /* @__PURE__ */ l(ft.Tab, { value: "document", children: "Documents" })
         ] }) }),
-        /* @__PURE__ */ l(ae, { style: { maxHeight: 460, overflowY: "auto" }, children: s ? /* @__PURE__ */ l(kt, { py: "xl", children: /* @__PURE__ */ l(St, {}) }) : r.length === 0 ? /* @__PURE__ */ l(kt, { py: "xl", children: /* @__PURE__ */ l(H, { c: "dimmed", size: "sm", children: d ? "No files match your search." : "No files in library yet." }) }) : /* @__PURE__ */ l(ly, { cols: { base: 2, sm: 3, md: 4 }, spacing: "sm", children: r.map((N) => /* @__PURE__ */ v(
+        /* @__PURE__ */ l(ae, { style: { maxHeight: 460, overflowY: "auto" }, children: s ? /* @__PURE__ */ l(kt, { py: "xl", children: /* @__PURE__ */ l(St, {}) }) : r.length === 0 ? /* @__PURE__ */ l(kt, { py: "xl", children: /* @__PURE__ */ l(V, { c: "dimmed", size: "sm", children: d ? "No files match your search." : "No files in library yet." }) }) : /* @__PURE__ */ l(ly, { cols: { base: 2, sm: 3, md: 4 }, spacing: "sm", children: r.map((N) => /* @__PURE__ */ v(
           I3,
           {
             withBorder: !0,
@@ -70635,10 +70635,10 @@ function wPe({
                     borderRadius: 4,
                     overflow: "hidden"
                   },
-                  children: wEe(N.mimeType) ? /* @__PURE__ */ l(Bo, { src: N.cdnUrl, height: 90, fit: "cover", alt: N.originalName }) : /* @__PURE__ */ l(H, { style: { fontSize: 28 }, children: MEe(N.mimeType) })
+                  children: wEe(N.mimeType) ? /* @__PURE__ */ l(Bo, { src: N.cdnUrl, height: 90, fit: "cover", alt: N.originalName }) : /* @__PURE__ */ l(V, { style: { fontSize: 28 }, children: MEe(N.mimeType) })
                 }
               ),
-              /* @__PURE__ */ l(H, { size: "xs", mt: 4, truncate: !0, title: N.originalName, children: N.originalName })
+              /* @__PURE__ */ l(V, { size: "xs", mt: 4, truncate: !0, title: N.originalName, children: N.originalName })
             ]
           },
           N.id
@@ -71124,9 +71124,9 @@ function bLe({ value: t, onChange: e, disabled: n = !1 }) {
     const A = (I = j.active.data.current) == null ? void 0 : I.type;
     if (!A) return;
     const T = j.active.id, U = j.active.rect.current.initial;
-    m({ kind: A, id: T, width: U == null ? void 0 : U.width, height: U == null ? void 0 : U.height }), A === "block" ? (z.current = { kind: "block", id: T, wasCollapsed: r[T] ?? !1 }, i(($) => ({ ...$, [T]: !0 }))) : A === "widget" && (z.current = { kind: "widget", id: T, wasCollapsed: s.has(T) }, c(($) => {
-      if ($.has(T)) return $;
-      const O = new Set($);
+    m({ kind: A, id: T, width: U == null ? void 0 : U.width, height: U == null ? void 0 : U.height }), A === "block" ? (z.current = { kind: "block", id: T, wasCollapsed: r[T] ?? !1 }, i((P) => ({ ...P, [T]: !0 }))) : A === "widget" && (z.current = { kind: "widget", id: T, wasCollapsed: s.has(T) }, c((P) => {
+      if (P.has(T)) return P;
+      const O = new Set(P);
       return O.add(T), O;
     }));
   }, C = () => {
@@ -71135,66 +71135,66 @@ function bLe({ value: t, onChange: e, disabled: n = !1 }) {
     var q;
     const { active: A, over: T } = j;
     if (!T || ((q = A.data.current) == null ? void 0 : q.type) !== "widget") return;
-    const I = A.id, $ = T.id;
-    if (I === $) return;
-    const O = A.data.current, V = T.data.current;
-    if (!V) return;
-    const K = V.type, G = O.columnId, D = V.columnId;
-    if (!G || !D || G === D) return;
-    const E = K === "widget" ? $ : null, R = o, F = Fr(R, G), L = Fr(R, D);
-    if (F < 0 || L < 0) return;
-    const [W, B] = Ap(R[F].data.columns, I);
+    const I = A.id, P = T.id;
+    if (I === P) return;
+    const O = A.data.current, B = T.data.current;
     if (!B) return;
-    const P = [...R];
-    if (F === L) {
-      const [J] = Wi(W, D, B, E);
-      P[F] = { ...P[F], data: { ...P[F].data, columns: J } };
+    const W = B.type, K = O.columnId, D = B.columnId;
+    if (!K || !D || K === D) return;
+    const E = W === "widget" ? P : null, R = o, F = Fr(R, K), H = Fr(R, D);
+    if (F < 0 || H < 0) return;
+    const [Y, $] = Ap(R[F].data.columns, I);
+    if (!$) return;
+    const L = [...R];
+    if (F === H) {
+      const [J] = Wi(Y, D, $, E);
+      L[F] = { ...L[F], data: { ...L[F].data, columns: J } };
     } else {
-      P[F] = { ...P[F], data: { ...P[F].data, columns: W } };
-      const [J] = Wi(R[L].data.columns, D, B, E);
-      P[L] = { ...P[L], data: { ...P[L].data, columns: J } };
+      L[F] = { ...L[F], data: { ...L[F].data, columns: Y } };
+      const [J] = Wi(R[H].data.columns, D, $, E);
+      L[H] = { ...L[H], data: { ...L[H].data, columns: J } };
     }
-    e(P);
+    e(L);
   }, S = (j) => {
-    var O, V;
+    var O, B;
     x(), m(null);
     const { active: A, over: T } = j;
     if (!T || A.id === T.id) return;
-    const U = (O = A.data.current) == null ? void 0 : O.type, I = (V = T.data.current) == null ? void 0 : V.type, $ = o;
+    const U = (O = A.data.current) == null ? void 0 : O.type, I = (B = T.data.current) == null ? void 0 : B.type, P = o;
     if (U === "block") {
       if (I !== "block") return;
-      const K = $.findIndex((D) => D._id === A.id), G = $.findIndex((D) => D._id === T.id);
-      if (K < 0 || G < 0) return;
-      e(kr($, K, G));
+      const W = P.findIndex((D) => D._id === A.id), K = P.findIndex((D) => D._id === T.id);
+      if (W < 0 || K < 0) return;
+      e(kr(P, W, K));
       return;
     }
     if (U === "column") {
       if (I !== "column") return;
-      const K = A.data.current.columnId, G = T.data.current.columnId;
-      if (!K || !G || K === G) return;
-      const D = Fr($, K), E = Fr($, G);
+      const W = A.data.current.columnId, K = T.data.current.columnId;
+      if (!W || !K || W === K) return;
+      const D = Fr(P, W), E = Fr(P, K);
       if (D < 0 || D !== E) return;
-      const R = $[D].data.columns, F = R.findIndex((P) => P.id === K), L = R.findIndex((P) => P.id === G);
-      if (F < 0 || L < 0) return;
-      const W = kr(R, F, L), B = [...$];
-      B[D] = { ...B[D], data: { ...B[D].data, columns: W } }, e(B);
+      const R = P[D].data.columns, F = R.findIndex((L) => L.id === W), H = R.findIndex((L) => L.id === K);
+      if (F < 0 || H < 0) return;
+      const Y = kr(R, F, H), $ = [...P];
+      $[D] = { ...$[D], data: { ...$[D].data, columns: Y } }, e($);
       return;
     }
     if (U === "widget") {
-      const K = A.id, G = T.id, D = A.data.current, E = T.data.current, R = D.columnId, F = E.columnId;
+      const W = A.id, K = T.id, D = A.data.current, E = T.data.current, R = D.columnId, F = E.columnId;
       if (!R || !F) return;
-      const L = I === "widget" ? G : null, W = Fr($, R), B = Fr($, F);
-      if (W < 0 || B < 0) return;
-      const [P, q] = Ap($[W].data.columns, K);
+      const H = I === "widget" ? K : null, Y = Fr(P, R), $ = Fr(P, F);
+      if (Y < 0 || $ < 0) return;
+      const [L, q] = Ap(P[Y].data.columns, W);
       if (!q) return;
-      const J = [...$];
-      if (W === B) {
-        const [te] = Wi(P, F, q, L);
-        J[W] = { ...J[W], data: { ...J[W].data, columns: te } };
+      const J = [...P];
+      if (Y === $) {
+        const [te] = Wi(L, F, q, H);
+        J[Y] = { ...J[Y], data: { ...J[Y].data, columns: te } };
       } else {
-        J[W] = { ...J[W], data: { ...J[W].data, columns: P } };
-        const [te] = Wi($[B].data.columns, F, q, L);
-        J[B] = { ...J[B], data: { ...J[B].data, columns: te } };
+        J[Y] = { ...J[Y], data: { ...J[Y].data, columns: L } };
+        const [te] = Wi(P[$].data.columns, F, q, H);
+        J[$] = { ...J[$], data: { ...J[$].data, columns: te } };
       }
       e(J);
     }
@@ -71258,7 +71258,7 @@ function bLe({ value: t, onChange: e, disabled: n = !1 }) {
       )) })
     ] }),
     !n && /* @__PURE__ */ l("button", { className: "cms-add-section-btn", onClick: () => p((j) => !j), children: a(d ? "common.cancel" : "commerce.products.addSection") }),
-    n && o.length > 0 && /* @__PURE__ */ l(H, { size: "xs", c: "dimmed", mt: 8, children: a("commerce.products.blockBodyReadOnly") })
+    n && o.length > 0 && /* @__PURE__ */ l(V, { size: "xs", c: "dimmed", mt: 8, children: a("commerce.products.blockBodyReadOnly") })
   ] });
 }
 const Xf = 3;
@@ -71292,10 +71292,10 @@ function xLe({ options: t, onApply: e, disabled: n = !1, busy: a = !1 }) {
   }
   return /* @__PURE__ */ v(pe, { gap: "sm", children: [
     /* @__PURE__ */ v(se, { justify: "space-between", children: [
-      /* @__PURE__ */ l(H, { fw: 600, size: "sm", children: o("commerce.products.options") }),
+      /* @__PURE__ */ l(V, { fw: 600, size: "sm", children: o("commerce.products.options") }),
       !n && r.length < Xf && /* @__PURE__ */ l(yt, { size: "xs", variant: "default", leftSection: /* @__PURE__ */ l(Ot, { size: 14 }), onClick: m, children: o("commerce.products.addOption") })
     ] }),
-    r.length === 0 ? /* @__PURE__ */ l(H, { size: "sm", c: "dimmed", children: o("commerce.products.noOptions") }) : r.map((z, x) => /* @__PURE__ */ v(ae, { style: { border: "1px solid var(--mantine-color-gray-3)", borderRadius: 8, padding: 12 }, children: [
+    r.length === 0 ? /* @__PURE__ */ l(V, { size: "sm", c: "dimmed", children: o("commerce.products.noOptions") }) : r.map((z, x) => /* @__PURE__ */ v(ae, { style: { border: "1px solid var(--mantine-color-gray-3)", borderRadius: 8, padding: 12 }, children: [
       /* @__PURE__ */ v(se, { gap: 8, mb: 8, wrap: "nowrap", children: [
         /* @__PURE__ */ l(
           je,
@@ -71335,7 +71335,7 @@ function xLe({ options: t, onApply: e, disabled: n = !1, busy: a = !1 }) {
           children: o("commerce.products.applyOptions")
         }
       ),
-      u && /* @__PURE__ */ l(H, { size: "xs", c: "dimmed", children: o("commerce.products.optionsDirtyHint") })
+      u && /* @__PURE__ */ l(V, { size: "xs", c: "dimmed", children: o("commerce.products.optionsDirtyHint") })
     ] }),
     /* @__PURE__ */ l(
       Ut,
@@ -71452,23 +71452,23 @@ function CLe({ product: t, locale: e, onVariantSaved: n, reload: a, disabled: o 
     const M = [];
     let S = !1;
     for (const { v: j, d: A, priceCents: T, saleCents: U } of w) {
-      const I = kh(j), $ = A.sku !== I.sku || A.price !== I.price || A.salePrice !== I.salePrice, O = A.tracked !== I.tracked || A.backorder !== I.backorder || A.onHand !== I.onHand;
+      const I = kh(j), P = A.sku !== I.sku || A.price !== I.price || A.salePrice !== I.salePrice, O = A.tracked !== I.tracked || A.backorder !== I.backorder || A.onHand !== I.onHand;
       try {
-        let V = j;
-        $ && (V = await AEe(t.id, j.id, {
+        let B = j;
+        P && (B = await AEe(t.id, j.id, {
           sku: A.sku.trim() ? A.sku.trim() : null,
           price: T,
           salePrice: U,
           // null clears
-          version: V.version
-        })), O && (V = await EEe(t.id, j.id, {
+          version: B.version
+        })), O && (B = await EEe(t.id, j.id, {
           tracked: A.tracked,
           backorder: A.backorder,
           onHand: A.onHand,
-          version: V.version
-        })), n(V), C++;
-      } catch (V) {
-        V instanceof Mn && V.code === "sku_taken" ? M.push(`${b(j)} — ${r("commerce.products.skuTaken")}`) : V instanceof Mn && V.code === "conflict" ? (S = !0, M.push(`${b(j)} — ${r("commerce.errors.conflict")}`)) : M.push(`${b(j)} — ${r("commerce.errors.generic")}`);
+          version: B.version
+        })), n(B), C++;
+      } catch (B) {
+        B instanceof Mn && B.code === "sku_taken" ? M.push(`${b(j)} — ${r("commerce.products.skuTaken")}`) : B instanceof Mn && B.code === "conflict" ? (S = !0, M.push(`${b(j)} — ${r("commerce.errors.conflict")}`)) : M.push(`${b(j)} — ${r("commerce.errors.generic")}`);
       }
     }
     u(!1), C && !M.length ? ne.ok(r("commerce.products.variantsSaved", { n: C })) : C && M.length ? ne.err(r("commerce.products.variantsSavedPartial", { n: C, errors: M.join("; ") })) : ne.err(M.join("; ") || r("commerce.errors.generic")), S && a();
@@ -71478,7 +71478,7 @@ function CLe({ product: t, locale: e, onVariantSaved: n, reload: a, disabled: o 
   }
   return /* @__PURE__ */ v(pe, { gap: "sm", children: [
     /* @__PURE__ */ v(se, { justify: "space-between", children: [
-      /* @__PURE__ */ l(H, { fw: 600, size: "sm", children: r("commerce.products.variants") }),
+      /* @__PURE__ */ l(V, { fw: 600, size: "sm", children: r("commerce.products.variants") }),
       !o && /* @__PURE__ */ l(yt, { size: "sm", disabled: k.length === 0 || p, loading: p, onClick: N, children: k.length > 0 ? r("commerce.products.saveVariantsCount", { n: k.length }) : r("commerce.products.saveVariants") })
     ] }),
     /* @__PURE__ */ l(Vo, { children: /* @__PURE__ */ v(ae, { style: { minWidth: 720 }, children: [
@@ -71498,7 +71498,7 @@ function CLe({ product: t, locale: e, onVariantSaved: n, reload: a, disabled: o 
         if (!w) return null;
         const C = g(x), M = ey(t, x);
         return /* @__PURE__ */ v(se, { gap: 8, px: 8, py: 8, wrap: "nowrap", align: "flex-start", style: { borderBottom: "1px solid var(--mantine-color-gray-2)" }, children: [
-          s && M.map((S, j) => /* @__PURE__ */ l(ae, { style: { width: 96, paddingTop: 7 }, children: /* @__PURE__ */ l(H, { size: "sm", fw: 500, children: S }) }, j)),
+          s && M.map((S, j) => /* @__PURE__ */ l(ae, { style: { width: 96, paddingTop: 7 }, children: /* @__PURE__ */ l(V, { size: "sm", fw: 500, children: S }) }, j)),
           /* @__PURE__ */ l(ae, { style: { width: 140 }, children: /* @__PURE__ */ l(
             je,
             {
@@ -71642,9 +71642,9 @@ function NLe({ product: t, locale: e, defaultLocale: n, onSaved: a, onConflict: 
       k(!1);
     }
   }
-  return s === null && !d ? /* @__PURE__ */ l(kt, { h: 160, children: /* @__PURE__ */ l(St, {}) }) : d ? /* @__PURE__ */ l(H, { c: "red", size: "sm", children: i("commerce.errors.generic") }) : /* @__PURE__ */ v(pe, { gap: "sm", children: [
-    /* @__PURE__ */ l(H, { fw: 600, size: "sm", children: i("commerce.products.categories") }),
-    x.length === 0 ? /* @__PURE__ */ l(H, { size: "sm", c: "dimmed", children: i("commerce.products.noCategoriesYet") }) : /* @__PURE__ */ v(Re, { children: [
+  return s === null && !d ? /* @__PURE__ */ l(kt, { h: 160, children: /* @__PURE__ */ l(St, {}) }) : d ? /* @__PURE__ */ l(V, { c: "red", size: "sm", children: i("commerce.errors.generic") }) : /* @__PURE__ */ v(pe, { gap: "sm", children: [
+    /* @__PURE__ */ l(V, { fw: 600, size: "sm", children: i("commerce.products.categories") }),
+    x.length === 0 ? /* @__PURE__ */ l(V, { size: "sm", c: "dimmed", children: i("commerce.products.noCategoriesYet") }) : /* @__PURE__ */ v(Re, { children: [
       /* @__PURE__ */ l(
         Zr,
         {
@@ -71660,8 +71660,8 @@ function NLe({ product: t, locale: e, defaultLocale: n, onSaved: a, onConflict: 
         }
       ),
       u.length > 0 && /* @__PURE__ */ v(ae, { children: [
-        /* @__PURE__ */ l(H, { size: "sm", fw: 500, mb: 6, children: i("commerce.products.primaryCategory") }),
-        /* @__PURE__ */ l(H, { size: "xs", c: "dimmed", mb: 8, children: i("commerce.products.primaryHint") }),
+        /* @__PURE__ */ l(V, { size: "sm", fw: 500, mb: 6, children: i("commerce.products.primaryCategory") }),
+        /* @__PURE__ */ l(V, { size: "xs", c: "dimmed", mb: 8, children: i("commerce.products.primaryHint") }),
         /* @__PURE__ */ l(Gi.Group, { value: f ?? "", onChange: (S) => y(S || null), children: /* @__PURE__ */ l(pe, { gap: 6, children: u.map((S) => /* @__PURE__ */ l(Gi, { value: S, disabled: r, label: z.get(S) ?? S }, S)) }) })
       ] }),
       !r && /* @__PURE__ */ l(se, { children: /* @__PURE__ */ l(yt, { size: "sm", disabled: !C || g, loading: g, onClick: M, children: i("commerce.products.saveCategories") }) })
@@ -71697,7 +71697,7 @@ function Sl(t, e, n, a, o, r, i) {
   };
 }
 function zLe({ productId: t, onBack: e, canWrite: n }) {
-  const { t: a } = we(), { locale: o, defaultLocale: r, availableLocales: i } = In(), [s, c] = _(null), [d, p] = _(!1), [u, m] = _({}), [f, y] = _("physical"), [g, k] = _("draft"), [b, N] = _(null), [z, x] = _(!0), [w, C] = _(null), [M, S] = _([]), [j, A] = _("general"), [T, U] = _(!1), [I, $] = _(!1), [O, V] = _(!1), [K, G] = _(!1), [D, E] = _(!1), R = Te("");
+  const { t: a } = we(), { locale: o, defaultLocale: r, availableLocales: i } = In(), [s, c] = _(null), [d, p] = _(!1), [u, m] = _({}), [f, y] = _("physical"), [g, k] = _("draft"), [b, N] = _(null), [z, x] = _(!0), [w, C] = _(null), [M, S] = _([]), [j, A] = _("general"), [T, U] = _(!1), [I, P] = _(!1), [O, B] = _(!1), [W, K] = _(!1), [D, E] = _(!1), R = Te("");
   function F(fe) {
     const Me = {};
     for (const Ue of i) Me[Ue] = _l(fe.translations[Ue]);
@@ -71719,14 +71719,14 @@ function zLe({ productId: t, onBack: e, canWrite: n }) {
       fe = !1;
     };
   }, [t]);
-  const L = u[o] ?? _l(void 0);
-  function W(fe) {
+  const H = u[o] ?? _l(void 0);
+  function Y(fe) {
     m((Me) => ({ ...Me, [o]: { ...Me[o] ?? _l(void 0), ...fe } }));
   }
-  const B = qe(
+  const $ = qe(
     () => JSON.stringify(Sl(u, f, g, b, z, w, M)),
     [u, f, g, b, z, w, M]
-  ), P = s != null && B !== R.current;
+  ), L = s != null && $ !== R.current;
   async function q() {
     if (!s) return;
     const fe = Sl(u, f, g, b, z, w, M);
@@ -71757,23 +71757,23 @@ function zLe({ productId: t, onBack: e, canWrite: n }) {
   }
   async function ee(fe) {
     if (s) {
-      $(!0);
+      P(!0);
       try {
         const Me = await TEe(s.id, fe, s.version);
         c(Me), ne.ok(a("commerce.products.optionsApplied"));
       } catch (Me) {
         Me instanceof Mn && Me.code === "conflict" ? (ne.err(a("commerce.errors.conflict")), await te()) : ne.err(a("commerce.errors.generic"));
       } finally {
-        $(!1);
+        P(!1);
       }
     }
   }
   function de(fe) {
     c((Me) => Me && { ...Me, variants: Me.variants.map((Ue) => Ue.id === fe.id ? fe : Ue) });
   }
-  function Y(fe) {
+  function G(fe) {
     const Me = new Set(fe.map((_t) => _t.mediaId)), Ue = new Set(M.map((_t) => _t.mediaId)), rt = M.filter((_t) => Me.has(_t.mediaId)), Rt = fe.filter((_t) => !Ue.has(_t.mediaId)).map((_t) => ({ mediaId: _t.mediaId, cdnUrl: _t.cdnUrl }));
-    S([...rt, ...Rt]), V(!1);
+    S([...rt, ...Rt]), B(!1);
   }
   function Z(fe) {
     S((Me) => Me.filter((Ue) => Ue.mediaId !== fe));
@@ -71787,12 +71787,12 @@ function zLe({ productId: t, onBack: e, canWrite: n }) {
     });
   }
   function le() {
-    P ? E(!0) : e();
+    L ? E(!0) : e();
   }
   if (d)
     return /* @__PURE__ */ v(ae, { p: "md", children: [
       /* @__PURE__ */ l(yt, { variant: "subtle", leftSection: /* @__PURE__ */ l(Gl, { size: 16 }), onClick: e, children: a("commerce.products.backToList") }),
-      /* @__PURE__ */ l(kt, { h: 200, children: /* @__PURE__ */ l(H, { c: "red", children: a("commerce.errors.generic") }) })
+      /* @__PURE__ */ l(kt, { h: 200, children: /* @__PURE__ */ l(V, { c: "red", children: a("commerce.errors.generic") }) })
     ] });
   if (!s) return /* @__PURE__ */ l(kt, { h: 300, children: /* @__PURE__ */ l(St, {}) });
   const ze = o.toUpperCase();
@@ -71801,12 +71801,12 @@ function zLe({ productId: t, onBack: e, canWrite: n }) {
       /* @__PURE__ */ l(yt, { variant: "subtle", size: "compact-sm", leftSection: /* @__PURE__ */ l(Gl, { size: 15 }), onClick: le, children: a("commerce.products.backToList") }),
       /* @__PURE__ */ v(se, { gap: 8, children: [
         /* @__PURE__ */ l(Fe, { color: g === "active" ? "teal" : "gray", variant: "light", children: a(g === "active" ? "commerce.products.statusActive" : "commerce.products.statusDraft") }),
-        n && /* @__PURE__ */ l(yt, { size: "sm", disabled: !P || T, loading: T, onClick: q, children: a("commerce.products.save") })
+        n && /* @__PURE__ */ l(yt, { size: "sm", disabled: !L || T, loading: T, onClick: q, children: a("commerce.products.save") })
       ] })
     ] }),
     /* @__PURE__ */ v(se, { gap: 8, mb: "md", children: [
       /* @__PURE__ */ l(Ad, { size: 20 }),
-      /* @__PURE__ */ l(H, { fw: 600, fz: "lg", children: L.name || a("commerce.products.untitled") })
+      /* @__PURE__ */ l(V, { fw: 600, fz: "lg", children: H.name || a("commerce.products.untitled") })
     ] }),
     /* @__PURE__ */ v(ft, { value: j, onChange: (fe) => A(fe ?? "general"), children: [
       /* @__PURE__ */ v(ft.List, { mb: "md", children: [
@@ -71820,7 +71820,7 @@ function zLe({ productId: t, onBack: e, canWrite: n }) {
       /* @__PURE__ */ l(ft.Panel, { value: "general", children: /* @__PURE__ */ v(pe, { gap: "sm", children: [
         /* @__PURE__ */ v(se, { gap: "xl", children: [
           /* @__PURE__ */ v(ae, { children: [
-            /* @__PURE__ */ l(H, { size: "sm", fw: 500, mb: 6, children: a("commerce.products.type") }),
+            /* @__PURE__ */ l(V, { size: "sm", fw: 500, mb: 6, children: a("commerce.products.type") }),
             /* @__PURE__ */ l(
               Qr,
               {
@@ -71836,7 +71836,7 @@ function zLe({ productId: t, onBack: e, canWrite: n }) {
             )
           ] }),
           /* @__PURE__ */ v(ae, { children: [
-            /* @__PURE__ */ l(H, { size: "sm", fw: 500, mb: 6, children: a("commerce.products.status") }),
+            /* @__PURE__ */ l(V, { size: "sm", fw: 500, mb: 6, children: a("commerce.products.status") }),
             /* @__PURE__ */ l(
               Qr,
               {
@@ -71851,7 +71851,7 @@ function zLe({ productId: t, onBack: e, canWrite: n }) {
             )
           ] }),
           /* @__PURE__ */ v(ae, { children: [
-            /* @__PURE__ */ l(H, { size: "sm", fw: 500, mb: 6, children: a("commerce.products.sale") }),
+            /* @__PURE__ */ l(V, { size: "sm", fw: 500, mb: 6, children: a("commerce.products.sale") }),
             /* @__PURE__ */ l(
               Qr,
               {
@@ -71866,7 +71866,7 @@ function zLe({ productId: t, onBack: e, canWrite: n }) {
             )
           ] }),
           /* @__PURE__ */ v(ae, { children: [
-            /* @__PURE__ */ l(H, { size: "sm", fw: 500, mb: 6, children: a("commerce.products.taxClass") }),
+            /* @__PURE__ */ l(V, { size: "sm", fw: 500, mb: 6, children: a("commerce.products.taxClass") }),
             /* @__PURE__ */ l(
               Tt,
               {
@@ -71886,7 +71886,7 @@ function zLe({ productId: t, onBack: e, canWrite: n }) {
             )
           ] }),
           z && /* @__PURE__ */ v(ae, { children: [
-            /* @__PURE__ */ l(H, { size: "sm", fw: 500, mb: 6, children: a("commerce.products.checkoutMode") }),
+            /* @__PURE__ */ l(V, { size: "sm", fw: 500, mb: 6, children: a("commerce.products.checkoutMode") }),
             /* @__PURE__ */ l(
               Tt,
               {
@@ -71906,15 +71906,15 @@ function zLe({ productId: t, onBack: e, canWrite: n }) {
             )
           ] })
         ] }),
-        !z && /* @__PURE__ */ l(H, { size: "xs", c: "dimmed", children: a("commerce.products.inquiryHint") }),
-        z && w && /* @__PURE__ */ l(H, { size: "xs", c: "dimmed", children: a("commerce.products.checkoutModeHint") }),
-        /* @__PURE__ */ l(H, { size: "xs", c: "dimmed", mt: 4, children: a("commerce.products.editingLocale", { locale: ze }) }),
+        !z && /* @__PURE__ */ l(V, { size: "xs", c: "dimmed", children: a("commerce.products.inquiryHint") }),
+        z && w && /* @__PURE__ */ l(V, { size: "xs", c: "dimmed", children: a("commerce.products.checkoutModeHint") }),
+        /* @__PURE__ */ l(V, { size: "xs", c: "dimmed", mt: 4, children: a("commerce.products.editingLocale", { locale: ze }) }),
         /* @__PURE__ */ l(
           je,
           {
             label: a("commerce.products.name"),
-            value: L.name,
-            onChange: (fe) => W({ name: fe.currentTarget.value }),
+            value: H.name,
+            onChange: (fe) => Y({ name: fe.currentTarget.value }),
             disabled: !n,
             required: !0
           }
@@ -71923,8 +71923,8 @@ function zLe({ productId: t, onBack: e, canWrite: n }) {
           lo,
           {
             label: a("commerce.products.shortDescription"),
-            value: L.shortDescription,
-            onChange: (fe) => W({ shortDescription: fe.currentTarget.value }),
+            value: H.shortDescription,
+            onChange: (fe) => Y({ shortDescription: fe.currentTarget.value }),
             disabled: !n,
             autosize: !0,
             minRows: 2,
@@ -71940,12 +71940,12 @@ function zLe({ productId: t, onBack: e, canWrite: n }) {
       /* @__PURE__ */ l(ft.Panel, { value: "media", children: /* @__PURE__ */ v(pe, { gap: "sm", children: [
         /* @__PURE__ */ v(se, { justify: "space-between", children: [
           /* @__PURE__ */ v(ae, { children: [
-            /* @__PURE__ */ l(H, { fw: 600, size: "sm", children: a("commerce.products.gallery") }),
-            /* @__PURE__ */ l(H, { size: "xs", c: "dimmed", children: a("commerce.products.galleryHint") })
+            /* @__PURE__ */ l(V, { fw: 600, size: "sm", children: a("commerce.products.gallery") }),
+            /* @__PURE__ */ l(V, { size: "xs", c: "dimmed", children: a("commerce.products.galleryHint") })
           ] }),
-          n && /* @__PURE__ */ l(yt, { size: "xs", variant: "default", leftSection: /* @__PURE__ */ l(Ea, { size: 14 }), onClick: () => V(!0), children: a("commerce.products.addImages") })
+          n && /* @__PURE__ */ l(yt, { size: "xs", variant: "default", leftSection: /* @__PURE__ */ l(Ea, { size: 14 }), onClick: () => B(!0), children: a("commerce.products.addImages") })
         ] }),
-        M.length === 0 ? /* @__PURE__ */ l(H, { size: "sm", c: "dimmed", children: a("commerce.products.noImages") }) : /* @__PURE__ */ l(se, { gap: 10, children: M.map((fe, Me) => /* @__PURE__ */ v(ae, { style: { position: "relative", width: 110 }, children: [
+        M.length === 0 ? /* @__PURE__ */ l(V, { size: "sm", c: "dimmed", children: a("commerce.products.noImages") }) : /* @__PURE__ */ l(se, { gap: 10, children: M.map((fe, Me) => /* @__PURE__ */ v(ae, { style: { position: "relative", width: 110 }, children: [
           /* @__PURE__ */ l("img", { src: fe.cdnUrl, alt: "", style: { width: 110, height: 90, objectFit: "cover", borderRadius: 6, border: Me === 0 ? "2px solid var(--cms-teal, #2dbfa4)" : "1px solid var(--mantine-color-gray-3)" } }),
           Me === 0 && /* @__PURE__ */ l(Fe, { size: "xs", color: "teal", style: { position: "absolute", top: 4, left: 4 }, children: a("commerce.products.mainImage") }),
           n && /* @__PURE__ */ v(se, { gap: 2, justify: "center", mt: 4, wrap: "nowrap", children: [
@@ -71954,28 +71954,28 @@ function zLe({ productId: t, onBack: e, canWrite: n }) {
             /* @__PURE__ */ l(Mt, { size: "sm", variant: "subtle", disabled: Me === M.length - 1, onClick: () => oe(Me, 1), children: /* @__PURE__ */ l(wa, { size: 14 }) })
           ] })
         ] }, fe.mediaId)) }),
-        /* @__PURE__ */ l(H, { size: "xs", c: "dimmed", children: a("commerce.products.gallerySaveHint") })
+        /* @__PURE__ */ l(V, { size: "xs", c: "dimmed", children: a("commerce.products.gallerySaveHint") })
       ] }) }),
       /* @__PURE__ */ l(ft.Panel, { value: "content", children: /* @__PURE__ */ v(pe, { gap: "sm", children: [
-        /* @__PURE__ */ l(H, { size: "xs", c: "dimmed", children: a("commerce.products.editingLocale", { locale: ze }) }),
-        /* @__PURE__ */ l(H, { size: "xs", c: "dimmed", children: a("commerce.products.blockBodyHint") }),
+        /* @__PURE__ */ l(V, { size: "xs", c: "dimmed", children: a("commerce.products.editingLocale", { locale: ze }) }),
+        /* @__PURE__ */ l(V, { size: "xs", c: "dimmed", children: a("commerce.products.blockBodyHint") }),
         /* @__PURE__ */ l(
           bLe,
           {
-            value: L.blocks,
-            onChange: (fe) => W({ blocks: fe }),
+            value: H.blocks,
+            onChange: (fe) => Y({ blocks: fe }),
             disabled: !n
           }
         )
       ] }) }),
       /* @__PURE__ */ l(ft.Panel, { value: "seo", children: /* @__PURE__ */ v(pe, { gap: "sm", children: [
-        /* @__PURE__ */ l(H, { size: "xs", c: "dimmed", children: a("commerce.products.editingLocale", { locale: ze }) }),
+        /* @__PURE__ */ l(V, { size: "xs", c: "dimmed", children: a("commerce.products.editingLocale", { locale: ze }) }),
         /* @__PURE__ */ l(
           je,
           {
             label: a("commerce.products.metaTitle"),
-            value: L.metaTitle,
-            onChange: (fe) => W({ metaTitle: fe.currentTarget.value }),
+            value: H.metaTitle,
+            onChange: (fe) => Y({ metaTitle: fe.currentTarget.value }),
             disabled: !n
           }
         ),
@@ -71983,8 +71983,8 @@ function zLe({ productId: t, onBack: e, canWrite: n }) {
           lo,
           {
             label: a("commerce.products.metaDescription"),
-            value: L.metaDescription,
-            onChange: (fe) => W({ metaDescription: fe.currentTarget.value }),
+            value: H.metaDescription,
+            onChange: (fe) => Y({ metaDescription: fe.currentTarget.value }),
             disabled: !n,
             autosize: !0,
             minRows: 2,
@@ -71992,11 +71992,11 @@ function zLe({ productId: t, onBack: e, canWrite: n }) {
           }
         ),
         /* @__PURE__ */ v(ae, { children: [
-          /* @__PURE__ */ l(H, { size: "sm", fw: 500, mb: 6, children: a("commerce.products.ogImage") }),
-          L.ogImage ? /* @__PURE__ */ v(se, { gap: 8, children: [
-            /* @__PURE__ */ l("img", { src: L.ogImage.cdnUrl, alt: "", style: { width: 120, height: 64, objectFit: "cover", borderRadius: 6, border: "1px solid var(--mantine-color-gray-3)" } }),
-            n && /* @__PURE__ */ l(Mt, { variant: "subtle", color: "red", onClick: () => W({ ogImage: null }), children: /* @__PURE__ */ l(da, { size: 16 }) })
-          ] }) : n && /* @__PURE__ */ l(yt, { variant: "default", size: "xs", leftSection: /* @__PURE__ */ l(Ea, { size: 14 }), onClick: () => G(!0), children: a("commerce.products.pickImage") })
+          /* @__PURE__ */ l(V, { size: "sm", fw: 500, mb: 6, children: a("commerce.products.ogImage") }),
+          H.ogImage ? /* @__PURE__ */ v(se, { gap: 8, children: [
+            /* @__PURE__ */ l("img", { src: H.ogImage.cdnUrl, alt: "", style: { width: 120, height: 64, objectFit: "cover", borderRadius: 6, border: "1px solid var(--mantine-color-gray-3)" } }),
+            n && /* @__PURE__ */ l(Mt, { variant: "subtle", color: "red", onClick: () => Y({ ogImage: null }), children: /* @__PURE__ */ l(da, { size: 16 }) })
+          ] }) : n && /* @__PURE__ */ l(yt, { variant: "default", size: "xs", leftSection: /* @__PURE__ */ l(Ea, { size: 14 }), onClick: () => K(!0), children: a("commerce.products.pickImage") })
         ] })
       ] }) })
     ] }),
@@ -72006,19 +72006,19 @@ function zLe({ productId: t, onBack: e, canWrite: n }) {
         opened: O,
         mode: "multi",
         initialImages: M,
-        onClose: () => V(!1),
-        onConfirm: (fe) => Y(fe)
+        onClose: () => B(!1),
+        onConfirm: (fe) => G(fe)
       }
     ),
-    K && /* @__PURE__ */ l(
+    W && /* @__PURE__ */ l(
       po,
       {
-        opened: K,
+        opened: W,
         mode: "single",
-        onClose: () => G(!1),
+        onClose: () => K(!1),
         onConfirm: (fe) => {
           const Me = fe[0];
-          Me && W({ ogImage: { mediaId: Me.mediaId, cdnUrl: Me.cdnUrl } }), G(!1);
+          Me && Y({ ogImage: { mediaId: Me.mediaId, cdnUrl: Me.cdnUrl } }), K(!1);
         }
       }
     ),
@@ -72079,11 +72079,11 @@ function TLe({ opened: t, onClose: e, onImported: n }) {
       footer: g,
       size: 520,
       children: /* @__PURE__ */ v(pe, { gap: "md", children: [
-        /* @__PURE__ */ l(H, { size: "sm", c: "dimmed", children: a("commerce.products.import.help") }),
-        /* @__PURE__ */ l(Fn, { color: "yellow", icon: /* @__PURE__ */ l(Eh, { size: 16 }), variant: "light", children: /* @__PURE__ */ l(H, { size: "xs", children: a("commerce.products.import.warning") }) }),
+        /* @__PURE__ */ l(V, { size: "sm", c: "dimmed", children: a("commerce.products.import.help") }),
+        /* @__PURE__ */ l(Fn, { color: "yellow", icon: /* @__PURE__ */ l(Eh, { size: 16 }), variant: "light", children: /* @__PURE__ */ l(V, { size: "xs", children: a("commerce.products.import.warning") }) }),
         /* @__PURE__ */ v(se, { gap: 8, children: [
           /* @__PURE__ */ l(H3, { onChange: f, accept: ".csv,text/csv", children: (k) => /* @__PURE__ */ l(ve, { ...k, variant: "secondary", leftSection: /* @__PURE__ */ l(ug, { size: 16 }), children: a("commerce.products.import.chooseFile") }) }),
-          i && /* @__PURE__ */ l(H, { size: "sm", c: "dimmed", children: i })
+          i && /* @__PURE__ */ l(V, { size: "sm", c: "dimmed", children: i })
         ] }),
         /* @__PURE__ */ l(
           lo,
@@ -72100,7 +72100,7 @@ function TLe({ opened: t, onClose: e, onImported: n }) {
             styles: { input: { fontFamily: "var(--mantine-font-family-monospace)", fontSize: 12 } }
           }
         ),
-        /* @__PURE__ */ l(H, { size: "xs", c: "dimmed", children: a("commerce.products.import.formatHint") }),
+        /* @__PURE__ */ l(V, { size: "xs", c: "dimmed", children: a("commerce.products.import.formatHint") }),
         c && /* @__PURE__ */ v(ae, { children: [
           /* @__PURE__ */ v(se, { gap: 6, mb: 8, children: [
             c.dryRun && /* @__PURE__ */ l(Fe, { color: "gray", variant: "light", children: a("commerce.products.import.previewBadge") }),
@@ -72110,7 +72110,7 @@ function TLe({ opened: t, onClose: e, onImported: n }) {
             /* @__PURE__ */ l(Fe, { color: "gray", variant: "light", children: a("commerce.products.import.variants", { n: c.variants }) }),
             c.categoriesCreated > 0 && /* @__PURE__ */ l(Fe, { color: "grape", variant: "light", children: a("commerce.products.import.categoriesCreated", { n: c.categoriesCreated }) })
           ] }),
-          c.errors.length > 0 && /* @__PURE__ */ l(Fn, { color: "red", icon: /* @__PURE__ */ l(Eh, { size: 16 }), title: a("commerce.products.import.errorsTitle", { n: c.errors.length }), variant: "light", children: /* @__PURE__ */ l(Vo.Autosize, { mah: 200, children: /* @__PURE__ */ l(pe, { gap: 4, children: c.errors.map((k, b) => /* @__PURE__ */ v(H, { size: "xs", children: [
+          c.errors.length > 0 && /* @__PURE__ */ l(Fn, { color: "red", icon: /* @__PURE__ */ l(Eh, { size: 16 }), title: a("commerce.products.import.errorsTitle", { n: c.errors.length }), variant: "light", children: /* @__PURE__ */ l(Vo.Autosize, { mah: 200, children: /* @__PURE__ */ l(pe, { gap: 4, children: c.errors.map((k, b) => /* @__PURE__ */ v(V, { size: "xs", children: [
             /* @__PURE__ */ v(Oo, { children: [
               a("commerce.products.import.lineLabel", { n: k.line }),
               k.handle ? ` · ${k.handle}` : ""
@@ -72120,7 +72120,7 @@ function TLe({ opened: t, onClose: e, onImported: n }) {
           ] }, b)) }) }) }),
           !c.dryRun && c.errors.length === 0 && /* @__PURE__ */ v(se, { gap: 6, children: [
             /* @__PURE__ */ l(Io, { size: 14 }),
-            /* @__PURE__ */ l(H, { size: "sm", c: "teal", children: a("commerce.products.import.success") })
+            /* @__PURE__ */ l(V, { size: "sm", c: "teal", children: a("commerce.products.import.success") })
           ] })
         ] }),
         (c || o) && /* @__PURE__ */ l(ve, { variant: "ghost", size: "compact-sm", onClick: m, disabled: p, style: { alignSelf: "flex-start" }, children: a("commerce.products.import.clear") })
@@ -72129,7 +72129,7 @@ function TLe({ opened: t, onClose: e, onImported: n }) {
   );
 }
 function jLe() {
-  const { t } = we(), { user: e } = ra(), { locale: n, defaultLocale: a } = In(), o = (e == null ? void 0 : e.role) !== "viewer", [r, i] = _({ mode: "list" }), [s, c] = _(null), [d, p] = _(!1), [u, m] = _(""), [f, y] = _(""), [g, k] = _("all"), [b, N] = _("all"), [z, x] = _(!1), [w, C] = _(""), [M, S] = _("physical"), [j, A] = _(!1), [T, U] = _(!1), [I, $] = _(!1), [O, V] = _(null), [K, G] = _(!1);
+  const { t } = we(), { user: e } = ra(), { locale: n, defaultLocale: a } = In(), o = (e == null ? void 0 : e.role) !== "viewer", [r, i] = _({ mode: "list" }), [s, c] = _(null), [d, p] = _(!1), [u, m] = _(""), [f, y] = _(""), [g, k] = _("all"), [b, N] = _("all"), [z, x] = _(!1), [w, C] = _(""), [M, S] = _("physical"), [j, A] = _(!1), [T, U] = _(!1), [I, P] = _(!1), [O, B] = _(null), [W, K] = _(!1);
   async function D() {
     try {
       c(await y0()), p(!1);
@@ -72140,16 +72140,16 @@ function jLe() {
   he(() => {
     D();
   }, []), he(() => {
-    const P = setTimeout(() => y(u.trim().toLowerCase()), 300);
-    return () => clearTimeout(P);
+    const L = setTimeout(() => y(u.trim().toLowerCase()), 300);
+    return () => clearTimeout(L);
   }, [u]);
-  const E = qe(() => s ? s.filter((P) => {
-    if (g !== "all" && P.status !== g || b !== "all" && P.type !== b) return !1;
+  const E = qe(() => s ? s.filter((L) => {
+    if (g !== "all" && L.status !== g || b !== "all" && L.type !== b) return !1;
     if (f) {
-      const q = Object.values(P.translations).map((ee) => {
+      const q = Object.values(L.translations).map((ee) => {
         var de;
         return ((de = ee == null ? void 0 : ee.name) == null ? void 0 : de.toLowerCase()) ?? "";
-      }), J = P.variants.map((ee) => {
+      }), J = L.variants.map((ee) => {
         var de;
         return ((de = ee.sku) == null ? void 0 : de.toLowerCase()) ?? "";
       });
@@ -72157,53 +72157,53 @@ function jLe() {
     }
     return !0;
   }) : [], [s, g, b, f]);
-  function R(P) {
-    const q = wLe(P);
+  function R(L) {
+    const q = wLe(L);
     return q ? q.min === q.max ? $n(q.min, n) : `${$n(q.min, n)} – ${$n(q.max, n)}` : "—";
   }
-  function F(P) {
-    const q = MLe(P);
+  function F(L) {
+    const q = MLe(L);
     return q.kind === "untracked" ? /* @__PURE__ */ l(Fe, { color: "gray", variant: "light", size: "sm", children: t("commerce.products.untracked") }) : q.kind === "out_of_stock" ? /* @__PURE__ */ l(Fe, { color: "red", variant: "light", size: "sm", children: t("commerce.products.outOfStock") }) : /* @__PURE__ */ l(Fe, { color: "teal", variant: "light", size: "sm", children: t("commerce.products.inStock", { n: q.available }) });
   }
-  async function L() {
+  async function H() {
     if (!w.trim()) {
       ne.err(t("commerce.products.nameRequired"));
       return;
     }
     A(!0);
     try {
-      const P = await NEe({
+      const L = await NEe({
         type: M,
         status: "draft",
         translations: { [n]: { name: w.trim() } }
       });
-      x(!1), C(""), S("physical"), await D(), i({ mode: "editor", productId: P.id });
-    } catch (P) {
-      P instanceof Mn && P.code === "slug_taken" ? ne.err(t("commerce.products.slugTaken")) : ne.err(t("commerce.errors.generic"));
+      x(!1), C(""), S("physical"), await D(), i({ mode: "editor", productId: L.id });
+    } catch (L) {
+      L instanceof Mn && L.code === "slug_taken" ? ne.err(t("commerce.products.slugTaken")) : ne.err(t("commerce.errors.generic"));
     } finally {
       A(!1);
     }
   }
-  async function W() {
-    $(!0);
+  async function Y() {
+    P(!0);
     try {
-      const P = await PEe(), q = new Blob([P], { type: "text/csv;charset=utf-8" }), J = URL.createObjectURL(q), te = document.createElement("a");
+      const L = await PEe(), q = new Blob([L], { type: "text/csv;charset=utf-8" }), J = URL.createObjectURL(q), te = document.createElement("a");
       te.href = J, te.download = "products.csv", document.body.appendChild(te), te.click(), te.remove(), URL.revokeObjectURL(J);
     } catch {
       ne.err(t("commerce.errors.generic"));
     } finally {
-      $(!1);
+      P(!1);
     }
   }
-  async function B() {
+  async function $() {
     if (O) {
-      G(!0);
+      K(!0);
       try {
-        await LEe(O.id), ne.ok(t("commerce.products.deleted")), V(null), await D();
+        await LEe(O.id), ne.ok(t("commerce.products.deleted")), B(null), await D();
       } catch {
         ne.err(t("commerce.errors.generic"));
       } finally {
-        G(!1);
+        K(!1);
       }
     }
   }
@@ -72220,10 +72220,10 @@ function jLe() {
     /* @__PURE__ */ v(se, { justify: "space-between", mb: "md", children: [
       /* @__PURE__ */ v(se, { gap: 8, children: [
         /* @__PURE__ */ l(Ad, { size: 20 }),
-        /* @__PURE__ */ l(H, { fw: 600, fz: "lg", children: t("commerce.nav.products") })
+        /* @__PURE__ */ l(V, { fw: 600, fz: "lg", children: t("commerce.nav.products") })
       ] }),
       /* @__PURE__ */ v(se, { gap: 8, children: [
-        /* @__PURE__ */ l(Le, { label: t("commerce.products.exportHint"), withArrow: !0, openDelay: 300, children: /* @__PURE__ */ l(yt, { variant: "default", leftSection: /* @__PURE__ */ l(Aa, { size: 16 }), loading: I, onClick: () => void W(), children: t("commerce.products.export") }) }),
+        /* @__PURE__ */ l(Le, { label: t("commerce.products.exportHint"), withArrow: !0, openDelay: 300, children: /* @__PURE__ */ l(yt, { variant: "default", leftSection: /* @__PURE__ */ l(Aa, { size: 16 }), loading: I, onClick: () => void Y(), children: t("commerce.products.export") }) }),
         o && /* @__PURE__ */ l(yt, { variant: "default", leftSection: /* @__PURE__ */ l(Io, { size: 16 }), onClick: () => U(!0), children: t("commerce.products.import.button") }),
         o && /* @__PURE__ */ l(yt, { leftSection: /* @__PURE__ */ l(Ot, { size: 16 }), onClick: () => x(!0), children: t("commerce.products.new") })
       ] })
@@ -72236,7 +72236,7 @@ function jLe() {
           leftSection: /* @__PURE__ */ l(fo, { size: 15 }),
           placeholder: t("commerce.products.searchPlaceholder"),
           value: u,
-          onChange: (P) => m(P.currentTarget.value)
+          onChange: (L) => m(L.currentTarget.value)
         }
       ),
       /* @__PURE__ */ l(
@@ -72244,7 +72244,7 @@ function jLe() {
         {
           w: 150,
           value: g,
-          onChange: (P) => k(P ?? "all"),
+          onChange: (L) => k(L ?? "all"),
           data: [
             { value: "all", label: t("commerce.products.allStatuses") },
             { value: "draft", label: t("commerce.products.statusDraft") },
@@ -72258,7 +72258,7 @@ function jLe() {
         {
           w: 150,
           value: b,
-          onChange: (P) => N(P ?? "all"),
+          onChange: (L) => N(L ?? "all"),
           data: [
             { value: "all", label: t("commerce.products.allTypes") },
             { value: "physical", label: t("commerce.products.typePhysical") },
@@ -72269,11 +72269,11 @@ function jLe() {
         }
       )
     ] }),
-    d ? /* @__PURE__ */ l(kt, { h: 200, children: /* @__PURE__ */ l(H, { c: "red", children: t("commerce.errors.generic") }) }) : s.length === 0 ? /* @__PURE__ */ l(kt, { h: 240, children: /* @__PURE__ */ v(pe, { align: "center", gap: 6, children: [
+    d ? /* @__PURE__ */ l(kt, { h: 200, children: /* @__PURE__ */ l(V, { c: "red", children: t("commerce.errors.generic") }) }) : s.length === 0 ? /* @__PURE__ */ l(kt, { h: 240, children: /* @__PURE__ */ v(pe, { align: "center", gap: 6, children: [
       /* @__PURE__ */ l(Og, { size: 40, opacity: 0.4 }),
-      /* @__PURE__ */ l(H, { fw: 500, children: t("commerce.products.empty") }),
-      /* @__PURE__ */ l(H, { size: "sm", c: "dimmed", children: t("commerce.products.emptyHint") })
-    ] }) }) : E.length === 0 ? /* @__PURE__ */ l(kt, { h: 160, children: /* @__PURE__ */ l(H, { c: "dimmed", children: t("commerce.products.noMatches") }) }) : /* @__PURE__ */ v(ae, { style: { border: "1px solid var(--mantine-color-gray-2)", borderRadius: 8, overflow: "hidden" }, children: [
+      /* @__PURE__ */ l(V, { fw: 500, children: t("commerce.products.empty") }),
+      /* @__PURE__ */ l(V, { size: "sm", c: "dimmed", children: t("commerce.products.emptyHint") })
+    ] }) }) : E.length === 0 ? /* @__PURE__ */ l(kt, { h: 160, children: /* @__PURE__ */ l(V, { c: "dimmed", children: t("commerce.products.noMatches") }) }) : /* @__PURE__ */ v(ae, { style: { border: "1px solid var(--mantine-color-gray-2)", borderRadius: 8, overflow: "hidden" }, children: [
       /* @__PURE__ */ v(se, { gap: 8, px: 12, py: 8, wrap: "nowrap", style: { borderBottom: "2px solid var(--mantine-color-gray-3)", fontSize: 12, fontWeight: 600, color: "var(--mantine-color-dimmed)" }, children: [
         /* @__PURE__ */ l(ae, { style: { flex: 1, minWidth: 160 }, children: t("commerce.products.colName") }),
         /* @__PURE__ */ l(ae, { style: { width: 90 }, children: t("commerce.products.colStatus") }),
@@ -72282,8 +72282,8 @@ function jLe() {
         /* @__PURE__ */ l(ae, { style: { width: 120 }, children: t("commerce.products.colStock") }),
         /* @__PURE__ */ l(ae, { style: { width: 70 } })
       ] }),
-      E.map((P) => {
-        const { text: q, fallback: J } = Pp(P.translations, n, a);
+      E.map((L) => {
+        const { text: q, fallback: J } = Pp(L.translations, n, a);
         return /* @__PURE__ */ v(
           se,
           {
@@ -72292,23 +72292,23 @@ function jLe() {
             py: 10,
             wrap: "nowrap",
             style: { borderBottom: "1px solid var(--mantine-color-gray-2)", cursor: "pointer" },
-            onClick: () => i({ mode: "editor", productId: P.id }),
+            onClick: () => i({ mode: "editor", productId: L.id }),
             children: [
               /* @__PURE__ */ v(ae, { style: { flex: 1, minWidth: 160 }, children: [
-                /* @__PURE__ */ l(H, { size: "sm", fw: 500, fs: !q || J ? "italic" : void 0, c: !q || J ? "dimmed" : void 0, children: q || t("commerce.products.untitled") }),
-                P.variants.length > 1 && /* @__PURE__ */ l(H, { size: "xs", c: "dimmed", children: t("commerce.products.variantCount", { n: P.variants.length }) })
+                /* @__PURE__ */ l(V, { size: "sm", fw: 500, fs: !q || J ? "italic" : void 0, c: !q || J ? "dimmed" : void 0, children: q || t("commerce.products.untitled") }),
+                L.variants.length > 1 && /* @__PURE__ */ l(V, { size: "xs", c: "dimmed", children: t("commerce.products.variantCount", { n: L.variants.length }) })
               ] }),
-              /* @__PURE__ */ l(ae, { style: { width: 90 }, children: /* @__PURE__ */ l(Fe, { color: P.status === "active" ? "teal" : "gray", variant: "light", size: "sm", children: P.status === "active" ? t("commerce.products.statusActive") : t("commerce.products.statusDraft") }) }),
-              /* @__PURE__ */ l(ae, { style: { width: 90 }, children: /* @__PURE__ */ l(H, { size: "sm", c: "dimmed", tt: "capitalize", children: t(`commerce.products.type${P.type[0].toUpperCase()}${P.type.slice(1)}`) }) }),
-              /* @__PURE__ */ l(ae, { style: { width: 150 }, children: /* @__PURE__ */ l(H, { size: "sm", children: R(P) }) }),
-              /* @__PURE__ */ l(ae, { style: { width: 120 }, children: F(P) }),
+              /* @__PURE__ */ l(ae, { style: { width: 90 }, children: /* @__PURE__ */ l(Fe, { color: L.status === "active" ? "teal" : "gray", variant: "light", size: "sm", children: L.status === "active" ? t("commerce.products.statusActive") : t("commerce.products.statusDraft") }) }),
+              /* @__PURE__ */ l(ae, { style: { width: 90 }, children: /* @__PURE__ */ l(V, { size: "sm", c: "dimmed", tt: "capitalize", children: t(`commerce.products.type${L.type[0].toUpperCase()}${L.type.slice(1)}`) }) }),
+              /* @__PURE__ */ l(ae, { style: { width: 150 }, children: /* @__PURE__ */ l(V, { size: "sm", children: R(L) }) }),
+              /* @__PURE__ */ l(ae, { style: { width: 120 }, children: F(L) }),
               /* @__PURE__ */ l(ae, { style: { width: 70 }, onClick: (te) => te.stopPropagation(), children: /* @__PURE__ */ v(se, { gap: 2, wrap: "nowrap", children: [
-                /* @__PURE__ */ l(Le, { label: t("common.edit"), withArrow: !0, openDelay: 300, children: /* @__PURE__ */ l(Mt, { variant: "subtle", color: "gray", size: "sm", onClick: () => i({ mode: "editor", productId: P.id }), children: /* @__PURE__ */ l(Yn, { size: 14 }) }) }),
-                o && /* @__PURE__ */ l(Le, { label: t("commerce.products.delete"), withArrow: !0, openDelay: 300, children: /* @__PURE__ */ l(Mt, { variant: "subtle", color: "red", size: "sm", onClick: () => V(P), children: /* @__PURE__ */ l(it, { size: 14 }) }) })
+                /* @__PURE__ */ l(Le, { label: t("common.edit"), withArrow: !0, openDelay: 300, children: /* @__PURE__ */ l(Mt, { variant: "subtle", color: "gray", size: "sm", onClick: () => i({ mode: "editor", productId: L.id }), children: /* @__PURE__ */ l(Yn, { size: 14 }) }) }),
+                o && /* @__PURE__ */ l(Le, { label: t("commerce.products.delete"), withArrow: !0, openDelay: 300, children: /* @__PURE__ */ l(Mt, { variant: "subtle", color: "red", size: "sm", onClick: () => B(L), children: /* @__PURE__ */ l(it, { size: 14 }) }) })
               ] }) })
             ]
           },
-          P.id
+          L.id
         );
       })
     ] }),
@@ -72320,33 +72320,33 @@ function jLe() {
           x(!1), C(""), S("physical");
         },
         title: t("commerce.products.createTitle"),
-        onConfirm: L,
+        onConfirm: H,
         confirmLabel: t("commerce.products.create"),
         confirmDisabled: !w.trim(),
         loading: j,
         children: /* @__PURE__ */ v(pe, { gap: "sm", children: [
-          /* @__PURE__ */ l(H, { size: "xs", c: "dimmed", children: t("commerce.products.editingLocale", { locale: n.toUpperCase() }) }),
+          /* @__PURE__ */ l(V, { size: "xs", c: "dimmed", children: t("commerce.products.editingLocale", { locale: n.toUpperCase() }) }),
           /* @__PURE__ */ l(
             je,
             {
               label: t("commerce.products.name"),
               value: w,
-              onChange: (P) => C(P.currentTarget.value),
-              onKeyDown: (P) => {
-                P.key === "Enter" && w.trim() && L();
+              onChange: (L) => C(L.currentTarget.value),
+              onKeyDown: (L) => {
+                L.key === "Enter" && w.trim() && H();
               },
               required: !0,
               "data-autofocus": !0
             }
           ),
           /* @__PURE__ */ v(ae, { children: [
-            /* @__PURE__ */ l(H, { size: "sm", fw: 500, mb: 6, children: t("commerce.products.type") }),
+            /* @__PURE__ */ l(V, { size: "sm", fw: 500, mb: 6, children: t("commerce.products.type") }),
             /* @__PURE__ */ l(
               Qr,
               {
                 fullWidth: !0,
                 value: M,
-                onChange: (P) => S(P),
+                onChange: (L) => S(L),
                 data: [
                   { value: "physical", label: t("commerce.products.typePhysical") },
                   { value: "digital", label: t("commerce.products.typeDigital") },
@@ -72355,7 +72355,7 @@ function jLe() {
               }
             )
           ] }),
-          /* @__PURE__ */ l(H, { size: "xs", c: "dimmed", children: t("commerce.products.createHint") })
+          /* @__PURE__ */ l(V, { size: "xs", c: "dimmed", children: t("commerce.products.createHint") })
         ] })
       }
     ),
@@ -72375,9 +72375,9 @@ function jLe() {
         message: t("commerce.products.deleteBody"),
         subject: O ? Pp(O.translations, n, a).text || t("commerce.products.untitled") : void 0,
         confirmLabel: t("commerce.products.delete"),
-        loading: K,
-        onConfirm: B,
-        onClose: () => V(null)
+        loading: W,
+        onConfirm: $,
+        onClose: () => B(null)
       }
     )
   ] });
@@ -72444,7 +72444,7 @@ function $Le() {
     m(null), y(null), N(!1);
   }
   const I = (f == null ? void 0 : f.translations[n]) ?? { label: "" };
-  function $(D) {
+  function P(D) {
     y((E) => {
       if (!E) return E;
       const R = { ...E.translations[n], ...D };
@@ -72456,7 +72456,7 @@ function $Le() {
     const D = (u == null ? void 0 : u.mode) === "edit" ? /* @__PURE__ */ new Set([u.cat.id, ...PLe(r, u.cat.id)]) : /* @__PURE__ */ new Set();
     return r.filter((E) => !D.has(E.id)).map((E) => ({ value: E.id, label: bh(E, n, a).text }));
   }, [r, u, n, a]);
-  async function V() {
+  async function B() {
     var E;
     if (!f) return;
     const D = {};
@@ -72479,7 +72479,7 @@ function $Le() {
       k(!1);
     }
   }
-  async function K() {
+  async function W() {
     if (z) {
       C(!0);
       try {
@@ -72493,8 +72493,8 @@ function $Le() {
   }
   if (r === null && !s)
     return /* @__PURE__ */ l(kt, { h: 300, children: /* @__PURE__ */ l(St, {}) });
-  function G({ node: D, depth: E }) {
-    const { cat: R, children: F } = D, L = F.length > 0, W = d.has(R.id), { text: B, fallback: P } = bh(R, n, a), q = ELe(R, n, a);
+  function K({ node: D, depth: E }) {
+    const { cat: R, children: F } = D, H = F.length > 0, Y = d.has(R.id), { text: $, fallback: L } = bh(R, n, a), q = ELe(R, n, a);
     return /* @__PURE__ */ v(Re, { children: [
       /* @__PURE__ */ v(
         se,
@@ -72503,13 +72503,13 @@ function $Le() {
           wrap: "nowrap",
           style: { paddingLeft: E * 22, height: 40, borderBottom: "1px solid var(--mantine-color-gray-2)" },
           children: [
-            L ? /* @__PURE__ */ l(Mt, { variant: "subtle", color: "gray", size: "sm", onClick: () => {
+            H ? /* @__PURE__ */ l(Mt, { variant: "subtle", color: "gray", size: "sm", onClick: () => {
               p((J) => {
                 const te = new Set(J);
                 return te.has(R.id) ? te.delete(R.id) : te.add(R.id), te;
               });
-            }, children: W ? /* @__PURE__ */ l(yi, { size: 15 }) : /* @__PURE__ */ l(wa, { size: 15 }) }) : /* @__PURE__ */ l(ae, { w: 28 }),
-            /* @__PURE__ */ l(H, { size: "sm", fw: 500, fs: P ? "italic" : void 0, c: P ? "dimmed" : void 0, children: B }),
+            }, children: Y ? /* @__PURE__ */ l(yi, { size: 15 }) : /* @__PURE__ */ l(wa, { size: 15 }) }) : /* @__PURE__ */ l(ae, { w: 28 }),
+            /* @__PURE__ */ l(V, { size: "sm", fw: 500, fs: L ? "italic" : void 0, c: L ? "dimmed" : void 0, children: $ }),
             q && /* @__PURE__ */ v(Fe, { variant: "light", color: "gray", size: "xs", radius: "sm", children: [
               "/",
               q
@@ -72523,29 +72523,29 @@ function $Le() {
           ]
         }
       ),
-      L && W && F.map((J) => /* @__PURE__ */ l(G, { node: J, depth: E + 1 }, J.cat.id))
+      H && Y && F.map((J) => /* @__PURE__ */ l(K, { node: J, depth: E + 1 }, J.cat.id))
     ] });
   }
   return /* @__PURE__ */ v(ae, { p: "md", style: { maxWidth: 880, margin: "0 auto" }, children: [
     /* @__PURE__ */ v(se, { justify: "space-between", mb: "md", children: [
       /* @__PURE__ */ v(se, { gap: 8, children: [
         /* @__PURE__ */ l(Jl, { size: 20 }),
-        /* @__PURE__ */ l(H, { fw: 600, fz: "lg", children: t("commerce.nav.categories") })
+        /* @__PURE__ */ l(V, { fw: 600, fz: "lg", children: t("commerce.nav.categories") })
       ] }),
       o && /* @__PURE__ */ l(yt, { leftSection: /* @__PURE__ */ l(Ot, { size: 16 }), onClick: () => A(null), children: t("commerce.categories.new") })
     ] }),
-    s ? /* @__PURE__ */ l(kt, { h: 200, children: /* @__PURE__ */ l(H, { c: "red", children: t("commerce.errors.generic") }) }) : S.length === 0 ? /* @__PURE__ */ l(kt, { h: 240, children: /* @__PURE__ */ v(pe, { align: "center", gap: 6, children: [
+    s ? /* @__PURE__ */ l(kt, { h: 200, children: /* @__PURE__ */ l(V, { c: "red", children: t("commerce.errors.generic") }) }) : S.length === 0 ? /* @__PURE__ */ l(kt, { h: 240, children: /* @__PURE__ */ v(pe, { align: "center", gap: 6, children: [
       /* @__PURE__ */ l(Jl, { size: 40, opacity: 0.4 }),
-      /* @__PURE__ */ l(H, { fw: 500, children: t("commerce.categories.empty") }),
-      /* @__PURE__ */ l(H, { size: "sm", c: "dimmed", children: t("commerce.categories.emptyHint") })
-    ] }) }) : /* @__PURE__ */ l(ae, { style: { border: "1px solid var(--mantine-color-gray-2)", borderRadius: 8, overflow: "hidden" }, children: S.map((D) => /* @__PURE__ */ l(G, { node: D, depth: 0 }, D.cat.id)) }),
+      /* @__PURE__ */ l(V, { fw: 500, children: t("commerce.categories.empty") }),
+      /* @__PURE__ */ l(V, { size: "sm", c: "dimmed", children: t("commerce.categories.emptyHint") })
+    ] }) }) : /* @__PURE__ */ l(ae, { style: { border: "1px solid var(--mantine-color-gray-2)", borderRadius: 8, overflow: "hidden" }, children: S.map((D) => /* @__PURE__ */ l(K, { node: D, depth: 0 }, D.cat.id)) }),
     /* @__PURE__ */ l(
       en,
       {
         opened: !!u,
         onClose: U,
         title: (u == null ? void 0 : u.mode) === "edit" ? t("commerce.categories.editTitle") : t("commerce.categories.createTitle"),
-        onConfirm: V,
+        onConfirm: B,
         confirmLabel: (u == null ? void 0 : u.mode) === "edit" ? t("commerce.categories.save") : t("commerce.categories.create"),
         loading: g,
         children: f && /* @__PURE__ */ v(pe, { gap: "sm", children: [
@@ -72560,13 +72560,13 @@ function $Le() {
               comboboxProps: { withinPortal: !0 }
             }
           ),
-          /* @__PURE__ */ l(H, { size: "xs", c: "dimmed", mt: 4, children: t("commerce.categories.editingLocale", { locale: n.toUpperCase() }) }),
+          /* @__PURE__ */ l(V, { size: "xs", c: "dimmed", mt: 4, children: t("commerce.categories.editingLocale", { locale: n.toUpperCase() }) }),
           /* @__PURE__ */ l(
             je,
             {
               label: t("commerce.categories.label"),
               value: I.label ?? "",
-              onChange: (D) => $({ label: D.currentTarget.value }),
+              onChange: (D) => P({ label: D.currentTarget.value }),
               required: !0
             }
           ),
@@ -72575,7 +72575,7 @@ function $Le() {
             {
               label: t("commerce.categories.description"),
               value: I.description ?? "",
-              onChange: (D) => $({ description: D.currentTarget.value }),
+              onChange: (D) => P({ description: D.currentTarget.value }),
               autosize: !0,
               minRows: 2,
               maxRows: 5
@@ -72586,7 +72586,7 @@ function $Le() {
             {
               label: t("commerce.categories.metaTitle"),
               value: I.metaTitle ?? "",
-              onChange: (D) => $({ metaTitle: D.currentTarget.value })
+              onChange: (D) => P({ metaTitle: D.currentTarget.value })
             }
           ),
           /* @__PURE__ */ l(
@@ -72594,17 +72594,17 @@ function $Le() {
             {
               label: t("commerce.categories.metaDescription"),
               value: I.metaDescription ?? "",
-              onChange: (D) => $({ metaDescription: D.currentTarget.value }),
+              onChange: (D) => P({ metaDescription: D.currentTarget.value }),
               autosize: !0,
               minRows: 2,
               maxRows: 4
             }
           ),
           /* @__PURE__ */ v(ae, { children: [
-            /* @__PURE__ */ l(H, { size: "sm", fw: 500, mb: 6, children: t("commerce.categories.heroImage") }),
+            /* @__PURE__ */ l(V, { size: "sm", fw: 500, mb: 6, children: t("commerce.categories.heroImage") }),
             I.heroImage ? /* @__PURE__ */ v(se, { gap: 8, children: [
               /* @__PURE__ */ l("img", { src: I.heroImage.cdnUrl, alt: "", style: { width: 96, height: 64, objectFit: "cover", borderRadius: 6, border: "1px solid var(--mantine-color-gray-3)" } }),
-              /* @__PURE__ */ l(Mt, { variant: "subtle", color: "red", onClick: () => $({ heroImage: null }), children: /* @__PURE__ */ l(da, { size: 16 }) })
+              /* @__PURE__ */ l(Mt, { variant: "subtle", color: "red", onClick: () => P({ heroImage: null }), children: /* @__PURE__ */ l(da, { size: 16 }) })
             ] }) : /* @__PURE__ */ l(yt, { variant: "default", size: "xs", leftSection: /* @__PURE__ */ l(Ea, { size: 14 }), onClick: () => N(!0), children: t("commerce.categories.pickImage") })
           ] })
         ] })
@@ -72618,7 +72618,7 @@ function $Le() {
         onClose: () => N(!1),
         onConfirm: (D) => {
           const E = D[0];
-          E && $({ heroImage: { mediaId: E.mediaId, cdnUrl: E.cdnUrl } }), N(!1);
+          E && P({ heroImage: { mediaId: E.mediaId, cdnUrl: E.cdnUrl } }), N(!1);
         }
       }
     ),
@@ -72631,7 +72631,7 @@ function $Le() {
         subject: z ? bh(z, n, a).text : void 0,
         confirmLabel: t("commerce.categories.delete"),
         loading: w,
-        onConfirm: K,
+        onConfirm: W,
         onClose: () => x(null)
       }
     )
@@ -72706,7 +72706,7 @@ function RLe() {
     /* @__PURE__ */ v(se, { justify: "space-between", mb: "md", children: [
       /* @__PURE__ */ v(se, { gap: 8, children: [
         /* @__PURE__ */ l(Xl, { size: 20 }),
-        /* @__PURE__ */ l(H, { fw: 600, fz: "lg", children: t("commerce.orders.title") })
+        /* @__PURE__ */ l(V, { fw: 600, fz: "lg", children: t("commerce.orders.title") })
       ] }),
       /* @__PURE__ */ l(yt, { leftSection: /* @__PURE__ */ l(ca, { size: 16 }), onClick: () => z(!0), children: t("commerce.orders.newQuote") })
     ] }),
@@ -72753,9 +72753,9 @@ function RLe() {
         )
       ] })
     ] }),
-    o ? /* @__PURE__ */ l(kt, { h: 200, children: /* @__PURE__ */ l(H, { c: "red", children: t("commerce.errors.generic") }) }) : n && n.length === 0 ? /* @__PURE__ */ l(kt, { h: 220, children: /* @__PURE__ */ v(pe, { align: "center", gap: 6, children: [
+    o ? /* @__PURE__ */ l(kt, { h: 200, children: /* @__PURE__ */ l(V, { c: "red", children: t("commerce.errors.generic") }) }) : n && n.length === 0 ? /* @__PURE__ */ l(kt, { h: 220, children: /* @__PURE__ */ v(pe, { align: "center", gap: 6, children: [
       /* @__PURE__ */ l(Xl, { size: 40, opacity: 0.4 }),
-      /* @__PURE__ */ l(H, { fw: 500, children: t("commerce.orders.empty") })
+      /* @__PURE__ */ l(V, { fw: 500, children: t("commerce.orders.empty") })
     ] }) }) : /* @__PURE__ */ l(ue.ScrollContainer, { minWidth: 760, children: /* @__PURE__ */ v(ue, { highlightOnHover: !0, verticalSpacing: "sm", children: [
       /* @__PURE__ */ l(ue.Thead, { children: /* @__PURE__ */ v(ue.Tr, { children: [
         /* @__PURE__ */ l(ue.Th, { children: t("commerce.orders.colOrder") }),
@@ -72765,11 +72765,11 @@ function RLe() {
         /* @__PURE__ */ l(ue.Th, { children: t("commerce.orders.colDate") })
       ] }) }),
       /* @__PURE__ */ l(ue.Tbody, { children: n == null ? void 0 : n.map((S) => /* @__PURE__ */ v(ue.Tr, { style: { cursor: "pointer" }, onClick: () => void C(S.id), children: [
-        /* @__PURE__ */ l(ue.Td, { children: /* @__PURE__ */ v(H, { fz: "sm", fw: 600, children: [
+        /* @__PURE__ */ l(ue.Td, { children: /* @__PURE__ */ v(V, { fz: "sm", fw: 600, children: [
           "#",
           S.orderNumber
         ] }) }),
-        /* @__PURE__ */ l(ue.Td, { children: /* @__PURE__ */ l(H, { fz: "sm", children: S.email }) }),
+        /* @__PURE__ */ l(ue.Td, { children: /* @__PURE__ */ l(V, { fz: "sm", children: S.email }) }),
         /* @__PURE__ */ l(ue.Td, { children: /* @__PURE__ */ l(se, { gap: 6, children: S.isQuote ? /* @__PURE__ */ v(Fe, { variant: "light", color: H5[S.quoteStatus ?? "draft"], size: "sm", children: [
           t("commerce.orders.quotePill"),
           ": ",
@@ -72778,8 +72778,8 @@ function RLe() {
           /* @__PURE__ */ l(Fe, { variant: "light", color: dd[S.status.paymentStatus] ?? "gray", size: "sm", children: S.status.paymentStatus }),
           /* @__PURE__ */ l(Fe, { variant: "light", color: $p[S.status.fulfillmentStatus] ?? "gray", size: "sm", children: S.status.fulfillmentStatus })
         ] }) }) }),
-        /* @__PURE__ */ l(ue.Td, { ta: "right", children: /* @__PURE__ */ l(H, { fz: "sm", fw: 500, children: $n(S.grandTotal, e.language) }) }),
-        /* @__PURE__ */ l(ue.Td, { children: /* @__PURE__ */ l(H, { fz: "xs", c: "dimmed", children: new Date(S.placedAt).toLocaleDateString(e.language) }) })
+        /* @__PURE__ */ l(ue.Td, { ta: "right", children: /* @__PURE__ */ l(V, { fz: "sm", fw: 500, children: $n(S.grandTotal, e.language) }) }),
+        /* @__PURE__ */ l(ue.Td, { children: /* @__PURE__ */ l(V, { fz: "xs", c: "dimmed", children: new Date(S.placedAt).toLocaleDateString(e.language) }) })
       ] }, S.id)) })
     ] }) }),
     /* @__PURE__ */ l(en, { opened: !!y, onClose: () => g(null), title: t("commerce.orders.detailTitle"), children: y && /* @__PURE__ */ l(
@@ -72810,88 +72810,88 @@ function ILe({
   onChange: n,
   friendly: a
 }) {
-  var R, F;
-  const { t: o, i18n: r } = we(), [i, s] = _(!1), [c, d] = _({}), [p, u] = _(""), [m, f] = _(""), [y, g] = _(!1), [k, b] = _(""), [N, z] = _(""), [x, w] = _(!1), [C, M] = _(!1), S = r.language, j = t.isQuote, A = t.payments.some((L) => L.status === "authorized"), T = t.payments.some((L) => L.status === "captured" || L.status === "partially_refunded"), U = new Map(t.lineFulfillment.map((L) => [L.orderItemId, L])), I = !j && t.status.lifecycle !== "cancelled" && t.lineFulfillment.some((L) => L.shipped < L.ordered);
-  async function $(L, W) {
+  var H, Y;
+  const { t: o, i18n: r } = we(), [i, s] = _(!1), [c, d] = _({}), [p, u] = _(""), [m, f] = _(""), [y, g] = _(!1), [k, b] = _(""), [N, z] = _(""), [x, w] = _(!1), [C, M] = _(!1), S = r.language, j = t.isQuote, A = t.payments.some(($) => $.status === "authorized"), T = t.payments.find(($) => $.status === "captured" || $.status === "partially_refunded"), U = !!T, I = T ? T.amountCaptured - T.amountRefunded : 0, P = new Map(t.lineFulfillment.map(($) => [$.orderItemId, $])), O = !j && t.status.lifecycle !== "cancelled" && t.lineFulfillment.some(($) => $.shipped < $.ordered);
+  async function B($, L) {
     s(!0);
     try {
-      const B = await L();
-      ne.ok(o(W)), n(B.order);
-    } catch (B) {
-      ne.err(a(B));
+      const q = await $();
+      ne.ok(o(L)), n(q.order);
+    } catch (q) {
+      ne.err(a(q));
     } finally {
       s(!1);
     }
   }
-  async function O() {
+  async function W() {
     s(!0);
     try {
-      const L = await aLe(t.id);
-      L.result.outcome === "captured" ? ne.ok(o("commerce.orders.captured")) : L.result.outcome === "voided_out_of_stock" ? ne.err(o("commerce.orders.outOfStockVoided")) : L.result.outcome === "capture_failed" && ne.err(o("commerce.orders.captureFailed")), n(L.order);
-    } catch (L) {
-      ne.err(a(L));
-    } finally {
-      s(!1);
-    }
-  }
-  async function V() {
-    const L = Object.entries(c).filter(([, W]) => W > 0).map(([W, B]) => ({ orderItemId: W, quantity: B }));
-    if (L.length === 0) {
-      ne.err(o("commerce.errors.no_shipment_lines"));
-      return;
-    }
-    s(!0);
-    try {
-      const W = await sLe(t.id, { lines: L, carrier: p || null, trackingNumber: m || null });
-      ne.ok(o("commerce.orders.shipmentCreated")), d({}), u(""), f(""), n(W.order);
-    } catch (W) {
-      ne.err(a(W));
+      const $ = await aLe(t.id);
+      $.result.outcome === "captured" ? ne.ok(o("commerce.orders.captured")) : $.result.outcome === "voided_out_of_stock" ? ne.err(o("commerce.orders.outOfStockVoided")) : $.result.outcome === "capture_failed" && ne.err(o("commerce.orders.captureFailed")), n($.order);
+    } catch ($) {
+      ne.err(a($));
     } finally {
       s(!1);
     }
   }
   async function K() {
+    const $ = Object.entries(c).filter(([, L]) => L > 0).map(([L, q]) => ({ orderItemId: L, quantity: q }));
+    if ($.length === 0) {
+      ne.err(o("commerce.errors.no_shipment_lines"));
+      return;
+    }
     s(!0);
     try {
-      const L = k === "" ? void 0 : Math.round(Number(k) * 100), W = await rLe(t.id, { amount: L, reason: N || void 0 });
-      ne.ok(o("commerce.orders.refunded")), g(!1), b(""), z(""), n(W.order);
+      const L = await sLe(t.id, { lines: $, carrier: p || null, trackingNumber: m || null });
+      ne.ok(o("commerce.orders.shipmentCreated")), d({}), u(""), f(""), n(L.order);
     } catch (L) {
       ne.err(a(L));
     } finally {
       s(!1);
     }
   }
-  async function G(L, W) {
+  async function D() {
     s(!0);
     try {
-      const B = await iLe(t.id, { lines: [{ orderItemId: L, quantity: W }] });
-      ne.ok(B.result.outcome === "refunded" ? o("commerce.orders.refunded") : o("commerce.orders.nothingCaptured")), n(B.order);
-    } catch (B) {
-      ne.err(a(B));
+      const $ = k === "" ? void 0 : Math.round(Number(k) * 100), L = await rLe(t.id, { amount: $, reason: N || void 0 });
+      ne.ok(o("commerce.orders.refunded")), g(!1), b(""), z(""), n(L.order);
+    } catch ($) {
+      ne.err(a($));
     } finally {
       s(!1);
     }
   }
-  async function D(L) {
+  async function E($, L) {
     s(!0);
     try {
-      const W = await lLe(L);
-      ne.ok(o("commerce.orders.delivered")), n(W.order);
-    } catch (W) {
-      ne.err(a(W));
+      const q = await iLe(t.id, { lines: [{ orderItemId: $, quantity: L }] });
+      ne.ok(q.result.outcome === "refunded" ? o("commerce.orders.refunded") : o("commerce.orders.nothingCaptured")), n(q.order);
+    } catch (q) {
+      ne.err(a(q));
+    } finally {
+      s(!1);
+    }
+  }
+  async function R($) {
+    s(!0);
+    try {
+      const L = await lLe($);
+      ne.ok(o("commerce.orders.delivered")), n(L.order);
+    } catch (L) {
+      ne.err(a(L));
     } finally {
       s(!1);
     }
   }
   if (e) return /* @__PURE__ */ l(kt, { h: 120, children: /* @__PURE__ */ l(St, { size: "sm" }) });
-  const E = t.totals;
+  const F = t.totals;
   return /* @__PURE__ */ v(pe, { gap: "sm", children: [
     /* @__PURE__ */ v(se, { justify: "space-between", children: [
-      /* @__PURE__ */ v(H, { fw: 600, fz: "lg", children: [
+      /* @__PURE__ */ v(V, { fw: 600, fz: "lg", children: [
         "#",
         t.orderNumber
       ] }),
-      /* @__PURE__ */ l(H, { c: "dimmed", fz: "sm", children: t.email })
+      /* @__PURE__ */ l(V, { c: "dimmed", fz: "sm", children: t.email })
     ] }),
     /* @__PURE__ */ v(se, { gap: 6, children: [
       j ? /* @__PURE__ */ v(Fe, { variant: "light", color: H5[t.quoteStatus ?? "draft"], children: [
@@ -72907,99 +72907,99 @@ function ILe({
     t.paymentMethod && /* @__PURE__ */ l(Ur, { label: o("commerce.orders.paymentMethod"), value: t.paymentMethod }),
     t.validUntil && /* @__PURE__ */ l(Ur, { label: o("commerce.orders.validUntil"), value: new Date(t.validUntil).toLocaleDateString(S) }),
     /* @__PURE__ */ l(Gn, { my: 4, label: o("commerce.orders.items") }),
-    /* @__PURE__ */ l(ue, { verticalSpacing: 6, fz: "sm", children: /* @__PURE__ */ l(ue.Tbody, { children: t.items.map((L) => {
-      const W = U.get(L.id), B = W ? W.ordered - W.shipped : L.quantity;
+    /* @__PURE__ */ l(ue, { verticalSpacing: 6, fz: "sm", children: /* @__PURE__ */ l(ue.Tbody, { children: t.items.map(($) => {
+      const L = P.get($.id), q = L ? L.ordered - L.shipped : $.quantity;
       return /* @__PURE__ */ v(ue.Tr, { children: [
         /* @__PURE__ */ v(ue.Td, { children: [
-          /* @__PURE__ */ l(H, { fz: "sm", fw: 500, children: L.name }),
-          L.sku && /* @__PURE__ */ l(H, { fz: "xs", c: "dimmed", children: L.sku }),
-          W && W.shipped > 0 && /* @__PURE__ */ l(H, { fz: "xs", c: "dimmed", children: o("commerce.orders.shippedOf", { shipped: W.shipped, ordered: W.ordered }) })
+          /* @__PURE__ */ l(V, { fz: "sm", fw: 500, children: $.name }),
+          $.sku && /* @__PURE__ */ l(V, { fz: "xs", c: "dimmed", children: $.sku }),
+          L && L.shipped > 0 && /* @__PURE__ */ l(V, { fz: "xs", c: "dimmed", children: o("commerce.orders.shippedOf", { shipped: L.shipped, ordered: L.ordered }) })
         ] }),
-        /* @__PURE__ */ l(ue.Td, { ta: "center", children: /* @__PURE__ */ v(H, { fz: "sm", children: [
+        /* @__PURE__ */ l(ue.Td, { ta: "center", children: /* @__PURE__ */ v(V, { fz: "sm", children: [
           "×",
-          L.quantity
+          $.quantity
         ] }) }),
-        /* @__PURE__ */ l(ue.Td, { ta: "right", children: /* @__PURE__ */ l(H, { fz: "sm", children: $n(L.gross, S) }) }),
-        I && /* @__PURE__ */ l(ue.Td, { w: 70, children: B > 0 ? /* @__PURE__ */ l(
+        /* @__PURE__ */ l(ue.Td, { ta: "right", children: /* @__PURE__ */ l(V, { fz: "sm", children: $n($.gross, S) }) }),
+        O && /* @__PURE__ */ l(ue.Td, { w: 70, children: q > 0 ? /* @__PURE__ */ l(
           wn,
           {
             size: "xs",
             min: 0,
-            max: B,
+            max: q,
             w: 60,
-            value: c[L.id] ?? 0,
-            onChange: (P) => d((q) => ({ ...q, [L.id]: Number(P) || 0 }))
+            value: c[$.id] ?? 0,
+            onChange: (J) => d((te) => ({ ...te, [$.id]: Number(J) || 0 }))
           }
         ) : /* @__PURE__ */ l(Dg, { size: 16, color: "var(--mantine-color-teal-6)" }) }),
-        T && t.status.lifecycle !== "cancelled" && /* @__PURE__ */ l(ue.Td, { w: 36, children: /* @__PURE__ */ l(Le, { label: o("commerce.orders.cancelLine"), children: /* @__PURE__ */ l(Mt, { variant: "subtle", color: "orange", onClick: () => void G(L.id, L.quantity), disabled: i, children: /* @__PURE__ */ l(Up, { size: 15 }) }) }) })
-      ] }, L.id);
+        U && t.status.lifecycle !== "cancelled" && /* @__PURE__ */ l(ue.Td, { w: 36, children: /* @__PURE__ */ l(Le, { label: o("commerce.orders.cancelLine"), children: /* @__PURE__ */ l(Mt, { variant: "subtle", color: "orange", onClick: () => void E($.id, $.quantity), disabled: i, children: /* @__PURE__ */ l(Up, { size: 15 }) }) }) })
+      ] }, $.id);
     }) }) }),
-    I && /* @__PURE__ */ v(pe, { gap: 6, children: [
+    O && /* @__PURE__ */ v(pe, { gap: 6, children: [
       /* @__PURE__ */ v(se, { grow: !0, children: [
-        /* @__PURE__ */ l(je, { size: "xs", placeholder: o("commerce.orders.carrier"), value: p, onChange: (L) => u(L.currentTarget.value) }),
-        /* @__PURE__ */ l(je, { size: "xs", placeholder: o("commerce.orders.trackingNumber"), value: m, onChange: (L) => f(L.currentTarget.value) })
+        /* @__PURE__ */ l(je, { size: "xs", placeholder: o("commerce.orders.carrier"), value: p, onChange: ($) => u($.currentTarget.value) }),
+        /* @__PURE__ */ l(je, { size: "xs", placeholder: o("commerce.orders.trackingNumber"), value: m, onChange: ($) => f($.currentTarget.value) })
       ] }),
-      /* @__PURE__ */ l(yt, { size: "xs", variant: "light", leftSection: /* @__PURE__ */ l(Ed, { size: 15 }), onClick: () => void V(), loading: i, children: o("commerce.orders.createShipment") })
+      /* @__PURE__ */ l(yt, { size: "xs", variant: "light", leftSection: /* @__PURE__ */ l(Ed, { size: 15 }), onClick: () => void K(), loading: i, children: o("commerce.orders.createShipment") })
     ] }),
     /* @__PURE__ */ l(Gn, { my: 4, label: o("commerce.orders.totals") }),
     /* @__PURE__ */ v(pe, { gap: 2, children: [
-      /* @__PURE__ */ l(Ur, { label: o("commerce.orders.subtotal"), value: $n(Number(E.itemsSubtotal ?? 0), S) }),
-      (R = E.shipping) != null && R.gross ? /* @__PURE__ */ l(Ur, { label: o("commerce.orders.shipping"), value: $n(E.shipping.gross, S) }) : null,
-      (F = E.surcharge) != null && F.gross ? /* @__PURE__ */ l(Ur, { label: o("commerce.orders.surcharge"), value: $n(E.surcharge.gross, S) }) : null,
-      /* @__PURE__ */ l(Ur, { label: o("commerce.orders.tax"), value: $n(Number(E.taxTotal ?? 0), S) }),
+      /* @__PURE__ */ l(Ur, { label: o("commerce.orders.subtotal"), value: $n(Number(F.itemsSubtotal ?? 0), S) }),
+      (H = F.shipping) != null && H.gross ? /* @__PURE__ */ l(Ur, { label: o("commerce.orders.shipping"), value: $n(F.shipping.gross, S) }) : null,
+      (Y = F.surcharge) != null && Y.gross ? /* @__PURE__ */ l(Ur, { label: o("commerce.orders.surcharge"), value: $n(F.surcharge.gross, S) }) : null,
+      /* @__PURE__ */ l(Ur, { label: o("commerce.orders.tax"), value: $n(Number(F.taxTotal ?? 0), S) }),
       /* @__PURE__ */ v(se, { justify: "space-between", children: [
-        /* @__PURE__ */ l(H, { fz: "sm", fw: 700, children: o("commerce.orders.grandTotal") }),
-        /* @__PURE__ */ l(H, { fz: "sm", fw: 700, children: $n(Number(E.grossTotal ?? 0), S) })
+        /* @__PURE__ */ l(V, { fz: "sm", fw: 700, children: o("commerce.orders.grandTotal") }),
+        /* @__PURE__ */ l(V, { fz: "sm", fw: 700, children: $n(Number(F.grossTotal ?? 0), S) })
       ] })
     ] }),
     t.shippingAddress && /* @__PURE__ */ v(Re, { children: [
       /* @__PURE__ */ l(Gn, { my: 4, label: o("commerce.orders.shippingAddress") }),
-      /* @__PURE__ */ l(H, { fz: "xs", c: "dimmed", style: { whiteSpace: "pre-line" }, children: [t.shippingAddress.name, t.shippingAddress.line1, t.shippingAddress.line2, `${t.shippingAddress.postalCode} ${t.shippingAddress.city}`, t.shippingAddress.country].filter(Boolean).join(`
+      /* @__PURE__ */ l(V, { fz: "xs", c: "dimmed", style: { whiteSpace: "pre-line" }, children: [t.shippingAddress.name, t.shippingAddress.line1, t.shippingAddress.line2, `${t.shippingAddress.postalCode} ${t.shippingAddress.city}`, t.shippingAddress.country].filter(Boolean).join(`
 `) })
     ] }),
     /* @__PURE__ */ l(Gn, { my: 4, label: o("commerce.orders.payments") }),
-    t.payments.length === 0 ? /* @__PURE__ */ l(H, { fz: "xs", c: "dimmed", children: o("commerce.orders.noPayments") }) : t.payments.map((L) => /* @__PURE__ */ v(se, { justify: "space-between", children: [
-      /* @__PURE__ */ v(Fe, { variant: "light", color: dd[L.status] ?? "gray", size: "sm", children: [
-        L.provider,
+    t.payments.length === 0 ? /* @__PURE__ */ l(V, { fz: "xs", c: "dimmed", children: o("commerce.orders.noPayments") }) : t.payments.map(($) => /* @__PURE__ */ v(se, { justify: "space-between", children: [
+      /* @__PURE__ */ v(Fe, { variant: "light", color: dd[$.status] ?? "gray", size: "sm", children: [
+        $.provider,
         " · ",
-        L.status
+        $.status
       ] }),
-      /* @__PURE__ */ v(H, { fz: "xs", c: "dimmed", children: [
-        $n(L.amountCaptured || L.amountAuthorized, S),
-        L.amountRefunded ? ` · −${$n(L.amountRefunded, S)}` : ""
+      /* @__PURE__ */ v(V, { fz: "xs", c: "dimmed", children: [
+        $n($.amountCaptured || $.amountAuthorized, S),
+        $.amountRefunded ? ` · −${$n($.amountRefunded, S)}` : ""
       ] })
-    ] }, L.id)),
+    ] }, $.id)),
     t.shipments.length > 0 && /* @__PURE__ */ v(Re, { children: [
       /* @__PURE__ */ l(Gn, { my: 4, label: o("commerce.orders.shipments") }),
-      t.shipments.map((L) => /* @__PURE__ */ v(se, { justify: "space-between", children: [
+      t.shipments.map(($) => /* @__PURE__ */ v(se, { justify: "space-between", children: [
         /* @__PURE__ */ v(pe, { gap: 0, children: [
-          /* @__PURE__ */ v(H, { fz: "xs", children: [
-            L.carrier ?? "—",
-            L.trackingNumber ? ` · ${L.trackingNumber}` : ""
+          /* @__PURE__ */ v(V, { fz: "xs", children: [
+            $.carrier ?? "—",
+            $.trackingNumber ? ` · ${$.trackingNumber}` : ""
           ] }),
-          /* @__PURE__ */ l(Fe, { variant: "light", size: "xs", color: L.status === "delivered" ? "teal" : "yellow", children: L.status })
+          /* @__PURE__ */ l(Fe, { variant: "light", size: "xs", color: $.status === "delivered" ? "teal" : "yellow", children: $.status })
         ] }),
-        L.status !== "delivered" && /* @__PURE__ */ l(yt, { size: "compact-xs", variant: "subtle", onClick: () => void D(L.id), loading: i, children: o("commerce.orders.markDelivered") })
-      ] }, L.id))
+        $.status !== "delivered" && /* @__PURE__ */ l(yt, { size: "compact-xs", variant: "subtle", onClick: () => void R($.id), loading: i, children: o("commerce.orders.markDelivered") })
+      ] }, $.id))
     ] }),
     /* @__PURE__ */ l(Gn, { my: 4, label: o("commerce.orders.actions") }),
     /* @__PURE__ */ v(se, { gap: "xs", children: [
-      j && t.quoteStatus === "draft" && /* @__PURE__ */ l(yt, { size: "xs", leftSection: /* @__PURE__ */ l(eu, { size: 15 }), onClick: () => void $(async () => ({ order: await dLe(t.id) }), "commerce.orders.quoteSent"), loading: i, children: o("commerce.orders.sendQuote") }),
-      j && t.quoteStatus === "sent" && /* @__PURE__ */ v(H, { fz: "xs", c: "dimmed", children: [
+      j && t.quoteStatus === "draft" && /* @__PURE__ */ l(yt, { size: "xs", leftSection: /* @__PURE__ */ l(eu, { size: 15 }), onClick: () => void B(async () => ({ order: await dLe(t.id) }), "commerce.orders.quoteSent"), loading: i, children: o("commerce.orders.sendQuote") }),
+      j && t.quoteStatus === "sent" && /* @__PURE__ */ v(V, { fz: "xs", c: "dimmed", children: [
         o("commerce.orders.acceptedByCustomer"),
         "…"
       ] }),
-      A && /* @__PURE__ */ l(yt, { size: "xs", leftSection: /* @__PURE__ */ l(Kp, { size: 15 }), onClick: () => void O(), loading: i, children: o("commerce.orders.capture") }),
+      A && /* @__PURE__ */ l(yt, { size: "xs", leftSection: /* @__PURE__ */ l(Kp, { size: 15 }), onClick: () => void W(), loading: i, children: o("commerce.orders.capture") }),
       A && /* @__PURE__ */ l(yt, { size: "xs", variant: "light", color: "red", leftSection: /* @__PURE__ */ l(Yy, { size: 15 }), onClick: () => w(!0), loading: i, children: o("commerce.orders.void") }),
-      T && /* @__PURE__ */ l(yt, { size: "xs", variant: "light", color: "orange", leftSection: /* @__PURE__ */ l(Xg, { size: 15 }), onClick: () => g(!0), loading: i, children: o("commerce.orders.refund") }),
-      !j && t.status.fulfillmentStatus === "unfulfilled" && t.status.lifecycle !== "cancelled" && /* @__PURE__ */ l(yt, { size: "xs", variant: "subtle", onClick: () => void $(async () => await Zf(t.id, { fulfillment: "preparing" }), "commerce.orders.transitioned"), loading: i, children: o("commerce.orders.markPreparing") }),
+      U && /* @__PURE__ */ l(yt, { size: "xs", variant: "light", color: "orange", leftSection: /* @__PURE__ */ l(Xg, { size: 15 }), onClick: () => g(!0), loading: i, children: o("commerce.orders.refund") }),
+      !j && t.status.fulfillmentStatus === "unfulfilled" && t.status.lifecycle !== "cancelled" && /* @__PURE__ */ l(yt, { size: "xs", variant: "subtle", onClick: () => void B(async () => await Zf(t.id, { fulfillment: "preparing" }), "commerce.orders.transitioned"), loading: i, children: o("commerce.orders.markPreparing") }),
       t.status.lifecycle !== "cancelled" && t.status.lifecycle !== "completed" && !A && /* @__PURE__ */ l(yt, { size: "xs", variant: "subtle", color: "red", onClick: () => M(!0), loading: i, children: o("commerce.orders.cancelOrder") })
     ] }),
     /* @__PURE__ */ l(Gn, { my: 4, label: o("commerce.orders.timeline") }),
-    /* @__PURE__ */ l(pe, { gap: 4, children: t.timeline.map((L) => /* @__PURE__ */ v(se, { justify: "space-between", wrap: "nowrap", children: [
-      /* @__PURE__ */ l(H, { fz: "xs", children: L.action }),
-      /* @__PURE__ */ l(H, { fz: "xs", c: "dimmed", children: new Date(L.createdAt).toLocaleString(S) })
-    ] }, L.id)) }),
+    /* @__PURE__ */ l(pe, { gap: 4, children: t.timeline.map(($) => /* @__PURE__ */ v(se, { justify: "space-between", wrap: "nowrap", children: [
+      /* @__PURE__ */ l(V, { fz: "xs", children: $.action }),
+      /* @__PURE__ */ l(V, { fz: "xs", c: "dimmed", children: new Date($.createdAt).toLocaleString(S) })
+    ] }, $.id)) }),
     /* @__PURE__ */ l(
       Ut,
       {
@@ -73010,7 +73010,7 @@ function ILe({
         loading: i,
         zIndex: 1100,
         onConfirm: () => {
-          w(!1), $(async () => await oLe(t.id), "commerce.orders.voided");
+          w(!1), B(async () => await oLe(t.id), "commerce.orders.voided");
         },
         onClose: () => w(!1)
       }
@@ -73025,7 +73025,7 @@ function ILe({
         loading: i,
         zIndex: 1100,
         onConfirm: () => {
-          M(!1), $(async () => await Zf(t.id, { lifecycle: "cancelled" }), "commerce.orders.transitioned");
+          M(!1), B(async () => await Zf(t.id, { lifecycle: "cancelled" }), "commerce.orders.transitioned");
         },
         onClose: () => M(!1)
       }
@@ -73035,15 +73035,17 @@ function ILe({
         wn,
         {
           label: o("commerce.orders.refundAmount"),
-          description: `${o("commerce.orders.grandTotal")}: ${$n(Number(E.grossTotal ?? 0), S)}`,
+          description: `${o("commerce.orders.refundableRemaining")}: ${$n(I, S)}`,
           min: 0,
+          max: I / 100,
+          clampBehavior: "strict",
           decimalScale: 2,
           value: k,
-          onChange: (L) => b(L === "" ? "" : Number(L))
+          onChange: ($) => b($ === "" ? "" : Number($))
         }
       ),
-      /* @__PURE__ */ l(je, { label: o("commerce.orders.refundReason"), value: N, onChange: (L) => z(L.currentTarget.value) }),
-      /* @__PURE__ */ l(yt, { onClick: () => void K(), loading: i, children: o("commerce.orders.doRefund") })
+      /* @__PURE__ */ l(je, { label: o("commerce.orders.refundReason"), value: N, onChange: ($) => z($.currentTarget.value) }),
+      /* @__PURE__ */ l(yt, { onClick: () => void D(), loading: i, children: o("commerce.orders.doRefund") })
     ] }) })
   ] });
 }
@@ -73116,15 +73118,15 @@ function HLe({
       /* @__PURE__ */ l(Mt, { variant: "subtle", color: "red", onClick: () => f((C) => C.filter((M, S) => S !== w)), children: /* @__PURE__ */ l(it, { size: 15 }) })
     ] }, w)),
     /* @__PURE__ */ l(yt, { size: "xs", variant: "light", leftSection: /* @__PURE__ */ l(Ot, { size: 15 }), onClick: () => f((x) => [...x, { variantId: "", quantity: 1, unitPrice: null }]), children: o("commerce.orders.addLine") }),
-    /* @__PURE__ */ l(H, { fz: "xs", c: "dimmed", children: o("commerce.orders.customPrice") }),
+    /* @__PURE__ */ l(V, { fz: "xs", c: "dimmed", children: o("commerce.orders.customPrice") }),
     /* @__PURE__ */ l(lo, { label: o("commerce.orders.note"), autosize: !0, minRows: 2, value: p, onChange: (x) => u(x.currentTarget.value) }),
     /* @__PURE__ */ l(yt, { onClick: () => void N(), loading: y, disabled: !z, children: o("commerce.orders.saveDraft") })
   ] }) });
 }
 function Ur({ label: t, value: e }) {
   return /* @__PURE__ */ v(se, { justify: "space-between", children: [
-    /* @__PURE__ */ l(H, { fz: "sm", c: "dimmed", children: t }),
-    /* @__PURE__ */ l(H, { fz: "sm", fw: 500, children: e })
+    /* @__PURE__ */ l(V, { fz: "sm", c: "dimmed", children: t }),
+    /* @__PURE__ */ l(V, { fz: "sm", fw: 500, children: e })
   ] });
 }
 const qLe = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
@@ -73140,62 +73142,62 @@ function VLe(t) {
   return [t.firstName, t.lastName].filter(Boolean).join(" ");
 }
 function BLe() {
-  const { t, i18n: e } = we(), [n, a] = _(null), [o, r] = _(!1), [i, s] = _([]), [c, d] = _(null), [p, u] = _(null), [m, f] = _(""), [y, g] = _(null), [k, b] = _(!1), [N, z] = _(null), [x, w] = _(!1), [C, M] = _(!1), [S, j] = _(!1), [A, T] = _(!1), U = (L) => {
-    const B = `commerce.errors.${L instanceof Mn ? L.code : "generic"}`, P = t(B);
-    return P === B ? t("commerce.errors.generic") : P;
-  }, I = (L) => L.anonymizedAt ? t("commerce.customers.deletedCustomer") : L.company || VLe(L) || L.email, $ = async () => {
+  const { t, i18n: e } = we(), [n, a] = _(null), [o, r] = _(!1), [i, s] = _([]), [c, d] = _(null), [p, u] = _(null), [m, f] = _(""), [y, g] = _(null), [k, b] = _(!1), [N, z] = _(null), [x, w] = _(!1), [C, M] = _(!1), [S, j] = _(!1), [A, T] = _(!1), U = (H) => {
+    const $ = `commerce.errors.${H instanceof Mn ? H.code : "generic"}`, L = t($);
+    return L === $ ? t("commerce.errors.generic") : L;
+  }, I = (H) => H.anonymizedAt ? t("commerce.customers.deletedCustomer") : H.company || VLe(H) || H.email, P = async () => {
     try {
-      const L = await UEe({
+      const H = await UEe({
         type: c ?? void 0,
         approvalStatus: p ?? void 0,
         q: m.trim() || void 0
       });
-      a(L.data), r(!1);
+      a(H.data), r(!1);
     } catch {
       r(!0);
     }
   };
   he(() => {
-    $();
+    P();
   }, [c, p]), he(() => {
     D5().then(s).catch(() => {
     });
   }, []);
-  async function O(L) {
-    g({ ...L, orders: [] }), z(L.priceListId), b(!0);
+  async function O(H) {
+    g({ ...H, orders: [] }), z(H.priceListId), b(!0);
     try {
-      const W = await WEe(L.id);
-      g(W), z(W.priceListId);
+      const Y = await WEe(H.id);
+      g(Y), z(Y.priceListId);
     } catch {
     } finally {
       b(!1);
     }
   }
-  const V = qe(
-    () => [{ value: xh, label: t("commerce.customers.noPriceList") }, ...i.filter((L) => L.active).map((L) => ({ value: L.id, label: `${L.name} (${L.type})` }))],
+  const B = qe(
+    () => [{ value: xh, label: t("commerce.customers.noPriceList") }, ...i.filter((H) => H.active).map((H) => ({ value: H.id, label: `${H.name} (${H.type})` }))],
     [i, t]
   );
-  async function K(L, W) {
+  async function W(H, Y) {
     if (y) {
       w(!0);
       try {
-        const B = await KEe(y.id, L);
-        ne.ok(t(W)), g((P) => P ? { ...B, orders: P.orders } : null), z(B.priceListId), await $();
-      } catch (B) {
-        ne.err(U(B));
+        const $ = await KEe(y.id, H);
+        ne.ok(t(Y)), g((L) => L ? { ...$, orders: L.orders } : null), z($.priceListId), await P();
+      } catch ($) {
+        ne.err(U($));
       } finally {
         w(!1);
       }
     }
   }
-  async function G() {
+  async function K() {
     if (y) {
       T(!0);
       try {
-        const L = await GEe(y.id), W = new Blob([JSON.stringify(L, null, 2)], { type: "application/json" }), B = URL.createObjectURL(W), P = document.createElement("a");
-        P.href = B, P.download = `customer-${y.id}.json`, document.body.appendChild(P), P.click(), P.remove(), URL.revokeObjectURL(B), ne.ok(t("commerce.customers.exported"));
-      } catch (L) {
-        ne.err(U(L));
+        const H = await GEe(y.id), Y = new Blob([JSON.stringify(H, null, 2)], { type: "application/json" }), $ = URL.createObjectURL(Y), L = document.createElement("a");
+        L.href = $, L.download = `customer-${y.id}.json`, document.body.appendChild(L), L.click(), L.remove(), URL.revokeObjectURL($), ne.ok(t("commerce.customers.exported"));
+      } catch (H) {
+        ne.err(U(H));
       } finally {
         T(!1);
       }
@@ -73205,10 +73207,10 @@ function BLe() {
     if (y) {
       M(!0);
       try {
-        const L = await YEe(y.id);
-        ne.ok(t("commerce.customers.erased")), g(L), j(!1), await $();
-      } catch (L) {
-        ne.err(U(L));
+        const H = await YEe(y.id);
+        ne.ok(t("commerce.customers.erased")), g(H), j(!1), await P();
+      } catch (H) {
+        ne.err(U(H));
       } finally {
         M(!1);
       }
@@ -73218,7 +73220,7 @@ function BLe() {
   return n === null && !o ? /* @__PURE__ */ l(kt, { h: 300, children: /* @__PURE__ */ l(St, {}) }) : /* @__PURE__ */ v(ae, { p: "md", style: { maxWidth: 1e3, margin: "0 auto" }, children: [
     /* @__PURE__ */ l(se, { justify: "space-between", mb: "md", children: /* @__PURE__ */ v(se, { gap: 8, children: [
       /* @__PURE__ */ l(ai, { size: 20 }),
-      /* @__PURE__ */ l(H, { fw: 600, fz: "lg", children: t("commerce.nav.customers") })
+      /* @__PURE__ */ l(V, { fw: 600, fz: "lg", children: t("commerce.nav.customers") })
     ] }) }),
     /* @__PURE__ */ v(se, { mb: "md", gap: "sm", wrap: "wrap", children: [
       /* @__PURE__ */ l(
@@ -73227,9 +73229,9 @@ function BLe() {
           placeholder: t("commerce.customers.searchPlaceholder"),
           leftSection: /* @__PURE__ */ l(fo, { size: 15 }),
           value: m,
-          onChange: (L) => f(L.currentTarget.value),
-          onKeyDown: (L) => {
-            L.key === "Enter" && $();
+          onChange: (H) => f(H.currentTarget.value),
+          onKeyDown: (H) => {
+            H.key === "Enter" && P();
           },
           style: { flex: 1, minWidth: 220 }
         }
@@ -73261,9 +73263,9 @@ function BLe() {
         }
       )
     ] }),
-    o ? /* @__PURE__ */ l(kt, { h: 200, children: /* @__PURE__ */ l(H, { c: "red", children: t("commerce.errors.generic") }) }) : n && n.length === 0 ? /* @__PURE__ */ l(kt, { h: 220, children: /* @__PURE__ */ v(pe, { align: "center", gap: 6, children: [
+    o ? /* @__PURE__ */ l(kt, { h: 200, children: /* @__PURE__ */ l(V, { c: "red", children: t("commerce.errors.generic") }) }) : n && n.length === 0 ? /* @__PURE__ */ l(kt, { h: 220, children: /* @__PURE__ */ v(pe, { align: "center", gap: 6, children: [
       /* @__PURE__ */ l(ai, { size: 40, opacity: 0.4 }),
-      /* @__PURE__ */ l(H, { fw: 500, children: t("commerce.customers.empty") })
+      /* @__PURE__ */ l(V, { fw: 500, children: t("commerce.customers.empty") })
     ] }) }) : /* @__PURE__ */ l(ue.ScrollContainer, { minWidth: 680, children: /* @__PURE__ */ v(ue, { highlightOnHover: !0, verticalSpacing: "sm", children: [
       /* @__PURE__ */ l(ue.Thead, { children: /* @__PURE__ */ v(ue.Tr, { children: [
         /* @__PURE__ */ l(ue.Th, { children: t("commerce.customers.colCustomer") }),
@@ -73271,18 +73273,18 @@ function BLe() {
         /* @__PURE__ */ l(ue.Th, { children: t("commerce.customers.colStatus") }),
         /* @__PURE__ */ l(ue.Th, { children: t("commerce.customers.colPriceList") })
       ] }) }),
-      /* @__PURE__ */ l(ue.Tbody, { children: n == null ? void 0 : n.map((L) => /* @__PURE__ */ v(ue.Tr, { style: { cursor: "pointer" }, onClick: () => void O(L), children: [
+      /* @__PURE__ */ l(ue.Tbody, { children: n == null ? void 0 : n.map((H) => /* @__PURE__ */ v(ue.Tr, { style: { cursor: "pointer" }, onClick: () => void O(H), children: [
         /* @__PURE__ */ l(ue.Td, { children: /* @__PURE__ */ v(pe, { gap: 0, children: [
           /* @__PURE__ */ v(se, { gap: 6, children: [
-            /* @__PURE__ */ l(H, { fz: "sm", fw: 500, c: L.anonymizedAt ? "dimmed" : void 0, fs: L.anonymizedAt ? "italic" : void 0, children: I(L) }),
-            L.anonymizedAt && /* @__PURE__ */ l(Fe, { variant: "light", color: "gray", size: "xs", children: t("commerce.customers.erasedTag") })
+            /* @__PURE__ */ l(V, { fz: "sm", fw: 500, c: H.anonymizedAt ? "dimmed" : void 0, fs: H.anonymizedAt ? "italic" : void 0, children: I(H) }),
+            H.anonymizedAt && /* @__PURE__ */ l(Fe, { variant: "light", color: "gray", size: "xs", children: t("commerce.customers.erasedTag") })
           ] }),
-          !L.anonymizedAt && /* @__PURE__ */ l(H, { fz: "xs", c: "dimmed", children: L.email })
+          !H.anonymizedAt && /* @__PURE__ */ l(V, { fz: "xs", c: "dimmed", children: H.email })
         ] }) }),
-        /* @__PURE__ */ l(ue.Td, { children: /* @__PURE__ */ l(Fe, { variant: "light", color: L.type === "business" ? "grape" : "gray", leftSection: L.type === "business" ? /* @__PURE__ */ l(Xy, { size: 11 }) : /* @__PURE__ */ l(au, { size: 11 }), children: t(`commerce.customers.${L.type}`) }) }),
-        /* @__PURE__ */ l(ue.Td, { children: L.type === "business" && !L.anonymizedAt ? /* @__PURE__ */ l(Fe, { variant: "light", color: ty[L.approvalStatus], children: t(`commerce.customers.status${L.approvalStatus[0].toUpperCase()}${L.approvalStatus.slice(1)}`) }) : /* @__PURE__ */ l(H, { fz: "xs", c: "dimmed", children: "—" }) }),
-        /* @__PURE__ */ l(ue.Td, { children: /* @__PURE__ */ l(H, { fz: "sm", c: L.priceListName ? void 0 : "dimmed", children: L.priceListName ?? "—" }) })
-      ] }, L.id)) })
+        /* @__PURE__ */ l(ue.Td, { children: /* @__PURE__ */ l(Fe, { variant: "light", color: H.type === "business" ? "grape" : "gray", leftSection: H.type === "business" ? /* @__PURE__ */ l(Xy, { size: 11 }) : /* @__PURE__ */ l(au, { size: 11 }), children: t(`commerce.customers.${H.type}`) }) }),
+        /* @__PURE__ */ l(ue.Td, { children: H.type === "business" && !H.anonymizedAt ? /* @__PURE__ */ l(Fe, { variant: "light", color: ty[H.approvalStatus], children: t(`commerce.customers.status${H.approvalStatus[0].toUpperCase()}${H.approvalStatus.slice(1)}`) }) : /* @__PURE__ */ l(V, { fz: "xs", c: "dimmed", children: "—" }) }),
+        /* @__PURE__ */ l(ue.Td, { children: /* @__PURE__ */ l(V, { fz: "sm", c: H.priceListName ? void 0 : "dimmed", children: H.priceListName ?? "—" }) })
+      ] }, H.id)) })
     ] }) }),
     /* @__PURE__ */ l(
       en,
@@ -73292,8 +73294,8 @@ function BLe() {
         title: t("commerce.customers.detailTitle"),
         children: y && /* @__PURE__ */ v(pe, { gap: "sm", children: [
           /* @__PURE__ */ v(ae, { children: [
-            /* @__PURE__ */ l(H, { fw: 600, fz: "lg", fs: F ? "italic" : void 0, c: F ? "dimmed" : void 0, children: I(y) }),
-            !F && /* @__PURE__ */ l(H, { c: "dimmed", fz: "sm", children: y.email })
+            /* @__PURE__ */ l(V, { fw: 600, fz: "lg", fs: F ? "italic" : void 0, c: F ? "dimmed" : void 0, children: I(y) }),
+            !F && /* @__PURE__ */ l(V, { c: "dimmed", fz: "sm", children: y.email })
           ] }),
           /* @__PURE__ */ v(se, { gap: "xs", children: [
             /* @__PURE__ */ l(Fe, { variant: "light", color: y.type === "business" ? "grape" : "gray", children: t(`commerce.customers.${y.type}`) }),
@@ -73302,62 +73304,62 @@ function BLe() {
               y.disabled && /* @__PURE__ */ l(Fe, { variant: "light", color: "red", size: "sm", children: t("commerce.customers.disabled") })
             ] })
           ] }),
-          F && /* @__PURE__ */ l(H, { fz: "sm", c: "dimmed", children: t("commerce.customers.erasedHint") }),
+          F && /* @__PURE__ */ l(V, { fz: "sm", c: "dimmed", children: t("commerce.customers.erasedHint") }),
           y.type === "business" && !F && /* @__PURE__ */ v(Re, { children: [
             /* @__PURE__ */ l(Gn, { my: 4 }),
             /* @__PURE__ */ v(se, { justify: "space-between", children: [
-              /* @__PURE__ */ l(H, { fz: "sm", c: "dimmed", children: t("commerce.customers.colStatus") }),
+              /* @__PURE__ */ l(V, { fz: "sm", c: "dimmed", children: t("commerce.customers.colStatus") }),
               /* @__PURE__ */ l(Fe, { variant: "light", color: ty[y.approvalStatus], children: t(`commerce.customers.status${y.approvalStatus[0].toUpperCase()}${y.approvalStatus.slice(1)}`) })
             ] }),
             y.company && /* @__PURE__ */ l(wh, { label: t("commerce.customers.company"), value: y.company }),
             y.oib && /* @__PURE__ */ l(wh, { label: "OIB", value: y.oib }),
             y.vatId && /* @__PURE__ */ l(wh, { label: t("commerce.customers.vatId"), value: y.vatId }),
             /* @__PURE__ */ l(Gn, { my: 4 }),
-            /* @__PURE__ */ l(H, { fz: "sm", fw: 500, children: t("commerce.customers.priceList") }),
-            /* @__PURE__ */ l(H, { fz: "xs", c: "dimmed", children: t("commerce.customers.priceListHint") }),
+            /* @__PURE__ */ l(V, { fz: "sm", fw: 500, children: t("commerce.customers.priceList") }),
+            /* @__PURE__ */ l(V, { fz: "xs", c: "dimmed", children: t("commerce.customers.priceListHint") }),
             /* @__PURE__ */ l(
               Tt,
               {
-                data: V,
+                data: B,
                 value: N ?? xh,
-                onChange: (L) => z(L && L !== xh ? L : null),
+                onChange: (H) => z(H && H !== xh ? H : null),
                 comboboxProps: { withinPortal: !0 }
               }
             ),
             /* @__PURE__ */ l(Gn, { my: 4 }),
             y.approvalStatus === "approved" ? /* @__PURE__ */ v(se, { children: [
-              /* @__PURE__ */ l(yt, { onClick: () => void K(R(), "commerce.customers.savedAssignment"), loading: x, disabled: !E, children: t("commerce.customers.saveAssignment") }),
-              /* @__PURE__ */ l(yt, { variant: "light", color: "yellow", onClick: () => void K({ approvalStatus: "pending" }, "commerce.customers.revoked"), loading: x, children: t("commerce.customers.revoke") })
+              /* @__PURE__ */ l(yt, { onClick: () => void W(R(), "commerce.customers.savedAssignment"), loading: x, disabled: !E, children: t("commerce.customers.saveAssignment") }),
+              /* @__PURE__ */ l(yt, { variant: "light", color: "yellow", onClick: () => void W({ approvalStatus: "pending" }, "commerce.customers.revoked"), loading: x, children: t("commerce.customers.revoke") })
             ] }) : /* @__PURE__ */ v(se, { children: [
-              /* @__PURE__ */ l(yt, { leftSection: /* @__PURE__ */ l(ja, { size: 16 }), onClick: () => void K({ approvalStatus: "approved", priceListId: N }, "commerce.customers.approved"), loading: x, children: t("commerce.customers.approve") }),
-              y.approvalStatus !== "rejected" && /* @__PURE__ */ l(yt, { variant: "light", color: "red", leftSection: /* @__PURE__ */ l(da, { size: 16 }), onClick: () => void K({ approvalStatus: "rejected" }, "commerce.customers.rejected"), loading: x, children: t("commerce.customers.reject") })
+              /* @__PURE__ */ l(yt, { leftSection: /* @__PURE__ */ l(ja, { size: 16 }), onClick: () => void W({ approvalStatus: "approved", priceListId: N }, "commerce.customers.approved"), loading: x, children: t("commerce.customers.approve") }),
+              y.approvalStatus !== "rejected" && /* @__PURE__ */ l(yt, { variant: "light", color: "red", leftSection: /* @__PURE__ */ l(da, { size: 16 }), onClick: () => void W({ approvalStatus: "rejected" }, "commerce.customers.rejected"), loading: x, children: t("commerce.customers.reject") })
             ] })
           ] }),
-          y.type === "personal" && !F && /* @__PURE__ */ l(H, { fz: "sm", c: "dimmed", children: t("commerce.customers.personalHint") }),
+          y.type === "personal" && !F && /* @__PURE__ */ l(V, { fz: "sm", c: "dimmed", children: t("commerce.customers.personalHint") }),
           /* @__PURE__ */ l(Gn, { my: 4 }),
           /* @__PURE__ */ v(se, { gap: 6, children: [
             /* @__PURE__ */ l(Ug, { size: 15 }),
-            /* @__PURE__ */ l(H, { fz: "sm", fw: 500, children: t("commerce.customers.orders") })
+            /* @__PURE__ */ l(V, { fz: "sm", fw: 500, children: t("commerce.customers.orders") })
           ] }),
-          k ? /* @__PURE__ */ l(kt, { h: 60, children: /* @__PURE__ */ l(St, { size: "sm" }) }) : y.orders.length === 0 ? /* @__PURE__ */ l(H, { fz: "xs", c: "dimmed", children: t("commerce.customers.noOrders") }) : /* @__PURE__ */ l(ue, { verticalSpacing: 6, fz: "sm", children: /* @__PURE__ */ l(ue.Tbody, { children: y.orders.map((L) => /* @__PURE__ */ v(ue.Tr, { children: [
+          k ? /* @__PURE__ */ l(kt, { h: 60, children: /* @__PURE__ */ l(St, { size: "sm" }) }) : y.orders.length === 0 ? /* @__PURE__ */ l(V, { fz: "xs", c: "dimmed", children: t("commerce.customers.noOrders") }) : /* @__PURE__ */ l(ue, { verticalSpacing: 6, fz: "sm", children: /* @__PURE__ */ l(ue.Tbody, { children: y.orders.map((H) => /* @__PURE__ */ v(ue.Tr, { children: [
             /* @__PURE__ */ v(ue.Td, { children: [
-              /* @__PURE__ */ v(H, { fz: "sm", fw: 500, children: [
+              /* @__PURE__ */ v(V, { fz: "sm", fw: 500, children: [
                 "#",
-                L.orderNumber
+                H.orderNumber
               ] }),
-              /* @__PURE__ */ l(H, { fz: "xs", c: "dimmed", children: new Date(L.placedAt).toLocaleDateString(e.language) })
+              /* @__PURE__ */ l(V, { fz: "xs", c: "dimmed", children: new Date(H.placedAt).toLocaleDateString(e.language) })
             ] }),
-            /* @__PURE__ */ l(ue.Td, { children: FLe(L, t) }),
-            /* @__PURE__ */ l(ue.Td, { ta: "right", children: /* @__PURE__ */ l(H, { fz: "sm", fw: 500, children: $n(L.grandTotal, e.language) }) })
-          ] }, L.id)) }) }),
+            /* @__PURE__ */ l(ue.Td, { children: FLe(H, t) }),
+            /* @__PURE__ */ l(ue.Td, { ta: "right", children: /* @__PURE__ */ l(V, { fz: "sm", fw: 500, children: $n(H.grandTotal, e.language) }) })
+          ] }, H.id)) }) }),
           !F && /* @__PURE__ */ v(Re, { children: [
             /* @__PURE__ */ l(Gn, { my: 4 }),
-            /* @__PURE__ */ l(H, { fz: "sm", fw: 500, children: t("commerce.customers.gdpr") }),
+            /* @__PURE__ */ l(V, { fz: "sm", fw: 500, children: t("commerce.customers.gdpr") }),
             /* @__PURE__ */ v(se, { children: [
-              /* @__PURE__ */ l(yt, { variant: "light", leftSection: /* @__PURE__ */ l(Aa, { size: 16 }), onClick: () => void G(), loading: A, children: t("commerce.customers.export") }),
+              /* @__PURE__ */ l(yt, { variant: "light", leftSection: /* @__PURE__ */ l(Aa, { size: 16 }), onClick: () => void K(), loading: A, children: t("commerce.customers.export") }),
               /* @__PURE__ */ l(yt, { variant: "light", color: "red", leftSection: /* @__PURE__ */ l(it, { size: 16 }), onClick: () => j(!0), children: t("commerce.customers.erase") })
             ] }),
-            /* @__PURE__ */ l(H, { fz: "xs", c: "dimmed", children: t("commerce.customers.gdprHint") })
+            /* @__PURE__ */ l(V, { fz: "xs", c: "dimmed", children: t("commerce.customers.gdprHint") })
           ] })
         ] })
       }
@@ -73385,8 +73387,8 @@ function FLe(t, e) {
 }
 function wh({ label: t, value: e }) {
   return /* @__PURE__ */ v(se, { justify: "space-between", children: [
-    /* @__PURE__ */ l(H, { fz: "sm", c: "dimmed", children: t }),
-    /* @__PURE__ */ l(H, { fz: "sm", fw: 500, children: e })
+    /* @__PURE__ */ l(V, { fz: "sm", c: "dimmed", children: t }),
+    /* @__PURE__ */ l(V, { fz: "sm", fw: 500, children: e })
   ] });
 }
 const ULe = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
@@ -73420,8 +73422,8 @@ function KLe() {
     for (const T of r) {
       const U = WLe(T);
       for (const I of T.variants) {
-        const $ = I.sku ? ` · ${I.sku}` : T.variants.length > 1 ? ` · ${Object.values(I.optionValues).join("/")}` : "";
-        A.push({ value: I.id, label: `${U}${$}` });
+        const P = I.sku ? ` · ${I.sku}` : T.variants.length > 1 ? ` · ${Object.values(I.optionValues).join("/")}` : "";
+        A.push({ value: I.id, label: `${U}${P}` });
       }
     }
     return A;
@@ -73453,7 +73455,7 @@ function KLe() {
     });
   }
   function C(A, T) {
-    c((U) => U && { ...U, entries: U.entries.map((I, $) => $ === A ? { ...I, ...T } : I) });
+    c((U) => U && { ...U, entries: U.entries.map((I, P) => P === A ? { ...I, ...T } : I) });
   }
   function M(A) {
     c((T) => T && { ...T, entries: T.entries.filter((U, I) => I !== A) });
@@ -73491,14 +73493,14 @@ function KLe() {
     /* @__PURE__ */ v(se, { justify: "space-between", mb: "md", children: [
       /* @__PURE__ */ v(se, { gap: 8, children: [
         /* @__PURE__ */ l(Ql, { size: 20 }),
-        /* @__PURE__ */ l(H, { fw: 600, fz: "lg", children: t("commerce.nav.priceLists") })
+        /* @__PURE__ */ l(V, { fw: 600, fz: "lg", children: t("commerce.nav.priceLists") })
       ] }),
       /* @__PURE__ */ l(yt, { leftSection: /* @__PURE__ */ l(Ot, { size: 16 }), onClick: N, children: t("commerce.priceLists.new") })
     ] }),
-    a ? /* @__PURE__ */ l(kt, { h: 200, children: /* @__PURE__ */ l(H, { c: "red", children: t("commerce.errors.generic") }) }) : e && e.length === 0 ? /* @__PURE__ */ l(kt, { h: 240, children: /* @__PURE__ */ v(pe, { align: "center", gap: 6, children: [
+    a ? /* @__PURE__ */ l(kt, { h: 200, children: /* @__PURE__ */ l(V, { c: "red", children: t("commerce.errors.generic") }) }) : e && e.length === 0 ? /* @__PURE__ */ l(kt, { h: 240, children: /* @__PURE__ */ v(pe, { align: "center", gap: 6, children: [
       /* @__PURE__ */ l(Ql, { size: 40, opacity: 0.4 }),
-      /* @__PURE__ */ l(H, { fw: 500, children: t("commerce.priceLists.empty") }),
-      /* @__PURE__ */ l(H, { size: "sm", c: "dimmed", children: t("commerce.priceLists.emptyHint") })
+      /* @__PURE__ */ l(V, { fw: 500, children: t("commerce.priceLists.empty") }),
+      /* @__PURE__ */ l(V, { size: "sm", c: "dimmed", children: t("commerce.priceLists.emptyHint") })
     ] }) }) : /* @__PURE__ */ v(ue, { highlightOnHover: !0, verticalSpacing: "sm", children: [
       /* @__PURE__ */ l(ue.Thead, { children: /* @__PURE__ */ v(ue.Tr, { children: [
         /* @__PURE__ */ l(ue.Th, { children: t("commerce.priceLists.colName") }),
@@ -73509,7 +73511,7 @@ function KLe() {
       ] }) }),
       /* @__PURE__ */ l(ue.Tbody, { children: e == null ? void 0 : e.map((A) => /* @__PURE__ */ v(ue.Tr, { style: { cursor: "pointer" }, onClick: () => void z(A), children: [
         /* @__PURE__ */ l(ue.Td, { children: /* @__PURE__ */ v(se, { gap: 8, children: [
-          /* @__PURE__ */ l(H, { fz: "sm", fw: 500, children: A.name }),
+          /* @__PURE__ */ l(V, { fz: "sm", fw: 500, children: A.name }),
           !A.active && /* @__PURE__ */ l(Fe, { size: "xs", variant: "light", color: "gray", children: t("commerce.priceLists.inactive") })
         ] }) }),
         /* @__PURE__ */ l(ue.Td, { children: /* @__PURE__ */ l(Fe, { variant: "light", color: "blue", children: t(`commerce.priceLists.type_${A.type}`) }) }),
@@ -73571,9 +73573,9 @@ function KLe() {
               }
             )
           ] }),
-          /* @__PURE__ */ l(H, { fz: "xs", c: "dimmed", children: s.type === "customer" ? t("commerce.priceLists.customerHint") : t("commerce.priceLists.volumeHint") }),
+          /* @__PURE__ */ l(V, { fz: "xs", c: "dimmed", children: s.type === "customer" ? t("commerce.priceLists.customerHint") : t("commerce.priceLists.volumeHint") }),
           /* @__PURE__ */ l(Gn, { my: 4, label: t("commerce.priceLists.entries"), labelPosition: "left" }),
-          b.length === 0 ? /* @__PURE__ */ l(H, { fz: "sm", c: "dimmed", children: t("commerce.priceLists.noProducts") }) : /* @__PURE__ */ v(Re, { children: [
+          b.length === 0 ? /* @__PURE__ */ l(V, { fz: "sm", c: "dimmed", children: t("commerce.priceLists.noProducts") }) : /* @__PURE__ */ v(Re, { children: [
             s.entries.length > 0 && /* @__PURE__ */ v(ue, { verticalSpacing: 6, fz: "sm", children: [
               /* @__PURE__ */ l(ue.Thead, { children: /* @__PURE__ */ v(ue.Tr, { children: [
                 /* @__PURE__ */ l(ue.Th, { children: t("commerce.priceLists.entryVariant") }),
@@ -73599,7 +73601,7 @@ function KLe() {
               ] }, T)) })
             ] }),
             /* @__PURE__ */ l(yt, { variant: "light", size: "xs", leftSection: /* @__PURE__ */ l(Ot, { size: 14 }), onClick: w, w: "fit-content", children: t("commerce.priceLists.addEntry") }),
-            /* @__PURE__ */ l(H, { fz: "xs", c: "dimmed", children: t("commerce.priceLists.priceHint") })
+            /* @__PURE__ */ l(V, { fz: "xs", c: "dimmed", children: t("commerce.priceLists.priceHint") })
           ] })
         ] })
       }
@@ -73715,11 +73717,11 @@ function XLe({ canWrite: t }) {
     /* @__PURE__ */ v(se, { justify: "space-between", mb: "sm", children: [
       /* @__PURE__ */ v(se, { gap: "xs", children: [
         /* @__PURE__ */ l(Ed, { size: 18 }),
-        /* @__PURE__ */ l(H, { fw: 600, children: e("commerce.settings.shipping.heading") })
+        /* @__PURE__ */ l(V, { fw: 600, children: e("commerce.settings.shipping.heading") })
       ] }),
       t && /* @__PURE__ */ l(yt, { size: "xs", leftSection: /* @__PURE__ */ l(Ot, { size: 14 }), onClick: () => s(JLe()), children: e("commerce.settings.shipping.add") })
     ] }),
-    o === null ? /* @__PURE__ */ l(St, { size: "sm" }) : o.length === 0 ? /* @__PURE__ */ l(H, { c: "dimmed", fz: "sm", children: e("commerce.settings.shipping.empty") }) : /* @__PURE__ */ v(ue, { striped: !0, highlightOnHover: !0, withTableBorder: !0, children: [
+    o === null ? /* @__PURE__ */ l(St, { size: "sm" }) : o.length === 0 ? /* @__PURE__ */ l(V, { c: "dimmed", fz: "sm", children: e("commerce.settings.shipping.empty") }) : /* @__PURE__ */ v(ue, { striped: !0, highlightOnHover: !0, withTableBorder: !0, children: [
       /* @__PURE__ */ l(ue.Thead, { children: /* @__PURE__ */ v(ue.Tr, { children: [
         /* @__PURE__ */ l(ue.Th, { children: e("commerce.settings.shipping.col.name") }),
         /* @__PURE__ */ l(ue.Th, { children: e("commerce.settings.shipping.col.kind") }),
@@ -73729,7 +73731,7 @@ function XLe({ canWrite: t }) {
         /* @__PURE__ */ l(ue.Th, {})
       ] }) }),
       /* @__PURE__ */ l(ue.Tbody, { children: o.map((b) => /* @__PURE__ */ v(ue.Tr, { children: [
-        /* @__PURE__ */ l(ue.Td, { children: /* @__PURE__ */ l(H, { fw: 500, children: f(b) }) }),
+        /* @__PURE__ */ l(ue.Td, { children: /* @__PURE__ */ l(V, { fw: 500, children: f(b) }) }),
         /* @__PURE__ */ l(ue.Td, { children: e(`commerce.settings.shipping.kinds.${b.kind}`) }),
         /* @__PURE__ */ l(ue.Td, { children: /* @__PURE__ */ l(se, { gap: 4, children: ny.filter((N) => b.zones[N]).map((N) => /* @__PURE__ */ v(Fe, { variant: "light", size: "sm", children: [
           N,
@@ -73737,7 +73739,7 @@ function XLe({ canWrite: t }) {
           $n(b.zones[N].base),
           b.zones[N].freeOver != null ? ` · ${e("commerce.settings.shipping.freeOverShort", { amount: $n(b.zones[N].freeOver) })}` : ""
         ] }, N)) }) }),
-        /* @__PURE__ */ l(ue.Td, { children: b.codAllowed ? /* @__PURE__ */ l(Fe, { color: "teal", variant: "light", size: "sm", children: e("common.yes") }) : /* @__PURE__ */ l(H, { c: "dimmed", fz: "xs", children: e("common.no") }) }),
+        /* @__PURE__ */ l(ue.Td, { children: b.codAllowed ? /* @__PURE__ */ l(Fe, { color: "teal", variant: "light", size: "sm", children: e("common.yes") }) : /* @__PURE__ */ l(V, { c: "dimmed", fz: "xs", children: e("common.no") }) }),
         /* @__PURE__ */ l(ue.Td, { children: b.active ? /* @__PURE__ */ l(Fe, { color: "teal", variant: "light", size: "sm", children: e("commerce.settings.shipping.active") }) : /* @__PURE__ */ l(Fe, { color: "gray", variant: "light", size: "sm", children: e("commerce.settings.shipping.inactive") }) }),
         /* @__PURE__ */ l(ue.Td, { children: /* @__PURE__ */ v(se, { gap: 4, justify: "flex-end", children: [
           /* @__PURE__ */ l(Le, { label: e("common.edit"), withArrow: !0, openDelay: 300, children: /* @__PURE__ */ l(Mt, { variant: "subtle", onClick: () => s(ZLe(b)), children: /* @__PURE__ */ l(Yn, { size: 15 }) }) }),
@@ -73778,7 +73780,7 @@ function XLe({ canWrite: t }) {
               disabled: !t
             }
           ),
-          /* @__PURE__ */ l(H, { c: "dimmed", fz: "xs", children: e("commerce.settings.shipping.taxNote") }),
+          /* @__PURE__ */ l(V, { c: "dimmed", fz: "xs", children: e("commerce.settings.shipping.taxNote") }),
           /* @__PURE__ */ v(se, { children: [
             /* @__PURE__ */ l(
               an,
@@ -73800,8 +73802,8 @@ function XLe({ canWrite: t }) {
             )
           ] }),
           /* @__PURE__ */ v(ae, { children: [
-            /* @__PURE__ */ l(H, { fw: 600, fz: "sm", mb: 4, children: e("commerce.settings.shipping.zones") }),
-            /* @__PURE__ */ l(H, { c: "dimmed", fz: "xs", mb: "xs", children: e("commerce.settings.shipping.zonesHelp") }),
+            /* @__PURE__ */ l(V, { fw: 600, fz: "sm", mb: 4, children: e("commerce.settings.shipping.zones") }),
+            /* @__PURE__ */ l(V, { c: "dimmed", fz: "xs", mb: "xs", children: e("commerce.settings.shipping.zonesHelp") }),
             /* @__PURE__ */ l(pe, { gap: "sm", children: ny.map((b) => {
               const N = i.zones[b], z = N !== void 0;
               return /* @__PURE__ */ v(ae, { p: "sm", style: { border: "1px solid var(--mantine-color-gray-3)", borderRadius: 8 }, children: [
@@ -73868,7 +73870,7 @@ function QLe({ cfg: t, canWrite: e, onSaved: n }) {
   };
   return /* @__PURE__ */ v(ae, { children: [
     /* @__PURE__ */ v(se, { justify: "space-between", mb: "sm", children: [
-      /* @__PURE__ */ l(H, { fw: 600, children: "Google" }),
+      /* @__PURE__ */ l(V, { fw: 600, children: "Google" }),
       /* @__PURE__ */ l(
         an,
         {
@@ -73902,7 +73904,7 @@ function QLe({ cfg: t, canWrite: e, onSaved: n }) {
         }
       ),
       /* @__PURE__ */ v(ae, { children: [
-        /* @__PURE__ */ l(H, { fz: "xs", c: "dimmed", children: a("commerce.social.redirectHint") }),
+        /* @__PURE__ */ l(V, { fz: "xs", c: "dimmed", children: a("commerce.social.redirectHint") }),
         /* @__PURE__ */ l(Oo, { fz: "xs", children: q5("google") })
       ] }),
       /* @__PURE__ */ l(yt, { onClick: () => void m(), loading: p, disabled: !e, w: "fit-content", children: a("common.save") })
@@ -73927,7 +73929,7 @@ function ePe({ cfg: t, canWrite: e, onSaved: n }) {
   return /* @__PURE__ */ v(ae, { children: [
     /* @__PURE__ */ v(se, { justify: "space-between", mb: "sm", children: [
       /* @__PURE__ */ v(se, { gap: "xs", children: [
-        /* @__PURE__ */ l(H, { fw: 600, children: a("commerce.social.stub") }),
+        /* @__PURE__ */ l(V, { fw: 600, children: a("commerce.social.stub") }),
         /* @__PURE__ */ l(Fe, { size: "sm", color: "orange", variant: "light", children: a("commerce.social.devOnly") })
       ] }),
       /* @__PURE__ */ l(
@@ -73940,7 +73942,7 @@ function ePe({ cfg: t, canWrite: e, onSaved: n }) {
         }
       )
     ] }),
-    /* @__PURE__ */ l(H, { fz: "xs", c: "dimmed", mb: "sm", children: a("commerce.social.stubHelp") }),
+    /* @__PURE__ */ l(V, { fz: "xs", c: "dimmed", mb: "sm", children: a("commerce.social.stubHelp") }),
     /* @__PURE__ */ v(pe, { gap: "sm", children: [
       /* @__PURE__ */ l(
         je,
@@ -73979,7 +73981,7 @@ function tPe({ cfg: t, canWrite: e, onSaved: n }) {
   };
   return /* @__PURE__ */ v(ae, { children: [
     /* @__PURE__ */ v(se, { justify: "space-between", mb: "sm", children: [
-      /* @__PURE__ */ l(H, { fw: 600, children: "Apple" }),
+      /* @__PURE__ */ l(V, { fw: 600, children: "Apple" }),
       /* @__PURE__ */ l(
         an,
         {
@@ -74039,7 +74041,7 @@ function tPe({ cfg: t, canWrite: e, onSaved: n }) {
         }
       ),
       /* @__PURE__ */ v(ae, { children: [
-        /* @__PURE__ */ l(H, { fz: "xs", c: "dimmed", children: a("commerce.social.redirectHint") }),
+        /* @__PURE__ */ l(V, { fz: "xs", c: "dimmed", children: a("commerce.social.redirectHint") }),
         /* @__PURE__ */ l(Oo, { fz: "xs", children: q5("apple") })
       ] }),
       /* @__PURE__ */ l(yt, { onClick: () => void b(), loading: g, disabled: !e, w: "fit-content", children: a("common.save") })
@@ -74057,7 +74059,7 @@ function nPe({ canWrite: t }) {
     return /* @__PURE__ */ l(kt, { py: "xl", children: /* @__PURE__ */ l(St, {}) });
   const o = (c) => a((d) => d && d.map((p) => p.provider === c.provider ? c : p)), r = n.find((c) => c.provider === "google") ?? { provider: "google", enabled: !1, clientId: null, hasClientSecret: !1, config: null }, i = n.find((c) => c.provider === "apple") ?? { provider: "apple", enabled: !1, clientId: null, hasClientSecret: !1, config: null }, s = n.find((c) => c.provider === "stub") ?? { provider: "stub", enabled: !1, clientId: null, hasClientSecret: !1, config: null };
   return /* @__PURE__ */ v(pe, { gap: "xl", maw: 620, children: [
-    /* @__PURE__ */ l(H, { c: "dimmed", fz: "sm", children: e("commerce.social.intro") }),
+    /* @__PURE__ */ l(V, { c: "dimmed", fz: "sm", children: e("commerce.social.intro") }),
     /* @__PURE__ */ l(QLe, { cfg: r, canWrite: t, onSaved: o }),
     /* @__PURE__ */ l(tPe, { cfg: i, canWrite: t, onSaved: o }),
     /* @__PURE__ */ l(ePe, { cfg: s, canWrite: t, onSaved: o })
@@ -74089,7 +74091,7 @@ function oPe({ cfg: t, canWrite: e, onSaved: n }) {
   return /* @__PURE__ */ v(ae, { children: [
     /* @__PURE__ */ v(se, { justify: "space-between", mb: "sm", children: [
       /* @__PURE__ */ v(se, { gap: "xs", children: [
-        /* @__PURE__ */ l(H, { fw: 600, children: "Stripe" }),
+        /* @__PURE__ */ l(V, { fw: 600, children: "Stripe" }),
         t.testMode === !0 && /* @__PURE__ */ l(Fe, { size: "sm", color: "orange", variant: "light", children: a("commerce.payments.testMode") }),
         t.testMode === !1 && /* @__PURE__ */ l(Fe, { size: "sm", color: "teal", variant: "light", children: a("commerce.payments.liveMode") })
       ] }),
@@ -74153,7 +74155,7 @@ function oPe({ cfg: t, canWrite: e, onSaved: n }) {
         }
       ),
       /* @__PURE__ */ v(ae, { children: [
-        /* @__PURE__ */ l(H, { fz: "xs", c: "dimmed", children: a("commerce.payments.webhookUrlHint") }),
+        /* @__PURE__ */ l(V, { fz: "xs", c: "dimmed", children: a("commerce.payments.webhookUrlHint") }),
         /* @__PURE__ */ l(Oo, { fz: "xs", children: aPe("stripe") })
       ] }),
       /* @__PURE__ */ l(yt, { onClick: () => void k(), loading: y, disabled: !e, w: "fit-content", children: a("common.save") })
@@ -74179,7 +74181,7 @@ function rPe({ canWrite: t }) {
     config: null
   };
   return /* @__PURE__ */ v(pe, { gap: "xl", maw: 620, children: [
-    /* @__PURE__ */ l(H, { c: "dimmed", fz: "sm", children: e("commerce.payments.intro") }),
+    /* @__PURE__ */ l(V, { c: "dimmed", fz: "sm", children: e("commerce.payments.intro") }),
     /* @__PURE__ */ l(oPe, { cfg: r, canWrite: t, onSaved: o })
   ] });
 }
@@ -74263,8 +74265,8 @@ function sPe() {
           }
         ),
         /* @__PURE__ */ v(ae, { children: [
-          /* @__PURE__ */ l(H, { fw: 600, fz: "sm", children: t("commerce.settings.homeRates.heading") }),
-          /* @__PURE__ */ l(H, { c: "dimmed", fz: "xs", mb: "xs", children: t("commerce.settings.homeRates.help") }),
+          /* @__PURE__ */ l(V, { fw: 600, fz: "sm", children: t("commerce.settings.homeRates.heading") }),
+          /* @__PURE__ */ l(V, { c: "dimmed", fz: "xs", mb: "xs", children: t("commerce.settings.homeRates.help") }),
           /* @__PURE__ */ l(se, { gap: "md", children: ["standard", "reduced", "reduced_low"].map((f) => /* @__PURE__ */ l(
             wn,
             {
@@ -74284,12 +74286,12 @@ function sPe() {
             },
             f
           )) }),
-          /* @__PURE__ */ l(H, { c: "dimmed", fz: "xs", mt: 6, children: t("commerce.settings.homeRates.note") })
+          /* @__PURE__ */ l(V, { c: "dimmed", fz: "xs", mt: 6, children: t("commerce.settings.homeRates.note") })
         ] })
       ] }) }),
       /* @__PURE__ */ l(ft.Panel, { value: "shipping", pt: "lg", children: /* @__PURE__ */ v(pe, { gap: "xl", children: [
         /* @__PURE__ */ v(ae, { children: [
-          /* @__PURE__ */ l(H, { fw: 600, mb: "sm", children: t("commerce.settings.checkout.heading") }),
+          /* @__PURE__ */ l(V, { fw: 600, mb: "sm", children: t("commerce.settings.checkout.heading") }),
           /* @__PURE__ */ l(
             Tt,
             {
@@ -74305,7 +74307,7 @@ function sPe() {
           )
         ] }),
         /* @__PURE__ */ v(ae, { children: [
-          /* @__PURE__ */ l(H, { fw: 600, mb: "sm", children: t("commerce.settings.cod.heading") }),
+          /* @__PURE__ */ l(V, { fw: 600, mb: "sm", children: t("commerce.settings.cod.heading") }),
           /* @__PURE__ */ v(pe, { gap: "md", maw: 560, children: [
             /* @__PURE__ */ l(
               an,

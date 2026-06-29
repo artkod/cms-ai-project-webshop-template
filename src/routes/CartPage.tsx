@@ -47,6 +47,17 @@ export function CartPage() {
     if (!empty && !isInquiry) void loadShipping(cart?.shipping.country);
   }, [empty, isInquiry, cart?.shipping.country, loadShipping]);
 
+  // A delivery method is mandatory for a purchasable cart — auto-select the first
+  // non-pickup method when none is chosen yet (mirrors the checkout page), so the cart
+  // total always includes delivery and a shopper can't proceed paying for shipping by
+  // simply not picking one. Pickup/locker methods need a point, so they aren't auto-set.
+  useEffect(() => {
+    if (empty || isInquiry) return;
+    if (cart?.shipping.method) return;
+    const first = shippingOptions?.methods.find((m) => !m.requiresPickupPoint);
+    if (first) void setShipping({ methodId: first.methodId });
+  }, [empty, isInquiry, cart?.shipping.method, shippingOptions, setShipping]);
+
   if (loading && !cart) return <Loader />;
 
   const totals = cart?.totals;

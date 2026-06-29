@@ -33,6 +33,9 @@ export function OrderPage() {
 
   // Payment (L6.2) — only meaningful while awaiting_payment + not a quote.
   const [hasCardProvider, setHasCardProvider] = useState(false);
+  // Manual capture (L6.4): confirming only AUTHORIZES a hold; the charge happens later
+  // at dispatch. We tell the shopper so "Pay now" / "Payment received" aren't misleading.
+  const [cardManual, setCardManual] = useState(false);
   const [pay, setPay] = useState<InitiatePaymentResult | null>(null);
   const [initiating, setInitiating] = useState(false);
   const [payError, setPayError] = useState<string | null>(null);
@@ -100,7 +103,12 @@ export function OrderPage() {
     let alive = true;
     storefront
       .listPaymentProviders()
-      .then((ps) => alive && setHasCardProvider(ps.some((p) => p.provider === "stripe")))
+      .then((ps) => {
+        if (!alive) return;
+        const stripe = ps.find((p) => p.provider === "stripe");
+        setHasCardProvider(!!stripe);
+        setCardManual(stripe?.captureMode === "manual");
+      })
       .catch(() => {
         /* leave card payment hidden on error */
       });
@@ -167,13 +175,17 @@ export function OrderPage() {
 
   const t = order.totals;
   const addr = order.shippingAddress;
-  const isPaid = order.status.paymentStatus === "paid" || order.status.paymentStatus === "authorized";
+  // `authorized` = a manual-capture HOLD (card OK'd, not yet charged); `paid` = charged.
+  const authorized = order.status.paymentStatus === "authorized";
+  const isPaid = order.status.paymentStatus === "paid" || authorized;
 
   return (
     <Stack gap="lg" maw={720}>
       <Alert color={order.isQuote ? "blue" : isPaid ? "teal" : "yellow"} icon={order.isQuote ? <FileText size={18} /> : <CheckCircle2 size={18} />}>
         {order.isQuote ? (
           <Text>Your <b>quote request</b> #{order.orderNumber} has been received. We'll email a quote to <b>{order.email}</b>.</Text>
+        ) : authorized ? (
+          <Text>Your card is <b>authorized</b> for order <b>#{order.orderNumber}</b> — you won't be charged until it ships. A confirmation will go to <b>{order.email}</b>.</Text>
         ) : isPaid ? (
           <Text>Payment received — thank you! Order <b>#{order.orderNumber}</b> is confirmed. A receipt will go to <b>{order.email}</b>.</Text>
         ) : (
@@ -245,17 +257,28 @@ export function OrderPage() {
               <Text fz="sm" c="dimmed">Confirming your payment…</Text>
             </Group>
           ) : pay && pay.initiate.kind === "client_secret" ? (
-            <StripePayment
-              publishableKey={pay.initiate.publishableKey}
-              clientSecret={pay.initiate.clientSecret}
-              onConfirmed={startPolling}
-            />
+            <Stack gap="xs">
+              {cardManual && (
+                <Text fz="sm" c="dimmed">
+                  We'll only place a <b>hold</b> on your card now — you're charged when your order ships.
+                </Text>
+              )}
+              <StripePayment
+                publishableKey={pay.initiate.publishableKey}
+                clientSecret={pay.initiate.clientSecret}
+                onConfirmed={startPolling}
+              />
+            </Stack>
           ) : hasCardProvider ? (
             <Stack gap="xs" align="flex-start">
-              <Text fz="sm" c="dimmed">Pay securely by card to confirm your order.</Text>
+              <Text fz="sm" c="dimmed">
+                {cardManual
+                  ? "Authorize your card to confirm your order — you'll only be charged when it ships."
+                  : "Pay securely by card to confirm your order."}
+              </Text>
               {payError && <Text fz="sm" c="red">{payError}</Text>}
               <Button leftSection={<CreditCard size={16} />} onClick={() => void beginCardPayment()} loading={initiating}>
-                Pay by card
+                {cardManual ? "Authorize card" : "Pay by card"}
               </Button>
             </Stack>
           ) : (
