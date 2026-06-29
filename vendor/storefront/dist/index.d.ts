@@ -9,7 +9,9 @@ export declare interface Cart {
     locale: string;
     items: CartLine[];
     itemCount: number;
-    coupon: CartCoupon | null;
+    /** Applied coupons (L7.7 follow-up — multi-coupon stacking). 0 or 1 for a
+     *  non-stackable code; ≥1 all-stackable codes otherwise. */
+    coupons: CartCoupon[];
     /** Chosen shipping method + resolved cost + COD (L4.4). */
     shipping: CartShipping;
     totals: CartTotals;
@@ -31,6 +33,8 @@ export declare interface CartCoupon {
     value: number;
     amount: number;
     freeShipping: boolean;
+    /** Combinable with other coupons (L7.7 follow-up — multi-coupon stacking). */
+    stackable: boolean;
 }
 
 export declare interface CartLine {
@@ -775,7 +779,7 @@ export declare interface StartCheckoutInput {
     paymentMethod?: CheckoutMode;
 }
 
-export declare const STOREFRONT_CONTRACT_VERSION: 1;
+export declare const STOREFRONT_CONTRACT_VERSION: 2;
 
 export declare const STOREFRONT_SDK_VERSION: "0.0.1";
 
@@ -854,13 +858,15 @@ export declare interface StorefrontClient {
         locale?: string;
         signal?: AbortSignal;
     }): Promise<Cart>;
-    /** Apply a coupon code. `POST /api/commerce/cart/coupon`. */
+    /** Apply a coupon code (multiple STACKABLE coupons allowed; L7.7 follow-up).
+     *  `POST /api/commerce/cart/coupon`. 400 `not_stackable`/`coupon_already_applied`. */
     applyCoupon(code: string, opts?: {
         locale?: string;
         signal?: AbortSignal;
     }): Promise<Cart>;
-    /** Remove the applied coupon. `DELETE /api/commerce/cart/coupon`. */
-    removeCoupon(opts?: {
+    /** Remove ONE applied coupon by discount id, or ALL when omitted (L7.7 follow-up).
+     *  `DELETE /api/commerce/cart/coupon[/:discountId]`. */
+    removeCoupon(discountId?: string, opts?: {
         locale?: string;
         signal?: AbortSignal;
     }): Promise<Cart>;

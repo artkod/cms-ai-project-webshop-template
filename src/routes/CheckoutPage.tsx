@@ -95,7 +95,7 @@ export function CheckoutPage() {
   // Re-preview whenever the cart changes (contents / destination / coupon / method).
   useEffect(() => {
     void reloadPreview();
-  }, [reloadPreview, cart?.id, cart?.itemCount, cart?.shipping.country, cart?.shipping.method?.id, cart?.coupon?.discountId]);
+  }, [reloadPreview, cart?.id, cart?.itemCount, cart?.shipping.country, cart?.shipping.method?.id, cart?.coupons.map((c) => c.discountId).join(",")]);
 
   // Load the delivery options for the cart's destination (the full picker lives on
   // the cart page; checkout needs them to auto-select + require a method).

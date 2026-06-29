@@ -1,7 +1,7 @@
 var he = Object.defineProperty;
 var Se = (o, r, c) => r in o ? he(o, r, { enumerable: !0, configurable: !0, writable: !0, value: c }) : o[r] = c;
 var S = (o, r, c) => Se(o, typeof r != "symbol" ? r + "" : r, c);
-const we = 1, Ee = "0.0.1";
+const we = 2, Ee = "0.0.1";
 class C extends Error {
   constructor(c, a) {
     super(c);
@@ -42,7 +42,7 @@ function Pe(o) {
     );
   const c = o.credentials ?? "include", a = {
     "X-Project-Slug": o.projectSlug,
-    [Te]: String(1),
+    [Te]: String(2),
     ...o.headers
   };
   async function n(e, t = {}) {
@@ -92,9 +92,9 @@ function Pe(o) {
   async function p() {
     const { contractVersion: e } = await g();
     return {
-      sdk: 1,
+      sdk: 2,
       api: e,
-      compatible: e === 1
+      compatible: e === 2
     };
   }
   function f(e = {}) {
@@ -129,13 +129,13 @@ function Pe(o) {
       signal: t.signal
     });
   }
-  async function v(e = {}) {
+  async function U(e = {}) {
     return (await n("/api/commerce/catalog/categories", {
       query: { locale: e.locale },
       signal: e.signal
     })).data;
   }
-  async function N(e, t = {}) {
+  async function v(e, t = {}) {
     return n(`/api/commerce/catalog/categories/${encodeURIComponent(e)}`, {
       query: f(t),
       signal: t.signal
@@ -144,7 +144,7 @@ function Pe(o) {
   function u(e) {
     return e ? { locale: e } : void 0;
   }
-  async function U(e = {}) {
+  async function N(e = {}) {
     return n("/api/commerce/cart", { query: u(e.locale), signal: e.signal });
   }
   async function q(e, t = 1, s = {}) {
@@ -181,11 +181,12 @@ function Pe(o) {
       signal: t.signal
     });
   }
-  async function V(e = {}) {
-    return n("/api/commerce/cart/coupon", {
+  async function V(e, t = {}) {
+    const s = e ? `/api/commerce/cart/coupon/${encodeURIComponent(e)}` : "/api/commerce/cart/coupon";
+    return n(s, {
       method: "DELETE",
-      query: u(e.locale),
-      signal: e.signal
+      query: u(t.locale),
+      signal: t.signal
     });
   }
   async function F(e = {}) {
@@ -393,15 +394,15 @@ function Pe(o) {
     });
   }
   return {
-    contractVersion: 1,
+    contractVersion: 2,
     request: n,
     health: g,
     checkContract: p,
     listProducts: d,
     getProduct: T,
-    listCategories: v,
-    getCategory: N,
-    getCart: U,
+    listCategories: U,
+    getCategory: v,
+    getCart: N,
     addCartItem: q,
     setCartItemQuantity: k,
     removeCartItem: A,
@@ -486,7 +487,7 @@ function Ie(o) {
 function $e(o) {
   return $(I().filter((r) => r !== o));
 }
-function ve() {
+function Ue() {
   const o = w();
   if (o)
     try {
@@ -500,7 +501,7 @@ export {
   Ee as STOREFRONT_SDK_VERSION,
   C as StorefrontError,
   Ie as addLocalWishlist,
-  ve as clearLocalWishlist,
+  Ue as clearLocalWishlist,
   Pe as createStorefrontClient,
   I as getLocalWishlist,
   be as isValidOib,

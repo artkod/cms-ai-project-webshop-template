@@ -27,7 +27,7 @@ interface CartValue {
   remove: (variantId: string) => Promise<boolean>;
   clear: () => Promise<boolean>;
   applyCoupon: (code: string) => Promise<boolean>;
-  removeCoupon: () => Promise<boolean>;
+  removeCoupon: (discountId?: string) => Promise<boolean>;
   loadShipping: (country?: string) => Promise<void>;
   setShipping: (input: SetShippingInput) => Promise<void>;
   refresh: () => Promise<void>;
@@ -45,6 +45,10 @@ function cartErrorMessage(err: StorefrontError): string {
       return "That coupon code wasn't found.";
     case "coupon_not_applicable":
       return "That coupon can't be applied to your cart.";
+    case "coupon_already_applied":
+      return "That coupon is already applied.";
+    case "not_stackable":
+      return "That coupon can't be combined with the one already applied.";
     case "pickup_point_required":
       return "Please pick a pickup point for this method.";
     case "shipping_method_not_found":
@@ -116,7 +120,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const setQuantity = useCallback((variantId: string, quantity: number) => guard(() => storefront.setCartItemQuantity(variantId, quantity, { locale: loc })), [guard, loc]);
   const remove = useCallback((variantId: string) => guard(() => storefront.removeCartItem(variantId, { locale: loc })), [guard, loc]);
   const clear = useCallback(() => guard(() => storefront.clearCart({ locale: loc })), [guard, loc]);
-  const removeCoupon = useCallback(() => guard(() => storefront.removeCoupon({ locale: loc })), [guard, loc]);
+  const removeCoupon = useCallback((discountId?: string) => guard(() => storefront.removeCoupon(discountId, { locale: loc })), [guard, loc]);
 
   // Shipping: fetch the offerable methods for a destination (defaults to the
   // cart's stored country), and apply a selection (method/country/pickup/COD).

@@ -183,20 +183,32 @@ export function CartPage() {
                 </>
               ) : (
                 <>
-              {/* Coupon */}
-              {cart!.coupon ? (
-                <Group justify="space-between">
-                  <Text fz="sm">Coupon <b>{cart!.coupon.code}</b></Text>
+              {/* Coupons (multi-coupon stacking) — each applied coupon with its own
+                  remove ×; the add box stays open so a second combinable code can be
+                  entered. A non-stackable coupon sits alone and the server rejects a
+                  second one with a friendly "can't be combined" message. */}
+              {cart!.coupons.map((c) => (
+                <Group key={c.discountId} justify="space-between">
+                  <Text fz="sm">Coupon <b>{c.code}</b></Text>
                   <Group gap={4}>
-                    <Text fz="sm" c="teal">−{formatCents(cart!.coupon.amount)}</Text>
-                    <ActionIcon variant="subtle" color="gray" size="sm" onClick={() => removeCoupon()} aria-label="Remove coupon">
+                    <Text fz="sm" c="teal">{c.freeShipping ? "Free shipping" : `−${formatCents(c.amount)}`}</Text>
+                    <ActionIcon variant="subtle" color="gray" size="sm" onClick={() => removeCoupon(c.discountId)} aria-label="Remove coupon">
                       <X size={14} />
                     </ActionIcon>
                   </Group>
                 </Group>
-              ) : (
+              ))}
+              {/* Allow adding another code unless a single non-stackable coupon is
+                  applied (it can't combine with anything). */}
+              {!(cart!.coupons.length === 1 && !cart!.coupons[0].stackable) && (
                 <Group gap="xs" align="flex-end">
-                  <TextInput label="Coupon code" value={code} onChange={(e) => setCode(e.currentTarget.value)} onKeyDown={(e) => e.key === "Enter" && onApply()} style={{ flex: 1 }} />
+                  <TextInput
+                    label={cart!.coupons.length ? "Add another coupon" : "Coupon code"}
+                    value={code}
+                    onChange={(e) => setCode(e.currentTarget.value)}
+                    onKeyDown={(e) => e.key === "Enter" && onApply()}
+                    style={{ flex: 1 }}
+                  />
                   <Button onClick={onApply} loading={applying} variant="light">Apply</Button>
                 </Group>
               )}
