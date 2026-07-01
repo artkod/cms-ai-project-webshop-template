@@ -160,18 +160,12 @@ rm -rf "$VITE_CACHE"
 # COMMERCE_ENABLED=true — this is the webshop test project, so the API mounts the
 # commerce routes and applies the commerce migration set on boot (creates the
 # categories / shop_settings tables). Must match createAdmin({ commerce: true }).
-#
-# NODE_EXTRA_CA_CERTS — CIS fiscalization (L8.4). The Croatian CIS endpoints present
-# TLS certs issued by FINA CAs that aren't in Node's default trust store, so outbound
-# fetches to CIS fail with "fetch failed" unless we add the FINA CA bundle. Node reads
-# this natively at startup (before dotenv), so it MUST be set here, not in .env.
 echo "Starting CMS API (commerce enabled)..."
 cd "$CMS_CORE_DIR"
 DATABASE_URL="postgresql://$DB_USER:$DB_PASSWORD@localhost:$PORT_DB/$DB_NAME" \
   PORT="$PORT_API" \
   COMMERCE_ENABLED=true \
   STOREFRONT_BASE_URL="http://localhost:$PORT_WEB" \
-  NODE_EXTRA_CA_CERTS="$CMS_CORE_DIR/apps/api/certs/fina-ca-bundle.pem" \
   pnpm --filter @cms/api dev &
 API_PID=$!
 echo "$API_PID" > "$PID_FILE"
