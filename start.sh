@@ -160,12 +160,17 @@ rm -rf "$VITE_CACHE"
 # COMMERCE_ENABLED=true — this is the webshop test project, so the API mounts the
 # commerce routes and applies the commerce migration set on boot (creates the
 # categories / shop_settings tables). Must match createAdmin({ commerce: true }).
+# FISCAL_CERT_ENC_KEY — a FIXED DEV key (throwaway) so Settings → Fiscalization can
+# encrypt/store a test FINA certificate at rest (commerce/L8.1). Local-dev only; a real
+# 32-byte secret is set per-deployment in prod. Without it the fiscalization tab shows
+# a "certificate storage disabled" notice.
 echo "Starting CMS API (commerce enabled)..."
 cd "$CMS_CORE_DIR"
 DATABASE_URL="postgresql://$DB_USER:$DB_PASSWORD@localhost:$PORT_DB/$DB_NAME" \
   PORT="$PORT_API" \
   COMMERCE_ENABLED=true \
   STOREFRONT_BASE_URL="http://localhost:$PORT_WEB" \
+  FISCAL_CERT_ENC_KEY="41365658644790a350b8e53aea1fe42c3733001dc9ac648d742a90d1242383e3" \
   pnpm --filter @cms/api dev &
 API_PID=$!
 echo "$API_PID" > "$PID_FILE"
