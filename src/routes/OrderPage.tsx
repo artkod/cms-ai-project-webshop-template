@@ -224,6 +224,21 @@ export function OrderPage() {
             {order.status.fulfillmentStatus.replace(/_/g, " ")}
           </Badge>
         )}
+        {/* Fiscal receipt/invoice PDF (L8.4) — downloadable once the order is fiscalized
+            (the flag is true even while the JIR is pending; the ZKI receipt is valid). */}
+        {order.invoiceAvailable && (
+          <Button
+            component="a"
+            href={storefront.orderInvoicePdfUrl(order.token)}
+            target="_blank"
+            rel="noreferrer"
+            variant="light"
+            size="xs"
+            leftSection={<FileText size={15} />}
+          >
+            Invoice (PDF)
+          </Button>
+        )}
       </Group>
 
       {/* Fulfillment progress (L7) — reflects the admin's fulfillment actions
@@ -276,10 +291,23 @@ export function OrderPage() {
           {order.paymentMethod === "bank_transfer" ? (
             <Stack gap={4}>
               <Text fz="sm">
-                Pay by <b>bank transfer</b> using the details we'll email to {order.email}
+                Pay by <b>bank transfer</b> using the details on the proforma invoice below
                 {order.paymentDueAt ? <> by <b>{new Date(order.paymentDueAt).toLocaleDateString()}</b></> : null}.
               </Text>
               <Text fz="sm" c="dimmed">Your order is reserved and ships once payment arrives.</Text>
+              <Group mt={4}>
+                <Button
+                  component="a"
+                  href={storefront.orderProformaPdfUrl(order.token)}
+                  target="_blank"
+                  rel="noreferrer"
+                  variant="light"
+                  size="xs"
+                  leftSection={<FileText size={15} />}
+                >
+                  Download proforma invoice (PDF)
+                </Button>
+              </Group>
             </Stack>
           ) : order.paymentMethod === "cod" ? (
             <Text fz="sm">

@@ -473,6 +473,13 @@ export declare interface Order {
         shipped: number;
         delivered: number;
     }[];
+    /**
+     * Whether the fiscal receipt/invoice PDF is downloadable (L8.4) — true once the
+     * order has a fiscal invoice document (even while the JIR is still pending; the
+     * ZKI receipt is valid). Present on `getOrder`; gate `orderInvoicePdfUrl` links
+     * on it. The proforma PDF needs no flag — it exists for every bank_transfer order.
+     */
+    invoiceAvailable?: boolean;
 }
 
 /** A postal address captured at checkout (snapshotted on the order). */
@@ -895,6 +902,17 @@ export declare interface StorefrontClient {
     getOrder(token: string, opts?: {
         signal?: AbortSignal;
     }): Promise<Order>;
+    /**
+     * URL of the fiscal receipt/invoice PDF (`GET …/orders/:token/invoice.pdf`) —
+     * render as a plain download link. 404s until the order is fiscalized; gate on
+     * `Order.invoiceAvailable` (from {@link getOrder}).
+     */
+    orderInvoicePdfUrl(token: string): string;
+    /**
+     * URL of the bank-transfer proforma (predračun) PDF
+     * (`GET …/orders/:token/proforma.pdf`) — bank_transfer orders only (else 404).
+     */
+    orderProformaPdfUrl(token: string): string;
     /**
      * Accept a SENT quote (keyed by the order token, like {@link getOrder}). Reserves
      * stock + freezes prices + flips the quote to a payable order (then pay via
