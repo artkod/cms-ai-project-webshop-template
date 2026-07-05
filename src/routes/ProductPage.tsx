@@ -10,6 +10,7 @@ import { formatCents } from "@/lib/money";
 import { useDocumentSeo, useJsonLd } from "@/lib/seo";
 import { useCategoryTree, categoryChain, categoryHref } from "@/components/shop/catalogUrls";
 import { WishlistButton } from "@/components/shop/WishlistButton";
+import { ReviewsSection } from "@/components/shop/ReviewsSection";
 
 // Find the variant matching the current option selection (all axes chosen). For a
 // simple product (no options) the lone variant is always returned.
@@ -240,6 +241,9 @@ export function ProductPage({ product: productProp }: { product?: CatalogProduct
           )}
         </Stack>
       </Group>
+
+      {/* Reviews (L9.1): approved reviews + aggregate + verified-customer submit. */}
+      <ReviewsSection productId={product.id} locale={loc} />
     </Stack>
   );
 }

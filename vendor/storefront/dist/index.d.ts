@@ -196,6 +196,11 @@ export declare interface CatalogProduct {
     /** true → an approved business is logged in and its price list applies (L5.5).
      *  Prices stay GROSS (VAT-inclusive) like B2C — VAT is itemized only in the cart. */
     b2b: boolean;
+    /** Approved-review aggregate (L9.1): `{ count, average }`; average null when no reviews. */
+    reviews: {
+        count: number;
+        average: number | null;
+    };
     /** schema.org/Product JSON-LD for rich snippets (inject verbatim into a
      *  `<script type="application/ld+json">`). Added in L2.5. */
     jsonLd: Record<string, unknown>;
@@ -532,6 +537,11 @@ export declare interface OrderStatus {
     lifecycle: string;
 }
 
+/** The caller's own review (any moderation status) when a customer session is present. */
+export declare interface OwnProductReview extends ProductReview {
+    status: "pending" | "approved" | "rejected";
+}
+
 /** A payment method the storefront can offer (one enabled, configured provider). */
 export declare interface PaymentMethodInfo {
     /** Provider id — `"stripe"` (Monri arrives in L6.5). */
@@ -621,6 +631,27 @@ export declare interface ProductListResult {
     limit: number;
     offset: number;
     facets: SearchFacets;
+}
+
+/** An approved review as the public list returns it. `authorName` null = anonymized author (render "Anonymous"). */
+export declare interface ProductReview {
+    id: string;
+    rating: number;
+    title: string | null;
+    body: string | null;
+    authorName: string | null;
+    verifiedPurchase: boolean;
+    createdAt: string;
+}
+
+export declare interface ProductReviewsResponse {
+    data: ProductReview[];
+    total: number;
+    summary: ReviewSummary;
+    /** The caller's own review (any status); null when none / not logged in. */
+    mine: OwnProductReview | null;
+    /** True when the caller is a verified customer without a prior review. */
+    canReview: boolean;
 }
 
 /**
@@ -719,6 +750,11 @@ export declare interface ReturnRequestItem {
     /** Per-line admin decision recorded at approval. */
     refunded: boolean;
     restocked: boolean;
+}
+
+export declare interface ReviewSummary {
+    count: number;
+    average: number | null;
 }
 
 export declare interface SearchFacets {
@@ -1010,6 +1046,16 @@ export declare interface StorefrontClient {
     removeFromWishlist(productId: string, opts?: {
         signal?: AbortSignal;
     }): Promise<string[]>;
+    /** List a product's approved reviews + aggregate. `GET …/catalog/products/:id/reviews`. */
+    listProductReviews(productId: string, opts?: {
+        limit?: number;
+        offset?: number;
+        signal?: AbortSignal;
+    }): Promise<ProductReviewsResponse>;
+    /** Submit a review (starts `pending` until moderated). `POST …/catalog/products/:id/reviews`. */
+    submitReview(productId: string, input: SubmitReviewInput, opts?: {
+        signal?: AbortSignal;
+    }): Promise<SubmitReviewResult>;
     /** List the customer's own orders (summaries, newest first). `GET …/customers/orders`. */
     listMyOrders(opts?: {
         signal?: AbortSignal;
@@ -1119,6 +1165,17 @@ export declare interface StorefrontRequestInit {
     signal?: AbortSignal;
     /** Per-call override of the credentials mode. */
     credentials?: RequestCredentials;
+}
+
+export declare interface SubmitReviewInput {
+    rating: number;
+    title?: string | null;
+    body?: string | null;
+}
+
+export declare interface SubmitReviewResult {
+    ok: boolean;
+    review: OwnProductReview;
 }
 
 export declare interface TypeFacet {
