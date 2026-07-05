@@ -11,6 +11,7 @@ import { useDocumentSeo, useJsonLd } from "@/lib/seo";
 import { useCategoryTree, categoryChain, categoryHref } from "@/components/shop/catalogUrls";
 import { WishlistButton } from "@/components/shop/WishlistButton";
 import { ReviewsSection } from "@/components/shop/ReviewsSection";
+import { BackInStockForm } from "@/components/shop/BackInStockForm";
 
 // Find the variant matching the current option selection (all axes chosen). For a
 // simple product (no options) the lone variant is always returned.
@@ -221,6 +222,8 @@ export function ProductPage({ product: productProp }: { product?: CatalogProduct
                   </Text>
                 )}
               </Group>
+              {/* Back-in-stock (L9.2): out of stock + no backorder → subscribe form. */}
+              {!variant.sellable && <BackInStockForm productId={product.id} variantId={variant.id} locale={loc} />}
               <Group gap="sm" align="flex-end">
                 <NumberInput
                   label="Quantity"

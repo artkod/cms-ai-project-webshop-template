@@ -485,6 +485,13 @@ export declare interface Order {
      * on it. The proforma PDF needs no flag — it exists for every bank_transfer order.
      */
     invoiceAvailable?: boolean;
+    /**
+     * Digital download entitlements (L9.5) — present on `getOrder` once the order
+     * is paid and contains digital lines. `url` is an API path; build the absolute
+     * link with `downloadUrl(...)`. `licenseKeys` are the keys assigned to this
+     * line (may be empty when the shop's pool ran dry).
+     */
+    downloads?: OrderDownload[];
 }
 
 /** A postal address captured at checkout (snapshotted on the order). */
@@ -497,6 +504,18 @@ export declare interface OrderAddress {
     /** ISO-3166 alpha-2 — drives destination VAT (OSS) + the shipping zone. */
     country: string;
     phone?: string;
+}
+
+/** One digital order line's download entitlement (L9.5). */
+export declare interface OrderDownload {
+    orderItemId: string;
+    name: string;
+    filename: string;
+    /** API path (`/api/commerce/downloads/:token`) — prefix with the API base. */
+    url: string;
+    expiresAt: string;
+    expired: boolean;
+    licenseKeys: string[];
 }
 
 /** One snapshotted order line. */
@@ -1059,6 +1078,27 @@ export declare interface StorefrontClient {
     submitReview(productId: string, input: SubmitReviewInput, opts?: {
         signal?: AbortSignal;
     }): Promise<SubmitReviewResult>;
+    /**
+     * Subscribe an email to a variant's restock notification (guests welcome —
+     * the email is the identity; no login needed). 409 `in_stock` when the
+     * variant is currently available or untracked; `already: true` when this
+     * email is already subscribed. `POST …/catalog/products/:id/back-in-stock`.
+     */
+    subscribeBackInStock(productId: string, input: {
+        variantId: string;
+        email: string;
+        locale?: string;
+    }, opts?: {
+        signal?: AbortSignal;
+    }): Promise<{
+        ok: boolean;
+        already: boolean;
+    }>;
+    /**
+     * Absolute URL for a digital download entitlement — pass `OrderDownload.url`
+     * (an API path from {@link getOrder}'s `downloads`). Expired links serve 410.
+     */
+    downloadUrl(path: string): string;
     /** List the customer's own orders (summaries, newest first). `GET …/customers/orders`. */
     listMyOrders(opts?: {
         signal?: AbortSignal;

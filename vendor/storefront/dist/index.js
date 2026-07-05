@@ -1,27 +1,27 @@
-var Ce = Object.defineProperty;
-var Re = (r, o, c) => o in r ? Ce(r, o, { enumerable: !0, configurable: !0, writable: !0, value: c }) : r[o] = c;
-var S = (r, o, c) => Re(r, typeof o != "symbol" ? o + "" : o, c);
-const $e = 2, be = "0.0.1";
+var we = Object.defineProperty;
+var Pe = (r, o, c) => o in r ? we(r, o, { enumerable: !0, configurable: !0, writable: !0, value: c }) : r[o] = c;
+var T = (r, o, c) => Pe(r, typeof o != "symbol" ? o + "" : o, c);
+const Ue = 2, ve = "0.0.1";
 class R extends Error {
   constructor(c, a) {
     super(c);
-    S(this, "status");
-    S(this, "code");
-    S(this, "body");
+    T(this, "status");
+    T(this, "code");
+    T(this, "body");
     this.name = "StorefrontError", this.status = a.status, this.code = a.code ?? null, this.body = a.body ?? null;
   }
 }
-const we = "X-Commerce-Contract-Version", I = "X-CSRF-Token", Pe = "cms_csrf";
-function Ee() {
+const Ee = "X-Commerce-Contract-Version", I = "X-CSRF-Token", Ie = "cms_csrf";
+function be() {
   if (typeof document > "u" || typeof document.cookie != "string") return null;
   for (const r of document.cookie.split(";")) {
     const o = r.indexOf("=");
-    if (o !== -1 && r.slice(0, o).trim() === Pe)
+    if (o !== -1 && r.slice(0, o).trim() === Ie)
       return decodeURIComponent(r.slice(o + 1).trim());
   }
   return null;
 }
-function T(r, o, c) {
+function p(r, o, c) {
   const a = r.replace(/\/+$/, ""), t = o.startsWith("/") ? o : `/${o}`;
   if (!c) return `${a}${t}`;
   const f = new URLSearchParams();
@@ -31,10 +31,10 @@ function T(r, o, c) {
         for (const O of d) f.append(g, String(O));
       else
         f.set(g, String(d));
-  const p = f.toString();
-  return p ? `${a}${t}?${p}` : `${a}${t}`;
+  const h = f.toString();
+  return h ? `${a}${t}?${h}` : `${a}${t}`;
 }
-function Ue(r) {
+function qe(r) {
   const o = r.fetch ?? globalThis.fetch;
   if (typeof o != "function")
     throw new Error(
@@ -42,16 +42,16 @@ function Ue(r) {
     );
   const c = r.credentials ?? "include", a = {
     "X-Project-Slug": r.projectSlug,
-    [we]: String(2),
+    [Ee]: String(2),
     ...r.headers
   };
   async function t(e, n = {}) {
-    const s = T(r.apiUrl, e, n.query), l = { ...a, ...n.headers };
-    let h;
-    n.body !== void 0 && (h = JSON.stringify(n.body), l["Content-Type"] = "application/json");
+    const s = p(r.apiUrl, e, n.query), l = { ...a, ...n.headers };
+    let S;
+    n.body !== void 0 && (S = JSON.stringify(n.body), l["Content-Type"] = "application/json");
     const E = (n.method ?? (n.body !== void 0 ? "POST" : "GET")).toUpperCase();
     if (E !== "GET" && E !== "HEAD" && !(I in l)) {
-      const i = Ee();
+      const i = be();
       i && (l[I] = i);
     }
     let y;
@@ -59,7 +59,7 @@ function Ue(r) {
       y = await o(s, {
         method: n.method ?? (n.body !== void 0 ? "POST" : "GET"),
         headers: l,
-        body: h,
+        body: S,
         credentials: n.credentials ?? c,
         signal: n.signal
       });
@@ -89,7 +89,7 @@ function Ue(r) {
   async function f() {
     return t("/api/commerce/health");
   }
-  async function p() {
+  async function h() {
     const { contractVersion: e } = await f();
     return {
       sdk: 2,
@@ -101,7 +101,7 @@ function Ue(r) {
     const n = [];
     if (e.options)
       for (const [s, l] of Object.entries(e.options))
-        for (const h of l) n.push(`${s}:${h}`);
+        for (const S of l) n.push(`${s}:${S}`);
     return {
       locale: e.locale,
       category: e.category,
@@ -223,36 +223,39 @@ function Ue(r) {
     });
   }
   function H(e) {
-    return T(r.apiUrl, `/api/commerce/orders/${encodeURIComponent(e)}/invoice.pdf`);
+    return p(r.apiUrl, `/api/commerce/orders/${encodeURIComponent(e)}/invoice.pdf`);
   }
   function Q(e) {
-    return T(r.apiUrl, `/api/commerce/orders/${encodeURIComponent(e)}/proforma.pdf`);
+    return p(r.apiUrl, `/api/commerce/orders/${encodeURIComponent(e)}/proforma.pdf`);
   }
-  async function J(e, n = {}) {
+  function J(e) {
+    return p(r.apiUrl, e);
+  }
+  async function G(e, n = {}) {
     return t(`/api/commerce/orders/${encodeURIComponent(e)}/accept`, {
       method: "POST",
       signal: n.signal
     });
   }
-  async function G(e, n = {}) {
+  async function K(e, n = {}) {
     return t(`/api/commerce/orders/${encodeURIComponent(e)}/decline`, {
       method: "POST",
       signal: n.signal
     });
   }
-  async function K(e, n = {}) {
+  async function X(e, n = {}) {
     return t(`/api/commerce/orders/${encodeURIComponent(e)}/returns`, {
       signal: n.signal
     });
   }
-  async function X(e, n, s = {}) {
+  async function M(e, n, s = {}) {
     return t(`/api/commerce/orders/${encodeURIComponent(e)}/return`, {
       method: "POST",
       body: n,
       signal: s.signal
     });
   }
-  async function M(e = {}) {
+  async function B(e = {}) {
     return (await t("/api/commerce/customers/csrf", { signal: e.signal })).token;
   }
   async function Y(e, n = {}) {
@@ -269,13 +272,13 @@ function Ue(r) {
       signal: n.signal
     })).customer;
   }
-  async function B(e = {}) {
+  async function Z(e = {}) {
     await t("/api/commerce/customers/logout", {
       method: "POST",
       signal: e.signal
     });
   }
-  async function Z(e = {}) {
+  async function ee(e = {}) {
     try {
       return (await t("/api/commerce/customers/me", { signal: e.signal })).customer;
     } catch (n) {
@@ -283,90 +286,90 @@ function Ue(r) {
       throw n;
     }
   }
-  async function ee(e, n = {}) {
+  async function ne(e, n = {}) {
     return t(
       `/api/commerce/customers/token/${encodeURIComponent(e)}`,
       { signal: n.signal }
     );
   }
-  async function ne(e, n = {}) {
+  async function te(e, n = {}) {
     return t("/api/commerce/customers/verify-email", {
       method: "POST",
       body: { token: e },
       signal: n.signal
     });
   }
-  async function te(e = {}) {
+  async function re(e = {}) {
     return t("/api/commerce/customers/resend-verification", {
       method: "POST",
       signal: e.signal
     });
   }
-  async function re(e, n = {}) {
+  async function oe(e, n = {}) {
     await t("/api/commerce/customers/forgot-password", {
       method: "POST",
       body: { email: e },
       signal: n.signal
     });
   }
-  async function oe(e, n, s = {}) {
+  async function se(e, n, s = {}) {
     return (await t("/api/commerce/customers/reset-password", {
       method: "POST",
       body: { token: e, password: n },
       signal: s.signal
     })).customer;
   }
-  async function se(e, n, s = {}) {
+  async function ce(e, n, s = {}) {
     await t("/api/commerce/customers/change-password", {
       method: "POST",
       body: { currentPassword: e, newPassword: n },
       signal: s.signal
     });
   }
-  async function ce(e = {}) {
+  async function ae(e = {}) {
     return (await t("/api/commerce/customers/addresses", {
       signal: e.signal
     })).addresses ?? [];
   }
-  async function ae(e, n = {}) {
+  async function ie(e, n = {}) {
     return (await t("/api/commerce/customers/addresses", {
       method: "POST",
       body: e,
       signal: n.signal
     })).address;
   }
-  async function ie(e, n, s = {}) {
+  async function ue(e, n, s = {}) {
     return (await t(
       `/api/commerce/customers/addresses/${encodeURIComponent(e)}`,
       { method: "PUT", body: n, signal: s.signal }
     )).address;
   }
-  async function ue(e, n = {}) {
+  async function le(e, n = {}) {
     await t(`/api/commerce/customers/addresses/${encodeURIComponent(e)}`, {
       method: "DELETE",
       signal: n.signal
     });
   }
-  async function le(e = {}) {
+  async function me(e = {}) {
     return t("/api/commerce/customers/wishlist", {
       query: { locale: e.locale },
       signal: e.signal
     });
   }
-  async function me(e, n = {}) {
+  async function de(e, n = {}) {
     return (await t("/api/commerce/customers/wishlist", {
       method: "POST",
       body: { productId: e },
       signal: n.signal
     })).productIds ?? [];
   }
-  async function de(e, n = {}) {
+  async function fe(e, n = {}) {
     return (await t(
       `/api/commerce/customers/wishlist/${encodeURIComponent(e)}`,
       { method: "DELETE", signal: n.signal }
     )).productIds ?? [];
   }
-  async function fe(e, n = {}) {
+  async function ge(e, n = {}) {
     return t(
       `/api/commerce/catalog/products/${encodeURIComponent(e)}/reviews`,
       {
@@ -375,40 +378,46 @@ function Ue(r) {
       }
     );
   }
-  async function ge(e, n, s = {}) {
+  async function ye(e, n, s = {}) {
     return t(
       `/api/commerce/catalog/products/${encodeURIComponent(e)}/reviews`,
       { method: "POST", body: n, signal: s.signal }
     );
   }
-  async function ye(e = {}) {
+  async function pe(e, n, s = {}) {
+    return t(
+      `/api/commerce/catalog/products/${encodeURIComponent(e)}/back-in-stock`,
+      { method: "POST", body: n, signal: s.signal }
+    );
+  }
+  async function he(e = {}) {
     return (await t("/api/commerce/customers/orders", {
       signal: e.signal
     })).orders ?? [];
   }
-  async function pe(e = {}) {
+  async function Se(e = {}) {
     return (await t("/api/commerce/customers/oauth/providers", {
       signal: e.signal
     })).providers ?? [];
   }
-  function he(e, n = {}) {
-    return T(r.apiUrl, `/api/commerce/customers/oauth/${encodeURIComponent(e)}/start`, {
+  function Te(e, n = {}) {
+    return p(r.apiUrl, `/api/commerce/customers/oauth/${encodeURIComponent(e)}/start`, {
       returnLocale: n.returnLocale
     });
   }
-  async function Se(e = {}) {
+  async function Oe(e = {}) {
     return (await t("/api/commerce/payments/providers", {
       signal: e.signal
     })).providers ?? [];
   }
-  async function Te(e, n, s = {}) {
+  async function Ce(e, n, s = {}) {
     return t(`/api/commerce/orders/${encodeURIComponent(e)}/pay`, {
       method: "POST",
       body: { provider: n },
       signal: s.signal
     });
   }
-  async function Oe(e, n = {}) {
+  async function Re(e, n = {}) {
     return t(`/api/commerce/orders/${encodeURIComponent(e)}/payment/refresh`, {
       method: "POST",
       signal: n.signal
@@ -418,7 +427,7 @@ function Ue(r) {
     contractVersion: 2,
     request: t,
     health: f,
-    checkContract: p,
+    checkContract: h,
     listProducts: d,
     getProduct: O,
     listCategories: U,
@@ -436,40 +445,42 @@ function Ue(r) {
     startCheckout: x,
     getOrder: j,
     orderInvoicePdfUrl: H,
+    downloadUrl: J,
     orderProformaPdfUrl: Q,
-    acceptQuote: J,
-    declineQuote: G,
-    getReturns: K,
-    requestReturn: X,
-    getCsrfToken: M,
+    acceptQuote: G,
+    declineQuote: K,
+    getReturns: X,
+    requestReturn: M,
+    getCsrfToken: B,
     register: Y,
     login: z,
-    logout: B,
-    getCustomer: Z,
-    getTokenInfo: ee,
-    verifyEmail: ne,
-    resendVerification: te,
-    forgotPassword: re,
-    resetPassword: oe,
-    changePassword: se,
-    listAddresses: ce,
-    createAddress: ae,
-    updateAddress: ie,
-    deleteAddress: ue,
-    getWishlist: le,
-    addToWishlist: me,
-    removeFromWishlist: de,
-    listProductReviews: fe,
-    submitReview: ge,
-    listMyOrders: ye,
-    listOAuthProviders: pe,
-    oauthStartUrl: he,
-    listPaymentProviders: Se,
-    initiatePayment: Te,
-    refreshOrderPayment: Oe
+    logout: Z,
+    getCustomer: ee,
+    getTokenInfo: ne,
+    verifyEmail: te,
+    resendVerification: re,
+    forgotPassword: oe,
+    resetPassword: se,
+    changePassword: ce,
+    listAddresses: ae,
+    createAddress: ie,
+    updateAddress: ue,
+    deleteAddress: le,
+    getWishlist: me,
+    addToWishlist: de,
+    removeFromWishlist: fe,
+    listProductReviews: ge,
+    submitReview: ye,
+    subscribeBackInStock: pe,
+    listMyOrders: he,
+    listOAuthProviders: Se,
+    oauthStartUrl: Te,
+    listPaymentProviders: Oe,
+    initiatePayment: Ce,
+    refreshOrderPayment: Re
   };
 }
-function ve(r) {
+function Ne(r) {
   if (!/^\d{11}$/.test(r)) return !1;
   let o = 10;
   for (let a = 0; a < 10; a++)
@@ -484,7 +495,7 @@ function P() {
     return null;
   }
 }
-function $() {
+function b() {
   const r = P();
   if (!r) return [];
   try {
@@ -496,7 +507,7 @@ function $() {
     return [];
   }
 }
-function b(r) {
+function $(r) {
   const o = Array.from(new Set(r)), c = P();
   if (c)
     try {
@@ -505,14 +516,14 @@ function b(r) {
     }
   return o;
 }
-function qe(r) {
-  const o = $().filter((c) => c !== r);
-  return b([r, ...o]);
+function ke(r) {
+  const o = b().filter((c) => c !== r);
+  return $([r, ...o]);
 }
-function Ne(r) {
-  return b($().filter((o) => o !== r));
+function Ae(r) {
+  return $(b().filter((o) => o !== r));
 }
-function ke() {
+function _e() {
   const r = P();
   if (r)
     try {
@@ -521,15 +532,15 @@ function ke() {
     }
 }
 export {
-  we as CONTRACT_VERSION_HEADER,
-  $e as STOREFRONT_CONTRACT_VERSION,
-  be as STOREFRONT_SDK_VERSION,
+  Ee as CONTRACT_VERSION_HEADER,
+  Ue as STOREFRONT_CONTRACT_VERSION,
+  ve as STOREFRONT_SDK_VERSION,
   R as StorefrontError,
-  qe as addLocalWishlist,
-  ke as clearLocalWishlist,
-  Ue as createStorefrontClient,
-  $ as getLocalWishlist,
-  ve as isValidOib,
-  Ne as removeLocalWishlist,
-  b as setLocalWishlist
+  ke as addLocalWishlist,
+  _e as clearLocalWishlist,
+  qe as createStorefrontClient,
+  b as getLocalWishlist,
+  Ne as isValidOib,
+  Ae as removeLocalWishlist,
+  $ as setLocalWishlist
 };

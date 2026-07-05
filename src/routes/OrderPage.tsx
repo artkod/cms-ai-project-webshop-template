@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router";
 import { Alert, Anchor, Badge, Button, Divider, Group, Loader, NumberInput, Paper, Stack, Text, Textarea, Title } from "@mantine/core";
-import { CheckCircle2, CreditCard, FileText, Check, X, RotateCcw, Package } from "lucide-react";
+import { CheckCircle2, CreditCard, FileText, Check, X, RotateCcw, Package, Download } from "lucide-react";
 import { StorefrontError, type InitiatePaymentResult, type Order, type OrderReturnsResult } from "@cms/storefront";
 import { storefront } from "@/lib/storefront";
 import { useLocaleConfig } from "@/lib/locale";
@@ -240,6 +240,54 @@ export function OrderPage() {
           </Button>
         )}
       </Group>
+
+      {/* Digital downloads (L9.5) — tokenized, expiring links minted when the
+          order was paid, plus any assigned license keys. */}
+      {(order.downloads?.length ?? 0) > 0 && (
+        <Paper withBorder p="md" radius="md">
+          <Group gap="xs" mb="sm">
+            <Download size={18} />
+            <Title order={4}>Your downloads</Title>
+          </Group>
+          <Stack gap="sm">
+            {order.downloads!.map((d) => (
+              <div key={d.orderItemId}>
+                <Group gap="sm">
+                  <Text fw={600}>{d.name}</Text>
+                  {d.expired ? (
+                    <Badge color="gray" variant="light">Link expired</Badge>
+                  ) : (
+                    <Button
+                      component="a"
+                      href={storefront.downloadUrl(d.url)}
+                      size="xs"
+                      variant="light"
+                      leftSection={<Download size={14} />}
+                    >
+                      Download {d.filename}
+                    </Button>
+                  )}
+                </Group>
+                {!d.expired && (
+                  <Text fz="xs" c="dimmed">
+                    Link valid until {new Date(d.expiresAt).toLocaleString()}
+                  </Text>
+                )}
+                {d.licenseKeys.length > 0 && (
+                  <Text fz="sm" mt={4}>
+                    License key{d.licenseKeys.length > 1 ? "s" : ""}:{" "}
+                    {d.licenseKeys.map((k) => (
+                      <Text key={k} component="span" ff="monospace" fw={600} mr="sm">
+                        {k}
+                      </Text>
+                    ))}
+                  </Text>
+                )}
+              </div>
+            ))}
+          </Stack>
+        </Paper>
+      )}
 
       {/* Fulfillment progress (L7) — reflects the admin's fulfillment actions
           (preparing → shipped → delivered) so the shopper sees where their order is. */}
