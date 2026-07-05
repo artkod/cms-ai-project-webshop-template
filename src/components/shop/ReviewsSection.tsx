@@ -75,7 +75,9 @@ export function ReviewsSection({ productId, locale }: { productId: string; local
             ? "You already reviewed this product."
             : code === "email_not_verified"
               ? "Verify your email to write a review."
-              : "Could not submit the review. Please try again.",
+              : code === "not_a_buyer"
+                ? "Only customers who bought this product can review it."
+                : "Could not submit the review. Please try again.",
       });
     } finally {
       setBusy(false);
@@ -171,6 +173,11 @@ export function ReviewsSection({ productId, locale }: { productId: string; local
         {customer && !customer.emailVerified && !data.mine && (
           <Text fz="sm" c="dimmed">
             Verify your email to write a review.
+          </Text>
+        )}
+        {customer && customer.emailVerified && !data.mine && !data.canReview && data.buyersOnly && (
+          <Text fz="sm" c="dimmed">
+            Only customers who bought this product can write a review.
           </Text>
         )}
       </Stack>

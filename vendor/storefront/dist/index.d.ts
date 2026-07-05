@@ -650,8 +650,11 @@ export declare interface ProductReviewsResponse {
     summary: ReviewSummary;
     /** The caller's own review (any status); null when none / not logged in. */
     mine: OwnProductReview | null;
-    /** True when the caller is a verified customer without a prior review. */
+    /** True when the caller may submit: verified customer, no prior review, and —
+     *  in buyers-only mode — a verified purchase of this product. */
     canReview: boolean;
+    /** Shop setting: only buyers may review (submit → 403 `not_a_buyer` otherwise). */
+    buyersOnly: boolean;
 }
 
 /**
