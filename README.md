@@ -22,6 +22,11 @@ auto-detects it, or pass `CMS_CORE_DIR=/path/to/core ./start.sh`.
 
 Default seeded login: `developer@artkod.com` / `k0dart`.
 
+Docker also starts an optional **Meilisearch** container (core L9.7, port `7700`) for the pluggable
+storefront search engine. The shop works without it (the built-in Postgres search is the default and
+the automatic fallback); to try it, switch admin → Commerce Settings → Search to *Meilisearch* with
+URL `http://localhost:7700` and API key `dev_meili_master_key`.
+
 ## Layout
 
 ```

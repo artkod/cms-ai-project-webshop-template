@@ -18,5 +18,22 @@ services:
       timeout: 3s
       retries: 5
 
+  # Optional external search engine (core L9.7). The shop works without it (the
+  # built-in Postgres search is the default + fallback); switch the engine in
+  # admin → Commerce Settings → Search: provider "Meilisearch",
+  # URL http://localhost:7700, API key dev_meili_master_key.
+  meilisearch:
+    image: getmeili/meilisearch:v1.15
+    restart: unless-stopped
+    environment:
+      MEILI_MASTER_KEY: dev_meili_master_key
+      MEILI_ENV: development
+      MEILI_NO_ANALYTICS: "true"
+    ports:
+      - "${MEILI_PORT:-7700}:7700"
+    volumes:
+      - meilidata:/meili_data
+
 volumes:
   pgdata:
+  meilidata:
