@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router";
 import { Anchor, Badge, Box, Breadcrumbs, Button, Group, Image, Loader, NumberInput, Stack, Text, Title } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
-import type { CatalogProduct, CatalogVariant } from "@cms/storefront";
+import { trackAddToCart, trackViewItem, type CatalogProduct, type CatalogVariant } from "@cms/storefront";
 import { storefront } from "@/lib/storefront";
 import { useLocaleConfig, usePageAlternates } from "@/lib/locale";
 import { useCart } from "@/lib/cart";
@@ -95,6 +95,13 @@ export function ProductPage({ product: productProp }: { product?: CatalogProduct
 
   const variant = useMemo(() => (resolved ? findVariant(resolved, selection) : undefined), [resolved, selection]);
 
+  // GA4 view_item (L9.6) — consent-gated inside the SDK (drops silently pre-consent).
+  useEffect(() => {
+    if (!resolved) return;
+    const first = resolved.variants[0];
+    trackViewItem({ id: first?.id ?? resolved.id, name: resolved.name, priceCents: first?.effectivePrice ?? 0 });
+  }, [resolved]);
+
   if (product === null) return <Loader />;
   if (product === "404") {
     return (
@@ -114,7 +121,10 @@ export function ProductPage({ product: productProp }: { product?: CatalogProduct
     setAdding(false);
     // Only confirm on success — on an out-of-stock/unavailable error the cart already
     // showed the error toast (no double toast).
-    if (ok) notifications.show({ color: "teal", message: `Added ${qty} × ${product.name} to ${product.purchasable ? "cart" : "inquiry"}.` });
+    if (ok) {
+      trackAddToCart({ id: variant.id, name: product.name, priceCents: variant.effectivePrice, quantity: qty });
+      notifications.show({ color: "teal", message: `Added ${qty} × ${product.name} to ${product.purchasable ? "cart" : "inquiry"}.` });
+    }
   };
 
   // Breadcrumb from the primary category's slug chain (canonical links).
@@ -160,9 +170,11 @@ export function ProductPage({ product: productProp }: { product?: CatalogProduct
           <Title order={1}>{product.name}</Title>
           {product.shortDescription && <Text c="dimmed">{product.shortDescription}</Text>}
 
+          {/* Option axes as labelled groups of toggle buttons (aria-pressed) — the
+              group's name is announced with each value (L9.6 a11y). */}
           {product.options.map((o) => (
-            <div key={o.id}>
-              <Text fw={600} fz="sm" mb={4}>
+            <div key={o.id} role="group" aria-label={o.name}>
+              <Text fw={600} fz="sm" mb={4} aria-hidden>
                 {o.name}
               </Text>
               <Group gap="xs">
@@ -171,6 +183,8 @@ export function ProductPage({ product: productProp }: { product?: CatalogProduct
                     key={val.id}
                     size="xs"
                     variant={selection[o.id] === val.id ? "filled" : "default"}
+                    aria-pressed={selection[o.id] === val.id}
+                    aria-label={`${o.name}: ${val.value}`}
                     onClick={() => setSelection((s) => ({ ...s, [o.id]: val.id }))}
                   >
                     {val.value}

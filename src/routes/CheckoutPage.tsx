@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router";
-import { Alert, Anchor, Box, Button, Divider, Group, Loader, Paper, Radio, Select, Stack, Text, TextInput, Textarea, Title } from "@mantine/core";
+import { Alert, Anchor, Box, Button, Checkbox, Divider, Group, Loader, Paper, Radio, Select, Stack, Text, TextInput, Textarea, Title } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import { Info } from "lucide-react";
-import { StorefrontError, type CheckoutMode, type CheckoutPreview, type OrderAddress, type StorefrontAddress } from "@cms/storefront";
+import { StorefrontError, trackBeginCheckout, trackPurchase, type CheckoutMode, type CheckoutPreview, type OrderAddress, type StorefrontAddress } from "@cms/storefront";
 import { storefront } from "@/lib/storefront";
 import { useCart } from "@/lib/cart";
 import { useCustomer } from "@/lib/customer";
@@ -68,6 +68,12 @@ export function CheckoutPage() {
   // The chosen payment mode (L7.4) — initialised from the preview's default, kept in
   // the offered set as the cart/shipping changes.
   const [paymentMethod, setPaymentMethod] = useState<CheckoutMode | null>(null);
+  // GDPR marketing opt-in (L9.6). Only an AFFIRMATIVE tick is sent (a consent
+  // record); leaving the box unticked sends nothing — an ignored checkbox is not
+  // an explicit refusal.
+  const [marketingOptIn, setMarketingOptIn] = useState(false);
+  // Show field-level errors only after a failed submit attempt — not while typing.
+  const [showErrors, setShowErrors] = useState(false);
 
   // Saved addresses (L5.4) — only for a logged-in + verified customer. The default
   // shipping address prefills the form; the picker lets them choose another.
@@ -213,6 +219,18 @@ export function CheckoutPage() {
     setForm((f) => ({ ...f, [k]: value }));
   };
 
+  // GA4 begin_checkout (L9.6) — once per checkout visit with a payable cart;
+  // consent-gated inside the SDK (drops silently pre-consent).
+  const beganRef = useRef(false);
+  useEffect(() => {
+    if (beganRef.current || !preview || preview.isQuote || preview.cart.items.length === 0) return;
+    beganRef.current = true;
+    trackBeginCheckout(
+      preview.cart.items.map((l) => ({ id: l.variantId, name: l.name || l.sku || l.variantId, priceCents: l.unitPrice, quantity: l.quantity })),
+      preview.cart.totals.grossTotal,
+    );
+  }, [preview]);
+
   const totals = preview?.cart.totals;
   const isQuote = preview?.isQuote ?? false;
   const empty = !preview || preview.cart.items.length === 0;
@@ -229,9 +247,18 @@ export function CheckoutPage() {
   // the shopper picks it + a point on the cart page).
   const hasShipping = !!preview?.cart.shipping.method;
   const needsShipping = !isQuote && !empty && !hasShipping;
-  const canPlace = addressValid && paymentValid && !empty && (isQuote || hasShipping);
+  // The button stays CLICKABLE with an invalid address — clicking surfaces the
+  // per-field errors (a disabled button announces nothing to AT). It's disabled
+  // only for states the form can't fix here (empty cart / no shipping / no method).
+  const canAttempt = !empty && (isQuote || (hasShipping && paymentValid));
 
   const place = async () => {
+    if (!addressValid) {
+      // Surface the per-field errors (aria-invalid + inline messages) instead of
+      // relying on the disabled button alone.
+      setShowErrors(true);
+      return;
+    }
     setPlacing(true);
     try {
       const { email, note, ...address } = form;
@@ -241,9 +268,19 @@ export function CheckoutPage() {
           shippingAddress: address as OrderAddress,
           note: note.trim() || undefined,
           ...(paymentMethod && !isQuote ? { paymentMethod } : {}),
+          // Only an affirmative tick writes a consent record (L9.6).
+          ...(marketingOptIn ? { marketingConsent: true } : {}),
         },
         { locale: loc },
       );
+      // GA4 purchase (L9.6) — the order id is the GA-side dedup key too.
+      if (!order.isQuote) {
+        trackPurchase(
+          String(order.orderNumber ?? order.id),
+          order.items.map((i) => ({ id: i.variantId ?? i.id, name: i.name, priceCents: i.unitPrice, quantity: i.quantity })),
+          order.totals.grossTotal,
+        );
+      }
       await refresh(); // the cart was cleared server-side
       navigate(`/${loc}/order/${order.token}`);
     } catch (e) {
@@ -298,16 +335,26 @@ export function CheckoutPage() {
             />
           )}
 
-          <Title order={4}>Contact</Title>
-          <TextInput label="Email" type="email" required value={form.email} onChange={set("email")} placeholder="you@example.com" />
+          <Title order={2} size="h4">Contact</Title>
+          {/* `error` renders inline text + aria-invalid + aria-describedby (Mantine),
+              shown only after a failed submit attempt (L9.6 a11y). */}
+          <TextInput
+            label="Email"
+            type="email"
+            required
+            value={form.email}
+            onChange={set("email")}
+            placeholder="you@example.com"
+            error={showErrors && !/.+@.+\..+/.test(form.email) ? "Enter a valid email address." : undefined}
+          />
 
-          <Title order={4} mt="sm">Shipping address</Title>
-          <TextInput label="Full name" required value={form.name} onChange={set("name")} />
-          <TextInput label="Address" required value={form.line1} onChange={set("line1")} />
+          <Title order={2} size="h4" mt="sm">Shipping address</Title>
+          <TextInput label="Full name" required value={form.name} onChange={set("name")} error={showErrors && !form.name.trim() ? "Full name is required." : undefined} />
+          <TextInput label="Address" required value={form.line1} onChange={set("line1")} error={showErrors && !form.line1.trim() ? "Address is required." : undefined} />
           <TextInput label="Address line 2" value={form.line2} onChange={set("line2")} />
           <Group grow>
-            <TextInput label="City" required value={form.city} onChange={set("city")} />
-            <TextInput label="Postal code" required value={form.postalCode} onChange={set("postalCode")} />
+            <TextInput label="City" required value={form.city} onChange={set("city")} error={showErrors && !form.city.trim() ? "City is required." : undefined} />
+            <TextInput label="Postal code" required value={form.postalCode} onChange={set("postalCode")} error={showErrors && !form.postalCode.trim() ? "Postal code is required." : undefined} />
           </Group>
           <Select
             label="Country"
@@ -319,13 +366,21 @@ export function CheckoutPage() {
           />
           <TextInput label="Phone" value={form.phone} onChange={set("phone")} />
           <Textarea label="Order note" value={form.note} onChange={set("note")} autosize minRows={2} />
+          {/* GDPR marketing opt-in (L9.6): unticked by default; only an affirmative
+              tick is recorded (a consent record keyed by the checkout email). */}
+          <Checkbox
+            label="Email me about offers and news"
+            description="Optional — you can unsubscribe any time."
+            checked={marketingOptIn}
+            onChange={(e) => setMarketingOptIn(e.currentTarget.checked)}
+          />
           <Anchor component={Link} to={`/${loc}/cart`} fz="sm">← Back to cart</Anchor>
         </Stack>
 
         {/* Summary */}
         <Paper withBorder p="md" radius="md" style={{ flex: "1 1 280px", maxWidth: 380 }}>
           <Stack gap="xs">
-            <Title order={4}>Order summary</Title>
+            <Title order={2} size="h4">Order summary</Title>
             {preview!.cart.items.map((line) => (
               <Group key={line.variantId} justify="space-between" wrap="nowrap" gap="xs">
                 <Text fz="sm" lineClamp={1}>{line.quantity} × {line.name || line.sku || line.variantId}</Text>
@@ -403,10 +458,10 @@ export function CheckoutPage() {
               </Alert>
             )}
 
-            <Button mt="sm" size="md" onClick={place} loading={placing} disabled={!canPlace}>
+            <Button mt="sm" size="md" onClick={place} loading={placing} disabled={!canAttempt}>
               {isQuote ? "Send an inquiry" : "Place order"}
             </Button>
-            {!canPlace && !noPayableMethod && !needsShipping && <Text c="dimmed" fz="xs">Fill in your email + shipping address to continue.</Text>}
+            {!addressValid && !noPayableMethod && !needsShipping && <Text c="dimmed" fz="xs">Fill in your email + shipping address to continue.</Text>}
           </Stack>
         </Paper>
       </Group>

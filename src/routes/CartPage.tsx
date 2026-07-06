@@ -165,7 +165,7 @@ export function CartPage() {
           <Paper withBorder p="md" radius="md" style={{ flex: "1 1 280px", maxWidth: 380 }}>
             <Stack gap="xs">
               <Group justify="space-between" align="center">
-                <Title order={4}>Summary</Title>
+                <Title order={2} size="h4">Summary</Title>
                 {/* B2B indicator (L5.5) — an approved business's price list applies. */}
                 {cart?.b2b && <Badge variant="light" color="grape" size="sm">Business pricing</Badge>}
               </Group>
@@ -221,7 +221,7 @@ export function CartPage() {
               <Divider my="xs" />
 
               {/* Shipping */}
-              <Title order={5}>Shipping</Title>
+              <Title order={3} size="h5">Shipping</Title>
               <Select
                 label="Ship to"
                 data={COUNTRY_OPTIONS}

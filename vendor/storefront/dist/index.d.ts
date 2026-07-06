@@ -1,6 +1,14 @@
 /** Add a product to the guest wishlist (idempotent, moved to newest-first). Returns the new set. */
 export declare function addLocalWishlist(productId: string): string[];
 
+export declare interface AnalyticsItem {
+    id: string;
+    name: string;
+    /** Unit price, integer EUR cents. */
+    priceCents: number;
+    quantity?: number;
+}
+
 /** The full cart, returned by every cart endpoint. */
 export declare interface Cart {
     id: string;
@@ -294,6 +302,9 @@ export declare interface CheckoutPreview {
 /** Clear the guest wishlist entirely (called after a successful merge-to-server). */
 export declare function clearLocalWishlist(): void;
 
+/** Forget the stored decision (re-shows the banner on next load). */
+export declare function clearStoredConsent(): void;
+
 /** Response of `GET /api/commerce/health` (the public gating probe). */
 export declare interface CommerceHealth {
     status: string;
@@ -301,6 +312,17 @@ export declare interface CommerceHealth {
     enabled: boolean;
     /** The API's commerce contract version (design §22). */
     contractVersion: number;
+}
+
+export declare const CONSENT_STORAGE_KEY = "cms-consent-v1";
+
+/** The visitor's stored cookie-consent decision. */
+export declare interface ConsentDecision {
+    analytics: boolean;
+    /** Marketing opt-in mirrored client-side when captured together (optional). */
+    marketing?: boolean;
+    /** ISO timestamp of the (latest) decision. */
+    decidedAt: string;
 }
 
 /** Header the client stamps with its pinned contract version (design §22). */
@@ -377,8 +399,25 @@ export declare interface CustomerTokenInfo {
     expiresAt: string;
 }
 
+/** The banner's Decline: store the refusal. Nothing loads; events keep dropping. */
+export declare function denyAnalyticsConsent(): void;
+
 /** The guest wishlist product ids (newest first), or `[]` when none/unavailable. */
 export declare function getLocalWishlist(): string[];
+
+/** The stored consent decision, or null when the visitor hasn't decided yet
+ *  (the storefront shows the cookie banner exactly in the null case). */
+export declare function getStoredConsent(): ConsentDecision | null;
+
+/** The banner's Accept: store the grant, then (and only then) load gtag.js. */
+export declare function grantAnalyticsConsent(): void;
+
+/**
+ * Boot with the shop's GA4 measurement id (null/empty = analytics off). Loads
+ * gtag.js immediately IFF the visitor has already granted analytics consent on
+ * a previous visit; otherwise nothing happens until `grantAnalyticsConsent()`.
+ */
+export declare function initAnalytics(id: string | null | undefined): void;
 
 /** Response of `POST /api/commerce/orders/:token/pay`. */
 export declare interface InitiatePaymentResult {
@@ -397,6 +436,9 @@ export declare type InitiateResult = {
     url: string;
     providerRef: string;
 };
+
+/** True when events would actually be sent (granted + gtag loaded). */
+export declare function isAnalyticsActive(): boolean;
 
 /** True iff `oib` is exactly 11 digits with a valid ISO 7064 MOD 11,10 check digit. */
 export declare function isValidOib(oib: string): boolean;
@@ -842,7 +884,19 @@ export declare interface StartCheckoutInput {
      * for a quote. `cod` requires a COD-eligible shipping method + adds the surcharge.
      */
     paymentMethod?: CheckoutMode;
+    /**
+     * GDPR marketing opt-in (L9.6). Tri-state: omit when the checkbox was never
+     * shown/touched (no consent record is written); true/false records the
+     * shopper's explicit choice, keyed by the checkout email.
+     */
+    marketingConsent?: boolean;
 }
+
+/** Persist a decision (merges over any previous one; stamps `decidedAt`). */
+export declare function storeConsent(decision: {
+    analytics: boolean;
+    marketing?: boolean;
+}): void;
 
 export declare const STOREFRONT_CONTRACT_VERSION: 2;
 
@@ -1095,6 +1149,30 @@ export declare interface StorefrontClient {
         already: boolean;
     }>;
     /**
+     * The shop's GA4 measurement id (null = analytics off). Public boot read —
+     * pass to `initAnalytics()`; gtag loads only after the visitor grants
+     * analytics consent. `GET /api/commerce/analytics-config`.
+     */
+    getAnalyticsConfig(opts?: {
+        signal?: AbortSignal;
+    }): Promise<{
+        ga4MeasurementId: string | null;
+    }>;
+    /**
+     * Record a LOGGED-IN customer's consent choice server-side (append-only,
+     * source `cookie_banner`). 401 for guests — their banner choice stays
+     * client-side; identifiable capture happens at checkout (`marketingConsent`).
+     * `POST /api/commerce/consent`.
+     */
+    recordConsent(input: {
+        kind: "analytics" | "marketing";
+        granted: boolean;
+    }, opts?: {
+        signal?: AbortSignal;
+    }): Promise<{
+        ok: boolean;
+    }>;
+    /**
      * Absolute URL for a digital download entitlement — pass `OrderDownload.url`
      * (an API path from {@link getOrder}'s `downloads`). Expired links serve 410.
      */
@@ -1220,6 +1298,25 @@ export declare interface SubmitReviewResult {
     ok: boolean;
     review: OwnProductReview;
 }
+
+/** Add-to-cart. */
+export declare function trackAddToCart(item: AnalyticsItem): boolean;
+
+/** Checkout page entered. `totalCents` defaults to the items' sum. */
+export declare function trackBeginCheckout(items: AnalyticsItem[], totalCents?: number): boolean;
+
+/**
+ * Fire a GA4 event. Returns false (and sends NOTHING) unless the visitor
+ * granted analytics consent and gtag is loaded — the consent gate every
+ * storefront event goes through.
+ */
+export declare function trackEvent(name: string, params?: Record<string, unknown>): boolean;
+
+/** Order placed. `transactionId` = the order number/id (dedup key GA-side too). */
+export declare function trackPurchase(transactionId: string, items: AnalyticsItem[], totalCents: number): boolean;
+
+/** Product-detail view. */
+export declare function trackViewItem(item: AnalyticsItem): boolean;
 
 export declare interface TypeFacet {
     type: string;

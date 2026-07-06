@@ -1,95 +1,95 @@
-var we = Object.defineProperty;
-var Pe = (r, o, c) => o in r ? we(r, o, { enumerable: !0, configurable: !0, writable: !0, value: c }) : r[o] = c;
-var T = (r, o, c) => Pe(r, typeof o != "symbol" ? o + "" : o, c);
-const Ue = 2, ve = "0.0.1";
-class R extends Error {
-  constructor(c, a) {
-    super(c);
-    T(this, "status");
-    T(this, "code");
-    T(this, "body");
+var Ae = Object.defineProperty;
+var Le = (t, r, s) => r in t ? Ae(t, r, { enumerable: !0, configurable: !0, writable: !0, value: s }) : t[r] = s;
+var O = (t, r, s) => Le(t, typeof r != "symbol" ? r + "" : r, s);
+const Ge = 2, Je = "0.0.1";
+class v extends Error {
+  constructor(s, a) {
+    super(s);
+    O(this, "status");
+    O(this, "code");
+    O(this, "body");
     this.name = "StorefrontError", this.status = a.status, this.code = a.code ?? null, this.body = a.body ?? null;
   }
 }
-const Ee = "X-Commerce-Contract-Version", I = "X-CSRF-Token", Ie = "cms_csrf";
-function be() {
+const Ve = "X-Commerce-Contract-Version", N = "X-CSRF-Token", De = "cms_csrf";
+function Fe() {
   if (typeof document > "u" || typeof document.cookie != "string") return null;
-  for (const r of document.cookie.split(";")) {
-    const o = r.indexOf("=");
-    if (o !== -1 && r.slice(0, o).trim() === Ie)
-      return decodeURIComponent(r.slice(o + 1).trim());
+  for (const t of document.cookie.split(";")) {
+    const r = t.indexOf("=");
+    if (r !== -1 && t.slice(0, r).trim() === De)
+      return decodeURIComponent(t.slice(r + 1).trim());
   }
   return null;
 }
-function p(r, o, c) {
-  const a = r.replace(/\/+$/, ""), t = o.startsWith("/") ? o : `/${o}`;
-  if (!c) return `${a}${t}`;
+function p(t, r, s) {
+  const a = t.replace(/\/+$/, ""), o = r.startsWith("/") ? r : `/${r}`;
+  if (!s) return `${a}${o}`;
   const f = new URLSearchParams();
-  for (const [g, d] of Object.entries(c))
+  for (const [g, d] of Object.entries(s))
     if (d != null)
       if (Array.isArray(d))
-        for (const O of d) f.append(g, String(O));
+        for (const I of d) f.append(g, String(I));
       else
         f.set(g, String(d));
-  const h = f.toString();
-  return h ? `${a}${t}?${h}` : `${a}${t}`;
+  const w = f.toString();
+  return w ? `${a}${o}?${w}` : `${a}${o}`;
 }
-function qe(r) {
-  const o = r.fetch ?? globalThis.fetch;
-  if (typeof o != "function")
+function He(t) {
+  const r = t.fetch ?? globalThis.fetch;
+  if (typeof r != "function")
     throw new Error(
       "@cms/storefront: no fetch implementation available — pass `fetch` in the config for this runtime."
     );
-  const c = r.credentials ?? "include", a = {
-    "X-Project-Slug": r.projectSlug,
-    [Ee]: String(2),
-    ...r.headers
+  const s = t.credentials ?? "include", a = {
+    "X-Project-Slug": t.projectSlug,
+    [Ve]: String(2),
+    ...t.headers
   };
-  async function t(e, n = {}) {
-    const s = p(r.apiUrl, e, n.query), l = { ...a, ...n.headers };
-    let S;
-    n.body !== void 0 && (S = JSON.stringify(n.body), l["Content-Type"] = "application/json");
-    const E = (n.method ?? (n.body !== void 0 ? "POST" : "GET")).toUpperCase();
-    if (E !== "GET" && E !== "HEAD" && !(I in l)) {
-      const i = be();
-      i && (l[I] = i);
+  async function o(e, n = {}) {
+    const c = p(t.apiUrl, e, n.query), l = { ...a, ...n.headers };
+    let T;
+    n.body !== void 0 && (T = JSON.stringify(n.body), l["Content-Type"] = "application/json");
+    const q = (n.method ?? (n.body !== void 0 ? "POST" : "GET")).toUpperCase();
+    if (q !== "GET" && q !== "HEAD" && !(N in l)) {
+      const i = Fe();
+      i && (l[N] = i);
     }
     let y;
     try {
-      y = await o(s, {
+      y = await r(c, {
         method: n.method ?? (n.body !== void 0 ? "POST" : "GET"),
         headers: l,
-        body: S,
-        credentials: n.credentials ?? c,
+        body: T,
+        credentials: n.credentials ?? s,
         signal: n.signal
       });
     } catch (i) {
-      throw new R(
-        `Network request to ${s} failed: ${(i == null ? void 0 : i.message) ?? String(i)}`,
+      throw new v(
+        `Network request to ${c} failed: ${(i == null ? void 0 : i.message) ?? String(i)}`,
         { status: 0 }
       );
     }
-    const C = await y.text();
+    const P = await y.text();
     let m = null;
-    if (C)
+    if (P)
       try {
-        m = JSON.parse(C);
+        m = JSON.parse(P);
       } catch {
-        m = C;
+        m = P;
       }
     if (!y.ok) {
       const i = m && typeof m == "object" && "error" in m ? String(m.error) : null;
-      throw new R(
-        `Request to ${s} failed with ${y.status}${i ? ` (${i})` : ""}`,
+      throw new v(
+        `Request to ${c} failed with ${y.status}${i ? ` (${i})` : ""}`,
         { status: y.status, code: i, body: m }
       );
     }
     return m;
   }
   async function f() {
-    return t("/api/commerce/health");
+    return o("/api/commerce/health");
   }
-  async function h() {
+  async function w() {
     const { contractVersion: e } = await f();
     return {
       sdk: 2,
@@ -100,8 +100,8 @@ function qe(r) {
   function g(e = {}) {
     const n = [];
     if (e.options)
-      for (const [s, l] of Object.entries(e.options))
-        for (const S of l) n.push(`${s}:${S}`);
+      for (const [c, l] of Object.entries(e.options))
+        for (const T of l) n.push(`${c}:${T}`);
     return {
       locale: e.locale,
       category: e.category,
@@ -118,25 +118,25 @@ function qe(r) {
     };
   }
   async function d(e = {}) {
-    return t("/api/commerce/catalog/products", {
+    return o("/api/commerce/catalog/products", {
       query: g(e),
       signal: e.signal
     });
   }
-  async function O(e, n = {}) {
-    return t(`/api/commerce/catalog/products/${encodeURIComponent(e)}`, {
+  async function I(e, n = {}) {
+    return o(`/api/commerce/catalog/products/${encodeURIComponent(e)}`, {
       query: { locale: n.locale },
       signal: n.signal
     });
   }
-  async function U(e = {}) {
-    return (await t("/api/commerce/catalog/categories", {
+  async function F(e = {}) {
+    return (await o("/api/commerce/catalog/categories", {
       query: { locale: e.locale },
       signal: e.signal
     })).data;
   }
-  async function v(e, n = {}) {
-    return t(`/api/commerce/catalog/categories/${encodeURIComponent(e)}`, {
+  async function W(e, n = {}) {
+    return o(`/api/commerce/catalog/categories/${encodeURIComponent(e)}`, {
       query: g(n),
       signal: n.signal
     });
@@ -144,233 +144,233 @@ function qe(r) {
   function u(e) {
     return e ? { locale: e } : void 0;
   }
-  async function q(e = {}) {
-    return t("/api/commerce/cart", { query: u(e.locale), signal: e.signal });
+  async function j(e = {}) {
+    return o("/api/commerce/cart", { query: u(e.locale), signal: e.signal });
   }
-  async function N(e, n = 1, s = {}) {
-    return t("/api/commerce/cart/items", {
+  async function x(e, n = 1, c = {}) {
+    return o("/api/commerce/cart/items", {
       method: "POST",
       body: { variantId: e, quantity: n },
-      query: u(s.locale),
-      signal: s.signal
+      query: u(c.locale),
+      signal: c.signal
     });
   }
-  async function k(e, n, s = {}) {
-    return t(`/api/commerce/cart/items/${encodeURIComponent(e)}`, {
+  async function G(e, n, c = {}) {
+    return o(`/api/commerce/cart/items/${encodeURIComponent(e)}`, {
       method: "PUT",
       body: { quantity: n },
-      query: u(s.locale),
-      signal: s.signal
+      query: u(c.locale),
+      signal: c.signal
     });
   }
-  async function A(e, n = {}) {
-    return t(`/api/commerce/cart/items/${encodeURIComponent(e)}`, {
+  async function J(e, n = {}) {
+    return o(`/api/commerce/cart/items/${encodeURIComponent(e)}`, {
       method: "DELETE",
       query: u(n.locale),
       signal: n.signal
     });
   }
-  async function _(e = {}) {
-    return t("/api/commerce/cart", { method: "DELETE", query: u(e.locale), signal: e.signal });
+  async function H(e = {}) {
+    return o("/api/commerce/cart", { method: "DELETE", query: u(e.locale), signal: e.signal });
   }
-  async function L(e, n = {}) {
-    return t("/api/commerce/cart/coupon", {
+  async function Q(e, n = {}) {
+    return o("/api/commerce/cart/coupon", {
       method: "POST",
       body: { code: e },
       query: u(n.locale),
       signal: n.signal
     });
   }
-  async function V(e, n = {}) {
-    const s = e ? `/api/commerce/cart/coupon/${encodeURIComponent(e)}` : "/api/commerce/cart/coupon";
-    return t(s, {
+  async function K(e, n = {}) {
+    const c = e ? `/api/commerce/cart/coupon/${encodeURIComponent(e)}` : "/api/commerce/cart/coupon";
+    return o(c, {
       method: "DELETE",
       query: u(n.locale),
       signal: n.signal
     });
   }
-  async function F(e = {}) {
-    return t("/api/commerce/cart/shipping", {
+  async function M(e = {}) {
+    return o("/api/commerce/cart/shipping", {
       query: { country: e.country, locale: e.locale },
       signal: e.signal
     });
   }
-  async function W(e, n = {}) {
-    return t("/api/commerce/cart/shipping", {
+  async function X(e, n = {}) {
+    return o("/api/commerce/cart/shipping", {
       method: "PUT",
       body: e,
       query: u(n.locale),
       signal: n.signal
     });
   }
-  async function D(e = {}) {
-    return t("/api/commerce/checkout", {
+  async function z(e = {}) {
+    return o("/api/commerce/checkout", {
       query: u(e.locale),
       signal: e.signal
     });
   }
-  async function x(e, n = {}) {
-    return t("/api/commerce/checkout", {
+  async function B(e, n = {}) {
+    return o("/api/commerce/checkout", {
       method: "POST",
       body: e,
       query: u(n.locale),
       signal: n.signal
     });
   }
-  async function j(e, n = {}) {
-    return t(`/api/commerce/orders/${encodeURIComponent(e)}`, {
+  async function Y(e, n = {}) {
+    return o(`/api/commerce/orders/${encodeURIComponent(e)}`, {
       signal: n.signal
     });
   }
-  function H(e) {
-    return p(r.apiUrl, `/api/commerce/orders/${encodeURIComponent(e)}/invoice.pdf`);
+  function Z(e) {
+    return p(t.apiUrl, `/api/commerce/orders/${encodeURIComponent(e)}/invoice.pdf`);
   }
-  function Q(e) {
-    return p(r.apiUrl, `/api/commerce/orders/${encodeURIComponent(e)}/proforma.pdf`);
+  function ee(e) {
+    return p(t.apiUrl, `/api/commerce/orders/${encodeURIComponent(e)}/proforma.pdf`);
   }
-  function J(e) {
-    return p(r.apiUrl, e);
+  function ne(e) {
+    return p(t.apiUrl, e);
   }
-  async function G(e, n = {}) {
-    return t(`/api/commerce/orders/${encodeURIComponent(e)}/accept`, {
+  async function te(e, n = {}) {
+    return o(`/api/commerce/orders/${encodeURIComponent(e)}/accept`, {
       method: "POST",
       signal: n.signal
     });
   }
-  async function K(e, n = {}) {
-    return t(`/api/commerce/orders/${encodeURIComponent(e)}/decline`, {
+  async function re(e, n = {}) {
+    return o(`/api/commerce/orders/${encodeURIComponent(e)}/decline`, {
       method: "POST",
       signal: n.signal
     });
   }
-  async function X(e, n = {}) {
-    return t(`/api/commerce/orders/${encodeURIComponent(e)}/returns`, {
+  async function oe(e, n = {}) {
+    return o(`/api/commerce/orders/${encodeURIComponent(e)}/returns`, {
       signal: n.signal
     });
   }
-  async function M(e, n, s = {}) {
-    return t(`/api/commerce/orders/${encodeURIComponent(e)}/return`, {
+  async function ce(e, n, c = {}) {
+    return o(`/api/commerce/orders/${encodeURIComponent(e)}/return`, {
       method: "POST",
       body: n,
-      signal: s.signal
+      signal: c.signal
     });
   }
-  async function B(e = {}) {
-    return (await t("/api/commerce/customers/csrf", { signal: e.signal })).token;
+  async function se(e = {}) {
+    return (await o("/api/commerce/customers/csrf", { signal: e.signal })).token;
   }
-  async function Y(e, n = {}) {
-    return (await t("/api/commerce/customers/register", {
+  async function ae(e, n = {}) {
+    return (await o("/api/commerce/customers/register", {
       method: "POST",
       body: e,
       signal: n.signal
     })).customer;
   }
-  async function z(e, n = {}) {
-    return (await t("/api/commerce/customers/login", {
+  async function ie(e, n = {}) {
+    return (await o("/api/commerce/customers/login", {
       method: "POST",
       body: e,
       signal: n.signal
     })).customer;
   }
-  async function Z(e = {}) {
-    await t("/api/commerce/customers/logout", {
+  async function ue(e = {}) {
+    await o("/api/commerce/customers/logout", {
       method: "POST",
       signal: e.signal
     });
   }
-  async function ee(e = {}) {
+  async function le(e = {}) {
     try {
-      return (await t("/api/commerce/customers/me", { signal: e.signal })).customer;
+      return (await o("/api/commerce/customers/me", { signal: e.signal })).customer;
     } catch (n) {
-      if (n instanceof R && n.status === 401) return null;
+      if (n instanceof v && n.status === 401) return null;
       throw n;
     }
   }
-  async function ne(e, n = {}) {
-    return t(
+  async function me(e, n = {}) {
+    return o(
       `/api/commerce/customers/token/${encodeURIComponent(e)}`,
       { signal: n.signal }
     );
   }
-  async function te(e, n = {}) {
-    return t("/api/commerce/customers/verify-email", {
+  async function de(e, n = {}) {
+    return o("/api/commerce/customers/verify-email", {
       method: "POST",
       body: { token: e },
       signal: n.signal
     });
   }
-  async function re(e = {}) {
-    return t("/api/commerce/customers/resend-verification", {
+  async function fe(e = {}) {
+    return o("/api/commerce/customers/resend-verification", {
       method: "POST",
       signal: e.signal
     });
   }
-  async function oe(e, n = {}) {
-    await t("/api/commerce/customers/forgot-password", {
+  async function ge(e, n = {}) {
+    await o("/api/commerce/customers/forgot-password", {
       method: "POST",
       body: { email: e },
       signal: n.signal
     });
   }
-  async function se(e, n, s = {}) {
-    return (await t("/api/commerce/customers/reset-password", {
+  async function ye(e, n, c = {}) {
+    return (await o("/api/commerce/customers/reset-password", {
       method: "POST",
       body: { token: e, password: n },
-      signal: s.signal
+      signal: c.signal
     })).customer;
   }
-  async function ce(e, n, s = {}) {
-    await t("/api/commerce/customers/change-password", {
+  async function pe(e, n, c = {}) {
+    await o("/api/commerce/customers/change-password", {
       method: "POST",
       body: { currentPassword: e, newPassword: n },
-      signal: s.signal
+      signal: c.signal
     });
   }
-  async function ae(e = {}) {
-    return (await t("/api/commerce/customers/addresses", {
+  async function he(e = {}) {
+    return (await o("/api/commerce/customers/addresses", {
       signal: e.signal
     })).addresses ?? [];
   }
-  async function ie(e, n = {}) {
-    return (await t("/api/commerce/customers/addresses", {
+  async function Se(e, n = {}) {
+    return (await o("/api/commerce/customers/addresses", {
       method: "POST",
       body: e,
       signal: n.signal
     })).address;
   }
-  async function ue(e, n, s = {}) {
-    return (await t(
+  async function Ce(e, n, c = {}) {
+    return (await o(
       `/api/commerce/customers/addresses/${encodeURIComponent(e)}`,
-      { method: "PUT", body: n, signal: s.signal }
+      { method: "PUT", body: n, signal: c.signal }
     )).address;
   }
-  async function le(e, n = {}) {
-    await t(`/api/commerce/customers/addresses/${encodeURIComponent(e)}`, {
+  async function we(e, n = {}) {
+    await o(`/api/commerce/customers/addresses/${encodeURIComponent(e)}`, {
       method: "DELETE",
       signal: n.signal
     });
   }
-  async function me(e = {}) {
-    return t("/api/commerce/customers/wishlist", {
+  async function Te(e = {}) {
+    return o("/api/commerce/customers/wishlist", {
       query: { locale: e.locale },
       signal: e.signal
     });
   }
-  async function de(e, n = {}) {
-    return (await t("/api/commerce/customers/wishlist", {
+  async function Oe(e, n = {}) {
+    return (await o("/api/commerce/customers/wishlist", {
       method: "POST",
       body: { productId: e },
       signal: n.signal
     })).productIds ?? [];
   }
-  async function fe(e, n = {}) {
-    return (await t(
+  async function Re(e, n = {}) {
+    return (await o(
       `/api/commerce/customers/wishlist/${encodeURIComponent(e)}`,
       { method: "DELETE", signal: n.signal }
     )).productIds ?? [];
   }
-  async function ge(e, n = {}) {
-    return t(
+  async function Ee(e, n = {}) {
+    return o(
       `/api/commerce/catalog/products/${encodeURIComponent(e)}/reviews`,
       {
         query: { limit: n.limit != null ? String(n.limit) : void 0, offset: n.offset != null ? String(n.offset) : void 0 },
@@ -378,169 +378,305 @@ function qe(r) {
       }
     );
   }
-  async function ye(e, n, s = {}) {
-    return t(
+  async function Ie(e, n, c = {}) {
+    return o(
       `/api/commerce/catalog/products/${encodeURIComponent(e)}/reviews`,
-      { method: "POST", body: n, signal: s.signal }
+      { method: "POST", body: n, signal: c.signal }
     );
   }
-  async function pe(e, n, s = {}) {
-    return t(
+  async function Pe(e, n, c = {}) {
+    return o(
       `/api/commerce/catalog/products/${encodeURIComponent(e)}/back-in-stock`,
-      { method: "POST", body: n, signal: s.signal }
+      { method: "POST", body: n, signal: c.signal }
     );
   }
-  async function he(e = {}) {
-    return (await t("/api/commerce/customers/orders", {
+  async function ve(e = {}) {
+    return o("/api/commerce/analytics-config", {
+      signal: e.signal
+    });
+  }
+  async function be(e, n = {}) {
+    return o("/api/commerce/consent", {
+      method: "POST",
+      body: e,
+      signal: n.signal
+    });
+  }
+  async function Ue(e = {}) {
+    return (await o("/api/commerce/customers/orders", {
       signal: e.signal
     })).orders ?? [];
   }
-  async function Se(e = {}) {
-    return (await t("/api/commerce/customers/oauth/providers", {
+  async function $e(e = {}) {
+    return (await o("/api/commerce/customers/oauth/providers", {
       signal: e.signal
     })).providers ?? [];
   }
-  function Te(e, n = {}) {
-    return p(r.apiUrl, `/api/commerce/customers/oauth/${encodeURIComponent(e)}/start`, {
+  function _e(e, n = {}) {
+    return p(t.apiUrl, `/api/commerce/customers/oauth/${encodeURIComponent(e)}/start`, {
       returnLocale: n.returnLocale
     });
   }
-  async function Oe(e = {}) {
-    return (await t("/api/commerce/payments/providers", {
+  async function ke(e = {}) {
+    return (await o("/api/commerce/payments/providers", {
       signal: e.signal
     })).providers ?? [];
   }
-  async function Ce(e, n, s = {}) {
-    return t(`/api/commerce/orders/${encodeURIComponent(e)}/pay`, {
+  async function qe(e, n, c = {}) {
+    return o(`/api/commerce/orders/${encodeURIComponent(e)}/pay`, {
       method: "POST",
       body: { provider: n },
-      signal: s.signal
+      signal: c.signal
     });
   }
-  async function Re(e, n = {}) {
-    return t(`/api/commerce/orders/${encodeURIComponent(e)}/payment/refresh`, {
+  async function Ne(e, n = {}) {
+    return o(`/api/commerce/orders/${encodeURIComponent(e)}/payment/refresh`, {
       method: "POST",
       signal: n.signal
     });
   }
   return {
     contractVersion: 2,
-    request: t,
+    request: o,
     health: f,
-    checkContract: h,
+    checkContract: w,
     listProducts: d,
-    getProduct: O,
-    listCategories: U,
-    getCategory: v,
-    getCart: q,
-    addCartItem: N,
-    setCartItemQuantity: k,
-    removeCartItem: A,
-    clearCart: _,
-    applyCoupon: L,
-    removeCoupon: V,
-    getShippingMethods: F,
-    setShipping: W,
-    previewCheckout: D,
-    startCheckout: x,
-    getOrder: j,
-    orderInvoicePdfUrl: H,
-    downloadUrl: J,
-    orderProformaPdfUrl: Q,
-    acceptQuote: G,
-    declineQuote: K,
-    getReturns: X,
-    requestReturn: M,
-    getCsrfToken: B,
-    register: Y,
-    login: z,
-    logout: Z,
-    getCustomer: ee,
-    getTokenInfo: ne,
-    verifyEmail: te,
-    resendVerification: re,
-    forgotPassword: oe,
-    resetPassword: se,
-    changePassword: ce,
-    listAddresses: ae,
-    createAddress: ie,
-    updateAddress: ue,
-    deleteAddress: le,
-    getWishlist: me,
-    addToWishlist: de,
-    removeFromWishlist: fe,
-    listProductReviews: ge,
-    submitReview: ye,
-    subscribeBackInStock: pe,
-    listMyOrders: he,
-    listOAuthProviders: Se,
-    oauthStartUrl: Te,
-    listPaymentProviders: Oe,
-    initiatePayment: Ce,
-    refreshOrderPayment: Re
+    getProduct: I,
+    listCategories: F,
+    getCategory: W,
+    getCart: j,
+    addCartItem: x,
+    setCartItemQuantity: G,
+    removeCartItem: J,
+    clearCart: H,
+    applyCoupon: Q,
+    removeCoupon: K,
+    getShippingMethods: M,
+    setShipping: X,
+    previewCheckout: z,
+    startCheckout: B,
+    getOrder: Y,
+    orderInvoicePdfUrl: Z,
+    downloadUrl: ne,
+    orderProformaPdfUrl: ee,
+    acceptQuote: te,
+    declineQuote: re,
+    getReturns: oe,
+    requestReturn: ce,
+    getCsrfToken: se,
+    register: ae,
+    login: ie,
+    logout: ue,
+    getCustomer: le,
+    getTokenInfo: me,
+    verifyEmail: de,
+    resendVerification: fe,
+    forgotPassword: ge,
+    resetPassword: ye,
+    changePassword: pe,
+    listAddresses: he,
+    createAddress: Se,
+    updateAddress: Ce,
+    deleteAddress: we,
+    getWishlist: Te,
+    addToWishlist: Oe,
+    removeFromWishlist: Re,
+    listProductReviews: Ee,
+    submitReview: Ie,
+    subscribeBackInStock: Pe,
+    getAnalyticsConfig: ve,
+    recordConsent: be,
+    listMyOrders: Ue,
+    listOAuthProviders: $e,
+    oauthStartUrl: _e,
+    listPaymentProviders: ke,
+    initiatePayment: qe,
+    refreshOrderPayment: Ne
   };
 }
-function Ne(r) {
-  if (!/^\d{11}$/.test(r)) return !1;
-  let o = 10;
+function Qe(t) {
+  if (!/^\d{11}$/.test(t)) return !1;
+  let r = 10;
   for (let a = 0; a < 10; a++)
-    o = (o + Number(r[a])) % 10, o === 0 && (o = 10), o = o * 2 % 11;
-  return (11 - o) % 10 === Number(r[10]);
+    r = (r + Number(t[a])) % 10, r === 0 && (r = 10), r = r * 2 % 11;
+  return (11 - r) % 10 === Number(t[10]);
 }
-const w = "cms_wishlist";
-function P() {
+const U = "cms_wishlist";
+function $() {
   try {
     return typeof localStorage > "u" ? null : localStorage;
   } catch {
     return null;
   }
 }
-function b() {
-  const r = P();
-  if (!r) return [];
+function A() {
+  const t = $();
+  if (!t) return [];
   try {
-    const o = r.getItem(w);
-    if (!o) return [];
-    const c = JSON.parse(o);
-    return Array.isArray(c) ? c.filter((a) => typeof a == "string") : [];
+    const r = t.getItem(U);
+    if (!r) return [];
+    const s = JSON.parse(r);
+    return Array.isArray(s) ? s.filter((a) => typeof a == "string") : [];
   } catch {
     return [];
   }
 }
-function $(r) {
-  const o = Array.from(new Set(r)), c = P();
-  if (c)
+function L(t) {
+  const r = Array.from(new Set(t)), s = $();
+  if (s)
     try {
-      c.setItem(w, JSON.stringify(o));
+      s.setItem(U, JSON.stringify(r));
     } catch {
     }
-  return o;
+  return r;
 }
-function ke(r) {
-  const o = b().filter((c) => c !== r);
-  return $([r, ...o]);
+function Ke(t) {
+  const r = A().filter((s) => s !== t);
+  return L([t, ...r]);
 }
-function Ae(r) {
-  return $(b().filter((o) => o !== r));
+function Me(t) {
+  return L(A().filter((r) => r !== t));
 }
-function _e() {
-  const r = P();
-  if (r)
+function Xe() {
+  const t = $();
+  if (t)
     try {
-      r.removeItem(w);
+      t.removeItem(U);
     } catch {
     }
+}
+const _ = "cms-consent-v1";
+let h = null, b = !1;
+function S() {
+  return typeof window < "u" && typeof document < "u";
+}
+function k() {
+  if (!S()) return null;
+  try {
+    const t = window.localStorage.getItem(_);
+    if (!t) return null;
+    const r = JSON.parse(t);
+    return typeof (r == null ? void 0 : r.analytics) != "boolean" ? null : r;
+  } catch {
+    return null;
+  }
+}
+function V(t) {
+  if (S())
+    try {
+      const r = {
+        ...k(),
+        ...t,
+        decidedAt: (/* @__PURE__ */ new Date()).toISOString()
+      };
+      window.localStorage.setItem(_, JSON.stringify(r));
+    } catch {
+    }
+}
+function ze() {
+  if (S())
+    try {
+      window.localStorage.removeItem(_);
+    } catch {
+    }
+}
+function D() {
+  if (!S() || !h || b) return;
+  const t = window;
+  t.dataLayer = t.dataLayer || [], typeof t.gtag != "function" && (t.gtag = function() {
+    t.dataLayer.push(arguments);
+  }), t.gtag("js", /* @__PURE__ */ new Date()), t.gtag("consent", "default", {
+    analytics_storage: "granted",
+    ad_storage: "denied",
+    ad_user_data: "denied",
+    ad_personalization: "denied"
+  }), t.gtag("config", h, { anonymize_ip: !0 });
+  const r = document.createElement("script");
+  r.async = !0, r.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(h)}`, document.head.appendChild(r), b = !0;
+}
+function Be(t) {
+  var r;
+  h = t || null, h && ((r = k()) == null ? void 0 : r.analytics) === !0 && D();
+}
+function Ye() {
+  V({ analytics: !0 }), D();
+}
+function Ze() {
+  V({ analytics: !1 });
+}
+function We() {
+  var t;
+  return b && ((t = k()) == null ? void 0 : t.analytics) === !0;
+}
+function R(t, r) {
+  return !S() || !We() ? !1 : (window.gtag("event", t, r ?? {}), !0);
+}
+function C(t) {
+  return Math.round(t) / 100;
+}
+function E(t) {
+  return t.map((r) => ({
+    item_id: r.id,
+    item_name: r.name,
+    price: C(r.priceCents),
+    quantity: r.quantity ?? 1
+  }));
+}
+function je(t) {
+  return t.reduce((r, s) => r + s.priceCents * (s.quantity ?? 1), 0);
+}
+function en(t) {
+  return R("view_item", {
+    currency: "EUR",
+    value: C(t.priceCents),
+    items: E([t])
+  });
+}
+function nn(t) {
+  return R("add_to_cart", {
+    currency: "EUR",
+    value: C(t.priceCents * (t.quantity ?? 1)),
+    items: E([t])
+  });
+}
+function tn(t, r) {
+  return R("begin_checkout", {
+    currency: "EUR",
+    value: C(r ?? je(t)),
+    items: E(t)
+  });
+}
+function rn(t, r, s) {
+  return R("purchase", {
+    transaction_id: t,
+    currency: "EUR",
+    value: C(s),
+    items: E(r)
+  });
 }
 export {
-  Ee as CONTRACT_VERSION_HEADER,
-  Ue as STOREFRONT_CONTRACT_VERSION,
-  ve as STOREFRONT_SDK_VERSION,
-  R as StorefrontError,
-  ke as addLocalWishlist,
-  _e as clearLocalWishlist,
-  qe as createStorefrontClient,
-  b as getLocalWishlist,
-  Ne as isValidOib,
-  Ae as removeLocalWishlist,
-  $ as setLocalWishlist
+  _ as CONSENT_STORAGE_KEY,
+  Ve as CONTRACT_VERSION_HEADER,
+  Ge as STOREFRONT_CONTRACT_VERSION,
+  Je as STOREFRONT_SDK_VERSION,
+  v as StorefrontError,
+  Ke as addLocalWishlist,
+  Xe as clearLocalWishlist,
+  ze as clearStoredConsent,
+  He as createStorefrontClient,
+  Ze as denyAnalyticsConsent,
+  A as getLocalWishlist,
+  k as getStoredConsent,
+  Ye as grantAnalyticsConsent,
+  Be as initAnalytics,
+  We as isAnalyticsActive,
+  Qe as isValidOib,
+  Me as removeLocalWishlist,
+  L as setLocalWishlist,
+  V as storeConsent,
+  nn as trackAddToCart,
+  tn as trackBeginCheckout,
+  R as trackEvent,
+  rn as trackPurchase,
+  en as trackViewItem
 };

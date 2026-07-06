@@ -121,6 +121,23 @@ deploy picks it up. The SDK is a self-contained single-file bundle with no runti
 the client skeleton; the frontend starts importing catalog methods at L2.2, at which point
 `start.sh` will also live-link the SDK dist for local dev, like it does for admin-base.)*
 
+## Tests (`pnpm test`, L9.6)
+
+Vitest + jsdom + @testing-library/react + axe-core (`vitest.config.ts`, shims in `test/setup.ts`).
+`test/a11y.test.tsx` renders the cart/checkout pages + the cookie banner against a mocked
+`@/lib/storefront` client and asserts zero axe violations (`color-contrast` off — jsdom does no
+layout) + aria-invalid checkout field errors. Run after touching cart/checkout/banner markup.
+
+## Consent + analytics (L9.6)
+
+`ConsentProvider` (`src/lib/consent.tsx`) + fixed-bottom `CookieBanner` + footer "Cookie settings"
+reopen. Analytics decision persists in localStorage `cms-consent-v1` (SDK); GA4 (id from the admin
+Settings → Notifications → Analytics field, served by `GET /api/commerce/analytics-config`) loads
+**only after Accept**; `view_item`/`add_to_cart`/`begin_checkout`/`purchase` fire through the SDK's
+consent gate (silent no-ops pre-consent). Checkout has an unticked "Email me about offers" box —
+only an affirmative tick sends `marketingConsent: true` (a server-side consent record). A11y
+primitives: skip link + global `:focus-visible` ring in `src/styles/base/_a11y.scss`.
+
 ---
 
 ## Keeping this file current

@@ -1,0 +1,31 @@
+// ============================================================
+// Accessibility primitives (Phase L9.6, ≈WCAG 2.1 AA)
+// ------------------------------------------------------------
+// - Skip link: visually hidden until keyboard-focused, then a
+//   prominent pill at the top-left (2.4.1 Bypass Blocks).
+// - Global :focus-visible ring: a consistent, clearly visible
+//   focus indicator on every interactive element (2.4.7), only
+//   for keyboard focus — pointer clicks stay ring-free.
+// ============================================================
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 1000;
+  padding: 0.5rem 1rem;
+  background: var(--mantine-color-teal-7, #0d9480);
+  color: #fff;
+  border-radius: 0 0 6px 0;
+  font-size: 0.875rem;
+  text-decoration: none;
+
+  &:focus-visible {
+    left: 0;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid var(--mantine-color-teal-7, #0d9480);
+  outline-offset: 2px;
+}

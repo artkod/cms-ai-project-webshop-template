@@ -7,6 +7,8 @@ import { useLocaleConfig, PageAlternatesProvider, StringsProvider } from "@/lib/
 import { CartProvider, useCart } from "@/lib/cart";
 import { CustomerProvider, useCustomer } from "@/lib/customer";
 import { WishlistProvider, useWishlist } from "@/lib/wishlist";
+import { ConsentProvider, useConsent } from "@/lib/consent";
+import { CookieBanner } from "@/components/CookieBanner";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 
 // Minimal shared layout for the test project: a header (site title + primary
@@ -53,6 +55,17 @@ function WishlistNav({ locale }: { locale: string }) {
         <Heart size={20} />
       </Anchor>
     </Indicator>
+  );
+}
+
+// Footer "Cookie settings" — re-opens the consent banner so a visitor can
+// change their mind any time (GDPR: withdrawing must be as easy as giving).
+function CookieSettingsLink() {
+  const { reopen } = useConsent();
+  return (
+    <Anchor component="button" type="button" fz="sm" onClick={reopen}>
+      Cookie settings
+    </Anchor>
   );
 }
 
@@ -126,7 +139,12 @@ export function RootLayout() {
         <CartProvider>
         <CustomerProvider>
         <WishlistProvider>
+        <ConsentProvider>
         <Box style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
+          {/* Skip link (WCAG 2.4.1) — first tabbable element, jumps past the chrome. */}
+          <Anchor href="#main-content" className="skip-link">
+            Skip to content
+          </Anchor>
           <Box component="header" style={{ borderBottom: "1px solid var(--mantine-color-gray-3)" }}>
             <Container size={1140} py="md">
               <Group justify="space-between" wrap="nowrap">
@@ -147,7 +165,7 @@ export function RootLayout() {
             </Container>
           </Box>
 
-          <Box component="main" style={{ flex: 1 }}>
+          <Box component="main" id="main-content" style={{ flex: 1 }}>
             <Container size={1140} py="xl">
               <Outlet />
             </Container>
@@ -163,11 +181,14 @@ export function RootLayout() {
                   {footerItems.map((item) => (
                     <NavItem key={item.id} item={item} />
                   ))}
+                  <CookieSettingsLink />
                 </Group>
               </Group>
             </Container>
           </Box>
         </Box>
+        <CookieBanner />
+        </ConsentProvider>
         </WishlistProvider>
         </CustomerProvider>
         </CartProvider>
