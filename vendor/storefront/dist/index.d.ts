@@ -30,6 +30,10 @@ export declare interface Cart {
     /** true when an APPROVED business customer is logged in → its price list applies
      *  (prices stay GROSS like B2C; only a cross-border EU reverse-charge sale is net). L5.5. */
     b2b: boolean;
+    /** true when ≥1 line is a physical product needing a shipment (L9.5). A
+     *  digital/service-only cart is false → hide the shipping step, no shipping cost,
+     *  no COD offered at checkout. */
+    requiresShipping: boolean;
     /** e.g. `"coupon_removed"` when an applied coupon lapsed since it was added. */
     warnings: string[];
 }
@@ -55,6 +59,8 @@ export declare interface CartLine {
     taxClass: string;
     /** false = inquiry-only — routes the whole cart to a quote (no payment/delivery); the storefront hides the line price (L7.4). */
     purchasable: boolean;
+    /** true for a physical product (needs a shipment); false for digital/service (delivered on payment). L9.5. */
+    requiresShipping: boolean;
     quantity: number;
     unitPrice: number;
     regularPrice: number;

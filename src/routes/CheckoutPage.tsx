@@ -116,6 +116,8 @@ export function CheckoutPage() {
   const autoPickedRef = useRef(false);
   useEffect(() => {
     if (!preview || preview.isQuote || preview.cart.items.length === 0) return;
+    // Digital/service-only cart (L9.5) — no shipping at all; nothing to auto-select.
+    if (!preview.cart.requiresShipping) return;
     if (preview.cart.shipping.method) {
       autoPickedRef.current = false;
       return;
@@ -245,8 +247,10 @@ export function CheckoutPage() {
   // A delivery method is mandatory for a payable order (auto-selected above when one
   // exists; this still blocks a zone where only a pickup-point method is offered until
   // the shopper picks it + a point on the cart page).
-  const hasShipping = !!preview?.cart.shipping.method;
-  const needsShipping = !isQuote && !empty && !hasShipping;
+  // Digital/service-only cart (L9.5) needs no shipping method.
+  const cartRequiresShipping = preview?.cart.requiresShipping ?? true;
+  const hasShipping = !cartRequiresShipping || !!preview?.cart.shipping.method;
+  const needsShipping = !isQuote && !empty && cartRequiresShipping && !preview?.cart.shipping.method;
   // The button stays CLICKABLE with an invalid address — clicking surfaces the
   // per-field errors (a disabled button announces nothing to AT). It's disabled
   // only for states the form can't fix here (empty cart / no shipping / no method).
