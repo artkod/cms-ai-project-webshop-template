@@ -7,6 +7,7 @@ import {
   type ConsentDecision,
 } from "@cms/storefront";
 import { storefront } from "./storefront";
+import { getSiteSettings } from "./api";
 import { useCustomer } from "./customer";
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -14,8 +15,9 @@ import { useCustomer } from "./customer";
 //
 // Owns the visitor's analytics-consent decision. The SDK persists it in
 // localStorage and gates gtag.js + every GA4 event on it; this provider adds:
-//   - boot: fetch the shop's GA4 id (`getAnalyticsConfig`) → `initAnalytics()`
-//     (loads gtag right away only for a returning visitor with a stored grant);
+//   - boot: read the shop's GA4 id from CORE site settings (`getSiteSettings()
+//     .ga4MeasurementId`) → `initAnalytics()` (loads gtag right away only for a
+//     returning visitor with a stored grant);
 //   - `accept()`/`decline()`: store the choice, (un)arm the SDK gate, and — for
 //     a LOGGED-IN customer — best-effort record it server-side (GDPR consent
 //     record, source `cookie_banner`). Guests stay client-side only.
@@ -41,15 +43,15 @@ export function ConsentProvider({ children }: { children: ReactNode }) {
   const [decision, setDecision] = useState<ConsentDecision | null>(() => getStoredConsent());
   const [bannerOpen, setBannerOpen] = useState<boolean>(() => getStoredConsent() === null);
 
-  // Boot: fetch the GA4 id and arm the SDK. A returning visitor with a stored
-  // grant starts sending immediately; everyone else waits for accept().
+  // Boot: read the GA4 id from CORE site settings and arm the SDK. A returning
+  // visitor with a stored grant starts sending immediately; everyone else waits
+  // for accept(). (GA4 is a core capability — not commerce; see docs/frontend-analytics.md.)
   useEffect(() => {
     let alive = true;
-    storefront
-      .getAnalyticsConfig()
-      .then((cfg) => alive && initAnalytics(cfg.ga4MeasurementId))
+    getSiteSettings()
+      .then((s) => alive && initAnalytics(s?.ga4MeasurementId))
       .catch(() => {
-        /* analytics config unavailable → analytics simply stays off */
+        /* settings unavailable → analytics simply stays off */
       });
     return () => {
       alive = false;

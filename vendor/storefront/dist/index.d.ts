@@ -1155,16 +1155,6 @@ export declare interface StorefrontClient {
         already: boolean;
     }>;
     /**
-     * The shop's GA4 measurement id (null = analytics off). Public boot read —
-     * pass to `initAnalytics()`; gtag loads only after the visitor grants
-     * analytics consent. `GET /api/commerce/analytics-config`.
-     */
-    getAnalyticsConfig(opts?: {
-        signal?: AbortSignal;
-    }): Promise<{
-        ga4MeasurementId: string | null;
-    }>;
-    /**
      * Record a LOGGED-IN customer's consent choice server-side (append-only,
      * source `cookie_banner`). 401 for guests — their banner choice stays
      * client-side; identifiable capture happens at checkout (`marketingConsent`).

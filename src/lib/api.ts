@@ -254,6 +254,8 @@ export interface SiteSettings {
   defaultMetaDescription: string;
   defaultOgImageUrl: string;
   analyticsId: string;
+  // GA4 measurement id (CORE, L9.6) — drives the consent-gated gtag loader.
+  ga4MeasurementId: string;
   customHeadHtml: string;
   customBodyHtml: string;
   robotsTxt: string;
