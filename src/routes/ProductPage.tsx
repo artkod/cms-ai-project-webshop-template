@@ -199,17 +199,27 @@ export function ProductPage({ product: productProp }: { product?: CatalogProduct
               {/* Inquiry-only products hide the price ("on request") — they're sold
                   via a quote, not direct checkout (L7.4). */}
               {product.purchasable ? (
-                <Group gap="sm" align="baseline">
-                  <Text fz="xl" fw={700}>
-                    {formatCents(variant.effectivePrice)}
-                  </Text>
-                  {variant.onSale && variant.compareAt && (
-                    <Text c="dimmed" td="line-through">
-                      {formatCents(variant.compareAt)}
+                <Stack gap={2}>
+                  <Group gap="sm" align="baseline">
+                    <Text fz="xl" fw={700}>
+                      {formatCents(variant.effectivePrice)}
+                    </Text>
+                    {/* On sale: strike the REGULAR list price (not the Omnibus low). */}
+                    {variant.onSale && variant.price > variant.effectivePrice && (
+                      <Text c="dimmed" td="line-through">
+                        {formatCents(variant.price)}
+                      </Text>
+                    )}
+                    {variant.onSale && <Badge color="red">Sale</Badge>}
+                  </Group>
+                  {/* EU Omnibus: the lowest price applied in the 30 days before this
+                      reduction (compareAt), shown as an explicit labelled note. */}
+                  {variant.compareAt != null && (
+                    <Text fz="xs" c="dimmed">
+                      Lowest price in the last 30 days: {formatCents(variant.compareAt)}
                     </Text>
                   )}
-                  {variant.onSale && <Badge color="red">Sale</Badge>}
-                </Group>
+                </Stack>
               ) : (
                 <Group gap="sm" align="center">
                   <Text fz="xl" fw={700} c="dimmed">Price on request</Text>

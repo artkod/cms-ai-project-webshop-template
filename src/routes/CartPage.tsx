@@ -40,23 +40,26 @@ export function CartPage() {
   const isInquiry = !!cart && cart.items.some((l) => !l.purchasable);
   const hasPurchasable = !!cart && cart.items.some((l) => l.purchasable);
   const mixed = isInquiry && hasPurchasable;
+  // A cart needs delivery only when it has ≥1 physical line (server `requiresShipping`).
+  // A digital/service-only cart is never shipped, so no delivery picker is shown.
+  const needsShipping = !!cart && !isInquiry && cart.requiresShipping;
 
-  // Load shipping options whenever the cart gains contents / its destination changes —
-  // skipped for an inquiry cart (no delivery is offered for a quote).
+  // Load shipping options whenever a SHIPPABLE cart gains contents / changes
+  // destination — skipped for an inquiry or a non-shippable (digital/service) cart.
   useEffect(() => {
-    if (!empty && !isInquiry) void loadShipping(cart?.shipping.country);
-  }, [empty, isInquiry, cart?.shipping.country, loadShipping]);
+    if (!empty && needsShipping) void loadShipping(cart?.shipping.country);
+  }, [empty, needsShipping, cart?.shipping.country, loadShipping]);
 
-  // A delivery method is mandatory for a purchasable cart — auto-select the first
+  // A delivery method is mandatory for a shippable cart — auto-select the first
   // non-pickup method when none is chosen yet (mirrors the checkout page), so the cart
   // total always includes delivery and a shopper can't proceed paying for shipping by
   // simply not picking one. Pickup/locker methods need a point, so they aren't auto-set.
   useEffect(() => {
-    if (empty || isInquiry) return;
+    if (empty || !needsShipping) return;
     if (cart?.shipping.method) return;
     const first = shippingOptions?.methods.find((m) => !m.requiresPickupPoint);
     if (first) void setShipping({ methodId: first.methodId });
-  }, [empty, isInquiry, cart?.shipping.method, shippingOptions, setShipping]);
+  }, [empty, needsShipping, cart?.shipping.method, shippingOptions, setShipping]);
 
   if (loading && !cart) return <Loader />;
 
@@ -218,9 +221,11 @@ export function CartPage() {
                 </Group>
               )}
 
+              {/* Shipping — only for a cart with a physical line. A digital/service-only
+                  cart is never delivered, so no destination or method picker shows. */}
+              {needsShipping && (<>
               <Divider my="xs" />
 
-              {/* Shipping */}
               <Title order={3} size="h5">Shipping</Title>
               <Select
                 label="Ship to"
@@ -265,6 +270,7 @@ export function CartPage() {
               {shipping?.method?.requiresPickupPoint && shipping.pickupPoint && (
                 <Text c="dimmed" fz="xs">Pickup: {(shipping.pickupPoint as { name?: string }).name}</Text>
               )}
+              </>)}
 
               {/* Payment method (incl. Cash on Delivery + its surcharge) is chosen
                   in checkout, not here — see L4.5/L7.4. The COD surcharge engine
