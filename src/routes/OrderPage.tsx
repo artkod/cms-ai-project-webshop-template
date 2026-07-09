@@ -197,6 +197,8 @@ export function OrderPage() {
 
   const t = order.totals;
   const addr = order.shippingAddress;
+  // A non-shippable (digital/service) order has no shipping address — show billing.
+  const billAddr = order.billingAddress;
   // `authorized` = a manual-capture HOLD (card OK'd, not yet charged); `paid` = charged.
   const authorized = order.status.paymentStatus === "authorized";
   const isPaid = order.status.paymentStatus === "paid" || authorized;
@@ -457,6 +459,18 @@ export function OrderPage() {
               {order.pickupPoint ? ` — ${(order.pickupPoint as { name?: string }).name ?? "pickup point"}` : ""}
             </Text>
           )}
+        </Paper>
+      )}
+
+      {/* Billing address — shown when it differs from shipping, or when there is no
+          shipping address at all (a digital/service order). */}
+      {billAddr && (!addr || JSON.stringify(billAddr) !== JSON.stringify(addr)) && (
+        <Paper withBorder p="md" radius="md">
+          <Title order={4} mb="xs">Billing</Title>
+          <Text fz="sm">{billAddr.name}</Text>
+          <Text fz="sm">{billAddr.line1}{billAddr.line2 ? `, ${billAddr.line2}` : ""}</Text>
+          <Text fz="sm">{billAddr.postalCode} {billAddr.city}, {billAddr.country}</Text>
+          {billAddr.phone && <Text fz="sm" c="dimmed">{billAddr.phone}</Text>}
         </Paper>
       )}
 

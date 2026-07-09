@@ -881,7 +881,8 @@ export declare type ShippingZone = "HR" | "EU" | "INT";
 /** Body for `POST /api/commerce/checkout`. */
 export declare interface StartCheckoutInput {
     email: string;
-    shippingAddress: OrderAddress;
+    /** Optional: a non-shippable (digital/service-only) cart may send only billing. */
+    shippingAddress?: OrderAddress;
     /** Falls back to the shipping address when omitted. */
     billingAddress?: OrderAddress;
     note?: string;

@@ -87,6 +87,18 @@ export function CheckoutPage() {
     name: "", line1: "", line2: "", city: "", postalCode: "",
     country: cart?.shipping.country ?? "HR", phone: "", email: "", note: "",
   });
+  // Billing address (R2-G). For a SHIPPABLE cart the primary block above is the
+  // shipping address and billing defaults to "same as shipping"; unticking reveals a
+  // separate billing block. For a NON-SHIPPABLE (digital/service-only) cart the
+  // primary block IS the billing address (no shipping is collected).
+  const [billingSame, setBillingSame] = useState(true);
+  const [billing, setBilling] = useState<OrderAddress>({
+    name: "", line1: "", line2: "", city: "", postalCode: "", country: "HR", phone: "",
+  });
+  const setB = (k: keyof OrderAddress) => (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.currentTarget.value;
+    setBilling((b) => ({ ...b, [k]: value }));
+  };
 
   const reloadPreview = useCallback(async () => {
     try {
@@ -251,13 +263,18 @@ export function CheckoutPage() {
   const cartRequiresShipping = preview?.cart.requiresShipping ?? true;
   const hasShipping = !cartRequiresShipping || !!preview?.cart.shipping.method;
   const needsShipping = !isQuote && !empty && cartRequiresShipping && !preview?.cart.shipping.method;
+  // A separate billing block is shown only for a shippable cart with "same as
+  // shipping" unticked; validate it too when present.
+  const billingBlockShown = cartRequiresShipping && !billingSame;
+  const billingValid = !billingBlockShown
+    || (!!billing.name.trim() && !!billing.line1.trim() && !!billing.city.trim() && !!billing.postalCode.trim());
   // The button stays CLICKABLE with an invalid address — clicking surfaces the
   // per-field errors (a disabled button announces nothing to AT). It's disabled
   // only for states the form can't fix here (empty cart / no shipping / no method).
   const canAttempt = !empty && (isQuote || (hasShipping && paymentValid));
 
   const place = async () => {
-    if (!addressValid) {
+    if (!addressValid || !billingValid) {
       // Surface the per-field errors (aria-invalid + inline messages) instead of
       // relying on the disabled button alone.
       setShowErrors(true);
@@ -266,10 +283,15 @@ export function CheckoutPage() {
     setPlacing(true);
     try {
       const { email, note, ...address } = form;
+      // A non-shippable cart collects only a billing address; a shippable cart sends
+      // the shipping address + (optionally) a distinct billing address.
+      const addresses: { shippingAddress?: OrderAddress; billingAddress?: OrderAddress } = cartRequiresShipping
+        ? { shippingAddress: address as OrderAddress, ...(billingSame ? {} : { billingAddress: billing }) }
+        : { billingAddress: address as OrderAddress };
       const order = await storefront.startCheckout(
         {
           email,
-          shippingAddress: address as OrderAddress,
+          ...addresses,
           note: note.trim() || undefined,
           ...(paymentMethod && !isQuote ? { paymentMethod } : {}),
           // Only an affirmative tick writes a consent record (L9.6).
@@ -352,7 +374,7 @@ export function CheckoutPage() {
             error={showErrors && !/.+@.+\..+/.test(form.email) ? "Enter a valid email address." : undefined}
           />
 
-          <Title order={2} size="h4" mt="sm">Shipping address</Title>
+          <Title order={2} size="h4" mt="sm">{cartRequiresShipping ? "Shipping address" : "Billing address"}</Title>
           <TextInput label="Full name" required value={form.name} onChange={set("name")} error={showErrors && !form.name.trim() ? "Full name is required." : undefined} />
           <TextInput label="Address" required value={form.line1} onChange={set("line1")} error={showErrors && !form.line1.trim() ? "Address is required." : undefined} />
           <TextInput label="Address line 2" value={form.line2} onChange={set("line2")} />
@@ -369,6 +391,42 @@ export function CheckoutPage() {
             comboboxProps={{ withinPortal: true }}
           />
           <TextInput label="Phone" value={form.phone} onChange={set("phone")} />
+
+          {/* Billing address (R2-G) — only meaningful when a shipping address is
+              collected; a non-shippable cart's single block is already the billing one. */}
+          {cartRequiresShipping && (
+            <>
+              <Checkbox
+                mt="xs"
+                label="Billing address same as shipping"
+                checked={billingSame}
+                onChange={(e) => {
+                  const same = e.currentTarget.checked;
+                  setBillingSame(same);
+                  // Prefill from a saved default-billing address the first time it's split.
+                  if (!same && !billing.line1.trim()) {
+                    const def = saved.find((r) => r.isDefaultBilling);
+                    if (def) setBilling({ name: def.name, line1: def.line1, line2: def.line2 ?? "", city: def.city, postalCode: def.postalCode, country: def.country, phone: def.phone ?? "" });
+                  }
+                }}
+              />
+              {!billingSame && (
+                <Stack gap="sm">
+                  <Title order={2} size="h4" mt="xs">Billing address</Title>
+                  <TextInput label="Full name" required value={billing.name} onChange={setB("name")} error={showErrors && !billing.name.trim() ? "Full name is required." : undefined} />
+                  <TextInput label="Address" required value={billing.line1} onChange={setB("line1")} error={showErrors && !billing.line1.trim() ? "Address is required." : undefined} />
+                  <TextInput label="Address line 2" value={billing.line2} onChange={setB("line2")} />
+                  <Group grow>
+                    <TextInput label="City" required value={billing.city} onChange={setB("city")} error={showErrors && !billing.city.trim() ? "City is required." : undefined} />
+                    <TextInput label="Postal code" required value={billing.postalCode} onChange={setB("postalCode")} error={showErrors && !billing.postalCode.trim() ? "Postal code is required." : undefined} />
+                  </Group>
+                  <Select label="Country" data={COUNTRY_OPTIONS} value={billing.country} onChange={(v) => v && setBilling((b) => ({ ...b, country: v }))} allowDeselect={false} comboboxProps={{ withinPortal: true }} />
+                  <TextInput label="Phone" value={billing.phone} onChange={setB("phone")} />
+                </Stack>
+              )}
+            </>
+          )}
+
           <Textarea label="Order note" value={form.note} onChange={set("note")} autosize minRows={2} />
           {/* GDPR marketing opt-in (L9.6): unticked by default; only an affirmative
               tick is recorded (a consent record keyed by the checkout email). */}
