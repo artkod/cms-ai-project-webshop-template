@@ -1,7 +1,7 @@
 var Ne = Object.defineProperty;
 var Ae = (t, r, s) => r in t ? Ne(t, r, { enumerable: !0, configurable: !0, writable: !0, value: s }) : t[r] = s;
 var O = (t, r, s) => Ae(t, typeof r != "symbol" ? r + "" : r, s);
-const xe = 2, Ge = "0.0.1";
+const xe = 3, Ge = "0.0.1";
 class v extends Error {
   constructor(s, a) {
     super(s);
@@ -42,7 +42,7 @@ function Je(t) {
     );
   const s = t.credentials ?? "include", a = {
     "X-Project-Slug": t.projectSlug,
-    [Le]: String(2),
+    [Le]: String(3),
     ...t.headers
   };
   async function o(e, n = {}) {
@@ -92,9 +92,9 @@ function Je(t) {
   async function w() {
     const { contractVersion: e } = await f();
     return {
-      sdk: 2,
+      sdk: 3,
       api: e,
-      compatible: e === 2
+      compatible: e === 3
     };
   }
   function g(e = {}) {
@@ -431,7 +431,7 @@ function Je(t) {
     });
   }
   return {
-    contractVersion: 2,
+    contractVersion: 3,
     request: o,
     health: f,
     checkContract: w,

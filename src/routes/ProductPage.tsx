@@ -4,7 +4,7 @@ import { Anchor, Badge, Box, Breadcrumbs, Button, Group, Image, Loader, NumberIn
 import { notifications } from "@mantine/notifications";
 import { trackAddToCart, trackViewItem, type CatalogProduct, type CatalogVariant } from "@cms/storefront";
 import { storefront } from "@/lib/storefront";
-import { useLocaleConfig, usePageAlternates } from "@/lib/locale";
+import { useLocaleConfig, usePageAlternates, useStrings } from "@/lib/locale";
 import { useCart } from "@/lib/cart";
 import { formatCents } from "@/lib/money";
 import { useDocumentSeo, useJsonLd } from "@/lib/seo";
@@ -27,6 +27,7 @@ export function ProductPage({ product: productProp }: { product?: CatalogProduct
   const { locale, idOrSlug } = useParams<{ locale: string; idOrSlug: string }>();
   const { defaultLocale, settings } = useLocaleConfig();
   const { setAlternates } = usePageAlternates();
+  const { t } = useStrings();
   const loc = locale ?? defaultLocale;
   const { add } = useCart();
   const categories = useCategoryTree(loc);
@@ -106,9 +107,9 @@ export function ProductPage({ product: productProp }: { product?: CatalogProduct
   if (product === "404") {
     return (
       <Stack>
-        <Title order={2}>Product not found</Title>
+        <Title order={2}>{t("shop.product.notFound")}</Title>
         <Anchor component={Link} to={`/${loc}/shop`}>
-          ← Back to shop
+          {t("shop.product.backToShop")}
         </Anchor>
       </Stack>
     );
@@ -123,7 +124,7 @@ export function ProductPage({ product: productProp }: { product?: CatalogProduct
     // showed the error toast (no double toast).
     if (ok) {
       trackAddToCart({ id: variant.id, name: product.name, priceCents: variant.effectivePrice, quantity: qty });
-      notifications.show({ color: "teal", message: `Added ${qty} × ${product.name} to ${product.purchasable ? "cart" : "inquiry"}.` });
+      notifications.show({ color: "teal", message: `${qty} × ${product.name} → ${product.purchasable ? t("shop.product.addedToCart") : t("shop.product.addedToInquiry")}` });
     }
   };
 
@@ -131,7 +132,7 @@ export function ProductPage({ product: productProp }: { product?: CatalogProduct
   const chain = product.primaryCategoryId ? categoryChain(product.primaryCategoryId, categories) : [];
   const crumbs = [
     <Anchor key="shop" component={Link} to={`/${loc}/shop`} fz="sm">
-      Shop
+      {t("shop.nav.shop")}
     </Anchor>,
     ...chain.map((c) => {
       const href = categoryHref(loc, c.id, categories);
@@ -160,7 +161,7 @@ export function ProductPage({ product: productProp }: { product?: CatalogProduct
               <Image src={product.gallery[0].cdnUrl} alt={product.name} h="100%" w="100%" fit="cover" />
             ) : (
               <Group justify="center" align="center" h="100%">
-                <Text c="dimmed">No image</Text>
+                <Text c="dimmed">{t("shop.catalog.noImage")}</Text>
               </Group>
             )}
           </Box>
@@ -173,9 +174,9 @@ export function ProductPage({ product: productProp }: { product?: CatalogProduct
           {/* Option axes as labelled groups of toggle buttons (aria-pressed) — the
               group's name is announced with each value (L9.6 a11y). */}
           {product.options.map((o) => (
-            <div key={o.id} role="group" aria-label={o.name}>
+            <div key={o.id} role="group" aria-label={o.label}>
               <Text fw={600} fz="sm" mb={4} aria-hidden>
-                {o.name}
+                {o.label}
               </Text>
               <Group gap="xs">
                 {o.values.map((val) => (
@@ -184,10 +185,10 @@ export function ProductPage({ product: productProp }: { product?: CatalogProduct
                     size="xs"
                     variant={selection[o.id] === val.id ? "filled" : "default"}
                     aria-pressed={selection[o.id] === val.id}
-                    aria-label={`${o.name}: ${val.value}`}
+                    aria-label={`${o.label}: ${val.label}`}
                     onClick={() => setSelection((s) => ({ ...s, [o.id]: val.id }))}
                   >
-                    {val.value}
+                    {val.label}
                   </Button>
                 ))}
               </Group>
@@ -210,39 +211,39 @@ export function ProductPage({ product: productProp }: { product?: CatalogProduct
                         {formatCents(variant.price)}
                       </Text>
                     )}
-                    {variant.onSale && <Badge color="red">Sale</Badge>}
+                    {variant.onSale && <Badge color="red">{t("shop.badge.sale")}</Badge>}
                   </Group>
                   {/* EU Omnibus: the lowest price applied in the 30 days before this
                       reduction (compareAt), shown as an explicit labelled note. */}
                   {variant.compareAt != null && (
                     <Text fz="xs" c="dimmed">
-                      Lowest price in the last 30 days: {formatCents(variant.compareAt)}
+                      {t("shop.product.lowestPrice")}: {formatCents(variant.compareAt)}
                     </Text>
                   )}
                 </Stack>
               ) : (
                 <Group gap="sm" align="center">
-                  <Text fz="xl" fw={700} c="dimmed">Price on request</Text>
-                  <Badge color="blue" variant="light">Inquiry only</Badge>
+                  <Text fz="xl" fw={700} c="dimmed">{t("shop.product.priceOnRequest")}</Text>
+                  <Badge color="blue" variant="light">{t("shop.badge.inquiryOnly")}</Badge>
                 </Group>
               )}
               <Group gap="xs">
                 {variant.inStock ? (
                   <Badge color="teal" variant="light">
-                    In stock{variant.available !== null ? ` (${variant.available})` : ""}
+                    {t("shop.product.inStockCount")}{variant.available !== null ? ` (${variant.available})` : ""}
                   </Badge>
                 ) : variant.sellable ? (
                   <Badge color="yellow" variant="light">
-                    Available on backorder
+                    {t("shop.badge.backorderAvailable")}
                   </Badge>
                 ) : (
                   <Badge color="gray" variant="light">
-                    Out of stock
+                    {t("shop.badge.outOfStock")}
                   </Badge>
                 )}
                 {variant.sku && (
                   <Text c="dimmed" fz="xs">
-                    SKU: {variant.sku}
+                    {t("shop.product.sku")}: {variant.sku}
                   </Text>
                 )}
               </Group>
@@ -250,7 +251,7 @@ export function ProductPage({ product: productProp }: { product?: CatalogProduct
               {!variant.sellable && <BackInStockForm productId={product.id} variantId={variant.id} locale={loc} />}
               <Group gap="sm" align="flex-end">
                 <NumberInput
-                  label="Quantity"
+                  label={t("shop.product.quantity")}
                   min={1}
                   max={variant.backorder || variant.available === null ? undefined : variant.available}
                   value={qty}
@@ -258,13 +259,13 @@ export function ProductPage({ product: productProp }: { product?: CatalogProduct
                   w={110}
                 />
                 <Button onClick={onAdd} loading={adding} disabled={!variant.sellable}>
-                  {product.purchasable ? "Add to cart" : "Add to inquiry"}
+                  {product.purchasable ? t("shop.product.addToCart") : t("shop.product.addToInquiry")}
                 </Button>
                 <WishlistButton productId={product.id} mode="button" />
               </Group>
             </>
           ) : (
-            <Text c="dimmed">Select all options to see price + availability.</Text>
+            <Text c="dimmed">{t("shop.product.selectOptions")}</Text>
           )}
         </Stack>
       </Group>

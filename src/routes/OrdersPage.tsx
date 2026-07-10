@@ -5,7 +5,8 @@ import { FileText, Package, ShoppingBag } from "lucide-react";
 import { type CustomerOrderSummary } from "@cms/storefront";
 import { storefront } from "@/lib/storefront";
 import { useCustomer } from "@/lib/customer";
-import { useLocaleConfig } from "@/lib/locale";
+import { useLocaleConfig, useStrings } from "@/lib/locale";
+import { humanizeStatus } from "@/lib/shopStrings";
 import { formatCents } from "@/lib/money";
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -28,6 +29,7 @@ export function OrdersPage() {
   const { defaultLocale } = useLocaleConfig();
   const loc = locale ?? defaultLocale;
   const { customer, loading: customerLoading } = useCustomer();
+  const { t } = useStrings();
 
   const [orders, setOrders] = useState<CustomerOrderSummary[]>([]);
   const [loading, setLoading] = useState(true);
@@ -67,9 +69,9 @@ export function OrdersPage() {
   if (!customer) {
     return (
       <Stack maw={560} mx="auto" gap="md">
-        <Title order={2}>My orders</Title>
+        <Title order={2}>{t("shop.orders.title")}</Title>
         <Alert color="blue" variant="light">
-          Please <Anchor component={Link} to={`/${loc}/account`}>sign in</Anchor> to view your order history.
+          {t("shop.orders.pleaseSignIn")} <Anchor component={Link} to={`/${loc}/account`}>{t("shop.orders.signIn")}</Anchor> {t("shop.orders.signInPrompt")}
         </Alert>
       </Stack>
     );
@@ -80,10 +82,9 @@ export function OrdersPage() {
   if (!verified) {
     return (
       <Stack maw={560} mx="auto" gap="md">
-        <Title order={2}>My orders</Title>
-        <Alert color="yellow" variant="light" title="Verify your email">
-          Your order history is an account feature — please verify your email first. Verifying also links any
-          earlier orders you placed as a guest with this email. <Anchor component={Link} to={`/${loc}/account`}>Go to your account</Anchor>.
+        <Title order={2}>{t("shop.orders.title")}</Title>
+        <Alert color="yellow" variant="light" title={t("shop.orders.verifyTitle")}>
+          {t("shop.orders.verifyBody")} <Anchor component={Link} to={`/${loc}/account`}>{t("shop.orders.goToAccount")}</Anchor>.
         </Alert>
       </Stack>
     );
@@ -91,16 +92,16 @@ export function OrdersPage() {
 
   return (
     <Stack maw={680} mx="auto" gap="lg">
-      <Title order={2}>My orders</Title>
+      <Title order={2}>{t("shop.orders.title")}</Title>
 
       {failed ? (
-        <Alert color="red" variant="light" title="Couldn't load your orders">
-          Something went wrong loading your order history.{" "}
-          <Anchor onClick={() => { setLoading(true); void reload(); }}>Try again</Anchor>.
+        <Alert color="red" variant="light" title={t("shop.orders.loadFailedTitle")}>
+          {t("shop.orders.loadFailedBody")}{" "}
+          <Anchor onClick={() => { setLoading(true); void reload(); }}>{t("shop.orders.tryAgain")}</Anchor>.
         </Alert>
       ) : orders.length === 0 ? (
         <Alert color="gray" variant="light" icon={<ShoppingBag size={18} />}>
-          You haven't placed any orders yet. <Anchor component={Link} to={`/${loc}/shop`}>Start shopping</Anchor>.
+          {t("shop.orders.emptyBody")} <Anchor component={Link} to={`/${loc}/shop`}>{t("shop.orders.startShopping")}</Anchor>.
         </Alert>
       ) : (
         <Stack gap="sm">
@@ -119,17 +120,17 @@ export function OrdersPage() {
                   <Group gap="xs">
                     {o.isQuote ? <FileText size={16} /> : <Package size={16} />}
                     <Text fw={600}>
-                      {o.isQuote ? "Quote" : "Order"} #{o.orderNumber}
+                      {o.isQuote ? t("shop.orders.quote") : t("shop.orders.order")} #{o.orderNumber}
                     </Text>
                     <Badge size="xs" color={o.isQuote ? "blue" : "gray"} variant="light">
-                      {o.status.lifecycle}
+                      {humanizeStatus(loc, o.status.lifecycle)}
                     </Badge>
                     <Badge size="xs" color={paymentColor(o.status.paymentStatus)} variant="light">
-                      {o.status.paymentStatus}
+                      {humanizeStatus(loc, o.status.paymentStatus)}
                     </Badge>
                   </Group>
                   <Text fz="sm" c="dimmed">
-                    {new Date(o.placedAt).toLocaleDateString()} · {o.itemCount} item{o.itemCount === 1 ? "" : "s"}
+                    {new Date(o.placedAt).toLocaleDateString()} · {o.itemCount} {o.itemCount === 1 ? t("shop.orders.itemOne") : t("shop.orders.itemOther")}
                   </Text>
                 </Stack>
                 <Text fw={600}>{formatCents(o.grandTotal)}</Text>
@@ -139,7 +140,7 @@ export function OrdersPage() {
         </Stack>
       )}
 
-      <Anchor component={Link} to={`/${loc}/account`} fz="sm">← Back to account</Anchor>
+      <Anchor component={Link} to={`/${loc}/account`} fz="sm">{t("shop.orders.backToAccount")}</Anchor>
     </Stack>
   );
 }

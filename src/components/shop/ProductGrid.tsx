@@ -2,6 +2,7 @@ import { Link } from "react-router";
 import { Badge, Box, Card, Group, Image, SimpleGrid, Stack, Text } from "@mantine/core";
 import type { ProductCard } from "@cms/storefront";
 import { formatCents } from "@/lib/money";
+import { useStrings } from "@/lib/locale";
 import { productHref, type CategoryMap } from "./catalogUrls";
 import { WishlistButton } from "./WishlistButton";
 
@@ -17,6 +18,7 @@ export function ProductGrid({
   products: ProductCard[];
   categories: CategoryMap;
 }) {
+  const { t } = useStrings();
   return (
     <SimpleGrid cols={{ base: 1, xs: 2, sm: 2, md: 3 }} spacing="lg">
       {products.map((p) => (
@@ -36,7 +38,7 @@ export function ProductGrid({
               ) : (
                 <Group justify="center" align="center" h="100%">
                   <Text c="dimmed" fz="sm">
-                    No image
+                    {t("shop.catalog.noImage")}
                   </Text>
                 </Group>
               )}
@@ -56,31 +58,31 @@ export function ProductGrid({
               {p.purchasable ? (
                 <Text fw={700}>{formatCents(p.price)}</Text>
               ) : (
-                <Text fw={600} c="dimmed">Price on request</Text>
+                <Text fw={600} c="dimmed">{t("shop.priceOnRequest")}</Text>
               )}
             </Group>
             <Group gap="xs">
               {!p.purchasable && (
                 <Badge color="blue" variant="light" size="sm">
-                  Inquiry only
+                  {t("shop.badge.inquiryOnly")}
                 </Badge>
               )}
               {p.purchasable && p.onSale && (
                 <Badge color="red" size="sm">
-                  Sale
+                  {t("shop.badge.sale")}
                 </Badge>
               )}
               {p.inStock ? (
                 <Badge color="teal" variant="light" size="sm">
-                  In stock
+                  {t("shop.badge.inStock")}
                 </Badge>
               ) : p.sellable ? (
                 <Badge color="yellow" variant="light" size="sm">
-                  Backorder
+                  {t("shop.badge.backorder")}
                 </Badge>
               ) : (
                 <Badge color="gray" variant="light" size="sm">
-                  Out of stock
+                  {t("shop.badge.outOfStock")}
                 </Badge>
               )}
             </Group>

@@ -1,5 +1,6 @@
 import { Box, Button, Group, Text } from "@mantine/core";
 import { useConsent } from "@/lib/consent";
+import { useStrings } from "@/lib/locale";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Cookie-consent banner (Phase L9.6). Shows until the visitor decides; the
@@ -11,13 +12,14 @@ import { useConsent } from "@/lib/consent";
 
 export function CookieBanner() {
   const { bannerOpen, accept, decline } = useConsent();
+  const { t } = useStrings();
   if (!bannerOpen) return null;
 
   return (
     <Box
       component="section"
       role="region"
-      aria-label="Cookie consent"
+      aria-label={t("shop.cookie.region")}
       style={{
         position: "fixed",
         insetInline: 0,
@@ -31,15 +33,14 @@ export function CookieBanner() {
     >
       <Group justify="space-between" wrap="wrap" gap="md" maw={1140} mx="auto">
         <Text fz="sm" style={{ flex: "1 1 24rem" }}>
-          We use analytics cookies to understand how the shop is used. They are set only if you
-          accept — declining keeps the shop fully functional.
+          {t("shop.cookie.text")}
         </Text>
         <Group gap="sm" wrap="nowrap">
           <Button variant="default" size="sm" onClick={decline}>
-            Decline
+            {t("shop.cookie.decline")}
           </Button>
           <Button size="sm" onClick={accept}>
-            Accept analytics
+            {t("shop.cookie.accept")}
           </Button>
         </Group>
       </Group>

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useParams } from "react-router";
 import { Alert, Anchor, Button, Stack, Text, TextInput, Title } from "@mantine/core";
 import { storefront } from "@/lib/storefront";
-import { useLocaleConfig } from "@/lib/locale";
+import { useLocaleConfig, useStrings } from "@/lib/locale";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Forgot-password page (Phase L5.2). Posts the email to the anti-enumeration
@@ -15,6 +15,7 @@ export function ForgotPasswordPage() {
   const { locale } = useParams<{ locale: string }>();
   const { defaultLocale } = useLocaleConfig();
   const loc = locale ?? defaultLocale;
+  const { t } = useStrings();
   const [email, setEmail] = useState("");
   const [busy, setBusy] = useState(false);
   const [sent, setSent] = useState(false);
@@ -32,31 +33,31 @@ export function ForgotPasswordPage() {
 
   return (
     <Stack maw={440} mx="auto" gap="lg" py="xl">
-      <Title order={2}>Reset your password</Title>
+      <Title order={2}>{t("shop.auth.resetTitle")}</Title>
       {sent ? (
-        <Alert color="teal" variant="light" title="Check your inbox">
+        <Alert color="teal" variant="light" title={t("shop.auth.checkInbox")}>
           <Stack gap="sm" align="flex-start">
             <Text fz="sm">
-              If an account exists for <b>{email}</b>, we've sent a password-reset link. The link expires in 1 hour.
+              {t("shop.auth.resetSentPrefix")} <b>{email}</b>, {t("shop.auth.resetSentSuffix")}
             </Text>
-            <Anchor component={Link} to={`/${loc}/account`} fz="sm">Back to sign in</Anchor>
+            <Anchor component={Link} to={`/${loc}/account`} fz="sm">{t("shop.auth.backToSignIn")}</Anchor>
           </Stack>
         </Alert>
       ) : (
         <Stack>
-          <Text c="dimmed" fz="sm">Enter your email and we'll send you a link to choose a new password.</Text>
+          <Text c="dimmed" fz="sm">{t("shop.auth.forgotIntro")}</Text>
           <TextInput
-            label="Email"
+            label={t("shop.auth.email")}
             type="email"
             value={email}
             onChange={(e) => setEmail(e.currentTarget.value)}
             autoComplete="email"
           />
           <Button onClick={() => void onSubmit()} loading={busy} disabled={!email}>
-            Send reset link
+            {t("shop.auth.sendResetLink")}
           </Button>
           <Anchor component={Link} to={`/${loc}/account`} fz="sm" ta="center">
-            Back to sign in
+            {t("shop.auth.backToSignIn")}
           </Anchor>
         </Stack>
       )}

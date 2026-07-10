@@ -4,7 +4,7 @@ import { ActionIcon, Alert, Anchor, Badge, Box, Button, Divider, Group, Image, L
 import { Info, Minus, Plus, Trash2, X } from "lucide-react";
 import type { ShippingRate } from "@cms/storefront";
 import { useCart } from "@/lib/cart";
-import { useLocaleConfig } from "@/lib/locale";
+import { useLocaleConfig, useStrings } from "@/lib/locale";
 import { formatCents } from "@/lib/money";
 
 // Vatrate label, e.g. 2500 → "25%".
@@ -24,6 +24,7 @@ const COUNTRY_OPTIONS = [
 export function CartPage() {
   const { locale } = useParams<{ locale: string }>();
   const { defaultLocale } = useLocaleConfig();
+  const { t } = useStrings();
   const loc = locale ?? defaultLocale;
   const { cart, loading, shippingOptions, setQuantity, remove, clear, applyCoupon, removeCoupon, loadShipping, setShipping } = useCart();
   const [code, setCode] = useState("");
@@ -96,12 +97,12 @@ export function CartPage() {
 
   return (
     <Stack gap="lg">
-      <Title order={1}>Your cart</Title>
+      <Title order={1}>{t("shop.cart.title")}</Title>
 
       {empty ? (
         <Stack>
-          <Text c="dimmed">Your cart is empty.</Text>
-          <Anchor component={Link} to={`/${loc}/shop`}>← Continue shopping</Anchor>
+          <Text c="dimmed">{t("shop.cart.empty")}</Text>
+          <Anchor component={Link} to={`/${loc}/shop`}>{t("shop.cart.continueShopping")}</Anchor>
         </Stack>
       ) : (
         <Group align="flex-start" gap="xl" wrap="wrap">
@@ -116,7 +117,7 @@ export function CartPage() {
                   <Stack gap={4} style={{ flex: 1 }}>
                     <Group justify="space-between" wrap="nowrap">
                       <Text fw={600}>{line.name || line.sku || line.variantId}</Text>
-                      <ActionIcon variant="subtle" color="gray" onClick={() => remove(line.variantId)} aria-label="Remove">
+                      <ActionIcon variant="subtle" color="gray" onClick={() => remove(line.variantId)} aria-label={t("shop.cart.remove")}>
                         <Trash2 size={16} />
                       </ActionIcon>
                     </Group>
@@ -127,12 +128,12 @@ export function CartPage() {
                           {line.onSale && <Text fz="xs" c="dimmed" td="line-through">{formatCents(line.regularPrice)}</Text>}
                         </>
                       ) : (
-                        <Badge color="blue" variant="light" size="sm">Inquiry — price on request</Badge>
+                        <Badge color="blue" variant="light" size="sm">{t("shop.cart.inquiryPriceOnRequest")}</Badge>
                       )}
                     </Group>
                     <Group justify="space-between">
                       <Group gap={4}>
-                        <ActionIcon variant="default" onClick={() => setQuantity(line.variantId, line.quantity - 1)} aria-label="Decrease">
+                        <ActionIcon variant="default" onClick={() => setQuantity(line.variantId, line.quantity - 1)} aria-label={t("shop.cart.decrease")}>
                           <Minus size={14} />
                         </ActionIcon>
                         <Text w={28} ta="center">{line.quantity}</Text>
@@ -140,18 +141,18 @@ export function CartPage() {
                           variant="default"
                           onClick={() => setQuantity(line.variantId, line.quantity + 1)}
                           disabled={line.maxQuantity !== null && line.quantity >= line.maxQuantity}
-                          aria-label="Increase"
+                          aria-label={t("shop.cart.increase")}
                         >
                           <Plus size={14} />
                         </ActionIcon>
                         {line.maxQuantity !== null && line.quantity >= line.maxQuantity && (
-                          <Text c="dimmed" fz="xs" ml={6}>max {line.maxQuantity}</Text>
+                          <Text c="dimmed" fz="xs" ml={6}>{t("shop.cart.max")} {line.maxQuantity}</Text>
                         )}
                       </Group>
                       {line.purchasable ? (
                         <Text fw={600}>{formatCents(line.lineTotal)}</Text>
                       ) : (
-                        <Text fw={600} fz="sm" c="dimmed">On request</Text>
+                        <Text fw={600} fz="sm" c="dimmed">{t("shop.cart.onRequest")}</Text>
                       )}
                     </Group>
                   </Stack>
@@ -159,8 +160,8 @@ export function CartPage() {
               </Paper>
             ))}
             <Group>
-              <Button variant="subtle" color="gray" size="xs" onClick={() => clear()}>Clear cart</Button>
-              <Anchor component={Link} to={`/${loc}/shop`} fz="sm">← Continue shopping</Anchor>
+              <Button variant="subtle" color="gray" size="xs" onClick={() => clear()}>{t("shop.cart.clear")}</Button>
+              <Anchor component={Link} to={`/${loc}/shop`} fz="sm">{t("shop.cart.continueShopping")}</Anchor>
             </Group>
           </Stack>
 
@@ -168,20 +169,20 @@ export function CartPage() {
           <Paper withBorder p="md" radius="md" style={{ flex: "1 1 280px", maxWidth: 380 }}>
             <Stack gap="xs">
               <Group justify="space-between" align="center">
-                <Title order={2} size="h4">Summary</Title>
+                <Title order={2} size="h4">{t("shop.cart.summary")}</Title>
                 {/* B2B indicator (L5.5) — an approved business's price list applies. */}
-                {cart?.b2b && <Badge variant="light" color="grape" size="sm">Business pricing</Badge>}
+                {cart?.b2b && <Badge variant="light" color="grape" size="sm">{t("shop.cart.businessPricing")}</Badge>}
               </Group>
 
               {isInquiry ? (
                 <>
                   <Alert color="blue" icon={<Info size={16} />}>
                     {mixed
-                      ? "Your cart contains inquiry-only items, so the whole order becomes a quote request — no payment or delivery is calculated here. To buy the other items now, remove the inquiry-only items from your cart."
-                      : "These items are inquiry-only — we'll prepare a quote and follow up by email. No payment or delivery is calculated here."}
+                      ? t("shop.cart.mixedInquiryNote")
+                      : t("shop.cart.inquiryNote")}
                   </Alert>
                   <Button component={Link} to={`/${loc}/checkout`} mt="xs" size="md" fullWidth>
-                    Send an inquiry
+                    {t("shop.cart.sendInquiry")}
                   </Button>
                 </>
               ) : (
@@ -192,10 +193,10 @@ export function CartPage() {
                   second one with a friendly "can't be combined" message. */}
               {cart!.coupons.map((c) => (
                 <Group key={c.discountId} justify="space-between">
-                  <Text fz="sm">Coupon <b>{c.code}</b></Text>
+                  <Text fz="sm">{t("shop.cart.coupon")} <b>{c.code}</b></Text>
                   <Group gap={4}>
-                    <Text fz="sm" c="teal">{c.freeShipping ? "Free shipping" : `−${formatCents(c.amount)}`}</Text>
-                    <ActionIcon variant="subtle" color="gray" size="sm" onClick={() => removeCoupon(c.discountId)} aria-label="Remove coupon">
+                    <Text fz="sm" c="teal">{c.freeShipping ? t("shop.cart.freeShipping") : `−${formatCents(c.amount)}`}</Text>
+                    <ActionIcon variant="subtle" color="gray" size="sm" onClick={() => removeCoupon(c.discountId)} aria-label={t("shop.cart.removeCoupon")}>
                       <X size={14} />
                     </ActionIcon>
                   </Group>
@@ -204,20 +205,20 @@ export function CartPage() {
               {/* When more than one coupon is applied, each discount is calculated on
                   the original subtotal (additive), not one after another. */}
               {cart!.coupons.length > 1 && (
-                <Text fz="xs" c="dimmed">Each coupon is applied to the original subtotal (discounts add up).</Text>
+                <Text fz="xs" c="dimmed">{t("shop.cart.couponsAdditive")}</Text>
               )}
               {/* Allow adding another code unless a single non-stackable coupon is
                   applied (it can't combine with anything). */}
               {!(cart!.coupons.length === 1 && !cart!.coupons[0].stackable) && (
                 <Group gap="xs" align="flex-end">
                   <TextInput
-                    label={cart!.coupons.length ? "Add another coupon" : "Coupon code"}
+                    label={cart!.coupons.length ? t("shop.cart.addAnotherCoupon") : t("shop.cart.couponCode")}
                     value={code}
                     onChange={(e) => setCode(e.currentTarget.value)}
                     onKeyDown={(e) => e.key === "Enter" && onApply()}
                     style={{ flex: 1 }}
                   />
-                  <Button onClick={onApply} loading={applying} variant="light">Apply</Button>
+                  <Button onClick={onApply} loading={applying} variant="light">{t("shop.cart.apply")}</Button>
                 </Group>
               )}
 
@@ -226,9 +227,9 @@ export function CartPage() {
               {needsShipping && (<>
               <Divider my="xs" />
 
-              <Title order={3} size="h5">Shipping</Title>
+              <Title order={3} size="h5">{t("shop.cart.shipping")}</Title>
               <Select
-                label="Ship to"
+                label={t("shop.cart.shipTo")}
                 data={COUNTRY_OPTIONS}
                 value={shipping?.country ?? "HR"}
                 onChange={(v) => v && setShipping({ country: v })}
@@ -251,13 +252,13 @@ export function CartPage() {
                     {shippingOptions.methods.map((m) => (
                       <Box key={m.methodId}>
                         <Group justify="space-between" wrap="nowrap">
-                          <Radio value={m.methodId} label={m.name + (m.requiresPickupPoint ? " (pickup point)" : "")} />
-                          <Text fz="sm" c={m.free ? "teal" : undefined}>{m.free ? "Free" : formatCents(m.amount)}</Text>
+                          <Radio value={m.methodId} label={m.name + (m.requiresPickupPoint ? t("shop.cart.pickupSuffix") : "")} />
+                          <Text fz="sm" c={m.free ? "teal" : undefined}>{m.free ? t("shop.cart.free") : formatCents(m.amount)}</Text>
                         </Group>
                         {pickupForMethod === m.methodId && (
                           <Group gap="xs" align="flex-end" mt={4} pl={28}>
-                            <TextInput label="Pickup point" placeholder="e.g. BoxNow Zagreb Centar" value={pickupName} onChange={(e) => setPickupName(e.currentTarget.value)} style={{ flex: 1 }} />
-                            <Button size="xs" onClick={onConfirmPickup} disabled={!pickupName.trim()}>Use</Button>
+                            <TextInput label={t("shop.cart.pickupPoint")} placeholder="BoxNow Zagreb Centar" value={pickupName} onChange={(e) => setPickupName(e.currentTarget.value)} style={{ flex: 1 }} />
+                            <Button size="xs" onClick={onConfirmPickup} disabled={!pickupName.trim()}>{t("shop.cart.use")}</Button>
                           </Group>
                         )}
                       </Box>
@@ -265,10 +266,10 @@ export function CartPage() {
                   </Stack>
                 </Radio.Group>
               ) : (
-                <Text c="dimmed" fz="xs">No shipping methods available for this destination.</Text>
+                <Text c="dimmed" fz="xs">{t("shop.cart.noShippingMethods")}</Text>
               )}
               {shipping?.method?.requiresPickupPoint && shipping.pickupPoint && (
-                <Text c="dimmed" fz="xs">Pickup: {(shipping.pickupPoint as { name?: string }).name}</Text>
+                <Text c="dimmed" fz="xs">{t("shop.cart.pickup")}: {(shipping.pickupPoint as { name?: string }).name}</Text>
               )}
               </>)}
 
@@ -280,38 +281,38 @@ export function CartPage() {
 
               {totals && (
                 <>
-                  <Row label="Subtotal" value={formatCents(totals.itemsSubtotal)} />
-                  {totals.discountTotal > 0 && <Row label="Discount" value={`−${formatCents(totals.discountTotal)}`} accent />}
+                  <Row label={t("shop.cart.subtotal")} value={formatCents(totals.itemsSubtotal)} />
+                  {totals.discountTotal > 0 && <Row label={t("shop.cart.discount")} value={`−${formatCents(totals.discountTotal)}`} accent />}
                   {shipping?.method && (
-                    <Row label={`Shipping (${shipping.method.name})`} value={shipping.freeByCoupon || shipping.free ? "Free" : formatCents(totals.shipping?.gross ?? 0)} />
+                    <Row label={`Shipping (${shipping.method.name})`} value={shipping.freeByCoupon || shipping.free ? t("shop.cart.free") : formatCents(totals.shipping?.gross ?? 0)} />
                   )}
-                  {totals.surcharge && <Row label="Cash on delivery" value={formatCents(totals.surcharge.gross)} />}
+                  {totals.surcharge && <Row label={t("shop.cart.cashOnDelivery")} value={formatCents(totals.surcharge.gross)} />}
                   {/* VAT breakdown. When the shop isn't VAT-registered (or nothing is
                       taxed) there's no VAT at all — say so plainly instead of a
                       misleading "VAT 0% / VAT included". Otherwise show one row per
                       real rate group, tagged with the destination when it's not home. */}
-                  {totals.taxTotal > 0 && <Row label="Net" value={formatCents(totals.netTotal)} dim />}
+                  {totals.taxTotal > 0 && <Row label={t("shop.cart.net")} value={formatCents(totals.netTotal)} dim />}
                   {totals.taxSummary
                     .filter((t) => t.vat > 0)
-                    .map((t) => (
-                      <Row key={t.rateBps} label={`VAT ${ratePct(t.rateBps)}${destLabel}`} value={formatCents(t.vat)} dim />
+                    .map((row) => (
+                      <Row key={row.rateBps} label={`${t("shop.cart.vat")} ${ratePct(row.rateBps)}${destLabel}`} value={formatCents(row.vat)} dim />
                     ))}
                   <Divider my="xs" />
                   <Group justify="space-between">
-                    <Text fw={700}>Total</Text>
+                    <Text fw={700}>{t("shop.cart.total")}</Text>
                     <Text fw={700} fz="lg">{formatCents(totals.grossTotal)}</Text>
                   </Group>
                   {cart?.vatRegistered === false ? (
-                    <Text c="dimmed" fz="xs">Prices are VAT-exempt — the shop is not in the VAT system.</Text>
+                    <Text c="dimmed" fz="xs">{t("shop.cart.vatExempt")}</Text>
                   ) : totals.taxTotal > 0 ? (
-                    <Text c="dimmed" fz="xs">VAT included{destLabel}.</Text>
+                    <Text c="dimmed" fz="xs">{t("shop.cart.vatIncluded")}{destLabel}.</Text>
                   ) : cart?.b2b ? (
-                    <Text c="dimmed" fz="xs">VAT reverse-charged — your business self-accounts for VAT{destLabel}.</Text>
+                    <Text c="dimmed" fz="xs">{t("shop.cart.vatReverse")}{destLabel}.</Text>
                   ) : (
-                    <Text c="dimmed" fz="xs">No VAT applies to these items.</Text>
+                    <Text c="dimmed" fz="xs">{t("shop.cart.noVat")}</Text>
                   )}
                   <Button component={Link} to={`/${loc}/checkout`} mt="xs" size="md" fullWidth>
-                    Proceed to checkout
+                    {t("shop.cart.checkout")}
                   </Button>
                 </>
               )}

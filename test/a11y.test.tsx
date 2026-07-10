@@ -103,7 +103,7 @@ vi.mock("@/lib/api", () => ({
   getMenu: async () => [],
 }));
 
-import { LocaleConfigProvider } from "@/lib/locale";
+import { LocaleConfigProvider, StringsProvider } from "@/lib/locale";
 import { CartProvider } from "@/lib/cart";
 import { CustomerProvider } from "@/lib/customer";
 import { ConsentProvider } from "@/lib/consent";
@@ -124,7 +124,7 @@ function Providers({ children }: { children: ReactNode }) {
                   <CustomerProvider>
                     <ConsentProvider>
                       {/* Landmark wrapper — pages normally render inside RootLayout's <main>. */}
-                      <main>{children}</main>
+                      <StringsProvider locale="en"><main>{children}</main></StringsProvider>
                     </ConsentProvider>
                   </CustomerProvider>
                 </CartProvider>

@@ -4,7 +4,7 @@ import { Alert, Anchor, Button, Group, Loader, Stack, Text, TextInput, Title } f
 import { XCircle } from "lucide-react";
 import { storefront } from "@/lib/storefront";
 import { useCustomer } from "@/lib/customer";
-import { useLocaleConfig } from "@/lib/locale";
+import { useLocaleConfig, useStrings } from "@/lib/locale";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Password-reset landing page (Phase L5.2). The reset email links to
@@ -19,6 +19,7 @@ export function ResetPasswordPage() {
   const { defaultLocale } = useLocaleConfig();
   const loc = locale ?? defaultLocale;
   const navigate = useNavigate();
+  const { t } = useStrings();
   const { resetPassword } = useCustomer();
 
   const [lookup, setLookup] = useState<"pending" | "valid" | "invalid">("pending");
@@ -65,45 +66,45 @@ export function ResetPasswordPage() {
 
   return (
     <Stack maw={440} mx="auto" gap="lg" py="xl">
-      <Title order={2}>Choose a new password</Title>
+      <Title order={2}>{t("shop.auth.chooseNewPassword")}</Title>
 
       {lookup === "pending" && (
         <Group gap="sm">
           <Loader size="sm" />
-          <Text c="dimmed">Checking your link…</Text>
+          <Text c="dimmed">{t("shop.auth.checkingLink")}</Text>
         </Group>
       )}
 
       {lookup === "invalid" && (
-        <Alert color="red" variant="light" icon={<XCircle size={18} />} title="Link invalid or expired">
+        <Alert color="red" variant="light" icon={<XCircle size={18} />} title={t("shop.auth.linkInvalidTitle")}>
           <Stack gap="sm" align="flex-start">
-            <Text fz="sm">This password-reset link is invalid or has expired. Request a new one.</Text>
-            <Anchor component={Link} to={`/${loc}/account/forgot-password`} fz="sm">Request a new link</Anchor>
+            <Text fz="sm">{t("shop.auth.resetLinkInvalid")}</Text>
+            <Anchor component={Link} to={`/${loc}/account/forgot-password`} fz="sm">{t("shop.auth.requestNewLink")}</Anchor>
           </Stack>
         </Alert>
       )}
 
       {lookup === "valid" && (
         <Stack>
-          <Text c="dimmed" fz="sm">Setting a new password for <b>{email}</b>.</Text>
+          <Text c="dimmed" fz="sm">{t("shop.auth.settingPasswordFor")} <b>{email}</b>.</Text>
           <TextInput
-            label="New password"
+            label={t("shop.auth.newPassword")}
             type="password"
-            description="At least 8 characters"
+            description={t("shop.auth.atLeast8")}
             value={password}
             onChange={(e) => setPassword(e.currentTarget.value)}
             autoComplete="new-password"
           />
           <TextInput
-            label="Confirm password"
+            label={t("shop.auth.confirmPassword")}
             type="password"
             value={confirm}
             onChange={(e) => setConfirm(e.currentTarget.value)}
             autoComplete="new-password"
-            error={confirm.length > 0 && !match ? "Passwords don't match" : undefined}
+            error={confirm.length > 0 && !match ? t("shop.auth.passwordsDontMatch") : undefined}
           />
           <Button onClick={() => void onSubmit()} loading={busy} disabled={!canSubmit}>
-            Set new password
+            {t("shop.auth.setNewPassword")}
           </Button>
         </Stack>
       )}

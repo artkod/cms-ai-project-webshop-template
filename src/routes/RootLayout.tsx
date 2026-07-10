@@ -3,7 +3,7 @@ import { Container, Group, Anchor, Box, Text, Indicator } from "@mantine/core";
 import { Outlet, Link, useParams } from "react-router";
 import { Heart, ShoppingCart, User } from "lucide-react";
 import { getMenu, type MenuItem } from "@/lib/api";
-import { useLocaleConfig, PageAlternatesProvider, StringsProvider } from "@/lib/locale";
+import { useLocaleConfig, PageAlternatesProvider, StringsProvider, useStrings } from "@/lib/locale";
 import { CartProvider, useCart } from "@/lib/cart";
 import { CustomerProvider, useCustomer } from "@/lib/customer";
 import { WishlistProvider, useWishlist } from "@/lib/wishlist";
@@ -37,9 +37,10 @@ function NavItem({ item }: { item: MenuItem }) {
 // Account link — shows the customer's first name (or "Sign in") + a user icon.
 function AccountNav({ locale }: { locale: string }) {
   const { customer } = useCustomer();
-  const label = customer ? customer.firstName || "Account" : "Sign in";
+  const { t } = useStrings();
+  const label = customer ? customer.firstName || t("shop.nav.account") : t("shop.nav.signIn");
   return (
-    <Anchor component={Link} to={`/${locale}/account`} c="dark" aria-label="Account" style={{ display: "flex", alignItems: "center", gap: 4 }}>
+    <Anchor component={Link} to={`/${locale}/account`} c="dark" aria-label={t("shop.nav.account")} style={{ display: "flex", alignItems: "center", gap: 4 }}>
       <User size={20} />
       <Text fz="sm" visibleFrom="sm">{label}</Text>
     </Anchor>
@@ -49,9 +50,10 @@ function AccountNav({ locale }: { locale: string }) {
 // Wishlist link with a live saved-count badge (server or local, via the provider).
 function WishlistNav({ locale }: { locale: string }) {
   const { count } = useWishlist();
+  const { t } = useStrings();
   return (
     <Indicator label={count} size={18} disabled={count === 0} color="red" offset={4}>
-      <Anchor component={Link} to={`/${locale}/account/wishlist`} c="dark" aria-label="Wishlist" style={{ display: "flex" }}>
+      <Anchor component={Link} to={`/${locale}/account/wishlist`} c="dark" aria-label={t("shop.nav.wishlist")} style={{ display: "flex" }}>
         <Heart size={20} />
       </Anchor>
     </Indicator>
@@ -62,19 +64,39 @@ function WishlistNav({ locale }: { locale: string }) {
 // change their mind any time (GDPR: withdrawing must be as easy as giving).
 function CookieSettingsLink() {
   const { reopen } = useConsent();
+  const { t } = useStrings();
   return (
     <Anchor component="button" type="button" fz="sm" onClick={reopen}>
-      Cookie settings
+      {t("shop.nav.cookieSettings")}
     </Anchor>
+  );
+}
+
+// Skip link + Shop link live INSIDE StringsProvider, so they are their own tiny
+// components (RootLayout itself is the provider's parent and can't call useStrings).
+function SkipLink() {
+  const { t } = useStrings();
+  return (
+    <Anchor href="#main-content" className="skip-link">
+      {t("shop.nav.skipToContent")}
+    </Anchor>
+  );
+}
+
+function ShopLink({ locale }: { locale: string }) {
+  const { t } = useStrings();
+  return (
+    <Anchor component={Link} to={`/${locale}/shop`}>{t("shop.nav.shop")}</Anchor>
   );
 }
 
 // Cart link with a live item-count badge (reads the server-side cart).
 function CartNav({ locale }: { locale: string }) {
   const { itemCount } = useCart();
+  const { t } = useStrings();
   return (
     <Indicator label={itemCount} size={18} disabled={itemCount === 0} color="teal" offset={4}>
-      <Anchor component={Link} to={`/${locale}/cart`} c="dark" aria-label="Cart" style={{ display: "flex" }}>
+      <Anchor component={Link} to={`/${locale}/cart`} c="dark" aria-label={t("shop.nav.cart")} style={{ display: "flex" }}>
         <ShoppingCart size={20} />
       </Anchor>
     </Indicator>
@@ -142,9 +164,7 @@ export function RootLayout() {
         <ConsentProvider>
         <Box style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
           {/* Skip link (WCAG 2.4.1) — first tabbable element, jumps past the chrome. */}
-          <Anchor href="#main-content" className="skip-link">
-            Skip to content
-          </Anchor>
+          <SkipLink />
           <Box component="header" style={{ borderBottom: "1px solid var(--mantine-color-gray-3)" }}>
             <Container size={1140} py="md">
               <Group justify="space-between" wrap="nowrap">
@@ -155,7 +175,7 @@ export function RootLayout() {
                   {primaryItems.map((item) => (
                     <NavItem key={item.id} item={item} />
                   ))}
-                  <Anchor component={Link} to={`/${activeLocale}/shop`}>Shop</Anchor>
+                  <ShopLink locale={activeLocale} />
                   <LanguageSwitcher />
                   <AccountNav locale={activeLocale} />
                   <WishlistNav locale={activeLocale} />

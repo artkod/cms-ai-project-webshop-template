@@ -6,24 +6,8 @@ import { Heart, LogIn, LogOut, MailCheck, MapPin, Package, ShoppingCart } from "
 import { useCustomer } from "@/lib/customer";
 import { useCart } from "@/lib/cart";
 import { useWishlist } from "@/lib/wishlist";
-import { useLocaleConfig } from "@/lib/locale";
-import { isValidOib, type OAuthProviderId } from "@cms/storefront";
-
-// Labels for the social-login buttons (L5.3).
-const OAUTH_LABELS: Record<OAuthProviderId, string> = {
-  google: "Continue with Google",
-  apple: "Continue with Apple",
-  stub: "Dev sign-in (stub)",
-};
-
-// Friendly copy for the callback's `?error=` codes.
-const OAUTH_ERRORS: Record<string, string> = {
-  oauth_failed: "Sign-in didn't complete. Please try again.",
-  oauth_account_exists:
-    "An account with this email already exists. Sign in with your password (or reset it), then you can connect this provider.",
-  oauth_email_unverified: "The provider didn't share a verified email, so we couldn't sign you in.",
-  account_disabled: "This account has been disabled.",
-};
+import { useLocaleConfig, useStrings } from "@/lib/locale";
+import { isValidOib } from "@cms/storefront";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Account page (Phase L5.1 + L5.2) — the clickable surface for the customer auth
@@ -41,6 +25,7 @@ export function AccountPage() {
   const { itemCount } = useCart();
   const { count: wishlistCount } = useWishlist();
   const [searchParams, setSearchParams] = useSearchParams();
+  const { t } = useStrings();
 
   // Surface the social-login callback result (?error / ?connected / ?created /
   // ?linked) once, then strip it from the URL. The `handledRef` guard keys on the
@@ -55,11 +40,11 @@ export function AccountPage() {
     if (handledRef.current === key) return;
     handledRef.current = key;
     if (error) {
-      notifications.show({ color: "red", message: OAUTH_ERRORS[error] ?? OAUTH_ERRORS.oauth_failed });
+      notifications.show({ color: "red", message: t(`shop.oauth.err.${error}`) !== `shop.oauth.err.${error}` ? t(`shop.oauth.err.${error}`) : t("shop.oauth.err.oauth_failed") });
     } else if (searchParams.get("linked")) {
-      notifications.show({ color: "teal", message: "Signed in — this provider is now linked to your account." });
+      notifications.show({ color: "teal", message: t("shop.oauth.linked") });
     } else {
-      notifications.show({ color: "teal", message: "Signed in." });
+      notifications.show({ color: "teal", message: t("shop.oauth.signedIn") });
     }
     const next = new URLSearchParams(searchParams);
     ["error", "connected", "created", "linked"].forEach((k) => next.delete(k));
@@ -99,20 +84,20 @@ export function AccountPage() {
   const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   function validateRegister(): Record<string, string> {
     const e: Record<string, string> = {};
-    if (!firstName.trim()) e.firstName = "Required.";
-    if (!lastName.trim()) e.lastName = "Required.";
-    if (!email.trim()) e.email = "Required.";
-    else if (!EMAIL_RE.test(email.trim())) e.email = "Enter a valid email address.";
-    if (!password) e.password = "Required.";
-    else if (password.length < 8) e.password = "At least 8 characters.";
-    if (confirm !== password) e.confirm = "Passwords don't match.";
+    if (!firstName.trim()) e.firstName = t("shop.account.required");
+    if (!lastName.trim()) e.lastName = t("shop.account.required");
+    if (!email.trim()) e.email = t("shop.account.required");
+    else if (!EMAIL_RE.test(email.trim())) e.email = t("shop.account.invalidEmail");
+    if (!password) e.password = t("shop.account.required");
+    else if (password.length < 8) e.password = t("shop.account.min8");
+    if (confirm !== password) e.confirm = t("shop.account.passwordsDontMatch");
     if (isBusiness) {
-      if (!company.trim()) e.company = "Required.";
+      if (!company.trim()) e.company = t("shop.account.required");
       const oibFilled = oib.trim() !== "";
       const vatFilled = vatId.trim() !== "";
-      if (!oibFilled && !vatFilled) e.taxId = "Provide an OIB or a VAT ID.";
-      if (oibFilled && !isValidOib(oib.trim())) e.oib = "Invalid OIB — 11 digits with a valid checksum.";
-      if (vatFilled && (vatId.trim().length < 4 || vatId.trim().length > 20)) e.vatId = "Enter a valid VAT ID.";
+      if (!oibFilled && !vatFilled) e.taxId = t("shop.account.provideTaxId");
+      if (oibFilled && !isValidOib(oib.trim())) e.oib = t("shop.account.invalidOib");
+      if (vatFilled && (vatId.trim().length < 4 || vatId.trim().length > 20)) e.vatId = t("shop.account.invalidVatId");
     }
     return e;
   }
@@ -146,29 +131,29 @@ export function AccountPage() {
     };
     return (
       <Stack maw={560} mx="auto" gap="lg">
-        <Title order={2}>My account</Title>
+        <Title order={2}>{t("shop.account.myAccount")}</Title>
         <Paper withBorder p="lg" radius="md">
           <Stack gap="xs">
             <Group justify="space-between">
               <Text fw={600} fz="lg">{name}</Text>
               <Badge variant="light" color={customer.type === "business" ? "grape" : "teal"}>
-                {customer.type}
+                {customer.type === "business" ? t("shop.account.typeBusiness") : t("shop.account.typePersonal")}
               </Badge>
             </Group>
             <Text c="dimmed" fz="sm">{customer.email}</Text>
             {customer.company && <Text fz="sm">{customer.company}</Text>}
             <Group gap="xs">
-              <Text fz="sm">Email verified:</Text>
+              <Text fz="sm">{t("shop.account.emailVerified")}</Text>
               <Badge size="sm" variant="light" color={customer.emailVerified ? "teal" : "yellow"}>
-                {customer.emailVerified ? "verified" : "not verified"}
+                {customer.emailVerified ? t("shop.account.verified") : t("shop.account.notVerified")}
               </Badge>
             </Group>
             {/* B2B approval state (L5.5) — only an approved business is on B2B terms. */}
             {customer.type === "business" && (
               <Group gap="xs">
-                <Text fz="sm">Business pricing:</Text>
+                <Text fz="sm">{t("shop.account.businessPricing")}</Text>
                 <Badge size="sm" variant="light" color={customer.b2bApproved ? "teal" : customer.approvalStatus === "rejected" ? "red" : "yellow"}>
-                  {customer.b2bApproved ? "active" : customer.approvalStatus === "rejected" ? "not approved" : "pending approval"}
+                  {customer.b2bApproved ? t("shop.account.b2bActive") : customer.approvalStatus === "rejected" ? t("shop.account.b2bNotApproved") : t("shop.account.b2bPending")}
                 </Badge>
               </Group>
             )}
@@ -176,23 +161,21 @@ export function AccountPage() {
         </Paper>
 
         {customer.type === "business" && !customer.b2bApproved && customer.approvalStatus !== "rejected" && (
-          <Alert color="blue" variant="light" title="Business account pending approval">
+          <Alert color="blue" variant="light" title={t("shop.account.b2bPendingTitle")}>
             <Text fz="sm">
-              Your business account is awaiting approval. You can shop now at standard prices — once approved,
-              your assigned price list applies automatically across the store.
+              {t("shop.account.b2bPendingBody")}
             </Text>
           </Alert>
         )}
 
         {!customer.emailVerified && (
-          <Alert color="yellow" variant="light" icon={<MailCheck size={18} />} title="Verify your email">
+          <Alert color="yellow" variant="light" icon={<MailCheck size={18} />} title={t("shop.account.verifyTitle")}>
             <Stack gap="xs" align="flex-start">
               <Text fz="sm">
-                We sent a verification link to <b>{customer.email}</b>. Verifying unlocks account features like
-                changing your password — but you can keep shopping and checking out in the meantime.
+                {t("shop.account.verifyBodyPrefix")} <b>{customer.email}</b>{t("shop.account.verifyBodySuffix")}
               </Text>
               <Button size="xs" variant="light" color="yellow" loading={resendBusy} onClick={() => void onResend()}>
-                Resend verification email
+                {t("shop.account.resendVerification")}
               </Button>
             </Stack>
           </Alert>
@@ -201,38 +184,38 @@ export function AccountPage() {
         {/* Change password — a verification-gated account feature (L5.2). */}
         <Paper withBorder p="lg" radius="md">
           <Stack gap="sm">
-            <Text fw={600}>Change password</Text>
+            <Text fw={600}>{t("shop.account.changePassword")}</Text>
             {customer.emailVerified ? (
               <>
                 <TextInput
-                  label="Current password"
+                  label={t("shop.account.currentPassword")}
                   type="password"
                   value={curPw}
                   onChange={(e) => setCurPw(e.currentTarget.value)}
                   autoComplete="current-password"
                 />
                 <TextInput
-                  label="New password"
+                  label={t("shop.account.newPassword")}
                   type="password"
-                  description="At least 8 characters"
+                  description={t("shop.account.atLeast8")}
                   value={newPw}
                   onChange={(e) => setNewPw(e.currentTarget.value)}
                   autoComplete="new-password"
                 />
                 <TextInput
-                  label="Confirm new password"
+                  label={t("shop.account.confirmNewPassword")}
                   type="password"
                   value={newPw2}
                   onChange={(e) => setNewPw2(e.currentTarget.value)}
                   autoComplete="new-password"
-                  error={newPw2.length > 0 && !newPwMatch ? "Passwords don't match" : undefined}
+                  error={newPw2.length > 0 && !newPwMatch ? t("shop.account.passwordsDontMatch") : undefined}
                 />
                 <Button onClick={() => void onChangePassword()} loading={pwBusy} disabled={!canChangePw} w="fit-content">
-                  Update password
+                  {t("shop.account.updatePassword")}
                 </Button>
               </>
             ) : (
-              <Text c="dimmed" fz="sm">Verify your email to change your password.</Text>
+              <Text c="dimmed" fz="sm">{t("shop.account.verifyToChangePassword")}</Text>
             )}
           </Stack>
         </Paper>
@@ -245,7 +228,7 @@ export function AccountPage() {
             variant="light"
             leftSection={<Package size={16} />}
           >
-            My orders
+            {t("shop.account.myOrders")}
           </Button>
           <Button
             component={Link}
@@ -253,7 +236,7 @@ export function AccountPage() {
             variant="light"
             leftSection={<MapPin size={16} />}
           >
-            Address book
+            {t("shop.account.addressBook")}
           </Button>
           <Button
             component={Link}
@@ -261,7 +244,7 @@ export function AccountPage() {
             variant="light"
             leftSection={<Heart size={16} />}
           >
-            Wishlist ({wishlistCount})
+            {t("shop.account.wishlist")} ({wishlistCount})
           </Button>
           <Button
             component={Link}
@@ -269,10 +252,10 @@ export function AccountPage() {
             variant="light"
             leftSection={<ShoppingCart size={16} />}
           >
-            View cart ({itemCount})
+            {t("shop.account.viewCart")} ({itemCount})
           </Button>
           <Button color="red" variant="subtle" leftSection={<LogOut size={16} />} onClick={() => void logout()}>
-            Sign out
+            {t("shop.account.signOut")}
           </Button>
         </Group>
       </Stack>
@@ -307,39 +290,39 @@ export function AccountPage() {
 
   return (
     <Stack maw={480} mx="auto" gap="lg">
-      <Title order={2}>Account</Title>
+      <Title order={2}>{t("shop.account.title")}</Title>
       {itemCount > 0 && (
         <Alert color="teal" variant="light">
-          You have {itemCount} item{itemCount === 1 ? "" : "s"} in your cart — sign in or create an account and it will move with you.
+          {t("shop.account.cartMovePrefix")} {itemCount} {itemCount === 1 ? t("shop.account.cartMoveOne") : t("shop.account.cartMoveOther")}
         </Alert>
       )}
       <Tabs value={authTab} onChange={setAuthTab}>
         <Tabs.List grow>
-          <Tabs.Tab value="login">Sign in</Tabs.Tab>
-          <Tabs.Tab value="register">Create account</Tabs.Tab>
+          <Tabs.Tab value="login">{t("shop.account.signIn")}</Tabs.Tab>
+          <Tabs.Tab value="register">{t("shop.account.createAccount")}</Tabs.Tab>
         </Tabs.List>
 
         <Tabs.Panel value="login" pt="md">
           <Stack>
             <TextInput
-              label="Email"
+              label={t("shop.account.email")}
               type="email"
               value={email}
               onChange={(e) => setEmail(e.currentTarget.value)}
               autoComplete="email"
             />
             <TextInput
-              label="Password"
+              label={t("shop.account.password")}
               type="password"
               value={password}
               onChange={(e) => setPassword(e.currentTarget.value)}
               autoComplete="current-password"
             />
             <Button onClick={() => void onLogin()} loading={busy} disabled={!email || !password}>
-              Sign in
+              {t("shop.account.signIn")}
             </Button>
             <Anchor component={Link} to={`/${loc}/account/forgot-password`} fz="sm" ta="center">
-              Forgot your password?
+              {t("shop.account.forgotPassword")}
             </Anchor>
           </Stack>
         </Tabs.Panel>
@@ -351,14 +334,14 @@ export function AccountPage() {
               value={accountType}
               onChange={(v) => setAccountType(v as "personal" | "business")}
               data={[
-                { label: "Personal", value: "personal" },
-                { label: "Business (B2B)", value: "business" },
+                { label: t("shop.account.personal"), value: "personal" },
+                { label: t("shop.account.businessB2B"), value: "business" },
               ]}
             />
             {accountType === "business" && (
               <>
                 <TextInput
-                  label="Company"
+                  label={t("shop.account.company")}
                   value={company}
                   onChange={(e) => setCompany(e.currentTarget.value)}
                   autoComplete="organization"
@@ -366,33 +349,32 @@ export function AccountPage() {
                 />
                 <Group grow align="flex-start">
                   <TextInput
-                    label="OIB"
-                    description="11 digits"
+                    label={t("shop.account.oib")}
+                    description={t("shop.account.oib11")}
                     value={oib}
                     onChange={(e) => setOib(e.currentTarget.value)}
                     error={errors.oib ?? errors.taxId}
                     inputMode="numeric"
                   />
                   <TextInput
-                    label="VAT ID"
-                    description="e.g. HR12345678901"
+                    label={t("shop.account.vatId")}
+                    description={t("shop.account.vatIdExample")}
                     value={vatId}
                     onChange={(e) => setVatId(e.currentTarget.value)}
                     error={errors.vatId}
                   />
                 </Group>
                 <Text c="dimmed" fz="xs">
-                  Provide an OIB (11 digits) or an EU VAT ID. Business accounts are reviewed before B2B pricing
-                  applies — you can shop at standard prices in the meantime.
+                  {t("shop.account.b2bHint")}
                 </Text>
               </>
             )}
             <Group grow align="flex-start">
-              <TextInput label="First name" value={firstName} onChange={(e) => setFirstName(e.currentTarget.value)} autoComplete="given-name" error={errors.firstName} />
-              <TextInput label="Last name" value={lastName} onChange={(e) => setLastName(e.currentTarget.value)} autoComplete="family-name" error={errors.lastName} />
+              <TextInput label={t("shop.account.firstName")} value={firstName} onChange={(e) => setFirstName(e.currentTarget.value)} autoComplete="given-name" error={errors.firstName} />
+              <TextInput label={t("shop.account.lastName")} value={lastName} onChange={(e) => setLastName(e.currentTarget.value)} autoComplete="family-name" error={errors.lastName} />
             </Group>
             <TextInput
-              label="Email"
+              label={t("shop.account.email")}
               type="email"
               value={email}
               onChange={(e) => setEmail(e.currentTarget.value)}
@@ -400,16 +382,16 @@ export function AccountPage() {
               error={errors.email}
             />
             <TextInput
-              label="Password"
+              label={t("shop.account.password")}
               type="password"
-              description="At least 8 characters"
+              description={t("shop.account.atLeast8")}
               value={password}
               onChange={(e) => setPassword(e.currentTarget.value)}
               autoComplete="new-password"
               error={errors.password}
             />
             <TextInput
-              label="Confirm password"
+              label={t("shop.account.confirmPassword")}
               type="password"
               value={confirm}
               onChange={(e) => setConfirm(e.currentTarget.value)}
@@ -417,7 +399,7 @@ export function AccountPage() {
               error={errors.confirm}
             />
             <Button onClick={() => void onRegister()} loading={busy}>
-              Create account
+              {t("shop.account.createAccount")}
             </Button>
           </Stack>
         </Tabs.Panel>
@@ -426,10 +408,10 @@ export function AccountPage() {
       {/* Social login is for personal accounts only — a B2B account needs the
           company/OIB/VAT-ID + approval flow, so it must be created via the form. */}
       {authTab === "register" && accountType === "business" ? (
-        <Text c="dimmed" fz="xs" ta="center">Business accounts must be created with the form above.</Text>
+        <Text c="dimmed" fz="xs" ta="center">{t("shop.account.businessMustUseForm")}</Text>
       ) : oauthProviders.length > 0 && (
         <Stack gap="sm">
-          <Divider label="or" labelPosition="center" />
+          <Divider label={t("shop.account.or")} labelPosition="center" />
           {oauthProviders.map((p) => (
             <Button
               key={p}
@@ -437,15 +419,15 @@ export function AccountPage() {
               leftSection={<LogIn size={16} />}
               onClick={() => startOAuth(p, loc)}
             >
-              {OAUTH_LABELS[p]}
+              {t(`shop.oauth.${p}`)}
             </Button>
           ))}
         </Stack>
       )}
 
       <Text c="dimmed" fz="xs" ta="center">
-        Guest checkout is always available — an account is optional.{" "}
-        <Anchor component={Link} to={`/${loc}/shop`}>Continue shopping</Anchor>
+        {t("shop.account.guestCheckout")}{" "}
+        <Anchor component={Link} to={`/${loc}/shop`}>{t("shop.account.continueShopping")}</Anchor>
       </Text>
     </Stack>
   );

@@ -5,7 +5,7 @@ import { Heart } from "lucide-react";
 import type { CatalogProduct, ProductCard } from "@cms/storefront";
 import { getLocalWishlist } from "@cms/storefront";
 import { storefront } from "@/lib/storefront";
-import { useLocaleConfig } from "@/lib/locale";
+import { useLocaleConfig, useStrings } from "@/lib/locale";
 import { useCustomer } from "@/lib/customer";
 import { useWishlist } from "@/lib/wishlist";
 import { ProductGrid } from "@/components/shop/ProductGrid";
@@ -53,6 +53,7 @@ export function WishlistPage() {
   const { defaultLocale } = useLocaleConfig();
   const loc = locale ?? defaultLocale;
   const { customer } = useCustomer();
+  const { t } = useStrings();
   const { ids, persisted, ready } = useWishlist();
   const categories = useCategoryTree(loc);
 
@@ -106,37 +107,37 @@ export function WishlistPage() {
       <Group justify="space-between" align="center">
         <Title order={2}>
           <Group gap="xs" align="center">
-            <Heart size={24} /> Wishlist
+            <Heart size={24} /> {t("shop.wishlistPage.title")}
           </Group>
         </Title>
         <Anchor component={Link} to={customer ? `/${loc}/account` : `/${loc}/shop`} fz="sm">
-          {customer ? "← Back to account" : "← Continue shopping"}
+          {customer ? t("shop.wishlistPage.backToAccount") : t("shop.wishlistPage.continueShopping")}
         </Anchor>
       </Group>
 
       {/* Guest note — their wishlist is device-local until they sign in + verify. */}
       {!persisted && (
         <Alert color="blue" variant="light">
-          Your wishlist is saved on this device.{" "}
+          {t("shop.wishlistPage.guestNote")}{" "}
           <Anchor component={Link} to={`/${loc}/account`}>
-            Sign in
+            {t("shop.nav.signIn")}
           </Anchor>{" "}
-          (and verify your email) to keep it across devices.
+          {t("shop.wishlistPage.guestNoteSuffix")}
         </Alert>
       )}
 
       {display.length === 0 ? (
         <Alert color="gray" variant="light" icon={<Heart size={18} />}>
-          Your wishlist is empty. Tap the heart on any product to save it here.{" "}
+          {t("shop.wishlistPage.empty")}{" "}
           <Anchor component={Link} to={`/${loc}/shop`}>
-            Browse the shop
+            {t("shop.wishlistPage.browse")}
           </Anchor>
           .
         </Alert>
       ) : (
         <>
           <Text c="dimmed" fz="sm">
-            {display.length} saved item{display.length === 1 ? "" : "s"}
+            {display.length} {display.length === 1 ? t("shop.wishlistPage.savedOne") : t("shop.wishlistPage.savedOther")}
           </Text>
           <ProductGrid locale={loc} products={display} categories={categories} />
         </>

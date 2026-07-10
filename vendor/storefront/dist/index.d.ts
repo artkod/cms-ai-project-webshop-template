@@ -172,6 +172,7 @@ export declare interface CatalogImage {
 export declare interface CatalogOption {
     id: string;
     name: string;
+    label: string;
     position: number;
     values: CatalogOptionValue[];
 }
@@ -179,6 +180,7 @@ export declare interface CatalogOption {
 export declare interface CatalogOptionValue {
     id: string;
     value: string;
+    label: string;
     position: number;
 }
 
@@ -471,9 +473,11 @@ export declare interface OAuthStartOptions {
 
 export declare interface OptionFacet {
     name: string;
+    label: string;
     values: {
         value: string;
         count: number;
+        label: string;
     }[];
 }
 
@@ -905,7 +909,7 @@ export declare function storeConsent(decision: {
     marketing?: boolean;
 }): void;
 
-export declare const STOREFRONT_CONTRACT_VERSION: 2;
+export declare const STOREFRONT_CONTRACT_VERSION: 3;
 
 export declare const STOREFRONT_SDK_VERSION: "0.0.1";
 

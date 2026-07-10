@@ -3,6 +3,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { Elements, PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { Alert, Button, Stack, Text } from "@mantine/core";
 import { AlertCircle } from "lucide-react";
+import { useStrings } from "@/lib/locale";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Stripe payment (client half; Phase L6.2). Mounts Stripe Elements with the
@@ -20,6 +21,7 @@ import { AlertCircle } from "lucide-react";
 function PayForm({ onConfirmed }: { onConfirmed: () => void }) {
   const stripe = useStripe();
   const elements = useElements();
+  const { t } = useStrings();
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -33,7 +35,7 @@ function PayForm({ onConfirmed }: { onConfirmed: () => void }) {
       confirmParams: { return_url: window.location.href },
     });
     if (confirmError) {
-      setError(confirmError.message ?? "Payment failed. Please try again.");
+      setError(confirmError.message ?? t("shop.payment.failed"));
       setSubmitting(false);
       return;
     }
@@ -62,10 +64,10 @@ function PayForm({ onConfirmed }: { onConfirmed: () => void }) {
         </Alert>
       )}
       <Button onClick={() => void submit()} loading={submitting} disabled={!stripe || !elements}>
-        Pay now
+        {t("shop.payment.payNow")}
       </Button>
       <Text c="dimmed" fz="xs">
-        Test mode — use card <b>4242&nbsp;4242&nbsp;4242&nbsp;4242</b>, any future expiry &amp; CVC.
+        {t("shop.payment.testMode")}
       </Text>
     </Stack>
   );

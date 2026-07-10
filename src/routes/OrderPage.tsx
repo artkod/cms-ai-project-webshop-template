@@ -4,7 +4,8 @@ import { Alert, Anchor, Badge, Button, Divider, Group, Loader, NumberInput, Pape
 import { CheckCircle2, CreditCard, FileText, Check, X, RotateCcw, Package, Download } from "lucide-react";
 import { StorefrontError, type InitiatePaymentResult, type Order, type OrderReturnsResult } from "@cms/storefront";
 import { storefront } from "@/lib/storefront";
-import { useLocaleConfig } from "@/lib/locale";
+import { useLocaleConfig, useStrings } from "@/lib/locale";
+import { humanizeStatus } from "@/lib/shopStrings";
 import { formatCents } from "@/lib/money";
 import { StripePayment } from "@/components/shop/StripePayment";
 
@@ -29,18 +30,15 @@ const FULFILLMENT_COLOR: Record<string, string> = {
   unfulfilled: "gray", reserved: "blue", preparing: "blue", partially_shipped: "yellow",
   shipped: "teal", delivered: "teal", returned: "gray",
 };
-const FULFILLMENT_MESSAGE: Record<string, string> = {
-  preparing: "Your order is being prepared for shipment.",
-  partially_shipped: "Part of your order is on its way — the rest will follow.",
-  shipped: "Your order has shipped and is on its way.",
-  delivered: "Your order has been delivered. Enjoy!",
-  returned: "This order has been returned.",
-};
+// Fulfillment statuses that carry a shopper-facing progress message (i18n key
+// `shop.order.fulfill.<status>`). Others (unfulfilled/reserved) show nothing.
+const FULFILLMENT_MSG_STATUSES = new Set(["preparing", "partially_shipped", "shipped", "delivered", "returned"]);
 
 export function OrderPage() {
   const { locale, token } = useParams<{ locale: string; token: string }>();
   const { defaultLocale } = useLocaleConfig();
   const loc = locale ?? defaultLocale;
+  const { t } = useStrings();
   const [order, setOrder] = useState<Order | null>(null);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
@@ -152,8 +150,8 @@ export function OrderPage() {
       setOrder(await storefront.acceptQuote(token));
     } catch (e) {
       setQuoteError(e instanceof StorefrontError && e.code === "insufficient_stock"
-        ? "Some items are no longer in stock — we'll be in touch."
-        : "Couldn't accept the quote. Please try again.");
+        ? t("shop.order.acceptError.stock")
+        : t("shop.order.acceptError.generic"));
     } finally {
       setQuoteBusy(false);
     }
@@ -165,7 +163,7 @@ export function OrderPage() {
     try {
       setOrder(await storefront.declineQuote(token));
     } catch {
-      setQuoteError("Couldn't decline the quote. Please try again.");
+      setQuoteError(t("shop.order.declineError"));
     } finally {
       setQuoteBusy(false);
     }
@@ -178,7 +176,7 @@ export function OrderPage() {
     try {
       setPay(await storefront.initiatePayment(token, "stripe"));
     } catch {
-      setPayError("Couldn't start the payment. Please try again.");
+      setPayError(t("shop.order.payStartError"));
     } finally {
       setInitiating(false);
     }
@@ -188,14 +186,14 @@ export function OrderPage() {
   if (notFound || !order) {
     return (
       <Stack>
-        <Title order={1}>Order not found</Title>
-        <Text c="dimmed">We couldn't find that order.</Text>
-        <Anchor component={Link} to={`/${loc}/shop`}>← Continue shopping</Anchor>
+        <Title order={1}>{t("shop.order.notFound")}</Title>
+        <Text c="dimmed">{t("shop.order.notFoundBody")}</Text>
+        <Anchor component={Link} to={`/${loc}/shop`}>{t("shop.order.continueShopping")}</Anchor>
       </Stack>
     );
   }
 
-  const t = order.totals;
+  const totals = order.totals;
   const addr = order.shippingAddress;
   // A non-shippable (digital/service) order has no shipping address — show billing.
   const billAddr = order.billingAddress;
@@ -207,23 +205,23 @@ export function OrderPage() {
     <Stack gap="lg" maw={720}>
       <Alert color={order.isQuote ? "blue" : isPaid ? "teal" : "yellow"} icon={order.isQuote ? <FileText size={18} /> : <CheckCircle2 size={18} />}>
         {order.isQuote ? (
-          <Text>Your <b>quote request</b> #{order.orderNumber} has been received. We'll email a quote to <b>{order.email}</b>.</Text>
+          <Text>{t("shop.order.quoteReceivedPrefix")} <b>{t("shop.order.quoteRequest")}</b> #{order.orderNumber} {t("shop.order.quoteReceivedMid")} <b>{order.email}</b>.</Text>
         ) : authorized ? (
-          <Text>Your card is <b>authorized</b> for order <b>#{order.orderNumber}</b> — you won't be charged until it ships. A confirmation will go to <b>{order.email}</b>.</Text>
+          <Text>{t("shop.order.authorizedPrefix")} <b>{t("shop.order.authorized")}</b> {t("shop.order.authorizedMid")} <b>#{order.orderNumber}</b> {t("shop.order.authorizedSuffix")} <b>{order.email}</b>.</Text>
         ) : isPaid ? (
-          <Text>Payment received — thank you! Order <b>#{order.orderNumber}</b> is confirmed. A receipt will go to <b>{order.email}</b>.</Text>
+          <Text>{t("shop.order.paidPrefix")} <b>#{order.orderNumber}</b> {t("shop.order.paidMid")} <b>{order.email}</b>.</Text>
         ) : (
-          <Text>Thank you! Order <b>#{order.orderNumber}</b> is placed and awaiting payment. A confirmation will go to <b>{order.email}</b>.</Text>
+          <Text>{t("shop.order.placedPrefix")} <b>#{order.orderNumber}</b> {t("shop.order.placedMid")} <b>{order.email}</b>.</Text>
         )}
       </Alert>
 
       <Group gap="xs">
-        <Title order={2}>Order #{order.orderNumber}</Title>
-        <Badge color={order.isQuote ? "blue" : "yellow"} variant="light">{order.status.lifecycle}</Badge>
-        <Badge color={isPaid ? "teal" : "gray"} variant="light">{order.status.paymentStatus}</Badge>
+        <Title order={2}>{t("shop.order.orderNo")} #{order.orderNumber}</Title>
+        <Badge color={order.isQuote ? "blue" : "yellow"} variant="light">{humanizeStatus(loc, order.status.lifecycle)}</Badge>
+        <Badge color={isPaid ? "teal" : "gray"} variant="light">{humanizeStatus(loc, order.status.paymentStatus)}</Badge>
         {!order.isQuote && order.status.fulfillmentStatus !== "unfulfilled" && (
           <Badge color={FULFILLMENT_COLOR[order.status.fulfillmentStatus] ?? "gray"} variant="light">
-            {order.status.fulfillmentStatus.replace(/_/g, " ")}
+            {humanizeStatus(loc, order.status.fulfillmentStatus)}
           </Badge>
         )}
         {/* Fiscal receipt/invoice PDF (L8.4) — downloadable once the order is fiscalized
@@ -238,7 +236,7 @@ export function OrderPage() {
             size="xs"
             leftSection={<FileText size={15} />}
           >
-            Invoice (PDF)
+            {t("shop.order.invoicePdf")}
           </Button>
         )}
       </Group>
@@ -249,7 +247,7 @@ export function OrderPage() {
         <Paper withBorder p="md" radius="md">
           <Group gap="xs" mb="sm">
             <Download size={18} />
-            <Title order={4}>Your downloads</Title>
+            <Title order={4}>{t("shop.order.yourDownloads")}</Title>
           </Group>
           <Stack gap="sm">
             {order.downloads!.map((d) => (
@@ -257,7 +255,7 @@ export function OrderPage() {
                 <Group gap="sm">
                   <Text fw={600}>{d.name}</Text>
                   {d.expired ? (
-                    <Badge color="gray" variant="light">Link expired</Badge>
+                    <Badge color="gray" variant="light">{t("shop.order.linkExpired")}</Badge>
                   ) : (
                     <Button
                       component="a"
@@ -266,18 +264,18 @@ export function OrderPage() {
                       variant="light"
                       leftSection={<Download size={14} />}
                     >
-                      Download {d.filename}
+                      {t("shop.order.download")} {d.filename}
                     </Button>
                   )}
                 </Group>
                 {!d.expired && (
                   <Text fz="xs" c="dimmed">
-                    Link valid until {new Date(d.expiresAt).toLocaleString()}
+                    {t("shop.order.linkValidUntil")} {new Date(d.expiresAt).toLocaleString()}
                   </Text>
                 )}
                 {d.licenseKeys.length > 0 && (
                   <Text fz="sm" mt={4}>
-                    License key{d.licenseKeys.length > 1 ? "s" : ""}:{" "}
+                    {d.licenseKeys.length > 1 ? t("shop.order.licenseKeys") : t("shop.order.licenseKey")}:{" "}
                     {d.licenseKeys.map((k) => (
                       <Text key={k} component="span" ff="monospace" fw={600} mr="sm">
                         {k}
@@ -293,9 +291,9 @@ export function OrderPage() {
 
       {/* Fulfillment progress (L7) — reflects the admin's fulfillment actions
           (preparing → shipped → delivered) so the shopper sees where their order is. */}
-      {!order.isQuote && FULFILLMENT_MESSAGE[order.status.fulfillmentStatus] && (
+      {!order.isQuote && FULFILLMENT_MSG_STATUSES.has(order.status.fulfillmentStatus) && (
         <Alert color={order.status.fulfillmentStatus === "returned" ? "gray" : "teal"} icon={<Package size={18} />}>
-          {FULFILLMENT_MESSAGE[order.status.fulfillmentStatus]}
+          {t(`shop.order.fulfill.${order.status.fulfillmentStatus}`)}
         </Alert>
       )}
 
@@ -306,27 +304,27 @@ export function OrderPage() {
         <Paper withBorder p="md" radius="md">
           <Group gap="xs" mb="sm">
             <FileText size={18} />
-            <Title order={4}>Your quote is ready</Title>
+            <Title order={4}>{t("shop.order.quoteReadyTitle")}</Title>
           </Group>
           <Text fz="sm" mb="sm">
-            Review the items and total below
-            {order.validUntil ? <>, valid until <b>{new Date(order.validUntil).toLocaleDateString()}</b></> : null}.
-            Accept to confirm and proceed to payment, or decline if it no longer suits you.
+            {t("shop.order.quoteReviewPrefix")}
+            {order.validUntil ? <>, {t("shop.order.quoteValidUntil")} <b>{new Date(order.validUntil).toLocaleDateString()}</b></> : null}.{" "}
+            {t("shop.order.quoteReviewSuffix")}
           </Text>
           {quoteError && <Text fz="sm" c="red" mb="xs">{quoteError}</Text>}
           <Group>
             <Button leftSection={<Check size={16} />} onClick={() => void acceptQuote()} loading={quoteBusy}>
-              Accept quote
+              {t("shop.order.acceptQuote")}
             </Button>
             <Button variant="light" color="red" leftSection={<X size={16} />} onClick={() => void declineQuote()} loading={quoteBusy}>
-              Decline
+              {t("shop.order.decline")}
             </Button>
           </Group>
         </Paper>
       )}
 
       {order.isQuote && order.quoteStatus === "declined" && (
-        <Alert color="gray">You declined this quote. <Anchor component={Link} to={`/${loc}/shop`}>Continue shopping</Anchor>.</Alert>
+        <Alert color="gray">{t("shop.order.declinedNote")} <Anchor component={Link} to={`/${loc}/shop`}>{t("shop.account.continueShopping")}</Anchor>.</Alert>
       )}
 
       {/* Payment (L6.2 + L7.4 modes) — while awaiting_payment + not a quote. The UI
@@ -336,15 +334,15 @@ export function OrderPage() {
         <Paper withBorder p="md" radius="md">
           <Group gap="xs" mb="sm">
             <CreditCard size={18} />
-            <Title order={4}>Payment</Title>
+            <Title order={4}>{t("shop.order.payment")}</Title>
           </Group>
           {order.paymentMethod === "bank_transfer" ? (
             <Stack gap={4}>
               <Text fz="sm">
-                Pay by <b>bank transfer</b> using the details on the proforma invoice below
-                {order.paymentDueAt ? <> by <b>{new Date(order.paymentDueAt).toLocaleDateString()}</b></> : null}.
+                {t("shop.order.bankTransferPrefix")} <b>{t("shop.order.bankTransfer")}</b> {t("shop.order.bankTransferMid")}
+                {order.paymentDueAt ? <> {t("shop.order.by")} <b>{new Date(order.paymentDueAt).toLocaleDateString()}</b></> : null}.
               </Text>
-              <Text fz="sm" c="dimmed">Your order is reserved and ships once payment arrives.</Text>
+              <Text fz="sm" c="dimmed">{t("shop.order.bankReserved")}</Text>
               <Group mt={4}>
                 <Button
                   component="a"
@@ -355,25 +353,25 @@ export function OrderPage() {
                   size="xs"
                   leftSection={<FileText size={15} />}
                 >
-                  Download proforma invoice (PDF)
+                  {t("shop.order.downloadProforma")}
                 </Button>
               </Group>
             </Stack>
           ) : order.paymentMethod === "cod" ? (
             <Text fz="sm">
-              You'll <b>pay in cash on delivery</b>
-              {t.surcharge ? <> (incl. a {formatCents(t.surcharge.gross)} COD surcharge)</> : null}. No payment is needed now.
+              {t("shop.order.codPrefix")} <b>{t("shop.order.codPayInCash")}</b>
+              {totals.surcharge ? <> {t("shop.order.codSurchargePrefix")} {formatCents(totals.surcharge.gross)} {t("shop.order.codSurchargeSuffix")}</> : null}{t("shop.order.codNoPaymentNow")}
             </Text>
           ) : confirming ? (
             <Group gap="xs">
               <Loader size="xs" />
-              <Text fz="sm" c="dimmed">Confirming your payment…</Text>
+              <Text fz="sm" c="dimmed">{t("shop.order.confirmingPayment")}</Text>
             </Group>
           ) : pay && pay.initiate.kind === "client_secret" ? (
             <Stack gap="xs">
               {cardManual && (
                 <Text fz="sm" c="dimmed">
-                  We'll only place a <b>hold</b> on your card now — you're charged when your order ships.
+                  {t("shop.order.holdNotice")}
                 </Text>
               )}
               <StripePayment
@@ -385,24 +383,22 @@ export function OrderPage() {
           ) : hasCardProvider ? (
             <Stack gap="xs" align="flex-start">
               <Text fz="sm" c="dimmed">
-                {cardManual
-                  ? "Authorize your card to confirm your order — you'll only be charged when it ships."
-                  : "Pay securely by card to confirm your order."}
+                {cardManual ? t("shop.order.authorizeIntro") : t("shop.order.payIntro")}
               </Text>
               {payError && <Text fz="sm" c="red">{payError}</Text>}
               <Button leftSection={<CreditCard size={16} />} onClick={() => void beginCardPayment()} loading={initiating}>
-                {cardManual ? "Authorize card" : "Pay by card"}
+                {cardManual ? t("shop.order.authorizeCard") : t("shop.order.payByCard")}
               </Button>
             </Stack>
           ) : (
-            <Text fz="sm" c="dimmed">We'll follow up by email with payment instructions.</Text>
+            <Text fz="sm" c="dimmed">{t("shop.order.followUpEmail")}</Text>
           )}
         </Paper>
       )}
 
       <Paper withBorder p="md" radius="md">
         <Stack gap="xs">
-          <Title order={4}>Items</Title>
+          <Title order={4}>{t("shop.order.items")}</Title>
           {order.items.map((line) => {
             // Per-line shipped state (only meaningful once something has shipped).
             const f = order.lineFulfillment?.find((x) => x.orderItemId === line.id);
@@ -410,16 +406,16 @@ export function OrderPage() {
             const shipText = !showShip || !f
               ? null
               : f.shipped >= f.ordered
-              ? "Shipped"
+              ? t("shop.order.shipped")
               : f.shipped > 0
-              ? `Shipped ${f.shipped} of ${f.ordered}`
-              : "Ships soon";
+              ? t("shop.order.shippedOf").replace("{n}", String(f.shipped)).replace("{total}", String(f.ordered))
+              : t("shop.order.shipsSoon");
             return (
               <Group key={line.id} justify="space-between" wrap="nowrap" gap="xs">
                 <div>
                   <Text fz="sm">{line.quantity} × {line.name || line.sku || line.variantId}</Text>
                   {shipText && (
-                    <Text fz="xs" c={shipText === "Ships soon" ? "dimmed" : "teal"}>{shipText}</Text>
+                    <Text fz="xs" c={shipText === t("shop.order.shipsSoon") ? "dimmed" : "teal"}>{shipText}</Text>
                   )}
                 </div>
                 <Text fz="sm">{formatCents(line.gross)}</Text>
@@ -427,36 +423,36 @@ export function OrderPage() {
             );
           })}
           <Divider my="xs" />
-          <Row label="Subtotal" value={formatCents(t.itemsSubtotal)} />
-          {t.discountTotal > 0 && <Row label="Discount" value={`−${formatCents(t.discountTotal)}`} accent />}
-          {order.shippingMethod && <Row label={`Shipping (${order.shippingMethod.name})`} value={formatCents(t.shipping?.gross ?? 0)} />}
-          {t.surcharge && <Row label="Cash on delivery" value={formatCents(t.surcharge.gross)} />}
-          {t.taxTotal > 0 && <Row label="Net" value={formatCents(t.netTotal)} dim />}
-          {t.taxSummary
+          <Row label={t("shop.order.subtotal")} value={formatCents(totals.itemsSubtotal)} />
+          {totals.discountTotal > 0 && <Row label={t("shop.order.discount")} value={`−${formatCents(totals.discountTotal)}`} accent />}
+          {order.shippingMethod && <Row label={`Shipping (${order.shippingMethod.name})`} value={formatCents(totals.shipping?.gross ?? 0)} />}
+          {totals.surcharge && <Row label={t("shop.order.cashOnDelivery")} value={formatCents(totals.surcharge.gross)} />}
+          {totals.taxTotal > 0 && <Row label={t("shop.order.net")} value={formatCents(totals.netTotal)} dim />}
+          {totals.taxSummary
             .filter((r) => r.vat > 0)
             .map((r) => (
-              <Row key={r.rateBps} label={`VAT ${ratePct(r.rateBps)}${order.taxDestination ? ` (${order.taxDestination})` : ""}`} value={formatCents(r.vat)} dim />
+              <Row key={r.rateBps} label={`${t("shop.order.vat")} ${ratePct(r.rateBps)}${order.taxDestination ? ` (${order.taxDestination})` : ""}`} value={formatCents(r.vat)} dim />
             ))}
           <Divider my="xs" />
           <Group justify="space-between">
-            <Text fw={700}>{order.isQuote ? "Estimated total" : "Total"}</Text>
-            <Text fw={700} fz="lg">{formatCents(t.grossTotal)}</Text>
+            <Text fw={700}>{order.isQuote ? t("shop.order.estimatedTotal") : t("shop.order.total")}</Text>
+            <Text fw={700} fz="lg">{formatCents(totals.grossTotal)}</Text>
           </Group>
-          {t.taxTotal === 0 && <Text c="dimmed" fz="xs" mt={4}>No VAT was charged on this order.</Text>}
+          {totals.taxTotal === 0 && <Text c="dimmed" fz="xs" mt={4}>{t("shop.order.noVatCharged")}</Text>}
         </Stack>
       </Paper>
 
       {addr && (
         <Paper withBorder p="md" radius="md">
-          <Title order={4} mb="xs">Shipping to</Title>
+          <Title order={4} mb="xs">{t("shop.order.shippingTo")}</Title>
           <Text fz="sm">{addr.name}</Text>
           <Text fz="sm">{addr.line1}{addr.line2 ? `, ${addr.line2}` : ""}</Text>
           <Text fz="sm">{addr.postalCode} {addr.city}, {addr.country}</Text>
           {addr.phone && <Text fz="sm" c="dimmed">{addr.phone}</Text>}
           {order.shippingMethod && (
             <Text fz="sm" c="dimmed" mt="xs">
-              Method: {order.shippingMethod.name}
-              {order.pickupPoint ? ` — ${(order.pickupPoint as { name?: string }).name ?? "pickup point"}` : ""}
+              {t("shop.order.method")}: {order.shippingMethod.name}
+              {order.pickupPoint ? ` — ${(order.pickupPoint as { name?: string }).name ?? t("shop.order.pickupPoint")}` : ""}
             </Text>
           )}
         </Paper>
@@ -466,7 +462,7 @@ export function OrderPage() {
           shipping address at all (a digital/service order). */}
       {billAddr && (!addr || JSON.stringify(billAddr) !== JSON.stringify(addr)) && (
         <Paper withBorder p="md" radius="md">
-          <Title order={4} mb="xs">Billing</Title>
+          <Title order={4} mb="xs">{t("shop.order.billing")}</Title>
           <Text fz="sm">{billAddr.name}</Text>
           <Text fz="sm">{billAddr.line1}{billAddr.line2 ? `, ${billAddr.line2}` : ""}</Text>
           <Text fz="sm">{billAddr.postalCode} {billAddr.city}, {billAddr.country}</Text>
@@ -485,16 +481,11 @@ export function OrderPage() {
         <ReturnsCard token={token} data={returns} onChange={(d) => setReturns(d)} />
       )}
 
-      <Anchor component={Link} to={`/${loc}/shop`}>← Continue shopping</Anchor>
+      <Anchor component={Link} to={`/${loc}/shop`}>{t("shop.order.continueShopping")}</Anchor>
     </Stack>
   );
 }
 
-const RETURN_STATUS_LABEL: Record<string, string> = {
-  requested: "Requested",
-  approved: "Approved",
-  rejected: "Rejected",
-};
 const RETURN_STATUS_COLOR: Record<string, string> = {
   requested: "yellow",
   approved: "teal",
@@ -510,6 +501,7 @@ function ReturnsCard({
   data: OrderReturnsResult;
   onChange: (d: OrderReturnsResult) => void;
 }) {
+  const { t } = useStrings();
   const eligible = data.eligibility?.eligible ?? false;
   const returnsOff = !data.returnsEnabled;
   const lines = (data.eligibility?.lines ?? []).filter((l) => l.returnable > 0);
@@ -524,7 +516,7 @@ function ReturnsCard({
       .filter(([, q]) => q > 0)
       .map(([orderItemId, quantity]) => ({ orderItemId, quantity }));
     if (picked.length === 0) {
-      setError("Select at least one item to return.");
+      setError(t("shop.order.selectItemReturn"));
       return;
     }
     setBusy(true);
@@ -538,8 +530,8 @@ function ReturnsCard({
     } catch (e) {
       setError(
         e instanceof StorefrontError && e.code === "return_not_eligible"
-          ? "This order is no longer eligible for a return."
-          : "Couldn't submit the return. Please try again.",
+          ? t("shop.order.returnNotEligible")
+          : t("shop.order.returnSubmitError"),
       );
     } finally {
       setBusy(false);
@@ -550,7 +542,7 @@ function ReturnsCard({
     <Paper withBorder p="md" radius="md">
       <Group gap="xs" mb="sm">
         <RotateCcw size={18} />
-        <Title order={4}>Returns</Title>
+        <Title order={4}>{t("shop.order.returns")}</Title>
       </Group>
 
       {/* Existing return requests */}
@@ -562,7 +554,7 @@ function ReturnsCard({
                 {r.items.map((it) => `${it.quantity} × ${it.name}`).join(", ")}
               </Text>
               <Badge color={RETURN_STATUS_COLOR[r.status] ?? "gray"} variant="light">
-                {RETURN_STATUS_LABEL[r.status] ?? r.status}
+                {t(`shop.status.${r.status}`)}
               </Badge>
             </Group>
           ))}
@@ -572,7 +564,7 @@ function ReturnsCard({
       {/* Web returns turned off → point the shopper at the returns email instead. */}
       {returnsOff && eligible && data.returnsEmail && (
         <Text fz="sm" c="dimmed">
-          To request a return, please email us at{" "}
+          {t("shop.order.returnsEmailPrefix")}{" "}
           <Anchor href={`mailto:${data.returnsEmail}`}>{data.returnsEmail}</Anchor>.
         </Text>
       )}
@@ -581,14 +573,14 @@ function ReturnsCard({
       {!returnsOff && eligible && lines.length > 0 && (
         !open ? (
           <Button variant="light" leftSection={<RotateCcw size={16} />} onClick={() => setOpen(true)}>
-            {data.returns.length > 0 ? "Request another return" : "Request a return"}
+            {data.returns.length > 0 ? t("shop.order.requestAnotherReturn") : t("shop.order.requestReturn")}
           </Button>
         ) : (
           <Stack gap="xs">
             <Text fz="sm" c="dimmed">
-              Choose how many of each item to return
+              {t("shop.order.chooseHowMany")}
               {data.eligibility?.windowEndsAt
-                ? <> — the return window closes on <b>{new Date(data.eligibility.windowEndsAt).toLocaleDateString()}</b></>
+                ? <> — {t("shop.order.returnWindowCloses")} <b>{new Date(data.eligibility.windowEndsAt).toLocaleDateString()}</b></>
                 : null}.
             </Text>
             {lines.map((l) => (
@@ -602,13 +594,13 @@ function ReturnsCard({
               </Group>
             ))}
             <Textarea
-              label="Reason (optional)" autosize minRows={2}
+              label={t("shop.order.reasonOptional")} autosize minRows={2}
               value={reason} onChange={(e) => setReason(e.currentTarget.value)}
             />
             {error && <Text fz="sm" c="red">{error}</Text>}
             <Group>
-              <Button onClick={() => void submit()} loading={busy}>Submit return request</Button>
-              <Button variant="subtle" onClick={() => setOpen(false)} disabled={busy}>Cancel</Button>
+              <Button onClick={() => void submit()} loading={busy}>{t("shop.order.submitReturn")}</Button>
+              <Button variant="subtle" onClick={() => setOpen(false)} disabled={busy}>{t("shop.order.cancel")}</Button>
             </Group>
           </Stack>
         )

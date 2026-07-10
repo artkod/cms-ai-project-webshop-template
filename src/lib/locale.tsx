@@ -1,5 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import { getSiteSettings, getStrings, type Alternates, type SiteSettings } from "./api";
+import { bundledShopString } from "./shopStrings";
 
 interface LocaleConfig {
   defaultLocale: string;
@@ -193,11 +194,16 @@ export function StringsProvider({ locale, children }: { locale: string; children
 
   const t = useCallback(
     (key: string): string => {
+      // 1. project strings store (admin-editable override)
       const v = strings[key];
       if (typeof v === "string" && v !== "") return v;
+      // 2/3. bundled shop-chrome dict (active locale → EN fallback)
+      const bundled = bundledShopString(locale, key);
+      if (bundled) return bundled;
+      // 4. literal key — the "fill me in" signal for genuinely missing copy
       return key;
     },
-    [strings]
+    [strings, locale]
   );
 
   const value = useMemo<StringsValue>(() => ({ t, strings, ready }), [t, strings, ready]);

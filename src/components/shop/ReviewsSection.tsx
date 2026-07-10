@@ -19,6 +19,7 @@ import { MessageSquare } from "lucide-react";
 import type { ProductReviewsResponse } from "@cms/storefront";
 import { storefront } from "@/lib/storefront";
 import { useCustomer } from "@/lib/customer";
+import { useStrings } from "@/lib/locale";
 
 // Product reviews block (L9.1): approved reviews + aggregate, and — for a
 // verified customer without a prior review — a submit form. New reviews start
@@ -26,6 +27,7 @@ import { useCustomer } from "@/lib/customer";
 // approval" note instead of their review in the public list.
 export function ReviewsSection({ productId, locale }: { productId: string; locale: string }) {
   const { customer } = useCustomer();
+  const { t } = useStrings();
   const [data, setData] = useState<ProductReviewsResponse | null>(null);
 
   const [rating, setRating] = useState(0);
@@ -51,7 +53,7 @@ export function ReviewsSection({ productId, locale }: { productId: string; local
 
   const submit = async () => {
     if (rating < 1) {
-      notifications.show({ color: "red", message: "Pick a star rating first." });
+      notifications.show({ color: "red", message: t("shop.reviews.pickRating") });
       return;
     }
     setBusy(true);
@@ -64,7 +66,7 @@ export function ReviewsSection({ productId, locale }: { productId: string; local
       setRating(0);
       setTitle("");
       setBody("");
-      notifications.show({ color: "teal", message: "Thanks! Your review is awaiting approval." });
+      notifications.show({ color: "teal", message: t("shop.reviews.thanks") });
       reload();
     } catch (err) {
       const code = (err as { code?: string }).code;
@@ -72,12 +74,12 @@ export function ReviewsSection({ productId, locale }: { productId: string; local
         color: "red",
         message:
           code === "review_exists"
-            ? "You already reviewed this product."
+            ? t("shop.reviews.exists")
             : code === "email_not_verified"
-              ? "Verify your email to write a review."
+              ? t("shop.reviews.verifyToReview")
               : code === "not_a_buyer"
-                ? "Only customers who bought this product can review it."
-                : "Could not submit the review. Please try again.",
+                ? t("shop.reviews.buyersOnly")
+                : t("shop.reviews.submitError"),
       });
     } finally {
       setBusy(false);
@@ -89,7 +91,7 @@ export function ReviewsSection({ productId, locale }: { productId: string; local
       <Stack gap="md">
         <Group gap="xs">
           <MessageSquare size={18} />
-          <Title order={3}>Reviews</Title>
+          <Title order={3}>{t("shop.reviews.title")}</Title>
           {data.summary.count > 0 && data.summary.average != null && (
             <Group gap={6}>
               <Rating value={data.summary.average} fractions={10} readOnly size="sm" />
@@ -102,7 +104,7 @@ export function ReviewsSection({ productId, locale }: { productId: string; local
 
         {data.data.length === 0 && (
           <Text c="dimmed" fz="sm">
-            No reviews yet.
+            {t("shop.reviews.none")}
           </Text>
         )}
 
@@ -111,11 +113,11 @@ export function ReviewsSection({ productId, locale }: { productId: string; local
             <Group gap="xs">
               <Rating value={r.rating} readOnly size="xs" />
               <Text fw={600} fz="sm">
-                {r.authorName ?? "Anonymous"}
+                {r.authorName ?? t("shop.reviews.anonymous")}
               </Text>
               {r.verifiedPurchase && (
                 <Badge color="teal" variant="light" size="xs">
-                  Verified purchase
+                  {t("shop.badge.verifiedPurchase")}
                 </Badge>
               )}
               <Text fz="xs" c="dimmed">
@@ -133,7 +135,7 @@ export function ReviewsSection({ productId, locale }: { productId: string; local
 
         {data.mine && data.mine.status === "pending" && (
           <Text fz="sm" c="dimmed">
-            Your review is awaiting approval.
+            {t("shop.reviews.awaitingApproval")}
           </Text>
         )}
 
@@ -142,12 +144,12 @@ export function ReviewsSection({ productId, locale }: { productId: string; local
             <Divider />
             <Stack gap="xs">
               <Text fw={600} fz="sm">
-                Write a review
+                {t("shop.reviews.write")}
               </Text>
               <Rating value={rating} onChange={setRating} />
-              <TextInput placeholder="Title (optional)" value={title} onChange={(e) => setTitle(e.currentTarget.value)} maxLength={200} />
+              <TextInput placeholder={t("shop.reviews.titlePlaceholder")} value={title} onChange={(e) => setTitle(e.currentTarget.value)} maxLength={200} />
               <Textarea
-                placeholder="Share your experience (optional)"
+                placeholder={t("shop.reviews.bodyPlaceholder")}
                 value={body}
                 onChange={(e) => setBody(e.currentTarget.value)}
                 minRows={3}
@@ -155,7 +157,7 @@ export function ReviewsSection({ productId, locale }: { productId: string; local
               />
               <Group>
                 <Button onClick={submit} loading={busy} disabled={rating < 1}>
-                  Submit review
+                  {t("shop.reviews.submit")}
                 </Button>
               </Group>
             </Stack>
@@ -165,19 +167,19 @@ export function ReviewsSection({ productId, locale }: { productId: string; local
         {!customer && (
           <Text fz="sm" c="dimmed">
             <Anchor component={Link} to={`/${locale}/account`}>
-              Sign in
+              {t("shop.nav.signIn")}
             </Anchor>{" "}
-            to write a review.
+            {t("shop.reviews.signInToReview")}
           </Text>
         )}
         {customer && !customer.emailVerified && !data.mine && (
           <Text fz="sm" c="dimmed">
-            Verify your email to write a review.
+            {t("shop.reviews.verifyToReview")}
           </Text>
         )}
         {customer && customer.emailVerified && !data.mine && !data.canReview && data.buyersOnly && (
           <Text fz="sm" c="dimmed">
-            Only customers who bought this product can write a review.
+            {t("shop.reviews.buyersOnly")}
           </Text>
         )}
       </Stack>

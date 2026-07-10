@@ -1,5 +1,6 @@
 import { Anchor, Box, Checkbox, Group, NumberInput, Radio, Stack, Text } from "@mantine/core";
 import type { SearchFacets } from "@cms/storefront";
+import { useStrings } from "@/lib/locale";
 import type { CategoryMap } from "./catalogUrls";
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -43,12 +44,6 @@ export function hasActiveFilters(f: CatalogFilters): boolean {
   );
 }
 
-const TYPE_LABELS: Record<string, string> = {
-  physical: "Physical",
-  digital: "Digital",
-  service: "Service",
-};
-
 function centsToEuro(c: number | null): number | "" {
   return c == null ? "" : c / 100;
 }
@@ -71,6 +66,7 @@ export function FacetSidebar({
   categories: CategoryMap;
   showCategoryFacet: boolean;
 }) {
+  const { t } = useStrings();
   const set = (partial: Partial<CatalogFilters>) => onChange({ ...filters, ...partial });
 
   const toggleOption = (axis: string, value: string, checked: boolean) => {
@@ -91,11 +87,11 @@ export function FacetSidebar({
     <Box w={240} style={{ flexShrink: 0 }}>
       <Group justify="space-between" mb="sm">
         <Text fw={700} fz="sm" tt="uppercase" c="dimmed">
-          Filters
+          {t("shop.facets.title")}
         </Text>
         {active && (
           <Anchor component="button" type="button" fz="xs" onClick={() => onChange(EMPTY_FILTERS)}>
-            Clear all
+            {t("shop.facets.clearAll")}
           </Anchor>
         )}
       </Group>
@@ -104,14 +100,14 @@ export function FacetSidebar({
         {showCategories && (
           <Box>
             <Text fw={600} fz="sm" mb={6}>
-              Category
+              {t("shop.facets.category")}
             </Text>
             <Radio.Group
               value={filters.category ?? ""}
               onChange={(v) => set({ category: v || null })}
             >
               <Stack gap={6}>
-                <Radio value="" label="All categories" size="xs" />
+                <Radio value="" label={t("shop.facets.allCategories")} size="xs" />
                 {facets.categories.map((c) => (
                   <Radio
                     key={c.categoryId}
@@ -119,7 +115,7 @@ export function FacetSidebar({
                     size="xs"
                     label={
                       <Group gap={6} wrap="nowrap">
-                        <span>{categories.get(c.categoryId)?.label ?? "Category"}</span>
+                        <span>{categories.get(c.categoryId)?.label ?? t("shop.facets.categoryFallback")}</span>
                         <Text component="span" c="dimmed" fz="xs">
                           ({c.count})
                         </Text>
@@ -135,21 +131,21 @@ export function FacetSidebar({
         {showTypes && (
           <Box>
             <Text fw={600} fz="sm" mb={6}>
-              Type
+              {t("shop.facets.type")}
             </Text>
             <Radio.Group value={filters.type ?? ""} onChange={(v) => set({ type: v || null })}>
               <Stack gap={6}>
-                <Radio value="" label="All types" size="xs" />
-                {facets.types.map((t) => (
+                <Radio value="" label={t("shop.facets.allTypes")} size="xs" />
+                {facets.types.map((ty) => (
                   <Radio
-                    key={t.type}
-                    value={t.type}
+                    key={ty.type}
+                    value={ty.type}
                     size="xs"
                     label={
                       <Group gap={6} wrap="nowrap">
-                        <span>{TYPE_LABELS[t.type] ?? t.type}</span>
+                        <span>{t(`shop.type.${ty.type}`)}</span>
                         <Text component="span" c="dimmed" fz="xs">
-                          ({t.count})
+                          ({ty.count})
                         </Text>
                       </Group>
                     }
@@ -164,7 +160,7 @@ export function FacetSidebar({
           facets.options.map((axis) => (
             <Box key={axis.name}>
               <Text fw={600} fz="sm" mb={6}>
-                {axis.name}
+                {axis.label}
               </Text>
               <Stack gap={6}>
                 {axis.values.map((val) => {
@@ -177,7 +173,7 @@ export function FacetSidebar({
                       onChange={(e) => toggleOption(axis.name, val.value, e.currentTarget.checked)}
                       label={
                         <Group gap={6} wrap="nowrap">
-                          <span>{val.value}</span>
+                          <span>{val.label}</span>
                           <Text component="span" c="dimmed" fz="xs">
                             ({val.count})
                           </Text>
@@ -192,12 +188,12 @@ export function FacetSidebar({
 
         <Box>
           <Text fw={600} fz="sm" mb={6}>
-            Price (€)
+            {t("shop.facets.price")}
           </Text>
           <Group gap="xs" grow wrap="nowrap">
             <NumberInput
               size="xs"
-              placeholder={facets.priceRange ? String(facets.priceRange.min / 100) : "Min"}
+              placeholder={facets.priceRange ? String(facets.priceRange.min / 100) : t("shop.facets.min")}
               min={0}
               value={centsToEuro(filters.minPrice)}
               onChange={(v) => set({ minPrice: euroToCents(v) })}
@@ -205,7 +201,7 @@ export function FacetSidebar({
             />
             <NumberInput
               size="xs"
-              placeholder={facets.priceRange ? String(facets.priceRange.max / 100) : "Max"}
+              placeholder={facets.priceRange ? String(facets.priceRange.max / 100) : t("shop.facets.max")}
               min={0}
               value={centsToEuro(filters.maxPrice)}
               onChange={(v) => set({ maxPrice: euroToCents(v) })}
@@ -220,7 +216,7 @@ export function FacetSidebar({
           onChange={(e) => set({ inStock: e.currentTarget.checked })}
           label={
             <Group gap={6} wrap="nowrap">
-              <span>In stock only</span>
+              <span>{t("shop.facets.inStockOnly")}</span>
               <Text component="span" c="dimmed" fz="xs">
                 ({facets.inStock})
               </Text>

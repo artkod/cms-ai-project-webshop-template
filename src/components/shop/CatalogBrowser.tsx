@@ -16,6 +16,7 @@ import type { CatalogSort, ProductListParams, ProductCard, SearchFacets } from "
 import { ProductGrid } from "./ProductGrid";
 import { FacetSidebar, EMPTY_FILTERS, type CatalogFilters } from "./FacetSidebar";
 import type { CategoryMap } from "./catalogUrls";
+import { useStrings } from "@/lib/locale";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Shared catalog browser (L4.6) — the search box + facet sidebar + sort control +
@@ -27,12 +28,12 @@ import type { CategoryMap } from "./catalogUrls";
 
 const PAGE_SIZE = 24;
 
-const SORT_OPTIONS: { value: CatalogSort; label: string }[] = [
-  { value: "newest", label: "Newest" },
-  { value: "price_asc", label: "Price: low → high" },
-  { value: "price_desc", label: "Price: high → low" },
-  { value: "name_asc", label: "Name: A → Z" },
-  { value: "name_desc", label: "Name: Z → A" },
+const SORT_KEYS: { value: CatalogSort; key: string }[] = [
+  { value: "newest", key: "shop.sort.newest" },
+  { value: "price_asc", key: "shop.sort.priceAsc" },
+  { value: "price_desc", key: "shop.sort.priceDesc" },
+  { value: "name_asc", key: "shop.sort.nameAsc" },
+  { value: "name_desc", key: "shop.sort.nameDesc" },
 ];
 
 export interface CatalogFetchResult {
@@ -52,6 +53,8 @@ export function CatalogBrowser({
   showCategoryFacet: boolean;
   fetchPage: (params: ProductListParams) => Promise<CatalogFetchResult>;
 }) {
+  const { t } = useStrings();
+  const sortOptions = SORT_KEYS.map((o) => ({ value: o.value, label: t(o.key) }));
   const [search, setSearch] = useState("");
   const [debouncedSearch] = useDebouncedValue(search, 300);
   const [sort, setSort] = useState<CatalogSort>("newest");
@@ -114,26 +117,26 @@ export function CatalogBrowser({
     <Stack gap="md">
       <Group justify="space-between" wrap="wrap" gap="sm">
         <TextInput
-          placeholder="Search products…"
+          placeholder={t("shop.catalog.searchPlaceholder")}
           value={search}
           onChange={(e) => setSearch(e.currentTarget.value)}
           leftSection={<Search size={16} />}
-          rightSection={search ? <CloseButton size="sm" onClick={() => setSearch("")} aria-label="Clear search" /> : null}
+          rightSection={search ? <CloseButton size="sm" onClick={() => setSearch("")} aria-label={t("shop.catalog.clearSearch")} /> : null}
           w={320}
         />
         <Group gap="sm" wrap="nowrap">
           {!loading && (
             <Text c="dimmed" fz="sm">
-              {total} {total === 1 ? "product" : "products"}
+              {total} {total === 1 ? t("shop.catalog.productCountOne") : t("shop.catalog.productCountOther")}
             </Text>
           )}
           <Select
-            data={SORT_OPTIONS}
+            data={sortOptions}
             value={sort}
             onChange={(v) => v && setSort(v as CatalogSort)}
             allowDeselect={false}
             w={190}
-            aria-label="Sort products"
+            aria-label={t("shop.catalog.sortLabel")}
           />
         </Group>
       </Group>
@@ -151,7 +154,7 @@ export function CatalogBrowser({
             <Loader />
           ) : total === 0 ? (
             <Text c="dimmed" py="xl">
-              No products match your filters.
+              {t("shop.catalog.noMatches")}
             </Text>
           ) : (
             <Stack gap="lg" style={{ opacity: loading ? 0.6 : 1, transition: "opacity 0.15s" }}>

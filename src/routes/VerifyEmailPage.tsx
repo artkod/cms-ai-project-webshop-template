@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router";
 import { Alert, Anchor, Button, Group, Loader, Stack, Text, Title } from "@mantine/core";
 import { CheckCircle2, XCircle } from "lucide-react";
 import { useCustomer } from "@/lib/customer";
-import { useLocaleConfig } from "@/lib/locale";
+import { useLocaleConfig, useStrings } from "@/lib/locale";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Email-verification landing page (Phase L5.2). The verification email links to
@@ -17,6 +17,7 @@ export function VerifyEmailPage() {
   const { defaultLocale } = useLocaleConfig();
   const loc = locale ?? defaultLocale;
   const { verifyEmail } = useCustomer();
+  const { t } = useStrings();
   const [state, setState] = useState<"pending" | "ok" | "error">("pending");
   const ran = useRef(false);
 
@@ -31,31 +32,31 @@ export function VerifyEmailPage() {
 
   return (
     <Stack maw={480} mx="auto" gap="lg" py="xl">
-      <Title order={2}>Email verification</Title>
+      <Title order={2}>{t("shop.auth.verifyTitle")}</Title>
 
       {state === "pending" && (
         <Group gap="sm">
           <Loader size="sm" />
-          <Text c="dimmed">Verifying your email…</Text>
+          <Text c="dimmed">{t("shop.auth.verifying")}</Text>
         </Group>
       )}
 
       {state === "ok" && (
-        <Alert color="teal" variant="light" icon={<CheckCircle2 size={18} />} title="Email verified">
+        <Alert color="teal" variant="light" icon={<CheckCircle2 size={18} />} title={t("shop.auth.verifiedTitle")}>
           <Stack gap="sm" align="flex-start">
-            <Text fz="sm">Thanks! Your email address is confirmed and your account features are unlocked.</Text>
-            <Button component={Link} to={`/${loc}/account`} size="sm">Go to my account</Button>
+            <Text fz="sm">{t("shop.auth.verifiedBody")}</Text>
+            <Button component={Link} to={`/${loc}/account`} size="sm">{t("shop.auth.goToAccount")}</Button>
           </Stack>
         </Alert>
       )}
 
       {state === "error" && (
-        <Alert color="red" variant="light" icon={<XCircle size={18} />} title="Couldn't verify">
+        <Alert color="red" variant="light" icon={<XCircle size={18} />} title={t("shop.auth.verifyFailedTitle")}>
           <Stack gap="sm" align="flex-start">
             <Text fz="sm">
-              This verification link is invalid or has expired. Sign in and request a fresh link from your account page.
+              {t("shop.auth.verifyFailedBody")}
             </Text>
-            <Anchor component={Link} to={`/${loc}/account`} fz="sm">Go to my account</Anchor>
+            <Anchor component={Link} to={`/${loc}/account`} fz="sm">{t("shop.auth.goToAccount")}</Anchor>
           </Stack>
         </Alert>
       )}

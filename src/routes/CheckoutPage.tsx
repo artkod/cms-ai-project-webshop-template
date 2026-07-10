@@ -7,7 +7,7 @@ import { StorefrontError, trackBeginCheckout, trackPurchase, type CheckoutMode, 
 import { storefront } from "@/lib/storefront";
 import { useCart } from "@/lib/cart";
 import { useCustomer } from "@/lib/customer";
-import { useLocaleConfig } from "@/lib/locale";
+import { useLocaleConfig, useStrings } from "@/lib/locale";
 import { formatCents } from "@/lib/money";
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -27,31 +27,13 @@ const COUNTRY_OPTIONS = [
   { value: "US", label: "United States (intl.)" },
 ];
 
-// Payment-method labels + help (L7.4). Shown as a radio group at checkout from the
-// preview's offered set; the COD option drives the cart's COD surcharge.
-const PAYMENT_METHODS: Record<CheckoutMode, { label: string; help: string }> = {
-  pay_now: { label: "Pay now (card)", help: "Pay securely by card on the next step." },
-  bank_transfer: { label: "Bank transfer", help: "We'll email payment instructions; your order ships once payment arrives." },
-  cod: { label: "Cash on delivery", help: "Pay in cash when your order is delivered (a surcharge applies)." },
-};
-
 function ratePct(bps: number): string {
   return `${bps / 100}%`;
 }
 
-function checkoutErrorMessage(err: StorefrontError): string {
-  switch (err.code) {
-    case "cart_empty":
-      return "Your cart is empty.";
-    case "insufficient_stock":
-      return "Sorry — one of your items just went out of stock.";
-    case "coupon_exhausted":
-      return "Your coupon was just used up. Please remove it and try again.";
-    case "payment_method_unavailable":
-      return "That payment method isn't available for this cart. Please pick another option.";
-    default:
-      return "Checkout failed. Please try again.";
-  }
+function checkoutErrorMessage(err: StorefrontError, t: (key: string) => string): string {
+  const known = ["cart_empty", "insufficient_stock", "coupon_exhausted", "payment_method_unavailable"];
+  return known.includes(err.code ?? "") ? t(`shop.checkout.err.${err.code}`) : t("shop.checkout.err.default");
 }
 
 export function CheckoutPage() {
@@ -59,6 +41,7 @@ export function CheckoutPage() {
   const { defaultLocale } = useLocaleConfig();
   const loc = locale ?? defaultLocale;
   const navigate = useNavigate();
+  const { t } = useStrings();
   const { cart, setShipping, refresh, shippingOptions, loadShipping } = useCart();
   const { customer } = useCustomer();
 
@@ -310,7 +293,7 @@ export function CheckoutPage() {
       await refresh(); // the cart was cleared server-side
       navigate(`/${loc}/order/${order.token}`);
     } catch (e) {
-      notifications.show({ color: "red", message: checkoutErrorMessage(e as StorefrontError) });
+      notifications.show({ color: "red", message: checkoutErrorMessage(e as StorefrontError, t) });
     } finally {
       setPlacing(false);
     }
@@ -321,26 +304,23 @@ export function CheckoutPage() {
   if (empty) {
     return (
       <Stack>
-        <Title order={1}>Checkout</Title>
-        <Text c="dimmed">Your cart is empty.</Text>
-        <Anchor component={Link} to={`/${loc}/shop`}>← Continue shopping</Anchor>
+        <Title order={1}>{t("shop.checkout.title")}</Title>
+        <Text c="dimmed">{t("shop.checkout.empty")}</Text>
+        <Anchor component={Link} to={`/${loc}/shop`}>{t("shop.checkout.continueShopping")}</Anchor>
       </Stack>
     );
   }
 
   return (
     <Stack gap="lg">
-      <Title order={1}>{isQuote ? "Send an inquiry" : "Checkout"}</Title>
+      <Title order={1}>{isQuote ? t("shop.checkout.sendInquiry") : t("shop.checkout.title")}</Title>
 
       {isQuote && (
         <Alert color="blue" icon={<Info size={16} />}>
           {mixed ? (
-            <>Your cart contains inquiry-only items, so the whole order is a <b>quote request</b> — no payment or
-            delivery is calculated. To pay for the other items now, go back to your cart and remove the
-            inquiry-only items.</>
+            <>{t("shop.checkout.mixedQuotePrefix")} <b>{t("shop.checkout.quoteRequest")}</b> {t("shop.checkout.mixedQuoteSuffix")}</>
           ) : (
-            <>These items are inquiry-only, so this is a <b>quote request</b>. No payment is taken now — we'll
-            prepare a quote and follow up by email.</>
+            <>{t("shop.checkout.inquiryPrefix")} <b>{t("shop.checkout.quoteRequest")}</b>{t("shop.checkout.inquirySuffix")}</>
           )}
         </Alert>
       )}
@@ -350,10 +330,10 @@ export function CheckoutPage() {
         <Stack gap="sm" style={{ flex: "1 1 420px" }}>
           {saved.length > 0 && (
             <Select
-              label="Use a saved address"
+              label={t("shop.checkout.useSavedAddress")}
               data={[
                 ...saved.map((a) => ({ value: a.id, label: `${a.label || a.name} — ${a.line1}, ${a.city}` })),
-                { value: "", label: "Enter a new address" },
+                { value: "", label: t("shop.checkout.enterNewAddress") },
               ]}
               value={selectedAddressId ?? ""}
               onChange={(v) => onSelectSaved(v || null)}
@@ -361,36 +341,36 @@ export function CheckoutPage() {
             />
           )}
 
-          <Title order={2} size="h4">Contact</Title>
+          <Title order={2} size="h4">{t("shop.checkout.contact")}</Title>
           {/* `error` renders inline text + aria-invalid + aria-describedby (Mantine),
               shown only after a failed submit attempt (L9.6 a11y). */}
           <TextInput
-            label="Email"
+            label={t("shop.checkout.email")}
             type="email"
             required
             value={form.email}
             onChange={set("email")}
-            placeholder="you@example.com"
-            error={showErrors && !/.+@.+\..+/.test(form.email) ? "Enter a valid email address." : undefined}
+            placeholder={t("shop.checkout.emailPlaceholder")}
+            error={showErrors && !/.+@.+\..+/.test(form.email) ? t("shop.checkout.enterValidEmail") : undefined}
           />
 
-          <Title order={2} size="h4" mt="sm">{cartRequiresShipping ? "Shipping address" : "Billing address"}</Title>
-          <TextInput label="Full name" required value={form.name} onChange={set("name")} error={showErrors && !form.name.trim() ? "Full name is required." : undefined} />
-          <TextInput label="Address" required value={form.line1} onChange={set("line1")} error={showErrors && !form.line1.trim() ? "Address is required." : undefined} />
-          <TextInput label="Address line 2" value={form.line2} onChange={set("line2")} />
+          <Title order={2} size="h4" mt="sm">{cartRequiresShipping ? t("shop.checkout.shippingAddress") : t("shop.checkout.billingAddress")}</Title>
+          <TextInput label={t("shop.checkout.fullName")} required value={form.name} onChange={set("name")} error={showErrors && !form.name.trim() ? t("shop.checkout.fullNameRequired") : undefined} />
+          <TextInput label={t("shop.checkout.address")} required value={form.line1} onChange={set("line1")} error={showErrors && !form.line1.trim() ? t("shop.checkout.addressRequired") : undefined} />
+          <TextInput label={t("shop.checkout.addressLine2")} value={form.line2} onChange={set("line2")} />
           <Group grow>
-            <TextInput label="City" required value={form.city} onChange={set("city")} error={showErrors && !form.city.trim() ? "City is required." : undefined} />
-            <TextInput label="Postal code" required value={form.postalCode} onChange={set("postalCode")} error={showErrors && !form.postalCode.trim() ? "Postal code is required." : undefined} />
+            <TextInput label={t("shop.checkout.city")} required value={form.city} onChange={set("city")} error={showErrors && !form.city.trim() ? t("shop.checkout.cityRequired") : undefined} />
+            <TextInput label={t("shop.checkout.postalCode")} required value={form.postalCode} onChange={set("postalCode")} error={showErrors && !form.postalCode.trim() ? t("shop.checkout.postalRequired") : undefined} />
           </Group>
           <Select
-            label="Country"
+            label={t("shop.checkout.country")}
             data={COUNTRY_OPTIONS}
             value={form.country}
             onChange={(v) => v && onCountry(v)}
             allowDeselect={false}
             comboboxProps={{ withinPortal: true }}
           />
-          <TextInput label="Phone" value={form.phone} onChange={set("phone")} />
+          <TextInput label={t("shop.checkout.phone")} value={form.phone} onChange={set("phone")} />
 
           {/* Billing address (R2-G) — only meaningful when a shipping address is
               collected; a non-shippable cart's single block is already the billing one. */}
@@ -398,7 +378,7 @@ export function CheckoutPage() {
             <>
               <Checkbox
                 mt="xs"
-                label="Billing address same as shipping"
+                label={t("shop.checkout.billingSame")}
                 checked={billingSame}
                 onChange={(e) => {
                   const same = e.currentTarget.checked;
@@ -412,79 +392,79 @@ export function CheckoutPage() {
               />
               {!billingSame && (
                 <Stack gap="sm">
-                  <Title order={2} size="h4" mt="xs">Billing address</Title>
-                  <TextInput label="Full name" required value={billing.name} onChange={setB("name")} error={showErrors && !billing.name.trim() ? "Full name is required." : undefined} />
-                  <TextInput label="Address" required value={billing.line1} onChange={setB("line1")} error={showErrors && !billing.line1.trim() ? "Address is required." : undefined} />
-                  <TextInput label="Address line 2" value={billing.line2} onChange={setB("line2")} />
+                  <Title order={2} size="h4" mt="xs">{t("shop.checkout.billingAddress")}</Title>
+                  <TextInput label={t("shop.checkout.fullName")} required value={billing.name} onChange={setB("name")} error={showErrors && !billing.name.trim() ? t("shop.checkout.fullNameRequired") : undefined} />
+                  <TextInput label={t("shop.checkout.address")} required value={billing.line1} onChange={setB("line1")} error={showErrors && !billing.line1.trim() ? t("shop.checkout.addressRequired") : undefined} />
+                  <TextInput label={t("shop.checkout.addressLine2")} value={billing.line2} onChange={setB("line2")} />
                   <Group grow>
-                    <TextInput label="City" required value={billing.city} onChange={setB("city")} error={showErrors && !billing.city.trim() ? "City is required." : undefined} />
-                    <TextInput label="Postal code" required value={billing.postalCode} onChange={setB("postalCode")} error={showErrors && !billing.postalCode.trim() ? "Postal code is required." : undefined} />
+                    <TextInput label={t("shop.checkout.city")} required value={billing.city} onChange={setB("city")} error={showErrors && !billing.city.trim() ? t("shop.checkout.cityRequired") : undefined} />
+                    <TextInput label={t("shop.checkout.postalCode")} required value={billing.postalCode} onChange={setB("postalCode")} error={showErrors && !billing.postalCode.trim() ? t("shop.checkout.postalRequired") : undefined} />
                   </Group>
-                  <Select label="Country" data={COUNTRY_OPTIONS} value={billing.country} onChange={(v) => v && setBilling((b) => ({ ...b, country: v }))} allowDeselect={false} comboboxProps={{ withinPortal: true }} />
-                  <TextInput label="Phone" value={billing.phone} onChange={setB("phone")} />
+                  <Select label={t("shop.checkout.country")} data={COUNTRY_OPTIONS} value={billing.country} onChange={(v) => v && setBilling((b) => ({ ...b, country: v }))} allowDeselect={false} comboboxProps={{ withinPortal: true }} />
+                  <TextInput label={t("shop.checkout.phone")} value={billing.phone} onChange={setB("phone")} />
                 </Stack>
               )}
             </>
           )}
 
-          <Textarea label="Order note" value={form.note} onChange={set("note")} autosize minRows={2} />
+          <Textarea label={t("shop.checkout.orderNote")} value={form.note} onChange={set("note")} autosize minRows={2} />
           {/* GDPR marketing opt-in (L9.6): unticked by default; only an affirmative
               tick is recorded (a consent record keyed by the checkout email). */}
           <Checkbox
-            label="Email me about offers and news"
-            description="Optional — you can unsubscribe any time."
+            label={t("shop.checkout.marketingOptIn")}
+            description={t("shop.checkout.marketingHint")}
             checked={marketingOptIn}
             onChange={(e) => setMarketingOptIn(e.currentTarget.checked)}
           />
-          <Anchor component={Link} to={`/${loc}/cart`} fz="sm">← Back to cart</Anchor>
+          <Anchor component={Link} to={`/${loc}/cart`} fz="sm">{t("shop.checkout.backToCart")}</Anchor>
         </Stack>
 
         {/* Summary */}
         <Paper withBorder p="md" radius="md" style={{ flex: "1 1 280px", maxWidth: 380 }}>
           <Stack gap="xs">
-            <Title order={2} size="h4">Order summary</Title>
+            <Title order={2} size="h4">{t("shop.checkout.orderSummary")}</Title>
             {preview!.cart.items.map((line) => (
               <Group key={line.variantId} justify="space-between" wrap="nowrap" gap="xs">
                 <Text fz="sm" lineClamp={1}>{line.quantity} × {line.name || line.sku || line.variantId}</Text>
                 {line.purchasable ? (
                   <Text fz="sm">{formatCents(line.lineTotal)}</Text>
                 ) : (
-                  <Text fz="sm" c="dimmed">On request</Text>
+                  <Text fz="sm" c="dimmed">{t("shop.checkout.onRequest")}</Text>
                 )}
               </Group>
             ))}
             <Divider my="xs" />
             {isQuote && (
-              <Text c="dimmed" fz="xs">No total is calculated for a quote — we'll send you a priced offer.</Text>
+              <Text c="dimmed" fz="xs">{t("shop.checkout.noQuoteTotal")}</Text>
             )}
             {!isQuote && totals && (
               <>
-                <Row label="Subtotal" value={formatCents(totals.itemsSubtotal)} />
-                {totals.discountTotal > 0 && <Row label="Discount" value={`−${formatCents(totals.discountTotal)}`} accent />}
+                <Row label={t("shop.checkout.subtotal")} value={formatCents(totals.itemsSubtotal)} />
+                {totals.discountTotal > 0 && <Row label={t("shop.checkout.discount")} value={`−${formatCents(totals.discountTotal)}`} accent />}
                 {preview!.cart.shipping.method && (
                   <Row
                     label={`Shipping (${preview!.cart.shipping.method.name})`}
-                    value={preview!.cart.shipping.freeByCoupon || preview!.cart.shipping.free ? "Free" : formatCents(totals.shipping?.gross ?? 0)}
+                    value={preview!.cart.shipping.freeByCoupon || preview!.cart.shipping.free ? t("shop.checkout.free") : formatCents(totals.shipping?.gross ?? 0)}
                   />
                 )}
-                {totals.surcharge && <Row label="Cash on delivery" value={formatCents(totals.surcharge.gross)} />}
-                {totals.taxTotal > 0 && <Row label="Net" value={formatCents(totals.netTotal)} dim />}
+                {totals.surcharge && <Row label={t("shop.checkout.cashOnDelivery")} value={formatCents(totals.surcharge.gross)} />}
+                {totals.taxTotal > 0 && <Row label={t("shop.checkout.net")} value={formatCents(totals.netTotal)} dim />}
                 {totals.taxSummary
-                  .filter((t) => t.vat > 0)
-                  .map((t) => (
-                    <Row key={t.rateBps} label={`VAT ${ratePct(t.rateBps)} (${preview!.cart.shipping.country})`} value={formatCents(t.vat)} dim />
+                  .filter((row) => row.vat > 0)
+                  .map((row) => (
+                    <Row key={row.rateBps} label={`${t("shop.checkout.vat")} ${ratePct(row.rateBps)} (${preview!.cart.shipping.country})`} value={formatCents(row.vat)} dim />
                   ))}
                 <Divider my="xs" />
                 <Group justify="space-between">
-                  <Text fw={700}>{isQuote ? "Estimated total" : "Total"}</Text>
+                  <Text fw={700}>{isQuote ? t("shop.checkout.estimatedTotal") : t("shop.checkout.total")}</Text>
                   <Text fw={700} fz="lg">{formatCents(totals.grossTotal)}</Text>
                 </Group>
                 {preview!.cart.vatRegistered === false ? (
-                  <Text c="dimmed" fz="xs">Prices are VAT-exempt — the shop is not in the VAT system.</Text>
+                  <Text c="dimmed" fz="xs">{t("shop.checkout.vatExempt")}</Text>
                 ) : totals.taxTotal > 0 ? (
-                  <Text c="dimmed" fz="xs">VAT shown for {preview!.cart.shipping.country}.</Text>
+                  <Text c="dimmed" fz="xs">{t("shop.checkout.vatShownFor")} {preview!.cart.shipping.country}.</Text>
                 ) : (
-                  <Text c="dimmed" fz="xs">No VAT applies to these items.</Text>
+                  <Text c="dimmed" fz="xs">{t("shop.checkout.noVat")}</Text>
                 )}
               </>
             )}
@@ -495,13 +475,13 @@ export function CheckoutPage() {
               <>
                 <Divider my="xs" />
                 <Radio.Group
-                  label="Payment method"
+                  label={t("shop.checkout.paymentMethod")}
                   value={paymentMethod ?? ""}
                   onChange={(v) => void onPaymentMethod(v as CheckoutMode)}
                 >
                   <Stack gap={6} mt={6}>
                     {offeredMethods.map((m) => (
-                      <Radio key={m} value={m} label={PAYMENT_METHODS[m].label} description={PAYMENT_METHODS[m].help} />
+                      <Radio key={m} value={m} label={t(`shop.pay.${m}`)} description={t(`shop.pay.${m}.help`)} />
                     ))}
                   </Stack>
                 </Radio.Group>
@@ -509,21 +489,20 @@ export function CheckoutPage() {
             )}
             {noPayableMethod && (
               <Alert color="orange" icon={<Info size={16} />}>
-                No payment method is available for this cart — your item requires cash on delivery, but the
-                chosen shipping method doesn't support it. Pick a courier delivery method on the cart page.
+                {t("shop.checkout.noPayableMethod")}
               </Alert>
             )}
             {needsShipping && !noPayableMethod && (
               <Alert color="orange" icon={<Info size={16} />}>
-                Choose a delivery method to continue.{" "}
-                <Anchor component={Link} to={`/${loc}/cart`}>Select one on the cart page</Anchor>.
+                {t("shop.checkout.chooseDelivery")}{" "}
+                <Anchor component={Link} to={`/${loc}/cart`}>{t("shop.checkout.selectOnCart")}</Anchor>.
               </Alert>
             )}
 
             <Button mt="sm" size="md" onClick={place} loading={placing} disabled={!canAttempt}>
-              {isQuote ? "Send an inquiry" : "Place order"}
+              {isQuote ? t("shop.checkout.sendInquiry") : t("shop.checkout.placeOrder")}
             </Button>
-            {!addressValid && !noPayableMethod && !needsShipping && <Text c="dimmed" fz="xs">Fill in your email + shipping address to continue.</Text>}
+            {!addressValid && !noPayableMethod && !needsShipping && <Text c="dimmed" fz="xs">{t("shop.checkout.fillToContinue")}</Text>}
           </Stack>
         </Paper>
       </Group>

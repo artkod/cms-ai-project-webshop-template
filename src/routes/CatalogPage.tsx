@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router";
 import { Anchor, Badge, Group, Stack, Text, Title } from "@mantine/core";
 import type { ProductListParams } from "@cms/storefront";
 import { storefront } from "@/lib/storefront";
-import { useLocaleConfig } from "@/lib/locale";
+import { useLocaleConfig, useStrings } from "@/lib/locale";
 import { CatalogBrowser, type CatalogFetchResult } from "@/components/shop/CatalogBrowser";
 import { useCategoryTree, childCategories, categoryHref } from "@/components/shop/catalogUrls";
 
@@ -14,6 +14,7 @@ import { useCategoryTree, childCategories, categoryHref } from "@/components/sho
 export function CatalogPage() {
   const { locale } = useParams<{ locale: string }>();
   const { defaultLocale } = useLocaleConfig();
+  const { t } = useStrings();
   const loc = locale ?? defaultLocale;
   const categories = useCategoryTree(loc);
   const topCategories = childCategories(null, categories);
@@ -28,12 +29,12 @@ export function CatalogPage() {
 
   return (
     <Stack gap="lg">
-      <Title order={1}>Shop</Title>
+      <Title order={1}>{t("shop.catalog.title")}</Title>
 
       {topCategories.length > 0 && (
         <Group gap="xs">
           <Text fz="sm" c="dimmed" mr={4}>
-            Browse:
+            {t("shop.catalog.browse")}
           </Text>
           {topCategories.map((c) => {
             const href = categoryHref(loc, c.id, categories);

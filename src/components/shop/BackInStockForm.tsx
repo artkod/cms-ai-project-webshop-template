@@ -3,6 +3,7 @@ import { Button, Group, Stack, Text, TextInput } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import { storefront } from "@/lib/storefront";
 import { useCustomer } from "@/lib/customer";
+import { useStrings } from "@/lib/locale";
 
 // Back-in-stock subscribe form (L9.2). Shown under the availability badge when
 // the selected variant is out of stock and not sellable (no backorder). Guests
@@ -11,6 +12,7 @@ import { useCustomer } from "@/lib/customer";
 
 export function BackInStockForm({ productId, variantId, locale }: { productId: string; variantId: string; locale: string }) {
   const { customer } = useCustomer();
+  const { t } = useStrings();
   const [email, setEmail] = useState(customer?.email ?? "");
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState(false);
@@ -24,10 +26,10 @@ export function BackInStockForm({ productId, variantId, locale }: { productId: s
       setDone(true);
       notifications.show({
         color: "teal",
-        message: res.already ? "You're already on the list — we'll email you when it's back." : "We'll email you when it's back in stock.",
+        message: res.already ? t("shop.backInStock.alreadyOnList") : t("shop.backInStock.willEmail"),
       });
     } catch {
-      notifications.show({ color: "red", message: "Couldn't subscribe. Check the email address and try again." });
+      notifications.show({ color: "red", message: t("shop.backInStock.subscribeError") });
     } finally {
       setBusy(false);
     }
@@ -36,7 +38,7 @@ export function BackInStockForm({ productId, variantId, locale }: { productId: s
   if (done) {
     return (
       <Text fz="sm" c="teal">
-        ✓ We'll let you know when it's back.
+        {t("shop.backInStock.confirmed")}
       </Text>
     );
   }
@@ -44,19 +46,19 @@ export function BackInStockForm({ productId, variantId, locale }: { productId: s
   return (
     <Stack gap={4}>
       <Text fz="sm" fw={600}>
-        Get notified when it's back
+        {t("shop.backInStock.title")}
       </Text>
       <Group gap="xs" align="flex-end">
         <TextInput
           type="email"
-          placeholder="you@example.com"
+          placeholder={t("shop.backInStock.emailExample")}
           value={email}
           onChange={(e) => setEmail(e.currentTarget.value)}
           w={240}
           size="sm"
         />
         <Button size="sm" variant="light" onClick={onSubscribe} loading={busy} disabled={!email.trim()}>
-          Notify me
+          {t("shop.backInStock.subscribe")}
         </Button>
       </Group>
     </Stack>

@@ -9,7 +9,7 @@ import { MapPin, Pencil, Plus, Trash2 } from "lucide-react";
 import { StorefrontError, type StorefrontAddress, type CreateAddressInput } from "@cms/storefront";
 import { storefront } from "@/lib/storefront";
 import { useCustomer } from "@/lib/customer";
-import { useLocaleConfig } from "@/lib/locale";
+import { useLocaleConfig, useStrings } from "@/lib/locale";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Address book (Phase L5.4) — manage a logged-in + verified customer's saved
@@ -80,6 +80,7 @@ export function AddressBookPage() {
   const { defaultLocale } = useLocaleConfig();
   const loc = locale ?? defaultLocale;
   const { customer, loading: customerLoading } = useCustomer();
+  const { t } = useStrings();
 
   const [addresses, setAddresses] = useState<StorefrontAddress[]>([]);
   const [loading, setLoading] = useState(true);
@@ -127,10 +128,10 @@ export function AddressBookPage() {
     try {
       if (editing) {
         await storefront.updateAddress(editing.id, { ...toInput(form), label: form.label.trim() || null });
-        notifications.show({ color: "teal", message: "Address updated." });
+        notifications.show({ color: "teal", message: t("shop.addr.updated") });
       } else {
         await storefront.createAddress(toInput(form));
-        notifications.show({ color: "teal", message: "Address saved." });
+        notifications.show({ color: "teal", message: t("shop.addr.saved") });
       }
       modal.close();
       await reload();
@@ -138,7 +139,7 @@ export function AddressBookPage() {
       const err = e as StorefrontError;
       notifications.show({
         color: "red",
-        message: err.code === "email_not_verified" ? "Verify your email first to save addresses." : "Couldn't save the address. Please check the fields and try again.",
+        message: err.code === "email_not_verified" ? t("shop.addr.verifyToSave") : t("shop.addr.saveError"),
       });
     } finally {
       setSaving(false);
@@ -150,7 +151,7 @@ export function AddressBookPage() {
       await storefront.updateAddress(a.id, role === "shipping" ? { isDefaultShipping: true } : { isDefaultBilling: true });
       await reload();
     } catch {
-      notifications.show({ color: "red", message: "Couldn't update the default address." });
+      notifications.show({ color: "red", message: t("shop.addr.defaultError") });
     }
   };
 
@@ -158,10 +159,10 @@ export function AddressBookPage() {
     try {
       await storefront.deleteAddress(id);
       setConfirmDeleteId(null);
-      notifications.show({ color: "gray", message: "Address removed." });
+      notifications.show({ color: "gray", message: t("shop.addr.removed") });
       await reload();
     } catch {
-      notifications.show({ color: "red", message: "Couldn't remove the address." });
+      notifications.show({ color: "red", message: t("shop.addr.removeError") });
     }
   };
 
@@ -180,9 +181,9 @@ export function AddressBookPage() {
   if (!customer) {
     return (
       <Stack maw={560} mx="auto" gap="md">
-        <Title order={2}>Address book</Title>
+        <Title order={2}>{t("shop.addr.title")}</Title>
         <Alert color="blue" variant="light">
-          Please <Anchor component={Link} to={`/${loc}/account`}>sign in</Anchor> to manage your saved addresses.
+          {t("shop.orders.pleaseSignIn")} <Anchor component={Link} to={`/${loc}/account`}>{t("shop.orders.signIn")}</Anchor> {t("shop.addr.signInPrompt")}
         </Alert>
       </Stack>
     );
@@ -192,10 +193,9 @@ export function AddressBookPage() {
   if (!verified) {
     return (
       <Stack maw={560} mx="auto" gap="md">
-        <Title order={2}>Address book</Title>
-        <Alert color="yellow" variant="light" title="Verify your email">
-          Saving addresses is an account feature — please verify your email first. You can still check out as a guest
-          by entering an address at checkout. <Anchor component={Link} to={`/${loc}/account`}>Go to your account</Anchor>.
+        <Title order={2}>{t("shop.addr.title")}</Title>
+        <Alert color="yellow" variant="light" title={t("shop.addr.verifyTitle")}>
+          {t("shop.addr.verifyBody")} <Anchor component={Link} to={`/${loc}/account`}>{t("shop.addr.goToAccount")}</Anchor>.
         </Alert>
       </Stack>
     );
@@ -204,13 +204,13 @@ export function AddressBookPage() {
   return (
     <Stack maw={640} mx="auto" gap="lg">
       <Group justify="space-between">
-        <Title order={2}>Address book</Title>
-        <Button leftSection={<Plus size={16} />} onClick={openCreate}>Add address</Button>
+        <Title order={2}>{t("shop.addr.title")}</Title>
+        <Button leftSection={<Plus size={16} />} onClick={openCreate}>{t("shop.addr.add")}</Button>
       </Group>
 
       {addresses.length === 0 ? (
         <Alert color="gray" variant="light" icon={<MapPin size={18} />}>
-          You haven't saved any addresses yet. Add one and it'll prefill at checkout.
+          {t("shop.addr.empty")}
         </Alert>
       ) : (
         <Stack gap="sm">
@@ -220,8 +220,8 @@ export function AddressBookPage() {
                 <Stack gap={4}>
                   <Group gap="xs">
                     <Text fw={600}>{a.label || a.name}</Text>
-                    {a.isDefaultShipping && <Badge size="xs" color="teal" variant="light">Default shipping</Badge>}
-                    {a.isDefaultBilling && <Badge size="xs" color="grape" variant="light">Default billing</Badge>}
+                    {a.isDefaultShipping && <Badge size="xs" color="teal" variant="light">{t("shop.addr.defaultShipping")}</Badge>}
+                    {a.isDefaultBilling && <Badge size="xs" color="grape" variant="light">{t("shop.addr.defaultBilling")}</Badge>}
                   </Group>
                   <Text fz="sm">{a.name}</Text>
                   <Text fz="sm" c="dimmed">
@@ -230,25 +230,25 @@ export function AddressBookPage() {
                   {a.phone && <Text fz="sm" c="dimmed">{a.phone}</Text>}
                   <Group gap="xs" mt={6}>
                     {!a.isDefaultShipping && (
-                      <Anchor fz="xs" onClick={() => void setDefault(a, "shipping")}>Set default shipping</Anchor>
+                      <Anchor fz="xs" onClick={() => void setDefault(a, "shipping")}>{t("shop.addr.setDefaultShipping")}</Anchor>
                     )}
                     {!a.isDefaultBilling && (
-                      <Anchor fz="xs" onClick={() => void setDefault(a, "billing")}>Set default billing</Anchor>
+                      <Anchor fz="xs" onClick={() => void setDefault(a, "billing")}>{t("shop.addr.setDefaultBilling")}</Anchor>
                     )}
                   </Group>
                 </Stack>
                 <Stack gap="xs" align="flex-end">
                   <Button size="compact-sm" variant="subtle" leftSection={<Pencil size={14} />} onClick={() => openEdit(a)}>
-                    Edit
+                    {t("shop.addr.edit")}
                   </Button>
                   {confirmDeleteId === a.id ? (
                     <Group gap={4}>
-                      <Button size="compact-sm" color="red" onClick={() => void remove(a.id)}>Confirm</Button>
-                      <Button size="compact-sm" variant="default" onClick={() => setConfirmDeleteId(null)}>Cancel</Button>
+                      <Button size="compact-sm" color="red" onClick={() => void remove(a.id)}>{t("shop.addr.confirm")}</Button>
+                      <Button size="compact-sm" variant="default" onClick={() => setConfirmDeleteId(null)}>{t("shop.addr.cancel")}</Button>
                     </Group>
                   ) : (
                     <Button size="compact-sm" variant="subtle" color="red" leftSection={<Trash2 size={14} />} onClick={() => setConfirmDeleteId(a.id)}>
-                      Delete
+                      {t("shop.addr.delete")}
                     </Button>
                   )}
                 </Stack>
@@ -258,20 +258,20 @@ export function AddressBookPage() {
         </Stack>
       )}
 
-      <Anchor component={Link} to={`/${loc}/account`} fz="sm">← Back to account</Anchor>
+      <Anchor component={Link} to={`/${loc}/account`} fz="sm">{t("shop.addr.backToAccount")}</Anchor>
 
-      <Modal opened={opened} onClose={modal.close} title={editing ? "Edit address" : "Add address"} centered>
+      <Modal opened={opened} onClose={modal.close} title={editing ? t("shop.addr.editTitle") : t("shop.addr.addTitle")} centered>
         <Stack gap="sm">
-          <TextInput label="Label (optional)" placeholder="Home, Work…" value={form.label} onChange={set("label")} />
-          <TextInput label="Full name" required value={form.name} onChange={set("name")} />
-          <TextInput label="Address" required value={form.line1} onChange={set("line1")} />
-          <TextInput label="Address line 2" value={form.line2} onChange={set("line2")} />
+          <TextInput label={t("shop.addr.label")} placeholder={t("shop.addr.labelPlaceholder")} value={form.label} onChange={set("label")} />
+          <TextInput label={t("shop.addr.fullName")} required value={form.name} onChange={set("name")} />
+          <TextInput label={t("shop.addr.address")} required value={form.line1} onChange={set("line1")} />
+          <TextInput label={t("shop.addr.addressLine2")} value={form.line2} onChange={set("line2")} />
           <Group grow>
-            <TextInput label="City" required value={form.city} onChange={set("city")} />
-            <TextInput label="Postal code" required value={form.postalCode} onChange={set("postalCode")} />
+            <TextInput label={t("shop.addr.city")} required value={form.city} onChange={set("city")} />
+            <TextInput label={t("shop.addr.postalCode")} required value={form.postalCode} onChange={set("postalCode")} />
           </Group>
           <TextInput
-            label="Country (ISO-2)"
+            label={t("shop.addr.country")}
             required
             list="address-countries"
             value={form.country}
@@ -288,9 +288,9 @@ export function AddressBookPage() {
               <option key={c.value} value={c.value}>{c.label}</option>
             ))}
           </datalist>
-          <TextInput label="Phone" value={form.phone} onChange={set("phone")} />
+          <TextInput label={t("shop.addr.phone")} value={form.phone} onChange={set("phone")} />
           <Checkbox
-            label="Default shipping address"
+            label={t("shop.addr.defaultShippingCheckbox")}
             checked={form.isDefaultShipping}
             onChange={(e) => {
               const checked = e.currentTarget.checked;
@@ -298,7 +298,7 @@ export function AddressBookPage() {
             }}
           />
           <Checkbox
-            label="Default billing address"
+            label={t("shop.addr.defaultBillingCheckbox")}
             checked={form.isDefaultBilling}
             onChange={(e) => {
               const checked = e.currentTarget.checked;
@@ -306,9 +306,9 @@ export function AddressBookPage() {
             }}
           />
           <Group justify="flex-end" mt="xs">
-            <Button variant="default" onClick={modal.close}>Cancel</Button>
+            <Button variant="default" onClick={modal.close}>{t("shop.addr.cancel")}</Button>
             <Button onClick={() => void save()} loading={saving} disabled={!canSave}>
-              {editing ? "Save changes" : "Add address"}
+              {editing ? t("shop.addr.saveChanges") : t("shop.addr.add")}
             </Button>
           </Group>
         </Stack>

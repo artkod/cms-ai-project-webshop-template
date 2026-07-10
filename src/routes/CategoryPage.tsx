@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router";
 import { Anchor, Badge, Box, Breadcrumbs, Group, Stack, Text, Title } from "@mantine/core";
 import type { ProductListParams } from "@cms/storefront";
 import { storefront } from "@/lib/storefront";
-import { useLocaleConfig } from "@/lib/locale";
+import { useLocaleConfig, useStrings } from "@/lib/locale";
 import { useDocumentSeo, useJsonLd } from "@/lib/seo";
 import { CatalogBrowser, type CatalogFetchResult } from "@/components/shop/CatalogBrowser";
 import { useCategoryTree } from "@/components/shop/catalogUrls";
@@ -18,6 +18,7 @@ import type { CommerceCategoryRoute } from "@/lib/api";
 export function CategoryPage({ landing }: { landing: CommerceCategoryRoute }) {
   const { locale } = useParams<{ locale: string }>();
   const { defaultLocale, settings } = useLocaleConfig();
+  const { t } = useStrings();
   const loc = locale ?? defaultLocale;
   const categories = useCategoryTree(loc);
   const { category, breadcrumb, children } = landing;
@@ -53,7 +54,7 @@ export function CategoryPage({ landing }: { landing: CommerceCategoryRoute }) {
 
   const crumbs = [
     <Anchor key="shop" component={Link} to={`/${loc}/shop`} fz="sm">
-      Shop
+      {t("shop.nav.shop")}
     </Anchor>,
     ...breadcrumb.map((b, i) => {
       const isSelf = i === breadcrumb.length - 1;
@@ -86,7 +87,7 @@ export function CategoryPage({ landing }: { landing: CommerceCategoryRoute }) {
       {children.length > 0 && chainComplete && (
         <Group gap="xs">
           <Text fz="sm" c="dimmed" mr={4}>
-            Subcategories:
+            {t("shop.category.subcategories")}
           </Text>
           {children.map((c) =>
             c.slug ? (

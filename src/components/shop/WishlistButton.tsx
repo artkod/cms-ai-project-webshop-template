@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ActionIcon, Button, Tooltip } from "@mantine/core";
 import { Heart } from "lucide-react";
 import { useWishlist } from "@/lib/wishlist";
+import { useStrings } from "@/lib/locale";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Wishlist toggle (Phase L5.6). Two render modes:
@@ -14,6 +15,7 @@ import { useWishlist } from "@/lib/wishlist";
 
 export function WishlistButton({ productId, mode = "overlay" }: { productId: string; mode?: "overlay" | "button" }) {
   const { isWishlisted, toggle } = useWishlist();
+  const { t } = useStrings();
   const [busy, setBusy] = useState(false);
   const active = isWishlisted(productId);
 
@@ -30,7 +32,7 @@ export function WishlistButton({ productId, mode = "overlay" }: { productId: str
     }
   };
 
-  const label = active ? "Remove from wishlist" : "Add to wishlist";
+  const label = active ? t("shop.wishlist.remove") : t("shop.wishlist.add");
 
   if (mode === "button") {
     return (
@@ -41,7 +43,7 @@ export function WishlistButton({ productId, mode = "overlay" }: { productId: str
         loading={busy}
         onClick={onClick}
       >
-        {active ? "Saved" : "Save"}
+        {active ? t("shop.wishlist.saved") : t("shop.wishlist.save")}
       </Button>
     );
   }
