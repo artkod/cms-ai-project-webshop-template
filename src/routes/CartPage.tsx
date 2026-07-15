@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router";
 import { ActionIcon, Alert, Anchor, Badge, Box, Button, Divider, Group, Image, Loader, Paper, Radio, Select, Stack, Text, TextInput, Title } from "@mantine/core";
 import { Info, Minus, Plus, Trash2, X } from "lucide-react";
@@ -6,20 +6,12 @@ import type { ShippingRate } from "@cms/storefront";
 import { useCart } from "@/lib/cart";
 import { useLocaleConfig, useStrings } from "@/lib/locale";
 import { formatCents } from "@/lib/money";
+import { countryOptions, isExport } from "@/lib/countries";
 
 // Vatrate label, e.g. 2500 → "25%".
 function ratePct(bps: number): string {
   return `${bps / 100}%`;
 }
-
-// A small sample of destinations spanning the three shipping zones (HR / EU / INT)
-// so the rate-per-zone behaviour is clickable without a full address form (L5.4).
-const COUNTRY_OPTIONS = [
-  { value: "HR", label: "Croatia (HR)" },
-  { value: "DE", label: "Germany (EU)" },
-  { value: "IT", label: "Italy (EU)" },
-  { value: "US", label: "United States (intl.)" },
-];
 
 export function CartPage() {
   const { locale } = useParams<{ locale: string }>();
@@ -62,6 +54,10 @@ export function CartPage() {
     if (first) void setShipping({ methodId: first.methodId });
   }, [empty, needsShipping, cart?.shipping.method, shippingOptions, setShipping]);
 
+  // Full EU + common intl. ship-to list, localized (HR home / EU / export zones).
+  // Declared before the early return below so hook order stays stable.
+  const countryData = useMemo(() => countryOptions(loc, t), [loc, t]);
+
   if (loading && !cart) return <Loader />;
 
   const totals = cart?.totals;
@@ -69,6 +65,9 @@ export function CartPage() {
   // Tag VAT rows/note with the ship-to country when it isn't home (HR) — under OSS
   // the cart is taxed at the destination rate, so make that visible.
   const destLabel = cart && cart.taxDestination && cart.taxDestination !== "HR" ? ` (${cart.taxDestination})` : "";
+  // A non-EU destination is an export → the server zero-rates VAT; say so explicitly
+  // instead of the generic "no VAT" note.
+  const isExportDest = isExport(cart?.taxDestination ?? shipping?.country);
 
   const onApply = async () => {
     if (!code.trim()) return;
@@ -207,9 +206,13 @@ export function CartPage() {
               {cart!.coupons.length > 1 && (
                 <Text fz="xs" c="dimmed">{t("shop.cart.couponsAdditive")}</Text>
               )}
-              {/* Allow adding another code unless a single non-stackable coupon is
-                  applied (it can't combine with anything). */}
-              {!(cart!.coupons.length === 1 && !cart!.coupons[0].stackable) && (
+              {/* A lone NON-stackable coupon can't combine with anything — instead of
+                  silently hiding the add box (which reads as broken), explain why. For
+                  a stackable coupon (or an empty cart) the add box stays open so a
+                  second combinable code can be entered. */}
+              {cart!.coupons.length === 1 && !cart!.coupons[0].stackable ? (
+                <Text fz="xs" c="dimmed">{t("shop.cart.couponSolo")}</Text>
+              ) : (
                 <Group gap="xs" align="flex-end">
                   <TextInput
                     label={cart!.coupons.length ? t("shop.cart.addAnotherCoupon") : t("shop.cart.couponCode")}
@@ -230,7 +233,8 @@ export function CartPage() {
               <Title order={3} size="h5">{t("shop.cart.shipping")}</Title>
               <Select
                 label={t("shop.cart.shipTo")}
-                data={COUNTRY_OPTIONS}
+                data={countryData}
+                searchable
                 value={shipping?.country ?? "HR"}
                 onChange={(v) => v && setShipping({ country: v })}
                 allowDeselect={false}
@@ -295,7 +299,7 @@ export function CartPage() {
                   {totals.taxSummary
                     .filter((t) => t.vat > 0)
                     .map((row) => (
-                      <Row key={row.rateBps} label={`${t("shop.cart.vat")} ${ratePct(row.rateBps)}${destLabel}`} value={formatCents(row.vat)} dim />
+                      <Row key={row.rateBps} label={`${t("shop.cart.vat")} ${ratePct(row.rateBps)}${destLabel} · ${t("shop.cart.taxBase")} ${formatCents(row.net)}`} value={formatCents(row.vat)} dim />
                     ))}
                   <Divider my="xs" />
                   <Group justify="space-between">
@@ -306,6 +310,8 @@ export function CartPage() {
                     <Text c="dimmed" fz="xs">{t("shop.cart.vatExempt")}</Text>
                   ) : totals.taxTotal > 0 ? (
                     <Text c="dimmed" fz="xs">{t("shop.cart.vatIncluded")}{destLabel}.</Text>
+                  ) : isExportDest ? (
+                    <Text c="dimmed" fz="xs">{t("shop.cart.vatExport")}{destLabel}.</Text>
                   ) : cart?.b2b ? (
                     <Text c="dimmed" fz="xs">{t("shop.cart.vatReverse")}{destLabel}.</Text>
                   ) : (

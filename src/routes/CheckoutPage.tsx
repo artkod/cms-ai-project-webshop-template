@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router";
 import { Alert, Anchor, Box, Button, Checkbox, Divider, Group, Loader, Paper, Radio, Select, Stack, Text, TextInput, Textarea, Title } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
@@ -9,23 +9,17 @@ import { useCart } from "@/lib/cart";
 import { useCustomer } from "@/lib/customer";
 import { useLocaleConfig, useStrings } from "@/lib/locale";
 import { formatCents } from "@/lib/money";
+import { countryOptions } from "@/lib/countries";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Checkout (Phase L4.5).
 //
 // Enter an address → see DESTINATION tax (the totals re-tax at the ship-to country
-// when the shop collects under OSS; otherwise the home rate still applies) → place
-// the order → land on the pending-order page. A cart with any inquiry-only item is
-// a QUOTE request (no payment); the button + result copy reflect that. No payment
-// gateway yet (L6) — checkout creates the pending order and we show it.
+// when the shop collects under OSS; a non-EU destination is a zero-rated export;
+// otherwise the home rate still applies) → place the order → land on the pending-
+// order page. A cart with any inquiry-only item is a QUOTE request (no payment);
+// the button + result copy reflect that.
 // ─────────────────────────────────────────────────────────────────────────────
-
-const COUNTRY_OPTIONS = [
-  { value: "HR", label: "Croatia (HR)" },
-  { value: "DE", label: "Germany (EU)" },
-  { value: "IT", label: "Italy (EU)" },
-  { value: "US", label: "United States (intl.)" },
-];
 
 function ratePct(bps: number): string {
   return `${bps / 100}%`;
@@ -44,6 +38,8 @@ export function CheckoutPage() {
   const { t } = useStrings();
   const { cart, setShipping, refresh, shippingOptions, loadShipping } = useCart();
   const { customer } = useCustomer();
+  // Full EU + common intl. ship-to list, localized (HR home / EU / export zones).
+  const countryData = useMemo(() => countryOptions(loc, t), [loc, t]);
 
   const [preview, setPreview] = useState<CheckoutPreview | null>(null);
   const [loading, setLoading] = useState(true);
@@ -364,7 +360,7 @@ export function CheckoutPage() {
           </Group>
           <Select
             label={t("shop.checkout.country")}
-            data={COUNTRY_OPTIONS}
+            data={countryData} searchable
             value={form.country}
             onChange={(v) => v && onCountry(v)}
             allowDeselect={false}
@@ -400,7 +396,7 @@ export function CheckoutPage() {
                     <TextInput label={t("shop.checkout.city")} required value={billing.city} onChange={setB("city")} error={showErrors && !billing.city.trim() ? t("shop.checkout.cityRequired") : undefined} />
                     <TextInput label={t("shop.checkout.postalCode")} required value={billing.postalCode} onChange={setB("postalCode")} error={showErrors && !billing.postalCode.trim() ? t("shop.checkout.postalRequired") : undefined} />
                   </Group>
-                  <Select label={t("shop.checkout.country")} data={COUNTRY_OPTIONS} value={billing.country} onChange={(v) => v && setBilling((b) => ({ ...b, country: v }))} allowDeselect={false} comboboxProps={{ withinPortal: true }} />
+                  <Select label={t("shop.checkout.country")} data={countryData} searchable value={billing.country} onChange={(v) => v && setBilling((b) => ({ ...b, country: v }))} allowDeselect={false} comboboxProps={{ withinPortal: true }} />
                   <TextInput label={t("shop.checkout.phone")} value={billing.phone} onChange={setB("phone")} />
                 </Stack>
               )}

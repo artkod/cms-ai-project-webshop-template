@@ -3,7 +3,8 @@ import { useParams } from "react-router";
 import { notifications } from "@mantine/notifications";
 import { StorefrontError, type Cart, type ShippingOptions, type SetShippingInput } from "@cms/storefront";
 import { storefront } from "./storefront";
-import { useLocaleConfig } from "./locale";
+import { useLocaleConfig, useStrings } from "./locale";
+import { formatCents } from "./money";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Cart context for the dev storefront (Phase L4.1).
@@ -35,32 +36,58 @@ interface CartValue {
 
 const Ctx = createContext<CartValue | null>(null);
 
-function cartErrorMessage(err: StorefrontError): string {
+type T = (key: string) => string;
+
+// A rejected coupon carries a `reason` (+ `minSpend` for the min-spend case) in the
+// error body — surface the SPECIFIC reason so the shopper knows why, not a generic
+// "can't be applied".
+function couponNotApplicableMessage(err: StorefrontError, t: T): string {
+  const body = (err.body ?? {}) as { reason?: string; minSpend?: number };
+  switch (body.reason) {
+    case "below_min_spend":
+      return body.minSpend != null
+        ? `${t("shop.cart.err.below_min_spend")} — ${formatCents(body.minSpend)}.`
+        : `${t("shop.cart.err.below_min_spend")}.`;
+    case "expired":
+      return t("shop.cart.err.coupon_expired");
+    case "not_started":
+      return t("shop.cart.err.coupon_not_started");
+    case "inactive":
+      return t("shop.cart.err.coupon_inactive");
+    case "usage_exhausted":
+      return t("shop.cart.err.usage_exhausted");
+    default:
+      return t("shop.cart.err.coupon_not_applicable");
+  }
+}
+
+function cartErrorMessage(err: StorefrontError, t: T): string {
   switch (err.code) {
     case "not_purchasable":
-      return "This product isn't available for purchase right now.";
+      return t("shop.cart.err.not_purchasable");
     case "out_of_stock":
-      return "Sorry — that item is out of stock.";
+      return t("shop.cart.err.out_of_stock");
     case "coupon_not_found":
-      return "That coupon code wasn't found.";
+      return t("shop.cart.err.coupon_not_found");
     case "coupon_not_applicable":
-      return "That coupon can't be applied to your cart.";
+      return couponNotApplicableMessage(err, t);
     case "coupon_already_applied":
-      return "That coupon is already applied.";
+      return t("shop.cart.err.coupon_already_applied");
     case "not_stackable":
-      return "That coupon can't be combined with the one already applied.";
+      return t("shop.cart.err.not_stackable");
     case "pickup_point_required":
-      return "Please pick a pickup point for this method.";
+      return t("shop.cart.err.pickup_point_required");
     case "shipping_method_not_found":
-      return "That shipping method is no longer available.";
+      return t("shop.cart.err.shipping_method_not_found");
     default:
-      return "Something went wrong with your cart. Please try again.";
+      return t("shop.cart.err.default");
   }
 }
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const { locale } = useParams<{ locale: string }>();
   const { defaultLocale } = useLocaleConfig();
+  const { t } = useStrings();
   const loc = locale ?? defaultLocale;
   const [cart, setCart] = useState<Cart | null>(null);
   const [loading, setLoading] = useState(true);
@@ -70,10 +97,10 @@ export function CartProvider({ children }: { children: ReactNode }) {
     setCart(next);
     for (const w of next.warnings ?? []) {
       if (w === "coupon_removed") {
-        notifications.show({ color: "yellow", message: "Coupon removed — it's no longer valid for this cart." });
+        notifications.show({ color: "yellow", message: t("shop.cart.couponRemoved") });
       }
     }
-  }, []);
+  }, [t]);
 
   const refresh = useCallback(async () => {
     setLoading(true);
@@ -109,11 +136,11 @@ export function CartProvider({ children }: { children: ReactNode }) {
         apply(await fn());
         return true;
       } catch (e) {
-        notifications.show({ color: "red", message: cartErrorMessage(e as StorefrontError) });
+        notifications.show({ color: "red", message: cartErrorMessage(e as StorefrontError, t) });
         return false;
       }
     },
-    [apply],
+    [apply, t],
   );
 
   const add = useCallback((variantId: string, quantity = 1) => guard(() => storefront.addCartItem(variantId, quantity, { locale: loc })), [guard, loc]);
@@ -147,14 +174,14 @@ export function CartProvider({ children }: { children: ReactNode }) {
     async (code: string): Promise<boolean> => {
       try {
         apply(await storefront.applyCoupon(code, { locale: loc }));
-        notifications.show({ color: "teal", message: "Coupon applied." });
+        notifications.show({ color: "teal", message: t("shop.cart.couponApplied") });
         return true;
       } catch (e) {
-        notifications.show({ color: "red", message: cartErrorMessage(e as StorefrontError) });
+        notifications.show({ color: "red", message: cartErrorMessage(e as StorefrontError, t) });
         return false;
       }
     },
-    [apply, loc],
+    [apply, loc, t],
   );
 
   const value: CartValue = {

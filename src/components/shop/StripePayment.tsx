@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements, PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import { Alert, Button, Stack, Text } from "@mantine/core";
+import { Alert, Button, Center, Loader, Stack, Text } from "@mantine/core";
 import { AlertCircle } from "lucide-react";
 import { useStrings } from "@/lib/locale";
 
@@ -24,6 +24,12 @@ function PayForm({ onConfirmed }: { onConfirmed: () => void }) {
   const { t } = useStrings();
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  // The <PaymentElement> iframe renders asynchronously — `stripe`/`elements` go
+  // truthy the moment the Elements provider inits, but the card fields aren't
+  // interactive until Stripe's iframe finishes loading (can take a few seconds).
+  // Gate the button on the element's own `onReady` so a shopper can't fire a
+  // confirm against a half-mounted, empty card form and break the flow.
+  const [ready, setReady] = useState(false);
 
   const submit = async () => {
     if (!stripe || !elements) return;
@@ -57,13 +63,22 @@ function PayForm({ onConfirmed }: { onConfirmed: () => void }) {
 
   return (
     <Stack gap="sm">
-      <PaymentElement />
+      <PaymentElement onReady={() => setReady(true)} />
+      {!ready && (
+        <Center py="sm">
+          <Loader size="sm" />
+        </Center>
+      )}
       {error && (
         <Alert color="red" icon={<AlertCircle size={16} />}>
           {error}
         </Alert>
       )}
-      <Button onClick={() => void submit()} loading={submitting} disabled={!stripe || !elements}>
+      <Button
+        onClick={() => void submit()}
+        loading={submitting}
+        disabled={!stripe || !elements || !ready}
+      >
         {t("shop.payment.payNow")}
       </Button>
       <Text c="dimmed" fz="xs">

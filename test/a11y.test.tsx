@@ -120,14 +120,18 @@ function Providers({ children }: { children: ReactNode }) {
             <Route
               path="/:locale/*"
               element={
-                <CartProvider>
-                  <CustomerProvider>
-                    <ConsentProvider>
-                      {/* Landmark wrapper — pages normally render inside RootLayout's <main>. */}
-                      <StringsProvider locale="en"><main>{children}</main></StringsProvider>
-                    </ConsentProvider>
-                  </CustomerProvider>
-                </CartProvider>
+                // Mirror the real RootLayout nesting: StringsProvider wraps
+                // CartProvider (the cart's toasts are localized via useStrings).
+                <StringsProvider locale="en">
+                  <CartProvider>
+                    <CustomerProvider>
+                      <ConsentProvider>
+                        {/* Landmark wrapper — pages normally render inside RootLayout's <main>. */}
+                        <main>{children}</main>
+                      </ConsentProvider>
+                    </CustomerProvider>
+                  </CartProvider>
+                </StringsProvider>
               }
             />
           </Routes>

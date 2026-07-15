@@ -254,7 +254,7 @@ for i in $(seq 1 30); do
   echo -n "."
   sleep 1
 done
-
+EMAIL_TO_OVERRIDE="sandro.bencinic@email.com"
 # ─── Ready ───────────────────────────────────────────────────────────────────
 echo ""
 echo "═══════════════════════════════════════════════════════"
