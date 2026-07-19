@@ -177,6 +177,7 @@ DATABASE_URL="postgresql://$DB_USER:$DB_PASSWORD@localhost:$PORT_DB/$DB_NAME" \
   STOREFRONT_BASE_URL="http://localhost:$PORT_WEB" \
   FISCAL_CERT_ENC_KEY="41365658644790a350b8e53aea1fe42c3733001dc9ac648d742a90d1242383e3" \
   NODE_EXTRA_CA_CERTS="$PROJECT_DIR/certs/fina-demo-ca.pem" \
+  AUTH_COOKIE_NAME="cms_token_webshop_template" \
   pnpm --filter @cms/api dev &
 API_PID=$!
 echo "$API_PID" > "$PID_FILE"
