@@ -10,6 +10,8 @@ import { createAdmin } from "@cms/admin-base";
 createAdmin({
   apiUrl: import.meta.env.VITE_API_URL,
   frontendUrl: import.meta.env.VITE_FRONTEND_URL,
+  // Admin URL routing tracks the build's base path (dev "/", prod "/admin/").
+  basePath: import.meta.env.BASE_URL,
   projectSlug: "project-webshop-template",
   commerce: true,
 });
