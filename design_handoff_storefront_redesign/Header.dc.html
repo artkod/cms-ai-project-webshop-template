@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style id="__om-edit-overrides"></style>
+</helmet>
+<header style="position:sticky;top:0;z-index:40;background:#F5F3EEEE;backdrop-filter:blur(6px);border-bottom:1px solid #E4DCC9">
+  <div style="display:flex;align-items:center;gap:24px;max-width:1280px;margin:0 auto;padding:14px 28px">
+    <a href="#" onClick="{{ goHome }}" style="font-family:'Instrument Serif',serif;font-size:26px;letter-spacing:0.02em;color:#17140F;text-decoration:none;font-style:italic;flex:0 0 auto" style-hover="{{ noop }}">Alder &amp; Co</a>
+    <nav aria-label="Primary" style="display:flex;gap:20px;flex:1 1 auto;flex-wrap:wrap">
+      <sc-for list="{{ navItems }}" as="item" hint-placeholder-count="5">
+        <a href="#" onClick="{{ item.onClick }}" style="font-family:'Work Sans',sans-serif;font-size:14px;color:{{ item.active }};text-decoration:none;padding:6px 2px;border-bottom:2px solid {{ item.border }}" style-hover="color:#17140F">{{ item.label }}</a>
+      </sc-for>
+    </nav>
+    <div style="display:flex;align-items:center;gap:16px;flex:0 0 auto">
+      <button onClick="{{ toggleSearch }}" aria-label="Search" style="border:none;background:none;cursor:pointer;font-family:'Work Sans',sans-serif;font-size:14px;color:#55503F;display:flex;align-items:center;gap:6px;padding:4px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <span>Search</span>
+      </button>
+      <div role="group" aria-label="Language" style="display:flex;border:1px solid #D9D2C4;border-radius:999px;overflow:hidden;font-family:'Work Sans',sans-serif;font-size:12px">
+        <button onClick="{{ setLocaleEn }}" aria-pressed="{{ isEn }}" style="border:none;background:{{ enBg }};color:{{ enFg }};padding:5px 10px;cursor:pointer">EN</button>
+        <button onClick="{{ setLocaleHr }}" aria-pressed="{{ isHr }}" style="border:none;background:{{ hrBg }};color:{{ hrFg }};padding:5px 10px;cursor:pointer">HR</button>
+      </div>
+      <button onClick="{{ goAccount }}" aria-label="Account" style="border:none;background:none;cursor:pointer;color:#17140F;display:flex;align-items:center;gap:6px;padding:4px;font-family:'Work Sans',sans-serif;font-size:13px">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 5-6 8-6s6.5 2 8 6"/></svg>
+        <span>{{ accountLabel }}</span>
+      </button>
+      <button onClick="{{ goCart }}" aria-label="Cart" style="border:none;background:none;cursor:pointer;color:#17140F;position:relative;display:flex;align-items:center;padding:4px">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6h15l-1.5 9h-12z"/><path d="M6 6L4 2H2"/><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/></svg>
+        <sc-if value="{{ hasCartItems }}" hint-placeholder-val="{{ false }}">
+          <span style="position:absolute;top:-6px;right:-8px;background:#A9895E;color:#F5F3EE;font-size:10px;font-family:'Work Sans',sans-serif;border-radius:999px;min-width:16px;height:16px;display:flex;align-items:center;justify-content:center;padding:0 3px">{{ cartCount }}</span>
+        </sc-if>
+      </button>
+    </div>
+  </div>
+</header>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;locale&quot;:{&quot;editor&quot;:null,&quot;default&quot;:&quot;en&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;customerState&quot;:{&quot;editor&quot;:null,&quot;default&quot;:&quot;guest&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;cartCount&quot;:{&quot;editor&quot;:null,&quot;default&quot;:0,&quot;tsType&quot;:&quot;number&quot;},&quot;currentScreen&quot;:{&quot;editor&quot;:null,&quot;default&quot;:&quot;home&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;navigate&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;(screen:string)=&gt;void&quot;},&quot;onLocaleChange&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;(l:string)=&gt;void&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const p = this.props || {};
+    const locale = p.locale || 'en';
+    const customerState = p.customerState || 'guest';
+    const cartCount = p.cartCount ?? 0;
+    const current = p.currentScreen || 'home';
+    const navigate = (screen) => (e) => { e && e.preventDefault && e.preventDefault(); p.navigate && p.navigate(screen); };
+
+    const items = [
+      { key: 'catalog', label: 'Shop' },
+      { key: 'category', label: 'Categories' },
+      { key: 'wholesale', label: 'Wholesale' },
+      { key: 'cms', label: 'Journal' },
+    ];
+    const navItems = items.map(it => ({
+      label: it.label,
+      onClick: navigate(it.key),
+      active: current === it.key ? '#17140F' : '#55503F',
+      border: current === it.key ? '#A9895E' : 'transparent',
+    }));
+
+    const accountLabels = {
+      guest: 'Sign in',
+      unverified: 'Account',
+      verified: 'Account',
+      'business-pending': 'Account',
+      'business-approved': 'Account',
+    };
+
+    return {
+      navItems,
+      goHome: navigate('home'),
+      goAccount: navigate('account'),
+      goCart: navigate('cart'),
+      toggleSearch: () => {},
+      noop: () => {},
+      accountLabel: accountLabels[customerState] || 'Account',
+      cartCount,
+      hasCartItems: cartCount > 0,
+      isEn: locale === 'en',
+      isHr: locale === 'hr',
+      enBg: locale === 'en' ? '#17140F' : 'transparent',
+      enFg: locale === 'en' ? '#F5F3EE' : '#55503F',
+      hrBg: locale === 'hr' ? '#17140F' : 'transparent',
+      hrFg: locale === 'hr' ? '#F5F3EE' : '#55503F',
+      setLocaleEn: () => p.onLocaleChange && p.onLocaleChange('en'),
+      setLocaleHr: () => p.onLocaleChange && p.onLocaleChange('hr'),
+    };
+  }
+}
+</script>
+</body>
+</html>

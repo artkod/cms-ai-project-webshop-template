@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<aside style="font-family:'Work Sans',sans-serif;color:#17140F;padding-right:8px">
+  <div style="margin-bottom:28px">
+    <div style="font-size:12px;letter-spacing:0.06em;text-transform:uppercase;color:#8A8267;margin-bottom:10px">Category</div>
+    <sc-for list="{{ categories }}" as="c" hint-placeholder-count="5">
+      <label style="display:flex;align-items:center;gap:8px;font-size:13px;margin-bottom:8px;cursor:pointer">
+        <input type="checkbox" checked="{{ c.checked }}" onChange="{{ c.onChange }}" style="accent-color:#17140F" />
+        {{ c.label }}
+      </label>
+    </sc-for>
+  </div>
+  <div style="margin-bottom:28px">
+    <div style="font-size:12px;letter-spacing:0.06em;text-transform:uppercase;color:#8A8267;margin-bottom:10px">Price</div>
+    <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:#55503F">
+      <span>$0</span>
+      <input type="range" min="0" max="450" value="{{ priceMax }}" onChange="{{ onPriceChange }}" style="flex:1;accent-color:#17140F" />
+      <span>${{ priceMax }}</span>
+    </div>
+  </div>
+  <div style="margin-bottom:28px">
+    <div style="font-size:12px;letter-spacing:0.06em;text-transform:uppercase;color:#8A8267;margin-bottom:10px" role="group" aria-label="Size">Size</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px">
+      <sc-for list="{{ sizes }}" as="sz" hint-placeholder-count="6">
+        <button aria-pressed="{{ sz.pressed }}" onClick="{{ sz.onClick }}" style="border:1px solid {{ sz.border }};background:{{ sz.bg }};color:{{ sz.fg }};font-size:12px;padding:6px 10px;border-radius:2px;cursor:pointer">{{ sz.label }}</button>
+      </sc-for>
+    </div>
+  </div>
+  <div>
+    <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer">
+      <input type="checkbox" checked="{{ inStockOnly }}" onChange="{{ onInStockChange }}" style="accent-color:#17140F" />
+      In stock only
+    </label>
+  </div>
+</aside>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:220,&quot;height&quot;:420},&quot;categories&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;string[]&quot;},&quot;sizes&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;string[]&quot;}}">
+class Component extends DCLogic {
+  state = { checkedCats: {}, priceMax: 450, activeSizes: {}, inStockOnly: false };
+  renderVals() {
+    const p = this.props || {};
+    const cats = p.categories || ['Shirts','Trousers','Outerwear','Knitwear','Tailoring'];
+    const sizes = p.sizes || ['XS','S','M','L','XL'];
+    return {
+      categories: cats.map(c => ({
+        label: c, checked: !!this.state.checkedCats[c],
+        onChange: () => this.setState(s => ({ checkedCats: { ...s.checkedCats, [c]: !s.checkedCats[c] } })),
+      })),
+      priceMax: this.state.priceMax,
+      onPriceChange: (e) => this.setState({ priceMax: e.target.value }),
+      sizes: sizes.map(sz => {
+        const pressed = !!this.state.activeSizes[sz];
+        return {
+          label: sz, pressed,
+          border: pressed ? '#17140F' : '#D9D2C4', bg: pressed ? '#17140F' : 'transparent', fg: pressed ? '#F5F3EE' : '#17140F',
+          onClick: () => this.setState(s => ({ activeSizes: { ...s.activeSizes, [sz]: !s.activeSizes[sz] } })),
+        };
+      }),
+      inStockOnly: this.state.inStockOnly,
+      onInStockChange: () => this.setState(s => ({ inStockOnly: !s.inStockOnly })),
+    };
+  }
+}
+</script>
+</body>
+</html>

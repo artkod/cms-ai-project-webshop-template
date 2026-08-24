@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<div style="position:relative;font-family:'Work Sans',sans-serif;color:#17140F">
+  <a href="#" onClick="{{ handleOpen }}" style="text-decoration:none;color:inherit;display:block">
+    <div style="position:relative;aspect-ratio:3/4;background:repeating-linear-gradient(135deg,#EFEAE1,#EFEAE1 10px,#E4DCC9 10px,#E4DCC9 20px);border-radius:2px;margin-bottom:10px;display:flex;align-items:center;justify-content:center;font-family:monospace;font-size:11px;color:#8A8267;text-align:center;padding:8px">
+      product photo — {{ name }}
+      <sc-if value="{{ showStockBadge }}" hint-placeholder-val="{{ false }}">
+        <span style="position:absolute;top:8px;left:8px;background:#17140F;color:#F5F3EE;font-size:10px;letter-spacing:0.04em;text-transform:uppercase;padding:4px 8px;border-radius:2px">{{ stockLabel }}</span>
+      </sc-if>
+      <sc-if value="{{ showKindBadge }}" hint-placeholder-val="{{ false }}">
+        <span style="position:absolute;top:8px;left:8px;background:#A9895E;color:#F5F3EE;font-size:10px;letter-spacing:0.04em;text-transform:uppercase;padding:4px 8px;border-radius:2px">{{ kindLabel }}</span>
+      </sc-if>
+    </div>
+    <div style="font-size:11px;color:#8A8267;margin-bottom:2px">{{ category }}</div>
+    <div style="font-size:14px;font-weight:500;margin-bottom:4px">{{ name }}</div>
+    <sc-if value="{{ isInquiry }}" hint-placeholder-val="{{ false }}">
+      <div style="font-size:13px;color:#A9895E">Request a quote</div>
+    </sc-if>
+    <sc-if value="{{ !isInquiry }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;align-items:baseline;gap:8px">
+        <span style="font-size:14px;font-weight:500">{{ priceLabel }}</span>
+        <sc-if value="{{ hasCompareAt }}" hint-placeholder-val="{{ false }}">
+          <span style="font-size:12px;color:#8A8267;text-decoration:line-through">{{ compareAtLabel }}</span>
+        </sc-if>
+      </div>
+      <sc-if value="{{ hasCompareAt }}" hint-placeholder-val="{{ false }}">
+        <div style="font-size:10px;color:#8A8267;margin-top:2px">Lowest price in last 30 days: {{ lowest30Label }}</div>
+      </sc-if>
+    </sc-if>
+  </a>
+  <button aria-label="Add to wishlist" onClick="{{ handleWishlist }}" style="position:absolute;top:8px;right:8px;background:#F5F3EEDD;border:none;border-radius:999px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;cursor:pointer">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#17140F" stroke-width="2"><path d="M12 21s-7.5-4.7-10-9.3C.5 8 2 4 6 4c2.2 0 3.8 1.2 6 3.5C14.2 5.2 15.8 4 18 4c4 0 5.5 4 4 7.7C19.5 16.3 12 21 12 21z"/></svg>
+  </button>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:280,&quot;height&quot;:340},&quot;product&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;object&quot;},&quot;onOpen&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;()=&gt;void&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const p = this.props || {};
+    const prod = p.product || {};
+    const kind = prod.kind || 'physical';
+    const stock = prod.stock;
+    const hasVariants = prod.options && Object.values(prod.options).some(arr => arr.length > 1) || (prod.options && Object.keys(prod.options).length > 0 && (prod.options.Size || []).length > 1);
+    const priceVal = prod.b2bPrice ?? prod.price;
+
+    return {
+      name: prod.name || '',
+      category: prod.category || '',
+      isInquiry: kind === 'inquiry',
+      showKindBadge: kind === 'digital',
+      kindLabel: 'Digital',
+      showStockBadge: kind === 'physical' && stock === 'out',
+      stockLabel: 'Out of stock',
+      priceLabel: priceVal != null ? ((hasVariants ? 'From $' : '$') + priceVal) : '',
+      hasCompareAt: !!prod.compareAt,
+      compareAtLabel: prod.compareAt ? ('$' + prod.compareAt) : '',
+      lowest30Label: prod.lowest30 ? ('$' + prod.lowest30) : '',
+      handleOpen: (e) => { e.preventDefault(); p.onOpen && p.onOpen(); },
+      handleWishlist: (e) => { e.preventDefault(); e.stopPropagation(); },
+    };
+  }
+}
+</script>
+</body>
+</html>

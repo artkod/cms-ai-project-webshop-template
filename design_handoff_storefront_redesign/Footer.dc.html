@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<footer style="background:#17140F;color:#EFEAE1;margin-top:64px">
+  <div style="max-width:1280px;margin:0 auto;padding:56px 28px 28px;display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px">
+    <div>
+      <div style="font-family:'Instrument Serif',serif;font-style:italic;font-size:24px;margin-bottom:12px">Alder &amp; Co</div>
+      <p style="font-family:'Work Sans',sans-serif;font-size:13px;color:#B8AF98;max-width:32ch;line-height:1.6;margin:0">Considered basics, made-to-measure tailoring, and wholesale for independent shops.</p>
+    </div>
+    <div>
+      <div style="font-family:'Work Sans',sans-serif;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:#8A8267;margin-bottom:14px">Shop</div>
+      <sc-for list="{{ shopLinks }}" as="l" hint-placeholder-count="4">
+        <a href="#" onClick="{{ l.onClick }}" style="display:block;font-family:'Work Sans',sans-serif;font-size:13px;color:#EFEAE1;text-decoration:none;margin-bottom:9px" style-hover="color:#A9895E">{{ l.label }}</a>
+      </sc-for>
+    </div>
+    <div>
+      <div style="font-family:'Work Sans',sans-serif;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:#8A8267;margin-bottom:14px">Account</div>
+      <sc-for list="{{ accountLinks }}" as="l" hint-placeholder-count="4">
+        <a href="#" onClick="{{ l.onClick }}" style="display:block;font-family:'Work Sans',sans-serif;font-size:13px;color:#EFEAE1;text-decoration:none;margin-bottom:9px" style-hover="color:#A9895E">{{ l.label }}</a>
+      </sc-for>
+    </div>
+    <div>
+      <div style="font-family:'Work Sans',sans-serif;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:#8A8267;margin-bottom:14px">Info</div>
+      <sc-for list="{{ infoLinks }}" as="l" hint-placeholder-count="3">
+        <a href="#" onClick="{{ l.onClick }}" style="display:block;font-family:'Work Sans',sans-serif;font-size:13px;color:#EFEAE1;text-decoration:none;margin-bottom:9px" style-hover="color:#A9895E">{{ l.label }}</a>
+      </sc-for>
+    </div>
+  </div>
+  <div style="max-width:1280px;margin:0 auto;padding:20px 28px;border-top:1px solid #33301F;font-family:'Work Sans',sans-serif;font-size:12px;color:#8A8267;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px">
+    <span>© 2026 Alder &amp; Co.</span>
+    <span>{{ localeLabel }}</span>
+  </div>
+</footer>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;locale&quot;:{&quot;editor&quot;:null,&quot;default&quot;:&quot;en&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;navigate&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;(screen:string)=&gt;void&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const p = this.props || {};
+    const navigate = (screen) => (e) => { e && e.preventDefault && e.preventDefault(); p.navigate && p.navigate(screen); };
+    return {
+      shopLinks: [
+        { label: 'Catalog', onClick: navigate('catalog') },
+        { label: 'New arrivals', onClick: navigate('catalog') },
+        { label: 'Wholesale inquiry', onClick: navigate('wholesale') },
+        { label: 'Gift cards', onClick: navigate('product') },
+      ],
+      accountLinks: [
+        { label: 'Order lookup', onClick: navigate('order') },
+        { label: 'Order history', onClick: navigate('orders') },
+        { label: 'Address book', onClick: navigate('addresses') },
+        { label: 'Wishlist', onClick: navigate('wishlist') },
+      ],
+      infoLinks: [
+        { label: 'About', onClick: navigate('cms') },
+        { label: 'Shipping & returns', onClick: navigate('cms') },
+        { label: 'Contact', onClick: navigate('cms') },
+      ],
+      localeLabel: (p.locale || 'en') === 'en' ? 'English (EN)' : 'Hrvatski (HR)',
+    };
+  }
+}
+</script>
+</body>
+</html>
