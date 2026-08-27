@@ -21,7 +21,14 @@ export function AccountPage() {
   const { locale } = useParams<{ locale: string }>();
   const { defaultLocale } = useLocaleConfig();
   const loc = locale ?? defaultLocale;
-  const { customer, loading, register, login, logout, resendVerification, changePassword, oauthProviders, startOAuth } = useCustomer();
+  const { customer, loading, register, login, logout, resendVerification, changePassword, oauthProviders, startOAuth, refresh } = useCustomer();
+  // The badges here (verified / B2B approval) come from the provider's cached row —
+  // re-read on mount so an approval or a verification done elsewhere shows up
+  // without a hard reload.
+  useEffect(() => {
+    if (!loading && customer) void refresh();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const { itemCount } = useCart();
   const { count: wishlistCount } = useWishlist();
   const [searchParams, setSearchParams] = useSearchParams();

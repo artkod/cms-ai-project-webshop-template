@@ -268,7 +268,7 @@ export function OrderPage() {
                     </Button>
                   )}
                 </Group>
-                {!d.expired && (
+                {!d.expired && d.expiresAt && (
                   <Text fz="xs" c="dimmed">
                     {t("shop.order.linkValidUntil")} {new Date(d.expiresAt).toLocaleString()}
                   </Text>

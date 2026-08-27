@@ -439,7 +439,7 @@ export function CheckoutPage() {
                 {totals.discountTotal > 0 && <Row label={t("shop.checkout.discount")} value={`−${formatCents(totals.discountTotal)}`} accent />}
                 {preview!.cart.shipping.method && (
                   <Row
-                    label={`Shipping (${preview!.cart.shipping.method.name})`}
+                    label={`${t("shop.cart.shipping")} (${preview!.cart.shipping.method.name})`}
                     value={preview!.cart.shipping.freeByCoupon || preview!.cart.shipping.free ? t("shop.checkout.free") : formatCents(totals.shipping?.gross ?? 0)}
                   />
                 )}

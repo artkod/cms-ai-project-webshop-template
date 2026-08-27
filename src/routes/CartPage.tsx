@@ -167,11 +167,10 @@ export function CartPage() {
           {/* Summary */}
           <Paper withBorder p="md" radius="md" style={{ flex: "1 1 280px", maxWidth: 380 }}>
             <Stack gap="xs">
-              <Group justify="space-between" align="center">
-                <Title order={2} size="h4">{t("shop.cart.summary")}</Title>
-                {/* B2B indicator (L5.5) — an approved business's price list applies. */}
-                {cart?.b2b && <Badge variant="light" color="grape" size="sm">{t("shop.cart.businessPricing")}</Badge>}
-              </Group>
+              {/* No "business pricing" badge (Sandro, 2026-08-27): an approved business
+                  simply sees ITS prices — `cart.b2b` is true even without a price list,
+                  so the badge promised a discount that often wasn't there. */}
+              <Title order={2} size="h4">{t("shop.cart.summary")}</Title>
 
               {isInquiry ? (
                 <>
@@ -288,7 +287,7 @@ export function CartPage() {
                   <Row label={t("shop.cart.subtotal")} value={formatCents(totals.itemsSubtotal)} />
                   {totals.discountTotal > 0 && <Row label={t("shop.cart.discount")} value={`−${formatCents(totals.discountTotal)}`} accent />}
                   {shipping?.method && (
-                    <Row label={`Shipping (${shipping.method.name})`} value={shipping.freeByCoupon || shipping.free ? t("shop.cart.free") : formatCents(totals.shipping?.gross ?? 0)} />
+                    <Row label={`${t("shop.cart.shipping")} (${shipping.method.name})`} value={shipping.freeByCoupon || shipping.free ? t("shop.cart.free") : formatCents(totals.shipping?.gross ?? 0)} />
                   )}
                   {totals.surcharge && <Row label={t("shop.cart.cashOnDelivery")} value={formatCents(totals.surcharge.gross)} />}
                   {/* VAT breakdown. When the shop isn't VAT-registered (or nothing is

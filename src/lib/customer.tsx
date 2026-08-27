@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from "react";
+import { createContext, useCallback, useContext, useEffect, useState, type ReactNode, useRef } from "react";
 import { notifications } from "@mantine/notifications";
 import { StorefrontError, type StorefrontCustomer, type RegisterInput, type LoginInput, type OAuthProviderId } from "@cms/storefront";
 import { storefront } from "./storefront";
@@ -73,8 +73,18 @@ export function CustomerProvider({ children }: { children: ReactNode }) {
   // Boot: resolve the current customer (if any), seed the CSRF cookie so a later
   // logout (a CSRF-gated mutation) has its double-submit token ready, and learn
   // which social-login providers are enabled (L5.3).
+  // Every `GET /me` carries a sequence number and only the LATEST one may write
+  // `customer`. The verify-email page's POST fires before this boot effect (child
+  // effects run first), so the boot snapshot was captured UNVERIFIED and landed
+  // after `verifyEmail → refresh()` had already stored the verified row — the
+  // account page then said "not confirmed" until a hard reload (2026-08-27).
+  const meSeq = useRef(0);
+  const applyMe = useCallback((seq: number, me: StorefrontCustomer | null) => {
+    if (seq === meSeq.current) setCustomer(me);
+  }, []);
   useEffect(() => {
     let alive = true;
+    const seq = ++meSeq.current;
     (async () => {
       try {
         const [me, providers] = await Promise.all([
@@ -83,7 +93,7 @@ export function CustomerProvider({ children }: { children: ReactNode }) {
           storefront.listOAuthProviders().catch(() => [] as OAuthProviderId[]),
         ]).then(([m, , p]) => [m, p] as const);
         if (alive) {
-          setCustomer(me);
+          applyMe(seq, me);
           setOauthProviders(providers);
         }
       } catch {
@@ -95,6 +105,7 @@ export function CustomerProvider({ children }: { children: ReactNode }) {
     return () => {
       alive = false;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const startOAuth = useCallback((provider: OAuthProviderId, returnLocale?: string) => {
@@ -155,13 +166,14 @@ export function CustomerProvider({ children }: { children: ReactNode }) {
   }, [refreshCart]);
 
   const refresh = useCallback(async () => {
+    const seq = ++meSeq.current;
     try {
       const me = await storefront.getCustomer();
-      setCustomer(me);
+      applyMe(seq, me);
     } catch {
       /* leave state as-is */
     }
-  }, []);
+  }, [applyMe]);
 
   const resendVerification = useCallback(async (): Promise<boolean> => {
     try {
