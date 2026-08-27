@@ -777,6 +777,12 @@ export declare interface RegisterInput {
     lastName?: string;
     type?: "personal" | "business";
     company?: string;
+    /**
+     * ISO2 where the company is established (DECISIONS #219): HR → `oib` required;
+     * another EU state → `vatId` with that state's prefix required; outside the EU →
+     * `vatId` may hold any tax number (optional). Omitted → derived from oib / vatId.
+     */
+    companyCountry?: string;
     oib?: string;
     vatId?: string;
 }
@@ -1289,6 +1295,8 @@ export declare interface StorefrontCustomer {
     company: string | null;
     oib: string | null;
     vatId: string | null;
+    /** ISO2 where the company is established (DECISIONS #219). */
+    companyCountry: string | null;
     approvalStatus: CustomerApprovalStatus;
     b2bApproved: boolean;
     emailVerified: boolean;

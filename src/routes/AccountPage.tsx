@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useParams, useSearchParams } from "react-router";
-import { Alert, Anchor, Badge, Button, Divider, Group, Loader, Paper, SegmentedControl, Stack, Tabs, Text, TextInput, Title } from "@mantine/core";
+import { Alert, Anchor, Badge, Button, Divider, Group, Loader, Paper, SegmentedControl, Stack, Tabs, Text, TextInput, Title, Select } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import { Heart, LogIn, LogOut, MailCheck, MapPin, Package, ShoppingCart } from "lucide-react";
 import { useCustomer } from "@/lib/customer";
@@ -8,6 +8,7 @@ import { useCart } from "@/lib/cart";
 import { useWishlist } from "@/lib/wishlist";
 import { useLocaleConfig, useStrings } from "@/lib/locale";
 import { isValidOib } from "@cms/storefront";
+import { countryOptions, zoneOf } from "@/lib/countries";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Account page (Phase L5.1 + L5.2) — the clickable surface for the customer auth
@@ -69,8 +70,14 @@ export function AccountPage() {
   // it's created pending approval and buys at B2C terms until an admin approves.
   const [accountType, setAccountType] = useState<"personal" | "business">("personal");
   const [company, setCompany] = useState("");
+  // Where the company is established decides the tax id we ask for (core #219):
+  // HR → OIB; another EU state → VAT-ID with that prefix; outside the EU → an
+  // optional tax number. VAT-ID validity itself is VIES's job (checked by the shop).
+  const [companyCountry, setCompanyCountry] = useState("HR");
   const [oib, setOib] = useState("");
   const [vatId, setVatId] = useState("");
+  const companyZone = zoneOf(companyCountry);
+  const vatPrefix = companyCountry === "GR" ? "EL" : companyCountry;
   const [authTab, setAuthTab] = useState<string | null>("login");
   const [attempted, setAttempted] = useState(false); // show required-field errors only after a submit attempt
 
@@ -102,9 +109,16 @@ export function AccountPage() {
       if (!company.trim()) e.company = t("shop.account.required");
       const oibFilled = oib.trim() !== "";
       const vatFilled = vatId.trim() !== "";
-      if (!oibFilled && !vatFilled) e.taxId = t("shop.account.provideTaxId");
-      if (oibFilled && !isValidOib(oib.trim())) e.oib = t("shop.account.invalidOib");
-      if (vatFilled && (vatId.trim().length < 4 || vatId.trim().length > 20)) e.vatId = t("shop.account.invalidVatId");
+      if (companyZone === "HR") {
+        if (!oibFilled) e.oib = t("shop.account.oibRequired");
+        else if (!isValidOib(oib.trim())) e.oib = t("shop.account.invalidOib");
+      } else if (companyZone === "EU") {
+        if (!vatFilled) e.vatId = t("shop.account.vatIdRequired").replace("{{prefix}}", vatPrefix);
+        else if (!vatId.trim().toUpperCase().replace(/[\s.-]/g, "").startsWith(vatPrefix)) e.vatId = t("shop.account.vatIdPrefix").replace("{{prefix}}", vatPrefix);
+        else if (vatId.trim().length < 4 || vatId.trim().length > 20) e.vatId = t("shop.account.invalidVatId");
+      } else if (vatFilled && vatId.trim().length > 20) {
+        e.vatId = t("shop.account.invalidVatId");
+      }
     }
     return e;
   }
@@ -285,7 +299,13 @@ export function AccountPage() {
       firstName: firstName || undefined,
       lastName: lastName || undefined,
       ...(accountType === "business"
-        ? { type: "business" as const, company: company.trim(), oib: oib.trim() || undefined, vatId: vatId.trim() || undefined }
+        ? {
+            type: "business" as const,
+            company: company.trim(),
+            companyCountry,
+            oib: companyZone === "HR" ? oib.trim() || undefined : undefined,
+            vatId: companyZone === "HR" ? undefined : vatId.trim() || undefined,
+          }
         : {}),
     });
     setBusy(false);
@@ -354,25 +374,46 @@ export function AccountPage() {
                   autoComplete="organization"
                   error={errors.company}
                 />
-                <Group grow align="flex-start">
+                <Select
+                  label={t("shop.account.companyCountry")}
+                  data={countryOptions(loc, t)}
+                  value={companyCountry}
+                  onChange={(v) => v && setCompanyCountry(v)}
+                  searchable
+                  allowDeselect={false}
+                  comboboxProps={{ withinPortal: true }}
+                />
+                {companyZone === "HR" ? (
                   <TextInput
                     label={t("shop.account.oib")}
                     description={t("shop.account.oib11")}
                     value={oib}
                     onChange={(e) => setOib(e.currentTarget.value)}
-                    error={errors.oib ?? errors.taxId}
+                    error={errors.oib}
                     inputMode="numeric"
+                    required
                   />
+                ) : companyZone === "EU" ? (
                   <TextInput
                     label={t("shop.account.vatId")}
-                    description={t("shop.account.vatIdExample")}
+                    description={t("shop.account.vatIdEuHint").replace("{{prefix}}", vatPrefix)}
+                    placeholder={`${vatPrefix}…`}
+                    value={vatId}
+                    onChange={(e) => setVatId(e.currentTarget.value)}
+                    error={errors.vatId}
+                    required
+                  />
+                ) : (
+                  <TextInput
+                    label={t("shop.account.taxNumber")}
+                    description={t("shop.account.taxNumberHint")}
                     value={vatId}
                     onChange={(e) => setVatId(e.currentTarget.value)}
                     error={errors.vatId}
                   />
-                </Group>
+                )}
                 <Text c="dimmed" fz="xs">
-                  {t("shop.account.b2bHint")}
+                  {companyZone === "HR" ? t("shop.account.b2bHintHr") : companyZone === "EU" ? t("shop.account.b2bHintEu") : t("shop.account.b2bHintInt")}
                 </Text>
               </>
             )}
