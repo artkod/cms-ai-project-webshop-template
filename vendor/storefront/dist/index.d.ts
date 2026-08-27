@@ -541,6 +541,11 @@ export declare interface Order {
      * accepted quotes are placed at once. (DECISIONS #217)
      */
     placed: boolean;
+    /**
+     * On a SENT quote: the payable modes the customer may accept it with
+     * (DECISIONS #218) — pass one to `acceptQuote`. Absent otherwise.
+     */
+    offeredPaymentMethods?: CheckoutMode[];
     /** ISO bank-transfer payment deadline (L7.4) — null otherwise. */
     paymentDueAt: string | null;
     taxDestination: string | null;
@@ -1073,7 +1078,9 @@ export declare interface StorefrontClient {
      * stock + freezes prices + flips the quote to a payable order (then pay via
      * {@link initiatePayment}). 409 `not_acceptable` if the quote isn't in `sent`.
      */
+    /** Accept a SENT quote with a payment method from `Order.offeredPaymentMethods` (#218). */
     acceptQuote(token: string, opts?: {
+        paymentMethod?: CheckoutMode;
         signal?: AbortSignal;
     }): Promise<Order>;
     /** Decline a SENT quote (keyed by the order token). 409 `not_declinable` otherwise. */

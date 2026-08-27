@@ -1,14 +1,14 @@
 var Ne = Object.defineProperty;
-var Ae = (t, r, s) => r in t ? Ne(t, r, { enumerable: !0, configurable: !0, writable: !0, value: s }) : t[r] = s;
-var O = (t, r, s) => Ae(t, typeof r != "symbol" ? r + "" : r, s);
+var Ae = (t, r, a) => r in t ? Ne(t, r, { enumerable: !0, configurable: !0, writable: !0, value: a }) : t[r] = a;
+var O = (t, r, a) => Ae(t, typeof r != "symbol" ? r + "" : r, a);
 const xe = 3, Ge = "0.0.1";
-class v extends Error {
-  constructor(s, a) {
-    super(s);
+class b extends Error {
+  constructor(a, s) {
+    super(a);
     O(this, "status");
     O(this, "code");
     O(this, "body");
-    this.name = "StorefrontError", this.status = a.status, this.code = a.code ?? null, this.body = a.body ?? null;
+    this.name = "StorefrontError", this.status = s.status, this.code = s.code ?? null, this.body = s.body ?? null;
   }
 }
 const Le = "X-Commerce-Contract-Version", N = "X-CSRF-Token", Ve = "cms_csrf";
@@ -21,18 +21,18 @@ function De() {
   }
   return null;
 }
-function p(t, r, s) {
-  const a = t.replace(/\/+$/, ""), o = r.startsWith("/") ? r : `/${r}`;
-  if (!s) return `${a}${o}`;
+function p(t, r, a) {
+  const s = t.replace(/\/+$/, ""), o = r.startsWith("/") ? r : `/${r}`;
+  if (!a) return `${s}${o}`;
   const f = new URLSearchParams();
-  for (const [g, d] of Object.entries(s))
+  for (const [g, d] of Object.entries(a))
     if (d != null)
       if (Array.isArray(d))
         for (const I of d) f.append(g, String(I));
       else
         f.set(g, String(d));
   const w = f.toString();
-  return w ? `${a}${o}?${w}` : `${a}${o}`;
+  return w ? `${s}${o}?${w}` : `${s}${o}`;
 }
 function Je(t) {
   const r = t.fetch ?? globalThis.fetch;
@@ -40,13 +40,13 @@ function Je(t) {
     throw new Error(
       "@cms/storefront: no fetch implementation available — pass `fetch` in the config for this runtime."
     );
-  const s = t.credentials ?? "include", a = {
+  const a = t.credentials ?? "include", s = {
     "X-Project-Slug": t.projectSlug,
     [Le]: String(3),
     ...t.headers
   };
   async function o(e, n = {}) {
-    const c = p(t.apiUrl, e, n.query), l = { ...a, ...n.headers };
+    const c = p(t.apiUrl, e, n.query), l = { ...s, ...n.headers };
     let T;
     n.body !== void 0 && (T = JSON.stringify(n.body), l["Content-Type"] = "application/json");
     const q = (n.method ?? (n.body !== void 0 ? "POST" : "GET")).toUpperCase();
@@ -60,11 +60,11 @@ function Je(t) {
         method: n.method ?? (n.body !== void 0 ? "POST" : "GET"),
         headers: l,
         body: T,
-        credentials: n.credentials ?? s,
+        credentials: n.credentials ?? a,
         signal: n.signal
       });
     } catch (i) {
-      throw new v(
+      throw new b(
         `Network request to ${c} failed: ${(i == null ? void 0 : i.message) ?? String(i)}`,
         { status: 0 }
       );
@@ -79,7 +79,7 @@ function Je(t) {
       }
     if (!y.ok) {
       const i = m && typeof m == "object" && "error" in m ? String(m.error) : null;
-      throw new v(
+      throw new b(
         `Request to ${c} failed with ${y.status}${i ? ` (${i})` : ""}`,
         { status: y.status, code: i, body: m }
       );
@@ -170,10 +170,10 @@ function Je(t) {
       signal: n.signal
     });
   }
-  async function H(e = {}) {
+  async function M(e = {}) {
     return o("/api/commerce/cart", { method: "DELETE", query: u(e.locale), signal: e.signal });
   }
-  async function Q(e, n = {}) {
+  async function H(e, n = {}) {
     return o("/api/commerce/cart/coupon", {
       method: "POST",
       body: { code: e },
@@ -181,7 +181,7 @@ function Je(t) {
       signal: n.signal
     });
   }
-  async function K(e, n = {}) {
+  async function Q(e, n = {}) {
     const c = e ? `/api/commerce/cart/coupon/${encodeURIComponent(e)}` : "/api/commerce/cart/coupon";
     return o(c, {
       method: "DELETE",
@@ -189,7 +189,7 @@ function Je(t) {
       signal: n.signal
     });
   }
-  async function M(e = {}) {
+  async function K(e = {}) {
     return o("/api/commerce/cart/shipping", {
       query: { country: e.country, locale: e.locale },
       signal: e.signal
@@ -234,7 +234,8 @@ function Je(t) {
   async function te(e, n = {}) {
     return o(`/api/commerce/orders/${encodeURIComponent(e)}/accept`, {
       method: "POST",
-      signal: n.signal
+      signal: n.signal,
+      ...n.paymentMethod ? { body: { paymentMethod: n.paymentMethod } } : {}
     });
   }
   async function re(e, n = {}) {
@@ -255,10 +256,10 @@ function Je(t) {
       signal: c.signal
     });
   }
-  async function se(e = {}) {
+  async function ae(e = {}) {
     return (await o("/api/commerce/customers/csrf", { signal: e.signal })).token;
   }
-  async function ae(e, n = {}) {
+  async function se(e, n = {}) {
     return (await o("/api/commerce/customers/register", {
       method: "POST",
       body: e,
@@ -282,7 +283,7 @@ function Je(t) {
     try {
       return (await o("/api/commerce/customers/me", { signal: e.signal })).customer;
     } catch (n) {
-      if (n instanceof v && n.status === 401) return null;
+      if (n instanceof b && n.status === 401) return null;
       throw n;
     }
   }
@@ -390,14 +391,14 @@ function Je(t) {
       { method: "POST", body: n, signal: c.signal }
     );
   }
-  async function ve(e, n = {}) {
+  async function be(e, n = {}) {
     return o("/api/commerce/consent", {
       method: "POST",
       body: e,
       signal: n.signal
     });
   }
-  async function be(e = {}) {
+  async function ve(e = {}) {
     return (await o("/api/commerce/customers/orders", {
       signal: e.signal
     })).orders ?? [];
@@ -443,10 +444,10 @@ function Je(t) {
     addCartItem: x,
     setCartItemQuantity: G,
     removeCartItem: J,
-    clearCart: H,
-    applyCoupon: Q,
-    removeCoupon: K,
-    getShippingMethods: M,
+    clearCart: M,
+    applyCoupon: H,
+    removeCoupon: Q,
+    getShippingMethods: K,
     setShipping: X,
     previewCheckout: z,
     startCheckout: B,
@@ -458,8 +459,8 @@ function Je(t) {
     declineQuote: re,
     getReturns: oe,
     requestReturn: ce,
-    getCsrfToken: se,
-    register: ae,
+    getCsrfToken: ae,
+    register: se,
     login: ie,
     logout: ue,
     getCustomer: le,
@@ -479,8 +480,8 @@ function Je(t) {
     listProductReviews: Ee,
     submitReview: Ie,
     subscribeBackInStock: Pe,
-    recordConsent: ve,
-    listMyOrders: be,
+    recordConsent: be,
+    listMyOrders: ve,
     listOAuthProviders: Ue,
     oauthStartUrl: $e,
     listPaymentProviders: _e,
@@ -488,11 +489,11 @@ function Je(t) {
     refreshOrderPayment: qe
   };
 }
-function He(t) {
+function Me(t) {
   if (!/^\d{11}$/.test(t)) return !1;
   let r = 10;
-  for (let a = 0; a < 10; a++)
-    r = (r + Number(t[a])) % 10, r === 0 && (r = 10), r = r * 2 % 11;
+  for (let s = 0; s < 10; s++)
+    r = (r + Number(t[s])) % 10, r === 0 && (r = 10), r = r * 2 % 11;
   return (11 - r) % 10 === Number(t[10]);
 }
 const U = "cms_wishlist";
@@ -509,29 +510,29 @@ function A() {
   try {
     const r = t.getItem(U);
     if (!r) return [];
-    const s = JSON.parse(r);
-    return Array.isArray(s) ? s.filter((a) => typeof a == "string") : [];
+    const a = JSON.parse(r);
+    return Array.isArray(a) ? a.filter((s) => typeof s == "string") : [];
   } catch {
     return [];
   }
 }
 function L(t) {
-  const r = Array.from(new Set(t)), s = $();
-  if (s)
+  const r = Array.from(new Set(t)), a = $();
+  if (a)
     try {
-      s.setItem(U, JSON.stringify(r));
+      a.setItem(U, JSON.stringify(r));
     } catch {
     }
   return r;
 }
-function Qe(t) {
-  const r = A().filter((s) => s !== t);
+function He(t) {
+  const r = A().filter((a) => a !== t);
   return L([t, ...r]);
 }
-function Ke(t) {
+function Qe(t) {
   return L(A().filter((r) => r !== t));
 }
-function Me() {
+function Ke() {
   const t = $();
   if (t)
     try {
@@ -540,7 +541,7 @@ function Me() {
     }
 }
 const _ = "cms-consent-v1";
-let h = null, b = !1;
+let h = null, v = !1;
 function S() {
   return typeof window < "u" && typeof document < "u";
 }
@@ -575,7 +576,7 @@ function Xe() {
     }
 }
 function D() {
-  if (!S() || !h || b) return;
+  if (!S() || !h || v) return;
   const t = window;
   t.dataLayer = t.dataLayer || [], typeof t.gtag != "function" && (t.gtag = function() {
     t.dataLayer.push(arguments);
@@ -586,7 +587,7 @@ function D() {
     ad_personalization: "denied"
   }), t.gtag("config", h, { anonymize_ip: !0 });
   const r = document.createElement("script");
-  r.async = !0, r.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(h)}`, document.head.appendChild(r), b = !0;
+  r.async = !0, r.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(h)}`, document.head.appendChild(r), v = !0;
 }
 function ze(t) {
   var r;
@@ -600,7 +601,7 @@ function Ye() {
 }
 function Fe() {
   var t;
-  return b && ((t = k()) == null ? void 0 : t.analytics) === !0;
+  return v && ((t = k()) == null ? void 0 : t.analytics) === !0;
 }
 function R(t, r) {
   return !S() || !Fe() ? !1 : (window.gtag("event", t, r ?? {}), !0);
@@ -617,7 +618,7 @@ function E(t) {
   }));
 }
 function We(t) {
-  return t.reduce((r, s) => r + s.priceCents * (s.quantity ?? 1), 0);
+  return t.reduce((r, a) => r + a.priceCents * (a.quantity ?? 1), 0);
 }
 function Ze(t) {
   return R("view_item", {
@@ -640,11 +641,11 @@ function nn(t, r) {
     items: E(t)
   });
 }
-function tn(t, r, s) {
+function tn(t, r, a) {
   return R("purchase", {
     transaction_id: t,
     currency: "EUR",
-    value: C(s),
+    value: C(a),
     items: E(r)
   });
 }
@@ -653,9 +654,9 @@ export {
   Le as CONTRACT_VERSION_HEADER,
   xe as STOREFRONT_CONTRACT_VERSION,
   Ge as STOREFRONT_SDK_VERSION,
-  v as StorefrontError,
-  Qe as addLocalWishlist,
-  Me as clearLocalWishlist,
+  b as StorefrontError,
+  He as addLocalWishlist,
+  Ke as clearLocalWishlist,
   Xe as clearStoredConsent,
   Je as createStorefrontClient,
   Ye as denyAnalyticsConsent,
@@ -664,8 +665,8 @@ export {
   Be as grantAnalyticsConsent,
   ze as initAnalytics,
   Fe as isAnalyticsActive,
-  He as isValidOib,
-  Ke as removeLocalWishlist,
+  Me as isValidOib,
+  Qe as removeLocalWishlist,
   L as setLocalWishlist,
   V as storeConsent,
   en as trackAddToCart,

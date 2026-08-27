@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router";
-import { Alert, Anchor, Badge, Button, Divider, Group, Loader, NumberInput, Paper, Stack, Text, Textarea, Title } from "@mantine/core";
+import { Alert, Anchor, Badge, Button, Divider, Group, Loader, NumberInput, Paper, Stack, Text, Textarea, Title, Radio } from "@mantine/core";
 import { CheckCircle2, CreditCard, FileText, Check, X, RotateCcw, Package, Download } from "lucide-react";
-import { StorefrontError, type InitiatePaymentResult, type Order, type OrderReturnsResult, trackPurchase } from "@cms/storefront";
+import { StorefrontError, type InitiatePaymentResult, type Order, type OrderReturnsResult, trackPurchase, type CheckoutMode } from "@cms/storefront";
 import { storefront } from "@/lib/storefront";
 import { useLocaleConfig, useStrings } from "@/lib/locale";
 import { humanizeStatus } from "@/lib/shopStrings";
@@ -162,12 +162,21 @@ export function OrderPage() {
   // Quote accept / decline (L7.5) — only while the quote is SENT to the customer.
   const [quoteBusy, setQuoteBusy] = useState(false);
   const [quoteError, setQuoteError] = useState<string | null>(null);
+  // #218: the customer says HOW the accepted quote will be paid. Default = bank
+  // transfer when offered (matches the server's fallback), else the first offered.
+  const offered = order?.offeredPaymentMethods ?? [];
+  const [quotePayment, setQuotePayment] = useState<CheckoutMode | null>(null);
+  useEffect(() => {
+    if (!offered.length) return;
+    setQuotePayment((cur) => (cur && offered.includes(cur) ? cur : offered.includes("bank_transfer") ? "bank_transfer" : offered[0]));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [offered.join(",")]);
   const acceptQuote = async () => {
     if (!token) return;
     setQuoteBusy(true);
     setQuoteError(null);
     try {
-      setOrder(await storefront.acceptQuote(token));
+      setOrder(await storefront.acceptQuote(token, quotePayment ? { paymentMethod: quotePayment } : {}));
     } catch (e) {
       setQuoteError(e instanceof StorefrontError && e.code === "insufficient_stock"
         ? t("shop.order.acceptError.stock")
@@ -333,10 +342,19 @@ export function OrderPage() {
             {order.validUntil ? <>, {t("shop.order.quoteValidUntil")} <b>{new Date(order.validUntil).toLocaleDateString()}</b></> : null}.{" "}
             {t("shop.order.quoteReviewSuffix")}
           </Text>
+          {offered.length > 0 && (
+            <Radio.Group label={t("shop.checkout.paymentMethod")} value={quotePayment ?? ""} onChange={(v) => setQuotePayment(v as CheckoutMode)} mb="sm">
+              <Stack gap={6} mt={6}>
+                {offered.map((m) => (
+                  <Radio key={m} value={m} label={t(`shop.pay.${m}`)} description={t(`shop.pay.${m}.help`)} />
+                ))}
+              </Stack>
+            </Radio.Group>
+          )}
           {quoteError && <Text fz="sm" c="red" mb="xs">{quoteError}</Text>}
           <Group>
-            <Button leftSection={<Check size={16} />} onClick={() => void acceptQuote()} loading={quoteBusy}>
-              {t("shop.order.acceptQuote")}
+            <Button leftSection={<Check size={16} />} onClick={() => void acceptQuote()} loading={quoteBusy} disabled={offered.length > 0 && !quotePayment}>
+              {quotePayment === "pay_now" ? t("shop.order.acceptAndPay") : t("shop.order.acceptQuote")}
             </Button>
             <Button variant="light" color="red" leftSection={<X size={16} />} onClick={() => void declineQuote()} loading={quoteBusy}>
               {t("shop.order.decline")}
