@@ -44,6 +44,10 @@ export function CheckoutPage() {
   const [preview, setPreview] = useState<CheckoutPreview | null>(null);
   const [loading, setLoading] = useState(true);
   const [placing, setPlacing] = useState(false);
+  // Two steps (DECISIONS #217): "details" (contact + address + note) → "review"
+  // (read-only summary + payment method + the FINAL per-mode CTA). Nothing
+  // reaches the shop before the review CTA — and a card order only when paid.
+  const [step, setStep] = useState<"details" | "review">("details");
   // The chosen payment mode (L7.4) — initialised from the preview's default, kept in
   // the offered set as the cart/shipping changes.
   const [paymentMethod, setPaymentMethod] = useState<CheckoutMode | null>(null);
@@ -252,11 +256,22 @@ export function CheckoutPage() {
   // only for states the form can't fix here (empty cart / no shipping / no method).
   const canAttempt = !empty && (isQuote || (hasShipping && paymentValid));
 
+  // Step 1 → 2: validate the form, then show the review.
+  const goReview = () => {
+    if (!addressValid || !billingValid) {
+      setShowErrors(true);
+      return;
+    }
+    setStep("review");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   const place = async () => {
     if (!addressValid || !billingValid) {
       // Surface the per-field errors (aria-invalid + inline messages) instead of
       // relying on the disabled button alone.
       setShowErrors(true);
+      setStep("details");
       return;
     }
     setPlacing(true);
@@ -278,8 +293,10 @@ export function CheckoutPage() {
         },
         { locale: loc },
       );
-      // GA4 purchase (L9.6) — the order id is the GA-side dedup key too.
-      if (!order.isQuote) {
+      // GA4 purchase (L9.6) — the order id is the GA-side dedup key too. A CARD
+      // order is only PENDING here (DECISIONS #217): its purchase fires on the
+      // order page once the payment settles.
+      if (!order.isQuote && order.placed) {
         trackPurchase(
           String(order.orderNumber ?? order.id),
           order.items.map((i) => ({ id: i.variantId ?? i.id, name: i.name, priceCents: i.unitPrice, quantity: i.quantity })),
@@ -322,7 +339,34 @@ export function CheckoutPage() {
       )}
 
       <Group align="flex-start" gap="xl" wrap="wrap">
-        {/* Address form */}
+        {step === "review" ? (
+          /* Review — what the shop will receive; Edit returns to the form. */
+          <Stack gap="sm" style={{ flex: "1 1 420px" }}>
+            <Group justify="space-between" align="center">
+              <Title order={2} size="h4">{t("shop.checkout.reviewTitle")}</Title>
+              <Anchor component="button" type="button" fz="sm" onClick={() => setStep("details")}>{t("shop.checkout.edit")}</Anchor>
+            </Group>
+            <Paper withBorder p="md" radius="md">
+              <Stack gap={6}>
+                <Text fz="sm"><b>{t("shop.checkout.email")}:</b> {form.email}</Text>
+                <Text fz="sm"><b>{cartRequiresShipping ? t("shop.checkout.shippingAddress") : t("shop.checkout.billingAddress")}:</b> {form.name}, {form.line1}{form.line2 ? `, ${form.line2}` : ""}, {form.postalCode} {form.city}, {form.country}{form.phone ? ` · ${form.phone}` : ""}</Text>
+                {cartRequiresShipping && !billingSame && (
+                  <Text fz="sm"><b>{t("shop.checkout.billingAddress")}:</b> {billing.name}, {billing.line1}{billing.line2 ? `, ${billing.line2}` : ""}, {billing.postalCode} {billing.city}, {billing.country}</Text>
+                )}
+                {preview?.cart.shipping.method && (
+                  <Text fz="sm"><b>{t("shop.cart.shipping")}:</b> {preview.cart.shipping.method.name}</Text>
+                )}
+                {form.note.trim() && <Text fz="sm"><b>{t("shop.checkout.orderNote")}:</b> {form.note}</Text>}
+              </Stack>
+            </Paper>
+            {!isQuote && (
+              <Text fz="sm" c="dimmed">
+                {paymentMethod === "pay_now" ? t("shop.checkout.reviewHintCard") : paymentMethod === "cod" ? t("shop.checkout.reviewHintCod") : t("shop.checkout.reviewHintBank")}
+              </Text>
+            )}
+          </Stack>
+        ) : (
+        /* Address form */
         <Stack gap="sm" style={{ flex: "1 1 420px" }}>
           {saved.length > 0 && (
             <Select
@@ -414,6 +458,7 @@ export function CheckoutPage() {
           />
           <Anchor component={Link} to={`/${loc}/cart`} fz="sm">{t("shop.checkout.backToCart")}</Anchor>
         </Stack>
+        )}
 
         {/* Summary */}
         <Paper withBorder p="md" radius="md" style={{ flex: "1 1 280px", maxWidth: 380 }}>
@@ -495,10 +540,25 @@ export function CheckoutPage() {
               </Alert>
             )}
 
-            <Button mt="sm" size="md" onClick={place} loading={placing} disabled={!canAttempt}>
-              {isQuote ? t("shop.checkout.sendInquiry") : t("shop.checkout.placeOrder")}
-            </Button>
-            {!addressValid && !noPayableMethod && !needsShipping && <Text c="dimmed" fz="xs">{t("shop.checkout.fillToContinue")}</Text>}
+            {step === "details" ? (
+              <Button mt="sm" size="md" onClick={goReview} disabled={!canAttempt}>
+                {t("shop.checkout.continueToReview")}
+              </Button>
+            ) : (
+              /* The FINAL step. Bank / COD: this click places the order. Card: this
+                 click opens the payment — the order exists for the shop only once
+                 it is paid (DECISIONS #217). */
+              <Button mt="sm" size="md" onClick={place} loading={placing} disabled={!canAttempt}>
+                {isQuote
+                  ? t("shop.checkout.sendInquiry")
+                  : paymentMethod === "pay_now"
+                    ? `${t("shop.checkout.continueToPayment")}${totals ? ` · ${formatCents(totals.grossTotal)}` : ""}`
+                    : paymentMethod === "cod"
+                      ? t("shop.checkout.placeOrderCod")
+                      : t("shop.checkout.placeOrderBank")}
+              </Button>
+            )}
+            {step === "details" && !addressValid && !noPayableMethod && !needsShipping && <Text c="dimmed" fz="xs">{t("shop.checkout.fillToContinue")}</Text>}
           </Stack>
         </Paper>
       </Group>

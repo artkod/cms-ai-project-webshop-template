@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router";
 import { Alert, Anchor, Badge, Button, Divider, Group, Loader, NumberInput, Paper, Stack, Text, Textarea, Title } from "@mantine/core";
 import { CheckCircle2, CreditCard, FileText, Check, X, RotateCcw, Package, Download } from "lucide-react";
-import { StorefrontError, type InitiatePaymentResult, type Order, type OrderReturnsResult } from "@cms/storefront";
+import { StorefrontError, type InitiatePaymentResult, type Order, type OrderReturnsResult, trackPurchase } from "@cms/storefront";
 import { storefront } from "@/lib/storefront";
 import { useLocaleConfig, useStrings } from "@/lib/locale";
 import { humanizeStatus } from "@/lib/shopStrings";
@@ -118,6 +118,8 @@ export function OrderPage() {
 
   // Is a card provider configured? (Only fetch once we know the order is payable.)
   const payable = !!order && !order.isQuote && order.status.paymentStatus === "awaiting_payment";
+  // A card checkout that hasn't been paid is NOT an order yet (DECISIONS #217).
+  const pending = !!order && !order.isQuote && order.placed === false;
   useEffect(() => {
     if (!payable) return;
     let alive = true;
@@ -138,6 +140,24 @@ export function OrderPage() {
   }, [payable]);
 
   useEffect(() => () => stopPolling(), [stopPolling]);
+
+  // Pending card checkout: open the card form straight away — the customer just
+  // clicked "Continue to payment", there is nothing else to do on this page.
+  useEffect(() => {
+    if (pending && hasCardProvider && !pay && !initiating && !confirming) void beginCardPayment();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pending, hasCardProvider]);
+
+  // GA4 purchase (L9.6) for a card order fires HERE, once the payment settled —
+  // the checkout page only created a pending checkout (DECISIONS #217).
+  const purchaseTracked = useRef(false);
+  useEffect(() => {
+    if (!order || order.isQuote || purchaseTracked.current) return;
+    if (order.paymentMethod === "pay_now" && order.placed && order.status.paymentStatus === "paid") {
+      purchaseTracked.current = true;
+      trackPurchase(String(order.orderNumber), order.items.map((i) => ({ id: i.variantId ?? i.id, name: i.name, priceCents: i.unitPrice, quantity: i.quantity })), order.totals.grossTotal);
+    }
+  }, [order]);
 
   // Quote accept / decline (L7.5) — only while the quote is SENT to the customer.
   const [quoteBusy, setQuoteBusy] = useState(false);
@@ -203,8 +223,10 @@ export function OrderPage() {
 
   return (
     <Stack gap="lg" maw={720}>
-      <Alert color={order.isQuote ? "blue" : isPaid ? "teal" : "yellow"} icon={order.isQuote ? <FileText size={18} /> : <CheckCircle2 size={18} />}>
-        {order.isQuote ? (
+      <Alert color={order.isQuote ? "blue" : isPaid ? "teal" : pending ? "orange" : "yellow"} icon={order.isQuote ? <FileText size={18} /> : pending ? <CreditCard size={18} /> : <CheckCircle2 size={18} />}>
+        {pending && !isPaid ? (
+          <Text><b>{t("shop.order.pendingTitle")}</b> {t("shop.order.pendingBody")}</Text>
+        ) : order.isQuote ? (
           <Text>{t("shop.order.quoteReceivedPrefix")} <b>{t("shop.order.quoteRequest")}</b> #{order.orderNumber} {t("shop.order.quoteReceivedMid")} <b>{order.email}</b>.</Text>
         ) : authorized ? (
           <Text>{t("shop.order.authorizedPrefix")} <b>{t("shop.order.authorized")}</b> {t("shop.order.authorizedMid")} <b>#{order.orderNumber}</b> {t("shop.order.authorizedSuffix")} <b>{order.email}</b>.</Text>

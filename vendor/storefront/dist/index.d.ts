@@ -55,6 +55,9 @@ export declare interface CartLine {
     sku: string | null;
     name: string;
     slug: string | null;
+    /** Locale-resolved option summary of the variant (e.g. "Size: M · Color: Red");
+     *  null for an option-less product. Snapshotted onto the order line at checkout. */
+    optionsLabel: string | null;
     image: CatalogImage | null;
     taxClass: string;
     /** false = inquiry-only — routes the whole cart to a quote (no payment/delivery); the storefront hides the line price (L7.4). */
@@ -164,6 +167,13 @@ export declare interface CatalogCategoryMembership {
     position: number;
 }
 
+/** One "Product details" tab: editable name + rich-text (TipTap) body. */
+export declare interface CatalogDetailTab {
+    id: string;
+    title: string;
+    content: unknown;
+}
+
 export declare interface CatalogImage {
     mediaId: string;
     cdnUrl: string;
@@ -181,6 +191,9 @@ export declare interface CatalogOptionValue {
     id: string;
     value: string;
     label: string;
+    /** Display-only price hint (EUR cents, null = none) — e.g. "Medium — €23,90" in
+     *  configurator-style pickers. The matched VARIANT price stays the money authority. */
+    price: number | null;
     position: number;
 }
 
@@ -195,9 +208,19 @@ export declare interface CatalogProduct {
     name: string;
     slug: string;
     shortDescription: string | null;
+    /** First-class plain-text description (paragraphs split on blank lines) —
+     *  the "About this product" section. Null when unset. */
+    description: string | null;
+    /** First-class tabbed details ("Product details") — ordered; `content` is a
+     *  TipTap doc (or null while empty). */
+    detailTabs: CatalogDetailTab[];
     metaTitle: string | null;
     metaDescription: string | null;
     ogImage: CatalogImage | null;
+    /** Explicit canonical URL, or null to derive it from the path (L11 parity). */
+    canonicalUrl: string | null;
+    /** Per-locale noindex — the storefront head must honour it (L11 parity). */
+    noindex: boolean;
     blocks: CatalogBlock[];
     gallery: CatalogImage[];
     options: CatalogOption[];
@@ -491,8 +514,9 @@ export declare interface Order {
     status: OrderStatus;
     isQuote: boolean;
     /**
-     * Quote sub-state (L7.3/L7.5) — `draft | sent | accepted | declined | expired`,
-     * null on a normal order. A `sent` quote is the one a customer can accept/decline.
+     * Quote sub-state (L7.3/L7.5) — `draft | sent | accepted | declined | expired | cancelled`,
+     * null on a normal order. A `sent` quote is the one a customer can accept/decline;
+     * `cancelled` = the admin cancelled the quote order.
      */
     quoteStatus: string | null;
     /** ISO offer-validity deadline for a quote (L7.3) — null on a normal order. */
@@ -510,6 +534,13 @@ export declare interface Order {
     codSelected: boolean;
     /** Resolved payable checkout mode (L7.4) — null on a quote. */
     paymentMethod: CheckoutMode | null;
+    /**
+     * False while a card (`pay_now`) checkout is still PENDING — the customer has
+     * not paid yet, so this is not an order: the shop hasn't been told, nothing was
+     * emailed. It flips true the moment the payment settles. Bank-transfer / COD /
+     * accepted quotes are placed at once. (DECISIONS #217)
+     */
+    placed: boolean;
     /** ISO bank-transfer payment deadline (L7.4) — null otherwise. */
     paymentDueAt: string | null;
     taxDestination: string | null;
@@ -565,7 +596,8 @@ export declare interface OrderDownload {
     filename: string;
     /** API path (`/api/commerce/downloads/:token`) — prefix with the API base. */
     url: string;
-    expiresAt: string;
+    /** ISO; null = the link never expires (shop setting 0 hours). */
+    expiresAt: string | null;
     expired: boolean;
     licenseKeys: string[];
 }

@@ -202,7 +202,8 @@ describe("a11y (axe) on the shop's money pages", () => {
         <CheckoutPage />
       </Providers>,
     );
-    const place = await findByRole("button", { name: /place order/i });
+    // Step 1 of the checkout (DECISIONS 217): "Continue to review" validates the form.
+    const place = await findByRole("button", { name: /continue to review/i });
     await waitFor(() => expect(place.hasAttribute("disabled")).toBe(false));
     place.click();
     const email = await findByLabelText(/^Email \*?$/);
