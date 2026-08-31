@@ -82,6 +82,10 @@ export declare interface CartLine {
 
 export declare interface CartShipping {
     country: string;
+    /** true when the shopper explicitly chose a ship-to country (vs the HOME default).
+     *  `country` alone can't tell "never chosen" from "chose HR" — the server resolves
+     *  an unset destination to HOME. Checkout prefill must not override when true. */
+    countryChosen: boolean;
     zone: ShippingZone;
     method: CartShippingMethod | null;
     amount: number;

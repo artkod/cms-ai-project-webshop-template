@@ -63,6 +63,11 @@ export function CheckoutPage() {
   const [saved, setSaved] = useState<StorefrontAddress[]>([]);
   const [selectedAddressId, setSelectedAddressId] = useState<string | null>(null);
   const prefilledRef = useRef(false);
+  // Latest cart for the prefill effect — its deps deliberately exclude `cart`
+  // (prefill must run once, not on every cart write), so it would otherwise read
+  // a stale closure.
+  const cartRef = useRef(cart);
+  cartRef.current = cart;
 
   // Address form. `country` drives the destination tax + shipping zone — changing
   // it updates the cart so the preview re-taxes at the destination.
@@ -151,20 +156,37 @@ export function CheckoutPage() {
   // Load saved addresses for a verified customer; prefill the default shipping
   // address once (the `prefilledRef` guard avoids clobbering edits / StrictMode
   // double-invoke). Prefill the email from the account too.
+  //
+  // The prefill must NEVER override a ship-to country the shopper explicitly chose
+  // on the cart page (`countryChosen`) — that used to silently flip an EU delivery
+  // back to the profile's HR address and re-price shipping. With an explicit
+  // destination we prefill a saved address only when one MATCHES that country;
+  // otherwise the form stays on "enter a new address". Only an implicit (never
+  // chosen) destination may follow the default address's country.
   useEffect(() => {
     if (!customer?.emailVerified) return;
+    if (!cartRef.current) return; // wait for the cart — the decision needs its real destination
     let alive = true;
     (async () => {
       try {
         const rows = await storefront.listAddresses();
         if (!alive) return;
         setSaved(rows);
-        if (!prefilledRef.current && rows.length > 0) {
+        const cur = cartRef.current;
+        if (!prefilledRef.current && rows.length > 0 && cur) {
           prefilledRef.current = true;
           const def = rows.find((r) => r.isDefaultShipping) ?? rows[0];
-          setSelectedAddressId(def.id);
-          fillFromAddress(def);
-          if (def.country !== (cart?.shipping.country ?? "HR")) await setShipping({ country: def.country });
+          if (cur.shipping.countryChosen) {
+            const match = def.country === cur.shipping.country ? def : rows.find((r) => r.country === cur.shipping.country);
+            if (match) {
+              setSelectedAddressId(match.id);
+              fillFromAddress(match);
+            }
+          } else {
+            setSelectedAddressId(def.id);
+            fillFromAddress(def);
+            if (def.country !== cur.shipping.country) await setShipping({ country: def.country });
+          }
         }
       } catch {
         /* not verified / network — leave the form blank */
@@ -174,7 +196,7 @@ export function CheckoutPage() {
       alive = false;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [customer?.emailVerified, customer?.id]);
+  }, [customer?.emailVerified, customer?.id, cart === null]);
 
   // Prefill the contact email from the logged-in account.
   useEffect(() => {

@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router";
 import {
-  Alert, Anchor, Badge, Button, Card, Checkbox, Group, Loader, Modal, Stack, Text, TextInput, Title,
+  Alert, Anchor, Badge, Button, Card, Checkbox, Group, Loader, Modal, Select, Stack, Text, TextInput, Title,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
@@ -10,6 +10,7 @@ import { StorefrontError, type StorefrontAddress, type CreateAddressInput } from
 import { storefront } from "@/lib/storefront";
 import { useCustomer } from "@/lib/customer";
 import { useLocaleConfig, useStrings } from "@/lib/locale";
+import { countryOptions } from "@/lib/countries";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Address book (Phase L5.4) — manage a logged-in + verified customer's saved
@@ -17,15 +18,6 @@ import { useLocaleConfig, useStrings } from "@/lib/locale";
 // A verification-gated account feature (the API enforces it; this page mirrors the
 // gate with a friendly prompt). The saved default prefills checkout (CheckoutPage).
 // ─────────────────────────────────────────────────────────────────────────────
-
-const COUNTRY_OPTIONS = [
-  { value: "HR", label: "Croatia (HR)" },
-  { value: "DE", label: "Germany (DE)" },
-  { value: "IT", label: "Italy (IT)" },
-  { value: "AT", label: "Austria (AT)" },
-  { value: "SI", label: "Slovenia (SI)" },
-  { value: "US", label: "United States (US)" },
-];
 
 type FormState = {
   label: string;
@@ -81,6 +73,7 @@ export function AddressBookPage() {
   const loc = locale ?? defaultLocale;
   const { customer, loading: customerLoading } = useCustomer();
   const { t } = useStrings();
+  const countryData = useMemo(() => countryOptions(loc, t), [loc, t]);
 
   const [addresses, setAddresses] = useState<StorefrontAddress[]>([]);
   const [loading, setLoading] = useState(true);
@@ -270,24 +263,16 @@ export function AddressBookPage() {
             <TextInput label={t("shop.addr.city")} required value={form.city} onChange={set("city")} />
             <TextInput label={t("shop.addr.postalCode")} required value={form.postalCode} onChange={set("postalCode")} />
           </Group>
-          <TextInput
+          <Select
             label={t("shop.addr.country")}
             required
-            list="address-countries"
+            data={countryData}
+            searchable
             value={form.country}
-            onChange={(e) => {
-              // Capture BEFORE setForm — React nulls e.currentTarget once the event
-              // dispatch returns, and the functional updater can run later (twice in
-              // StrictMode), so reading it inside the updater throws on null.
-              const country = e.currentTarget.value.toUpperCase().slice(0, 2);
-              setForm((f) => ({ ...f, country }));
-            }}
+            onChange={(v) => v && setForm((f) => ({ ...f, country: v }))}
+            allowDeselect={false}
+            comboboxProps={{ withinPortal: true }}
           />
-          <datalist id="address-countries">
-            {COUNTRY_OPTIONS.map((c) => (
-              <option key={c.value} value={c.value}>{c.label}</option>
-            ))}
-          </datalist>
           <TextInput label={t("shop.addr.phone")} value={form.phone} onChange={set("phone")} />
           <Checkbox
             label={t("shop.addr.defaultShippingCheckbox")}
