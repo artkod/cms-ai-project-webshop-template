@@ -78,6 +78,10 @@ export function ProductPage({ product: productProp }: { product?: CatalogProduct
           metaTitle: resolved.metaTitle,
           metaDescription: resolved.metaDescription || resolved.shortDescription,
           ogImageUrl: resolved.ogImage?.cdnUrl || resolved.gallery[0]?.cdnUrl,
+          // Per-locale noindex from the catalog API — without this the product
+          // vanished from the sitemap but the page itself carried no robots
+          // meta (E2E run 1c §5.5); PageView passes it, products must too.
+          noindex: resolved.noindex,
         }
       : null,
     settings,
