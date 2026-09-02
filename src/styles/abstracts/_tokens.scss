@@ -32,3 +32,7 @@
   --ln-container: 1140px;
   --ln-gutter: clamp(20px, 5vw, 40px);
 }
+
+// Mantine chrome contrast (axe `color-contrast`) is fixed in src/main.tsx via
+// `cssVariablesResolver` — a stylesheet override loses to the provider's own
+// injected <style>, which lands after every stylesheet.

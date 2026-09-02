@@ -167,11 +167,15 @@ export function RootLayout() {
           <SkipLink />
           <Box component="header" style={{ borderBottom: "1px solid var(--mantine-color-gray-3)" }}>
             <Container size={1140} py="md">
-              <Group justify="space-between" wrap="nowrap">
+              {/* Both groups WRAP: at narrow widths (390px) a nowrap nav measured
+                  ~407px and overflowed the viewport horizontally on every page
+                  (run-1c). Wrapping to a second header row keeps every item
+                  reachable with zero horizontal scroll. */}
+              <Group justify="space-between">
                 <Anchor component={Link} to={`/${activeLocale}/`} fw={700} fz="lg" underline="never" c="dark">
                   {siteTitle}
                 </Anchor>
-                <Group gap="lg" wrap="nowrap">
+                <Group gap="lg">
                   {primaryItems.map((item) => (
                     <NavItem key={item.id} item={item} />
                   ))}
