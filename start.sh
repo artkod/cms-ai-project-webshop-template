@@ -93,7 +93,18 @@ echo ""
 # ─── 1. Start database ──────────────────────────────────────────────────────
 echo "Starting database..."
 cd "$PROJECT_DIR"
-DB_PORT="$PORT_DB" docker compose up -d --wait 2>/dev/null
+if ! DB_PORT="$PORT_DB" docker compose up -d --wait; then
+  echo "" >&2
+  echo "Error: the database container never became healthy." >&2
+  echo "Last lines of its log:" >&2
+  DB_PORT="$PORT_DB" docker compose logs --tail 20 db >&2 || true
+  echo "" >&2
+  echo "Hint: 'No space left on device' means Docker's virtual disk is full." >&2
+  echo "Check with 'docker system df'; reclaim with 'docker image prune' /" >&2
+  echo "'docker volume ls -f dangling=true', or raise Docker Desktop's" >&2
+  echo "disk image size (Settings -> Resources)." >&2
+  exit 1
+fi
 
 # ─── 2. Run migrations (idempotent) ──────────────────────────────────────────
 echo "Running migrations..."
