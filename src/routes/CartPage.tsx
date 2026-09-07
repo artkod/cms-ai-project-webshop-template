@@ -2,7 +2,8 @@ import { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router";
 import { ActionIcon, Alert, Anchor, Badge, Box, Button, Divider, Group, Image, Loader, Paper, Radio, Select, Stack, Text, TextInput, Title } from "@mantine/core";
 import { Info, Minus, Plus, Trash2, X } from "lucide-react";
-import type { ShippingRate } from "@cms/storefront";
+import type { PickupPointOption, ShippingRate } from "@cms/storefront";
+import { PickupPointPicker } from "@/components/shop/PickupPointPicker";
 import { useCart } from "@/lib/cart";
 import { useLocaleConfig, useStrings } from "@/lib/locale";
 import { formatCents } from "@/lib/money";
@@ -21,8 +22,9 @@ export function CartPage() {
   const { cart, loading, shippingOptions, setQuantity, remove, clear, applyCoupon, removeCoupon, loadShipping, setShipping } = useCart();
   const [code, setCode] = useState("");
   const [applying, setApplying] = useState(false);
-  // Inline pickup-point entry: when a pickup-point method is chosen we reveal a
-  // field (standing in for the carrier's locker picker) before applying it.
+  // Pickup-point selection. A method bound to a carrier catalog opens the real
+  // picker (core DECISIONS 235); one without a catalog keeps the plain text field.
+  const [pickerMethod, setPickerMethod] = useState<ShippingRate | null>(null);
   const [pickupForMethod, setPickupForMethod] = useState<string | null>(null);
   const [pickupName, setPickupName] = useState("");
 
@@ -79,13 +81,30 @@ export function CartPage() {
 
   const onPickMethod = async (m: ShippingRate) => {
     if (m.requiresPickupPoint) {
-      // Reveal the pickup-point field; apply only once a point is entered.
+      // Neither branch commits the method yet — a locker method is only applied
+      // together with its point, so the cart can never sit in a half-chosen state.
+      if (m.pickupProvider) {
+        setPickupForMethod(null);
+        setPickerMethod(m);
+        return;
+      }
+      // No carrier catalog on this method → the old free-form field.
+      setPickerMethod(null);
       setPickupForMethod(m.methodId);
       setPickupName("");
       return;
     }
+    setPickerMethod(null);
     setPickupForMethod(null);
     await setShipping({ methodId: m.methodId });
+  };
+
+  // Send ONLY the carrier id — the server resolves the name/address from its own
+  // catalog and stores that, so nothing here can alter the delivery address.
+  const onPickPoint = async (point: PickupPointOption) => {
+    if (!pickerMethod) return;
+    const ok = await setShipping({ methodId: pickerMethod.methodId, pickupPoint: { id: point.id } });
+    if (ok !== false) setPickerMethod(null);
   };
 
   const onConfirmPickup = async () => {
@@ -245,7 +264,7 @@ export function CartPage() {
                 // point is entered). Selection is driven by the group's onChange —
                 // never per-Radio (that fights Radio.Group's own control).
                 <Radio.Group
-                  value={pickupForMethod ?? shipping?.method?.id ?? ""}
+                  value={pickerMethod?.methodId ?? pickupForMethod ?? shipping?.method?.id ?? ""}
                   onChange={(methodId) => {
                     const m = shippingOptions.methods.find((x) => x.methodId === methodId);
                     if (m) onPickMethod(m);
@@ -271,10 +290,35 @@ export function CartPage() {
               ) : (
                 <Text c="dimmed" fz="xs">{t("shop.cart.noShippingMethods")}</Text>
               )}
-              {shipping?.method?.requiresPickupPoint && shipping.pickupPoint && (
-                <Text c="dimmed" fz="xs">{t("shop.cart.pickup")}: {(shipping.pickupPoint as { name?: string }).name}</Text>
-              )}
+              {shipping?.method?.requiresPickupPoint && shipping.pickupPoint && (() => {
+                const pp = shipping.pickupPoint as { name?: string; address?: string; postalCode?: string; city?: string };
+                const where = [pp.address, [pp.postalCode, pp.city].filter(Boolean).join(" ")].filter(Boolean).join(", ");
+                const chosenMethod = shippingOptions?.methods.find((m) => m.methodId === shipping.method?.id);
+                return (
+                  <Group gap="xs" align="baseline" wrap="wrap">
+                    <Text fz="xs" c="dimmed">
+                      {t("shop.cart.pickup")}: <Text span fw={600} fz="xs" c="var(--mantine-color-text)">{pp.name}</Text>
+                      {where ? ` · ${where}` : ""}
+                    </Text>
+                    {chosenMethod?.pickupProvider && (
+                      <Button variant="subtle" size="compact-xs" onClick={() => setPickerMethod(chosenMethod)}>
+                        {t("shop.pickup.change")}
+                      </Button>
+                    )}
+                  </Group>
+                );
+              })()}
               </>)}
+
+              {pickerMethod && (
+                <PickupPointPicker
+                  opened
+                  method={pickerMethod}
+                  country={shipping?.country ?? "HR"}
+                  onClose={() => setPickerMethod(null)}
+                  onPick={onPickPoint}
+                />
+              )}
 
               {/* Payment method (incl. Cash on Delivery + its surcharge) is chosen
                   in checkout, not here — see L4.5/L7.4. The COD surcharge engine

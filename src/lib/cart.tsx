@@ -30,7 +30,7 @@ interface CartValue {
   applyCoupon: (code: string) => Promise<boolean>;
   removeCoupon: (discountId?: string) => Promise<boolean>;
   loadShipping: (country?: string) => Promise<void>;
-  setShipping: (input: SetShippingInput) => Promise<void>;
+  setShipping: (input: SetShippingInput) => Promise<boolean>;
   refresh: () => Promise<void>;
 }
 
@@ -77,6 +77,12 @@ function cartErrorMessage(err: StorefrontError, t: T): string {
       return t("shop.cart.err.not_stackable");
     case "pickup_point_required":
       return t("shop.cart.err.pickup_point_required");
+    case "pickup_point_invalid":
+      return t("shop.cart.err.pickup_point_invalid");
+    case "pickup_point_not_found":
+      return t("shop.cart.err.pickup_point_not_found");
+    case "pickup_point_unavailable":
+      return t("shop.cart.err.pickup_point_unavailable");
     case "shipping_method_not_found":
       return t("shop.cart.err.shipping_method_not_found");
     default:
@@ -96,6 +102,11 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const apply = useCallback((next: Cart) => {
     setCart(next);
     for (const w of next.warnings ?? []) {
+      if (w === "pickup_point_unavailable") {
+        // The chosen locker left the carrier's catalog — say so now rather than
+        // letting checkout refuse the order at the last step.
+        notifications.show({ color: "yellow", message: t("shop.cart.err.pickup_point_unavailable") });
+      }
       if (w === "coupon_removed") {
         notifications.show({ color: "yellow", message: t("shop.cart.couponRemoved") });
       }
@@ -162,10 +173,11 @@ export function CartProvider({ children }: { children: ReactNode }) {
     [loc],
   );
   const setShipping = useCallback(
-    async (input: SetShippingInput) => {
-      await guard(() => storefront.setShipping(input, { locale: loc }));
+    async (input: SetShippingInput): Promise<boolean> => {
+      const ok = await guard(() => storefront.setShipping(input, { locale: loc }));
       // Re-fetch options for the (possibly changed) destination so rates refresh.
       await loadShipping(input.country ?? undefined);
+      return ok;
     },
     [guard, loc, loadShipping],
   );

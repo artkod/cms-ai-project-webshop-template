@@ -26,7 +26,9 @@ function ratePct(bps: number): string {
 }
 
 function checkoutErrorMessage(err: StorefrontError, t: (key: string) => string): string {
-  const known = ["cart_empty", "insufficient_stock", "coupon_exhausted", "payment_method_unavailable"];
+  // The last two are the locker gates (core DECISIONS 235): at placement time the
+  // chosen paketomat must still be in the carrier's catalog.
+  const known = ["cart_empty", "insufficient_stock", "coupon_exhausted", "payment_method_unavailable", "pickup_point_required", "pickup_point_unavailable"];
   return known.includes(err.code ?? "") ? t(`shop.checkout.err.${err.code}`) : t("shop.checkout.err.default");
 }
 
@@ -375,9 +377,16 @@ export function CheckoutPage() {
                 {cartRequiresShipping && !billingSame && (
                   <Text fz="sm"><b>{t("shop.checkout.billingAddress")}:</b> {billing.name}, {billing.line1}{billing.line2 ? `, ${billing.line2}` : ""}, {billing.postalCode} {billing.city}, {billing.country}</Text>
                 )}
-                {preview?.cart.shipping.method && (
-                  <Text fz="sm"><b>{t("shop.cart.shipping")}:</b> {preview.cart.shipping.method.name}</Text>
-                )}
+                {preview?.cart.shipping.method && (() => {
+                  const pp = preview.cart.shipping.pickupPoint as { name?: string; address?: string; postalCode?: string; city?: string } | null;
+                  const where = pp ? [pp.name, pp.address, [pp.postalCode, pp.city].filter(Boolean).join(" ")].filter(Boolean).join(", ") : "";
+                  return (
+                    <>
+                      <Text fz="sm"><b>{t("shop.cart.shipping")}:</b> {preview.cart.shipping.method.name}</Text>
+                      {where && <Text fz="sm"><b>{t("shop.cart.pickup")}:</b> {where}</Text>}
+                    </>
+                  );
+                })()}
                 {form.note.trim() && <Text fz="sm"><b>{t("shop.checkout.orderNote")}:</b> {form.note}</Text>}
               </Stack>
             </Paper>

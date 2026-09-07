@@ -104,6 +104,7 @@ export declare interface CartShippingMethod {
     name: string;
     kind: ShippingKind;
     requiresPickupPoint: boolean;
+    pickupProvider: string | null;
     codAllowed: boolean;
     taxClass: string;
 }
@@ -684,14 +685,76 @@ export declare interface PaymentView {
     updatedAt: string;
 }
 
-/** A chosen parcel-locker / pickup point stored on the cart (carrier-defined). */
+/**
+ * A chosen parcel-locker / pickup point as STORED on the cart. For a method with a
+ * `pickupProvider` the server resolves every field from its own catalog and
+ * discards whatever else was sent — so this is trustworthy shipping data, not
+ * client input. A provider-less method keeps the older free-form shape.
+ */
 export declare interface PickupPoint {
     id?: string;
     name?: string;
     address?: string;
     provider?: string;
+    postalCode?: string;
+    city?: string;
+    country?: string;
+    type?: string;
+    lat?: number | null;
+    lon?: number | null;
+    resolvedAt?: string;
     [k: string]: unknown;
 }
+
+/** One point from the carrier catalog (`GET /api/commerce/pickup-points`). */
+export declare interface PickupPointOption {
+    /** The CARRIER's id — the only field you send back when choosing a point. */
+    id: string;
+    provider: string;
+    name: string;
+    type: PickupPointType;
+    country: string;
+    postalCode: string;
+    city: string;
+    address: string;
+    /** Present so a storefront can add a map without any API change. */
+    lat: number | null;
+    lon: number | null;
+    features: string[];
+    /** `[day, open, close]` with day 1 = Monday … 7 = Sunday. FORMAT CLIENT-SIDE —
+     *  the endpoint is shared-cached, so it must stay locale-independent. */
+    hours: Array<[number, string, string]>;
+    pickupTime: string | null;
+    wheelchair: boolean;
+}
+
+export declare interface PickupPointSearchParams {
+    /** Preferred: the chosen shipping method — the server resolves the carrier from
+     *  it, so no storefront has to know provider ids. */
+    methodId?: string;
+    provider?: string;
+    country?: string;
+    /** Free text: a 2–5 digit run matches a postal-code prefix, anything else
+     *  matches city / name / address. */
+    q?: string;
+    type?: PickupPointType;
+    limit?: number;
+    offset?: number;
+}
+
+export declare interface PickupPointSearchResult {
+    provider: string;
+    country: string;
+    total: number;
+    limit: number;
+    offset: number;
+    syncedAt: string | null;
+    /** The cached catalog is old or could not be refreshed — warn, don't block. */
+    stale: boolean;
+    points: PickupPointOption[];
+}
+
+export declare type PickupPointType = "parcel-locker" | "parcel-shop";
 
 /** One product as it appears in a listing/grid. */
 export declare interface ProductCard {
@@ -896,6 +959,8 @@ export declare function setLocalWishlist(ids: string[]): string[];
 export declare interface SetShippingInput {
     methodId?: string | null;
     country?: string | null;
+    /** For a provider-backed method send ONLY `{ id }` (the carrier id from
+     *  `searchPickupPoints`) — the server fills in the rest from its catalog. */
     pickupPoint?: PickupPoint | null;
     codSelected?: boolean;
 }
@@ -920,6 +985,9 @@ export declare interface ShippingRate {
     name: string;
     kind: ShippingKind;
     requiresPickupPoint: boolean;
+    /** The carrier catalog to search for a point. Non-null → open the picker
+     *  (`searchPickupPoints`); null → the shop takes a free-form point instead. */
+    pickupProvider: string | null;
     codAllowed: boolean;
     taxClass: string;
     zone: ShippingZone;
@@ -958,7 +1026,7 @@ export declare function storeConsent(decision: {
 
 export declare const STOREFRONT_CONTRACT_VERSION: 3;
 
-export declare const STOREFRONT_SDK_VERSION: "0.0.1";
+export declare const STOREFRONT_SDK_VERSION: "0.1.0";
 
 /** A saved postal address (account address book). Fields mirror the checkout address. */
 export declare interface StorefrontAddress {
@@ -1058,6 +1126,11 @@ export declare interface StorefrontClient {
         locale?: string;
         signal?: AbortSignal;
     }): Promise<Cart>;
+    /** Search the carrier's parcel-locker / parcel-shop catalog for the picker.
+     *  `GET /api/commerce/pickup-points`. Served from the CMS's own synced cache. */
+    searchPickupPoints(params?: PickupPointSearchParams, opts?: {
+        signal?: AbortSignal;
+    }): Promise<PickupPointSearchResult>;
     /** Preview totals at the destination tax + the quote flag. `GET /api/commerce/checkout`. */
     previewCheckout(opts?: {
         locale?: string;
