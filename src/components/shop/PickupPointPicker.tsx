@@ -35,9 +35,9 @@ const PickupPointMap = lazy(() => import("./PickupPointMap"));
 //     because a map cannot show page 1 of 13 and "nearest to me" cannot be
 //     answered from a page. Distance is then computed in the browser, so the
 //     shopper's coordinates never leave it.
-// The map pane mounts only while its tab is open (`keepMounted={false}`) —
-// click-to-load, so OSM tile servers see an IP only for shoppers who ask for a
-// map.
+// The map pane mounts only while its tab is open (`keepMounted={false}` on the
+// `Tabs` PARENT — see the note at the JSX) — click-to-load, so OSM tile servers
+// see an IP only for shoppers who ask for a map.
 // ─────────────────────────────────────────────────────────────────────────────
 
 const DEBOUNCE_MS = 250;
@@ -107,8 +107,11 @@ export function PickupPointPicker({ opened, method, country, onClose, onPick }: 
   const needsFull = opened && (tab === "map" || nearMode);
 
   // ── LIST: one debounced, abortable request per settled query ───────────────
+  // Only while the list is actually showing: the map tab has its own query, and
+  // running both would cost two requests per keystroke. Switching back refetches,
+  // which the endpoint's `public, max-age=300` serves from the browser cache.
   useEffect(() => {
-    if (!opened || nearMode) return;
+    if (!opened || nearMode || tab !== "list") return;
     const timer = setTimeout(() => {
       abortRef.current?.abort();
       const ctrl = new AbortController();
@@ -141,7 +144,7 @@ export function PickupPointPicker({ opened, method, country, onClose, onPick }: 
     }, DEBOUNCE_MS);
     return () => clearTimeout(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [opened, nearMode, method.methodId, country, query, type, offset, attempt]);
+  }, [opened, nearMode, tab, method.methodId, country, query, type, offset, attempt]);
 
   // ── MAP / near: the whole match set in one request ─────────────────────────
   useEffect(() => {
@@ -195,6 +198,10 @@ export function PickupPointPicker({ opened, method, country, onClose, onPick }: 
     if (origin) { // pressed again = "show all again"
       setOrigin(null);
       setNearShown(PAGE_SIZE);
+      // Back to server paging from the top: the list still holds the pages the
+      // shopper had loaded, so resuming at the old offset would append a page it
+      // already shows.
+      setOffset(0);
       return;
     }
     if (!navigator.geolocation) { setGeoDenied(true); return; }
@@ -282,7 +289,12 @@ export function PickupPointPicker({ opened, method, country, onClose, onPick }: 
           </Alert>
         )}
 
-        <Tabs value={tab} onChange={(v) => setTab((v as Tab) ?? "list")}>
+        {/* `keepMounted` belongs on the PARENT: on `Tabs.Panel` the prop only ever
+            opts a panel back IN ("keep this one mounted even though the parent says
+            no"), so `keepMounted={false}` there is silently a no-op and the map would
+            mount hidden the moment the picker opens — fetching a tile from OSM for a
+            shopper who never asked for a map. Verified in the browser (#236). */}
+        <Tabs keepMounted={false} value={tab} onChange={(v) => setTab((v as Tab) ?? "list")}>
           <Tabs.List grow>
             <Tabs.Tab value="list" leftSection={<List size={14} />}>
               {t("shop.pickup.tabList")}
@@ -359,7 +371,7 @@ export function PickupPointPicker({ opened, method, country, onClose, onPick }: 
           </Tabs.Panel>
 
           {/* ── MAP (mounted only while open — click-to-load) ─────────────── */}
-          <Tabs.Panel value="map" pt="sm" keepMounted={false}>
+          <Tabs.Panel value="map" pt="sm">
             <Stack gap="xs">
               {fullFailed ? (
                 <Alert color="red" icon={<AlertTriangle size={16} />} variant="light">
