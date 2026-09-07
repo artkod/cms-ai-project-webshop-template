@@ -80,6 +80,10 @@ clone is `cms-ai-core-1`** (there is also a stale non-git `cms-ai-core` copy —
 React 19 + Vite 6, React Router v7, Mantine 7 (light, teal), TypeScript, PostgreSQL 16 (Docker).
 DB name `project_webshop_template`; project slug `project-webshop-template`.
 
+Leaflet + `leaflet.markercluster` (OpenStreetMap tiles, no API key) power the pickup-point map
+pane only, and must stay a `React.lazy` chunk behind the Map tab (core DECISIONS 236): a static
+import puts ~200 kB on every shopper and lets OSM see the IP of people who never asked for a map.
+
 ---
 
 ## Page types

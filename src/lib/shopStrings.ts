@@ -217,6 +217,19 @@ const en: Dict = {
   "shop.pickup.days.5": "Fri",
   "shop.pickup.days.6": "Sat",
   "shop.pickup.days.7": "Sun",
+
+  // Map pane (#236). Counted nouns are avoided on purpose: Croatian has three
+  // plural forms and the shop dictionary has no plural helper.
+  "shop.pickup.tabList": "List",
+  "shop.pickup.tabMap": "Map",
+  "shop.pickup.nearMe": "Near me",
+  "shop.pickup.clearNearMe": "Clear location",
+  "shop.pickup.geoDenied": "We could not get your location. Search by city or postal code instead.",
+  "shop.pickup.youAreHere": "You are here",
+  "shop.pickup.mapLabel": "Map of pickup points",
+  "shop.pickup.choose": "Choose",
+  "shop.pickup.mapCount": "Shown on the map: {{count}}",
+  "shop.pickup.mapTruncated": "only the first batch is shown — narrow the search",
   "shop.cart.err.default": "Something went wrong with your cart. Please try again.",
   "shop.cart.apply": "Apply",
   "shop.cart.shipping": "Shipping",
@@ -820,6 +833,19 @@ const hr: Dict = {
   "shop.pickup.days.5": "Pet",
   "shop.pickup.days.6": "Sub",
   "shop.pickup.days.7": "Ned",
+
+  // Karta (#236). Namjerno bez brojivih imenica — hrvatski ima tri oblika
+  // množine, a rječnik dućana nema pomoćnik za množinu.
+  "shop.pickup.tabList": "Popis",
+  "shop.pickup.tabMap": "Karta",
+  "shop.pickup.nearMe": "Najbliže meni",
+  "shop.pickup.clearNearMe": "Poništi lokaciju",
+  "shop.pickup.geoDenied": "Nismo uspjeli odrediti vašu lokaciju. Pretražite po gradu ili poštanskom broju.",
+  "shop.pickup.youAreHere": "Vi ste ovdje",
+  "shop.pickup.mapLabel": "Karta preuzimnih mjesta",
+  "shop.pickup.choose": "Odaberi",
+  "shop.pickup.mapCount": "Prikazano na karti: {{count}}",
+  "shop.pickup.mapTruncated": "prikazan je samo prvi dio rezultata — suzite pretragu",
   "shop.cart.err.default": "Ne\u0161to je po\u0161lo po zlu s ko\u0161aricom. Poku\u0161ajte ponovno.",
   "shop.cart.apply": "Primijeni",
   "shop.cart.shipping": "Dostava",
