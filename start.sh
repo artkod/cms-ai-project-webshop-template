@@ -26,6 +26,39 @@ PID_FILE="$PROJECT_DIR/.dev-pids"
 # Portable file mtime (GNU stat first, then BSD/macOS).
 file_mtime() { stat -c %Y "$1" 2>/dev/null || stat -f %m "$1" 2>/dev/null || echo 0; }
 
+# Install a workspace's dependencies when they are missing (a fresh `git clone`
+# has no node_modules at all) or when its lockfile is newer than the last
+# install (a `git pull` that added a dep). pnpm no-ops in a couple of seconds
+# when everything is already in place, so this is safe to run on every start.
+# Extra arguments are additional directories that must exist for the install to
+# count as complete (e.g. a workspace package's own node_modules).
+ensure_deps() {
+  local label="$1" dir="$2"
+  shift 2
+  local stamp="$dir/node_modules/.modules.yaml"
+  local lock="$dir/pnpm-lock.yaml"
+  local reason=""
+
+  if [[ ! -d "$dir/node_modules" ]]; then
+    reason="first run"
+  elif [[ -f "$lock" && -f "$stamp" ]] && (( $(file_mtime "$lock") > $(file_mtime "$stamp") )); then
+    reason="lockfile changed"
+  else
+    while (( $# > 0 )); do
+      if [[ ! -d "$1" ]]; then
+        reason="incomplete install"
+        break
+      fi
+      shift
+    done
+  fi
+
+  if [[ -n "$reason" ]]; then
+    echo "Installing $label dependencies ($reason)..."
+    ( cd "$dir" && pnpm install )
+  fi
+}
+
 # ─── Helpers ─────────────────────────────────────────────────────────────────
 RESERVED_FILE=$(mktemp)
 find_free_port() {
@@ -37,6 +70,19 @@ find_free_port() {
   done
   echo "$port" >> "$RESERVED_FILE"
   echo "$port"
+}
+
+# pnpm HARDLINKS file: deps into its virtual store, so the store's copy of
+# @cms/admin-base and the committed admin/vendor/admin-base/dist file share one
+# inode — a plain `cp` onto the store writes THROUGH the link and silently
+# rewrites the vendored bundle (git then shows the whole 3 MB file as modified).
+# Unlink first so cp creates a fresh inode; re-vendoring stays an explicit
+# `pnpm vendor:admin-base`.
+sync_into_store() {
+  local src="$1" dst="$2"
+  [[ -f "$src" ]] || return 0
+  rm -f "$dst" 2>/dev/null || true
+  cp "$src" "$dst" 2>/dev/null || true
 }
 
 cleanup() {
@@ -54,13 +100,52 @@ cleanup() {
 trap cleanup EXIT INT TERM
 
 # ─── Check prerequisites ────────────────────────────────────────────────────
+# Docker Desktop only symlinks its CLI into /usr/local/bin when you grant it
+# privileged access at install time; decline that and the CLI lives in
+# ~/.docker/bin, which reaches PATH through a line Docker appends to your shell
+# profile — a line that terminal sessions opened BEFORE the install never read.
+# So look in the known install locations before declaring Docker missing.
 if ! command -v docker &>/dev/null; then
-  echo "Error: Docker is not installed." >&2
+  for cand in "$HOME/.docker/bin" /usr/local/bin /opt/homebrew/bin \
+              "/Applications/Docker.app/Contents/Resources/bin"; do
+    if [[ -x "$cand/docker" ]]; then
+      PATH="$cand:$PATH"
+      echo "Note: the Docker CLI is not on your PATH — using $cand for this run."
+      echo "      Open a new terminal (or 'source ~/.zprofile') to make it permanent."
+      break
+    fi
+  done
+fi
+
+if ! command -v docker &>/dev/null; then
+  echo "Error: the Docker CLI was not found." >&2
+  echo "Install Docker Desktop: https://www.docker.com/products/docker-desktop/" >&2
   exit 1
+fi
+
+# The CLI can be present while the daemon is not: without this probe the failure
+# surfaces further down as a raw socket error from 'docker compose up'.
+if ! docker info &>/dev/null; then
+  echo "Error: the Docker CLI works but the Docker daemon is not reachable." >&2
+  echo "Start Docker Desktop, wait for it to finish booting, then retry." >&2
+  exit 1
+fi
+
+if ! docker compose version &>/dev/null; then
+  echo "Error: the 'docker compose' plugin is missing (Compose v2 required)." >&2
+  echo "Update Docker Desktop, or install the compose CLI plugin." >&2
+  exit 1
+fi
+
+# pnpm ships with Node via corepack — enable it rather than failing the run.
+if ! command -v pnpm &>/dev/null && command -v corepack &>/dev/null; then
+  echo "pnpm not found — enabling it through corepack..."
+  corepack enable pnpm 2>/dev/null || true
 fi
 
 if ! command -v pnpm &>/dev/null; then
   echo "Error: pnpm is not installed." >&2
+  echo "Install it with 'corepack enable pnpm' or 'npm install -g pnpm'." >&2
   exit 1
 fi
 
@@ -89,6 +174,15 @@ echo "    CMS API    → localhost:$PORT_API"
 echo "    CMS Admin  → localhost:$PORT_ADMIN"
 echo "    Website    → localhost:$PORT_WEB"
 echo ""
+
+# ─── 0. Install dependencies (fresh clone) ──────────────────────────────────
+# A fresh `git clone` of core and of this project has no node_modules, and the
+# migration step below runs core's tsx while the frontend step runs the local
+# vite — so nothing works until these three installs have happened. Doing them
+# here is what makes ./start.sh a genuine one-command first run.
+ensure_deps "cms-ai-core"      "$CMS_CORE_DIR" "$CMS_CORE_DIR/apps/api/node_modules"
+ensure_deps "project frontend" "$PROJECT_DIR"
+ensure_deps "project admin"    "$PROJECT_DIR/admin"
 
 # ─── 1. Start database ──────────────────────────────────────────────────────
 echo "Starting database..."
@@ -149,20 +243,14 @@ if [[ "$needs_rebuild" == true ]]; then
   pnpm --filter @cms/admin-base build
 fi
 
-# ─── 5. Install project admin deps (first run only) ──────────────────────────
-if [[ ! -d "$PROJECT_DIR/admin/node_modules" ]]; then
-  echo "Installing project admin dependencies..."
-  cd "$PROJECT_DIR/admin"
-  pnpm install
-fi
-
-# Sync admin-base dist into pnpm virtual store (pnpm copies file: deps at install
-# time and won't pick up rebuilds until the store is updated manually).
+# ─── 5. Sync admin-base dist into the pnpm virtual store ─────────────────────
+# Dependencies themselves were installed in step 0. pnpm copies file: deps at
+# install time and won't pick up rebuilds until the store is updated manually.
 PNPM_ADMIN_BASE_DIST=$(readlink -f "$PROJECT_DIR/admin/node_modules/@cms/admin-base/dist" 2>/dev/null || \
   find "$PROJECT_DIR/admin/node_modules/.pnpm" -path "*/admin-base/dist" -type d 2>/dev/null | head -1)
 if [[ -n "$PNPM_ADMIN_BASE_DIST" ]]; then
-  cp "$CMS_CORE_DIR/packages/admin-base/dist/index.js"  "$PNPM_ADMIN_BASE_DIST/index.js" 2>/dev/null || true
-  cp "$CMS_CORE_DIR/packages/admin-base/dist/index.d.ts" "$PNPM_ADMIN_BASE_DIST/index.d.ts" 2>/dev/null || true
+  sync_into_store "$CMS_CORE_DIR/packages/admin-base/dist/index.js"   "$PNPM_ADMIN_BASE_DIST/index.js"
+  sync_into_store "$CMS_CORE_DIR/packages/admin-base/dist/index.d.ts" "$PNPM_ADMIN_BASE_DIST/index.d.ts"
 fi
 
 rm -rf "$VITE_CACHE"
@@ -212,9 +300,9 @@ echo "$ADMIN_PID" >> "$PID_FILE"
     current_mtime=$(file_mtime "$ADMIN_BASE_DIST")
     if [[ "$current_mtime" != "$last_mtime" && -n "$last_mtime" ]]; then
       if [[ -n "$PNPM_ADMIN_BASE_DIST" ]]; then
-        cp "$ADMIN_BASE_DIST" "$PNPM_ADMIN_BASE_DIST/index.js" 2>/dev/null || true
-        cp "$CMS_CORE_DIR/packages/admin-base/dist/index.d.ts" \
-           "$PNPM_ADMIN_BASE_DIST/index.d.ts" 2>/dev/null || true
+        sync_into_store "$ADMIN_BASE_DIST" "$PNPM_ADMIN_BASE_DIST/index.js"
+        sync_into_store "$CMS_CORE_DIR/packages/admin-base/dist/index.d.ts" \
+                        "$PNPM_ADMIN_BASE_DIST/index.d.ts"
       fi
       rm -rf "$VITE_CACHE"
       # Kill the vite CHILD too: `pnpm dev` is a wrapper — killing only it orphans

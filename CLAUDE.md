@@ -55,9 +55,9 @@ them server-side. B2B lands in L5.5.
 
 ## Related repos
 
-`cms-ai-core` must be cloned as a sibling directory. **On the current dev machine the working core
-clone is `cms-ai-core-1`** (there is also a stale non-git `cms-ai-core` copy — ignore it).
-`start.sh` auto-prefers `cms-ai-core-1`, then `cms-ai-core`; override with `CMS_CORE_DIR=…`.
+`cms-ai-core` must be cloned as a sibling directory. `start.sh` auto-prefers `cms-ai-core-1`
+(a legacy working-clone name kept for older machines), then `cms-ai-core` — the plain clone name
+is the normal case; override with `CMS_CORE_DIR=…`.
 
 ---
 
@@ -68,7 +68,10 @@ clone is `cms-ai-core-1`** (there is also a stale non-git `cms-ai-core` copy —
 ./stop.sh     # clean shutdown
 ```
 
-- Requires **Docker** and **pnpm** (`corepack enable pnpm` if missing).
+- Requires **Docker Desktop running** and **Node**; `start.sh` enables pnpm through corepack and
+  installs core + project + admin `node_modules` itself, so a fresh `git clone` of both repos boots
+  with `./start.sh` alone. It also finds Docker's CLI in `~/.docker/bin` etc. when a terminal opened
+  before the Docker install still has a stale PATH.
 - Custom core path: `CMS_CORE_DIR=/path/to/cms-ai-core ./start.sh`
 - Default dev login (seeded): `developer@artkod.com` / `k0dart`.
 - Ports auto-pick from 5432/3000/3001/5173 upward.

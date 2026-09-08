@@ -12,13 +12,20 @@ as each roadmap phase lands. Design + plan: `cms-ai-core/docs/webshop-design.md`
 ## Run
 
 ```bash
-# requires Docker + pnpm (corepack enable pnpm)
+# requires Docker Desktop (running) + Node — nothing else to install first
 ./start.sh        # → admin :5173, website :3000, API :3001 (auto-picks free ports)
 ./stop.sh
 ```
 
-`cms-ai-core` must be a sibling checkout. On the dev machine that's `cms-ai-core-1`; `start.sh`
-auto-detects it, or pass `CMS_CORE_DIR=/path/to/core ./start.sh`.
+`start.sh` is a one-command first run: on a fresh `git clone` of this repo and of `cms-ai-core` it
+enables pnpm through corepack, installs the core / frontend / admin dependencies, builds
+`@cms/admin-base`, starts the Docker DB, migrates and seeds, then brings up API + admin + frontend.
+Re-runs skip the installs unless a `pnpm-lock.yaml` changed. If a terminal was opened before Docker
+Desktop was installed, its PATH lacks `~/.docker/bin` and `docker` looks "not installed" — the
+script finds the CLI anyway and tells you to open a new terminal (or `source ~/.zprofile`).
+
+`cms-ai-core` must be a sibling checkout; `start.sh` auto-detects `cms-ai-core-1` (legacy name) then
+`cms-ai-core`, or pass `CMS_CORE_DIR=/path/to/core ./start.sh`.
 
 Default seeded login: `developer@artkod.com` / `k0dart`.
 
