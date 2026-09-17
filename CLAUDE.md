@@ -135,6 +135,26 @@ Vitest + jsdom + @testing-library/react + axe-core (`vitest.config.ts`, shims in
 `@/lib/storefront` client and asserts zero axe violations (`color-contrast` off — jsdom does no
 layout) + aria-invalid checkout field errors. Run after touching cart/checkout/banner markup.
 
+## Croatian price-display duties (DECISIONS 245 in core)
+
+From **1 Oct 2026** two Government decisions (NN 101/2026) bind every Croatian shop, this one
+included once it goes live:
+
+- **Sidrena cijena.** The product page prints `Cijena na dan {anchorDate}: {anchorPrice}` under the
+  price whenever the SDK sends both (`ProductPage.tsx`). The API also carries the pair on product
+  CARDS, so a project can surface it in the grid and the cart without an API change — the shipped
+  template deliberately keeps cards price-only (the L5.5 ruling). The VALUES are declared per
+  variant in the admin; nothing about them is computed here.
+- **Strojno čitljivi cjenik.** `/{locale}/cjenik` (`PriceListPage.tsx`, linked from the footer)
+  lists the published CSV files from `storefront.listPricePublications()`. **This route and
+  `/api/commerce/price-publications/*` must stay crawler-readable**: never add them to a
+  `robots.txt` exclusion, a bot challenge or an auth wall — the decree explicitly requires
+  automated price collection to be possible. There is no `public/robots.txt` today; if one is ever
+  added, it must not disallow either path.
+- **Omnibus line.** `shop.product.lowestPrice` names the 30 days *before the reduction*, and the
+  API only sends `compareAt` while a sale actually runs (DECISIONS 246) — a plain price cut shows
+  no reference and no Sale badge should imply one.
+
 ## Consent + analytics (L9.6)
 
 `ConsentProvider` (`src/lib/consent.tsx`) + fixed-bottom `CookieBanner` + footer "Cookie settings"

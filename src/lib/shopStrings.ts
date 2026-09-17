@@ -89,7 +89,20 @@ const en: Dict = {
   "shop.product.priceOnRequest": "Price on request",
   "shop.product.inStockCount": "In stock",
   "shop.product.sku": "SKU",
-  "shop.product.lowestPrice": "Lowest price in the last 30 days",
+  // ZZP čl. 19: the reference is the lowest price applied in the 30 days BEFORE
+  // the sale began, which is why the wording names the reduction, not "today".
+  "shop.product.lowestPrice": "Lowest price in the 30 days before the reduction",
+  // Sidrena cijena (NN 101/2026) — rendered as "Price on 10/9/2026: 79,00 €".
+  "shop.product.anchorPrice": "Price on",
+  "shop.nav.priceList": "Price list",
+  "shop.priceList.title": "Price list",
+  "shop.priceList.intro": "Our current prices in a machine-readable file, published every working day and kept available for 30 days.",
+  "shop.priceList.products": "Products",
+  "shop.priceList.services": "Services",
+  "shop.priceList.rows": "{{n}} items",
+  "shop.priceList.validFor": "Valid for {{date}}",
+  "shop.priceList.empty": "No price list has been published yet.",
+  "shop.priceList.failed": "The price list could not be loaded.",
   "shop.product.notFound": "Product not found.",
 
   // Wishlist button
@@ -706,7 +719,17 @@ const hr: Dict = {
   "shop.product.priceOnRequest": "Cijena na upit",
   "shop.product.inStockCount": "Na zalihi",
   "shop.product.sku": "SKU",
-  "shop.product.lowestPrice": "Najniža cijena u posljednjih 30 dana",
+  "shop.product.lowestPrice": "Najniža cijena u 30 dana prije sniženja",
+  "shop.product.anchorPrice": "Cijena na dan",
+  "shop.nav.priceList": "Cjenik",
+  "shop.priceList.title": "Cjenik",
+  "shop.priceList.intro": "Naše važeće cijene u strojno čitljivoj datoteci, objavljene svakog radnog dana i dostupne 30 dana.",
+  "shop.priceList.products": "Proizvodi",
+  "shop.priceList.services": "Usluge",
+  "shop.priceList.rows": "{{n}} artikala",
+  "shop.priceList.validFor": "Vrijedi za {{date}}",
+  "shop.priceList.empty": "Cjenik još nije objavljen.",
+  "shop.priceList.failed": "Cjenik nije moguće učitati.",
   "shop.product.notFound": "Proizvod nije pronađen.",
 
   // Wishlist button

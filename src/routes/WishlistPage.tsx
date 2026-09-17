@@ -40,6 +40,11 @@ function detailToCard(p: CatalogProduct): ProductCard {
     price: prices.length ? Math.min(...prices) : 0,
     priceMax: prices.length ? Math.max(...prices) : 0,
     compareAt: cheapest?.compareAt ?? null,
+    // Sidrena cijena (DECISIONS 245) + the shop-defined attributes a card carries
+    // — both come off the cheapest variant / the product, exactly as toCard does.
+    anchorPrice: cheapest?.anchorPrice ?? null,
+    anchorDate: cheapest?.anchorDate ?? null,
+    attributes: p.attributes,
     onSale: p.variants.some((v) => v.onSale),
     inStock: p.variants.some((v) => v.inStock),
     sellable: p.variants.some((v) => v.sellable),

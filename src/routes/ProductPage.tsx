@@ -6,7 +6,7 @@ import { trackAddToCart, trackViewItem, type CatalogProduct, type CatalogVariant
 import { storefront } from "@/lib/storefront";
 import { useLocaleConfig, usePageAlternates, useStrings } from "@/lib/locale";
 import { useCart } from "@/lib/cart";
-import { formatCents } from "@/lib/money";
+import { formatCents, formatIsoDate } from "@/lib/money";
 import { useDocumentSeo, useJsonLd } from "@/lib/seo";
 import { useCategoryTree, categoryChain, categoryHref } from "@/components/shop/catalogUrls";
 import { WishlistButton } from "@/components/shop/WishlistButton";
@@ -29,6 +29,9 @@ export function ProductPage({ product: productProp }: { product?: CatalogProduct
   const { setAlternates } = usePageAlternates();
   const { t } = useStrings();
   const loc = locale ?? defaultLocale;
+  // The anchor-price line names a calendar date, so it follows the CONTENT locale
+  // ("10. 9. 2026." in Croatian, "9/10/2026" in English).
+  const dateLocale = loc === "hr" ? "hr-HR" : "en-GB";
   const { add } = useCart();
   const categories = useCategoryTree(loc);
 
@@ -217,11 +220,22 @@ export function ProductPage({ product: productProp }: { product?: CatalogProduct
                     )}
                     {variant.onSale && <Badge color="red">{t("shop.badge.sale")}</Badge>}
                   </Group>
-                  {/* EU Omnibus: the lowest price applied in the 30 days before this
-                      reduction (compareAt), shown as an explicit labelled note. */}
+                  {/* EU Omnibus / ZZP čl. 19: the lowest price applied in the 30
+                      days BEFORE this sale started, shown as an explicit labelled
+                      note. Present only while a sale runs. */}
                   {variant.compareAt != null && (
                     <Text fz="xs" c="dimmed">
                       {t("shop.product.lowestPrice")}: {formatCents(variant.compareAt)}
+                    </Text>
+                  )}
+                  {/* Sidrena cijena (NN 101/2026): the regular price the shop
+                      applied on the reference date, displayed next to the current
+                      one. A separate, permanent disclosure — it has nothing to do
+                      with whether this product is on sale today, so it is rendered
+                      independently of the Omnibus line above. */}
+                  {variant.anchorPrice != null && variant.anchorDate && (
+                    <Text fz="xs" c="dimmed">
+                      {t("shop.product.anchorPrice")} {formatIsoDate(variant.anchorDate, dateLocale)}: {formatCents(variant.anchorPrice)}
                     </Text>
                   )}
                 </Stack>

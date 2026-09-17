@@ -99,7 +99,7 @@ export function CatalogBrowser({
       })
       .catch(() => {
         if (alive) {
-          setResult({ data: [], total: 0, facets: { categories: [], types: [], options: [], priceRange: null, inStock: 0 } });
+          setResult({ data: [], total: 0, facets: { categories: [], types: [], options: [], attributes: [], priceRange: null, inStock: 0 } });
           setLoading(false);
         }
       });
@@ -109,7 +109,7 @@ export function CatalogBrowser({
     };
   }, [locale, debouncedSearch, sort, filters, page, showCategoryFacet, fetchPage]);
 
-  const facets: SearchFacets = result?.facets ?? { categories: [], types: [], options: [], priceRange: null, inStock: 0 };
+  const facets: SearchFacets = result?.facets ?? { categories: [], types: [], options: [], attributes: [], priceRange: null, inStock: 0 };
   const total = result?.total ?? 0;
   const pageCount = Math.max(1, Math.ceil(total / PAGE_SIZE));
 

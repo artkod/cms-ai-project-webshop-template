@@ -9,6 +9,19 @@ export declare interface AnalyticsItem {
     quantity?: number;
 }
 
+/** Shop-defined attribute facet (#238): `code`/`key` are the filter keys, labels follow the
+ *  locale, codes AND values keep the admin's definition order. Counts are drill-down: each
+ *  code's counts exclude its own active filter (so sibling values stay selectable). */
+export declare interface AttributeFacet {
+    code: string;
+    label: string;
+    values: {
+        key: string;
+        label: string;
+        count: number;
+    }[];
+}
+
 /** The full cart, returned by every cart endpoint. */
 export declare interface Cart {
     id: string;
@@ -211,6 +224,8 @@ export declare interface CatalogProduct {
     purchasable: boolean;
     locale: string;
     name: string;
+    /** Brand (#245), or null. Also the `marka` column of the published price list. */
+    brand: string | null;
     slug: string;
     shortDescription: string | null;
     /** First-class plain-text description (paragraphs split on blank lines) —
@@ -227,6 +242,10 @@ export declare interface CatalogProduct {
     /** Per-locale noindex — the storefront head must honour it (L11 parity). */
     noindex: boolean;
     blocks: CatalogBlock[];
+    /** Shop-defined attributes (Catalog → Attributes, #238) this product carries,
+     *  locale-resolved and in definition order. `code`/`key` are the stable
+     *  identifiers; `label`s follow the requested locale. */
+    attributes: CatalogProductAttribute[];
     gallery: CatalogImage[];
     options: CatalogOption[];
     variants: CatalogVariant[];
@@ -250,6 +269,19 @@ export declare interface CatalogProduct {
     jsonLd: Record<string, unknown>;
 }
 
+/** One shop-defined attribute (Catalog → Attributes, #238) as carried by a card or
+ *  a detail, e.g. `{ code: "material", label: "Material", values: [{ key: "oak", label: "Oak" }] }`.
+ *  `code`/`key` are the stable identifiers (also the {@link ProductListParams.attributes}
+ *  filter keys + {@link AttributeFacet} keys); `label`s follow the requested locale. */
+export declare interface CatalogProductAttribute {
+    code: string;
+    label: string;
+    values: {
+        key: string;
+        label: string;
+    }[];
+}
+
 export declare type CatalogSort = "newest" | "price_asc" | "price_desc" | "name_asc" | "name_desc";
 
 /** A variant on a product-detail response (price + availability resolved). */
@@ -262,6 +294,12 @@ export declare interface CatalogVariant {
     effectivePrice: number;
     onSale: boolean;
     compareAt: number | null;
+    /** Sidrena cijena (#245) — the declared regular price on `anchorDate`, EUR cents. */
+    anchorPrice: number | null;
+    /** The reference date the anchor price refers to (`YYYY-MM-DD`), or null. */
+    anchorDate: string | null;
+    /** EAN/GTIN, or null. Also the `barkod` column of the published price list. */
+    barcode: string | null;
     isDefault: boolean;
     optionValues: Record<string, string>;
     position: number;
@@ -340,6 +378,35 @@ export declare function clearLocalWishlist(): void;
 
 /** Forget the stored decision (re-shows the banner on next load). */
 export declare function clearStoredConsent(): void;
+
+/** `GET /api/commerce/catalog/collections/:codeOrId` — the collection with its members
+ *  as listing cards in CURATED order. Products that are not visible in the locale
+ *  (unpublished, untranslated, locale-hidden) are dropped server-side, so `products`
+ *  is always renderable; `total` is the curated member count before that filter. */
+export declare interface Collection extends CollectionSummary {
+    products: ProductCard[];
+    total: number;
+}
+
+/** Options for {@link StorefrontClient.getCollection}. */
+export declare interface CollectionParams {
+    locale?: string;
+    /** Cap the returned cards (a homepage band wants the first N), 1–100. */
+    limit?: number;
+    signal?: AbortSignal;
+}
+
+/** One active collection as listed by `GET /api/commerce/catalog/collections` —
+ *  a hand-curated, ORDERED product list the shop merchandises with (a homepage
+ *  "Featured collection", "Gift ideas", …). `code` is the stable identifier a
+ *  project references (page editors store it); `name` follows the requested locale. */
+export declare interface CollectionSummary {
+    id: string;
+    code: string;
+    name: string;
+    /** Storefront copy under the name (requested locale, falls back to any), or null. */
+    description: string | null;
+}
 
 /** Response of `GET /api/commerce/health` (the public gating probe). */
 export declare interface CommerceHealth {
@@ -756,6 +823,26 @@ export declare interface PickupPointSearchResult {
 
 export declare type PickupPointType = "parcel-locker" | "parcel-shop";
 
+/** One published price-list file. */
+export declare interface PricePublicationFile {
+    id: string;
+    /** `products` (refreshed daily) or `services` (refreshed on every change). */
+    kind: "products" | "services";
+    /** The decree-shaped file name (outlet + broj pohrane + local timestamp). */
+    filename: string;
+    /** The API-relative path the file is served from. */
+    path: string;
+    /** The absolute URL, resolved by the SDK against its `apiUrl` — link this. */
+    url: string;
+    format: string;
+    /** "Broj pohrane" — 1-based per kind. */
+    sequence: number;
+    /** The business day the file is valid for (`YYYY-MM-DD`, Europe/Zagreb). */
+    forDate: string;
+    generatedAt: string;
+    rowCount: number;
+}
+
 /** One product as it appears in a listing/grid. */
 export declare interface ProductCard {
     id: string;
@@ -774,10 +861,20 @@ export declare interface ProductCard {
     /** The cheapest variant's Omnibus compare-at (struck-through reference), or null. */
     compareAt: number | null;
     onSale: boolean;
+    /** The cheapest variant's SIDRENA CIJENA (#245): the regular price the merchant
+     *  applied on {@link ProductCard.anchorDate}, EUR cents, or null when none was
+     *  declared. Croatia requires it next to the retail price (NN 101/2026). */
+    anchorPrice: number | null;
+    /** The reference date the anchor price refers to (`YYYY-MM-DD`), or null. Always
+     *  render the two together — a bare amount is not the legal disclosure. */
+    anchorDate: string | null;
     inStock: boolean;
     sellable: boolean;
     variantCount: number;
     primaryCategoryId: string | null;
+    /** Shop-defined attributes this product carries (same shape as the detail), locale-resolved,
+     *  definition order — so a grid card can print e.g. the wood a piece is made of. */
+    attributes: CatalogProductAttribute[];
 }
 
 /** Query parameters for {@link StorefrontClient.listProducts}. */
@@ -791,6 +888,10 @@ export declare interface ProductListParams {
     type?: string;
     /** Option-value facet filters: `{ Color: ["Red","Blue"], Size: ["M"] }` (AND across axes, OR within). */
     options?: Record<string, string[]>;
+    /** Shop-defined attribute filters (#238): `{ material: ["oak","walnut"], finish: ["oiled"] }` —
+     *  AND across codes, OR within a code. Wire form: repeated `attribute=code:key,key`. Unknown
+     *  codes/keys are ignored server-side (a stale link shows the unfiltered list, not an empty page). */
+    attributes?: Record<string, string[]>;
     minPrice?: number;
     maxPrice?: number;
     inStock?: boolean;
@@ -945,6 +1046,8 @@ export declare interface SearchFacets {
     categories: CategoryFacet[];
     types: TypeFacet[];
     options: OptionFacet[];
+    /** Only attributes some product in the result set carries; zero-count values are dropped. */
+    attributes: AttributeFacet[];
     priceRange: {
         min: number;
         max: number;
@@ -1026,7 +1129,7 @@ export declare function storeConsent(decision: {
 
 export declare const STOREFRONT_CONTRACT_VERSION: 3;
 
-export declare const STOREFRONT_SDK_VERSION: "0.1.0";
+export declare const STOREFRONT_SDK_VERSION: "0.4.0";
 
 /** A saved postal address (account address book). Fields mirror the checkout address. */
 export declare interface StorefrontAddress {
@@ -1078,6 +1181,25 @@ export declare interface StorefrontClient {
     }): Promise<CategoryNode[]>;
     /** Category landing (metadata + breadcrumb + children + products). `GET …/catalog/categories/:idOrSlug`. */
     getCategory(idOrSlug: string, params?: ProductListParams): Promise<CategoryLanding>;
+    /** The ACTIVE curated collections (id, code, locale name). `GET …/catalog/collections` (#240). */
+    listCollections(opts?: {
+        locale?: string;
+        signal?: AbortSignal;
+    }): Promise<CollectionSummary[]>;
+    /** One active collection with its members as cards in curated order. `GET …/catalog/collections/:codeOrId`. */
+    getCollection(codeOrId: string, params?: CollectionParams): Promise<Collection>;
+    /**
+     * The published price-list files of the last 30 days, newest first.
+     * `GET /api/commerce/price-publications`.
+     *
+     * Croatia requires a trader with a website to publish these and keep them
+     * reachable (NN 101/2026-1213), so a Croatian storefront links them from a
+     * public page (`/cjenik`) and must not block crawlers from either that page or
+     * the file URLs. Each entry's `url` is already absolute.
+     */
+    listPricePublications(opts?: {
+        signal?: AbortSignal;
+    }): Promise<PricePublicationFile[]>;
     /** Get-or-create + return the current cart. `GET /api/commerce/cart`. */
     getCart(opts?: {
         locale?: string;

@@ -83,6 +83,17 @@ function SkipLink() {
   );
 }
 
+// Footer "Price list" — the published machine-readable cjenik (DECISIONS 245).
+// Its own component because RootLayout is the StringsProvider's parent.
+function PriceListLink({ locale }: { locale: string }) {
+  const { t } = useStrings();
+  return (
+    <Anchor component={Link} to={`/${locale}/cjenik`} fz="sm">
+      {t("shop.nav.priceList")}
+    </Anchor>
+  );
+}
+
 function ShopLink({ locale }: { locale: string }) {
   const { t } = useStrings();
   return (
@@ -205,6 +216,9 @@ export function RootLayout() {
                   {footerItems.map((item) => (
                     <NavItem key={item.id} item={item} />
                   ))}
+                  {/* The price list is a legal disclosure, so it lives in the
+                      footer next to the other standing links (DECISIONS 245). */}
+                  <PriceListLink locale={activeLocale} />
                   <CookieSettingsLink />
                 </Group>
               </Group>

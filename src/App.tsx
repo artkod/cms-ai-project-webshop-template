@@ -14,6 +14,7 @@ import { WishlistPage } from "./routes/WishlistPage";
 import { VerifyEmailPage } from "./routes/VerifyEmailPage";
 import { ForgotPasswordPage } from "./routes/ForgotPasswordPage";
 import { ResetPasswordPage } from "./routes/ResetPasswordPage";
+import { PriceListPage } from "./routes/PriceListPage";
 import { LocaleConfigProvider, isKnownLocale, useLocaleConfig } from "./lib/locale";
 
 // Routes nested under `/:locale/` only render when `:locale` is one of the
@@ -55,6 +56,9 @@ export default function App() {
             <Route path="shop" element={<CatalogPage />} />
             <Route path="shop/:idOrSlug" element={<ProductPage />} />
             <Route path="cart" element={<CartPage />} />
+            {/* The published machine-readable price list (DECISIONS 245) — a fixed
+                route, so it can never be shadowed by a CMS page with that slug. */}
+            <Route path="cjenik" element={<PriceListPage />} />
             <Route path="checkout" element={<CheckoutPage />} />
             <Route path="order/:token" element={<OrderPage />} />
             <Route path="account" element={<AccountPage />} />
