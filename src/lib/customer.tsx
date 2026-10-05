@@ -15,10 +15,18 @@ import { useCart } from "./cart";
 // so it can call cart.refresh().
 // ─────────────────────────────────────────────────────────────────────────────
 
+/**
+ * What `register` did (contract v4). `created` = a new, logged-in account.
+ * `set_password_sent` = the email already has GUEST orders: nothing was created and
+ * nobody is logged in — we emailed a "set your password" link that finishes the
+ * account (the page says "check your inbox"). `failed` = an error toast was shown.
+ */
+export type RegisterOutcome = "created" | "set_password_sent" | "failed";
+
 interface CustomerValue {
   customer: StorefrontCustomer | null;
   loading: boolean;
-  register: (input: RegisterInput) => Promise<boolean>;
+  register: (input: RegisterInput) => Promise<RegisterOutcome>;
   login: (input: LoginInput) => Promise<boolean>;
   logout: () => Promise<void>;
   /** Re-fetch the current customer (e.g. after verifying email). */
@@ -27,8 +35,9 @@ interface CustomerValue {
   resendVerification: () => Promise<boolean>;
   /** Confirm an email-verification token; refreshes `me` on success (L5.2). */
   verifyEmail: (token: string) => Promise<boolean>;
-  /** Complete a password reset; auto-logs-in + merges the cart (L5.2). */
-  resetPassword: (token: string, password: string) => Promise<boolean>;
+  /** Complete a password reset; auto-logs-in + merges the cart (L5.2). `successMessage`
+   *  replaces the default toast (the "finish your account" variant, contract v4). */
+  resetPassword: (token: string, password: string, successMessage?: string) => Promise<boolean>;
   /** Change the logged-in customer's password (requires a verified email). */
   changePassword: (currentPassword: string, newPassword: string) => Promise<boolean>;
   /** Social-login providers with a configured button (L5.3). */
@@ -114,13 +123,16 @@ export function CustomerProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const register = useCallback(
-    async (input: RegisterInput): Promise<boolean> => {
+    async (input: RegisterInput): Promise<RegisterOutcome> => {
       try {
-        const c = await storefront.register(input);
-        setCustomer(c);
+        const res = await storefront.register(input);
+        // The email has only guest orders (contract v4): no account, no session yet —
+        // the owner finishes it from the emailed link. Not a login; the page says so.
+        if (!("customer" in res)) return "set_password_sent";
+        setCustomer(res.customer);
         await refreshCart(); // guest cart merged server-side → reflect it
         notifications.show({ color: "teal", message: "Welcome! Your account is ready." });
-        return true;
+        return "created";
       } catch (e) {
         // Existing-but-unverified email: the server silently re-sent a fresh
         // verification link. Not an error — guide the user to their inbox.
@@ -129,10 +141,10 @@ export function CustomerProvider({ children }: { children: ReactNode }) {
             color: "blue",
             message: "This email is already registered but not yet verified — we've sent a fresh verification link. Please check your inbox.",
           });
-          return false;
+          return "failed";
         }
         notifications.show({ color: "red", message: authErrorMessage(e as StorefrontError) });
-        return false;
+        return "failed";
       }
     },
     [refreshCart],
@@ -204,12 +216,12 @@ export function CustomerProvider({ children }: { children: ReactNode }) {
   );
 
   const resetPassword = useCallback(
-    async (token: string, password: string): Promise<boolean> => {
+    async (token: string, password: string, successMessage?: string): Promise<boolean> => {
       try {
         const c = await storefront.resetPassword(token, password);
         setCustomer(c); // reset auto-logs-in
         await refreshCart();
-        notifications.show({ color: "teal", message: "Password updated — you're signed in." });
+        notifications.show({ color: "teal", message: successMessage ?? "Password updated — you're signed in." });
         return true;
       } catch (e) {
         notifications.show({ color: "red", message: authErrorMessage(e as StorefrontError) });

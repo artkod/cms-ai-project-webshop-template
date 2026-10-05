@@ -66,10 +66,12 @@ export function AccountPage() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [busy, setBusy] = useState(false);
-  // B2B registration (L5.5). A business needs a company + at least one tax id;
-  // it's created pending approval and buys at B2C terms until an admin approves.
+  // B2B registration (L5.5). A business needs a company + a contact person (contract
+  // v4) + its country's tax id; it's created pending approval and buys at B2C terms
+  // until an admin approves.
   const [accountType, setAccountType] = useState<"personal" | "business">("personal");
   const [company, setCompany] = useState("");
+  const [contactPerson, setContactPerson] = useState("");
   // Where the company is established decides the tax id we ask for (core #219):
   // HR → OIB; another EU state → VAT-ID with that prefix; outside the EU → an
   // optional tax number. VAT-ID validity itself is VIES's job (checked by the shop).
@@ -80,6 +82,9 @@ export function AccountPage() {
   const vatPrefix = companyCountry === "GR" ? "EL" : companyCountry;
   const [authTab, setAuthTab] = useState<string | null>("login");
   const [attempted, setAttempted] = useState(false); // show required-field errors only after a submit attempt
+  // Register on an email that only has guest orders (contract v4): no account yet —
+  // we emailed a "set your password" link. Shown as an inbox notice, never a login.
+  const [setupSent, setSetupSent] = useState(false);
 
   // Change-password form (logged-in, verified only).
   const [curPw, setCurPw] = useState("");
@@ -107,6 +112,7 @@ export function AccountPage() {
     if (confirm !== password) e.confirm = t("shop.account.passwordsDontMatch");
     if (isBusiness) {
       if (!company.trim()) e.company = t("shop.account.required");
+      if (!contactPerson.trim()) e.contactPerson = t("shop.account.required");
       const oibFilled = oib.trim() !== "";
       const vatFilled = vatId.trim() !== "";
       if (companyZone === "HR") {
@@ -163,6 +169,9 @@ export function AccountPage() {
             </Group>
             <Text c="dimmed" fz="sm">{customer.email}</Text>
             {customer.company && <Text fz="sm">{customer.company}</Text>}
+            {customer.type === "business" && customer.contactPerson && (
+              <Text fz="sm">{t("shop.account.contactPerson")}: {customer.contactPerson}</Text>
+            )}
             <Group gap="xs">
               <Text fz="sm">{t("shop.account.emailVerified")}</Text>
               <Badge size="sm" variant="light" color={customer.emailVerified ? "teal" : "yellow"}>
@@ -293,7 +302,8 @@ export function AccountPage() {
     setAttempted(true);
     if (Object.keys(validateRegister()).length > 0) return; // show field errors, don't hit the API
     setBusy(true);
-    const ok = await register({
+    setSetupSent(false);
+    const outcome = await register({
       email,
       password,
       firstName: firstName || undefined,
@@ -302,6 +312,7 @@ export function AccountPage() {
         ? {
             type: "business" as const,
             company: company.trim(),
+            contactPerson: contactPerson.trim(),
             companyCountry,
             oib: companyZone === "HR" ? oib.trim() || undefined : undefined,
             vatId: companyZone === "HR" ? undefined : vatId.trim() || undefined,
@@ -309,15 +320,24 @@ export function AccountPage() {
         : {}),
     });
     setBusy(false);
-    if (ok) {
+    if (outcome !== "failed") {
       setPassword("");
       setConfirm("");
+    }
+    if (outcome === "set_password_sent") {
+      setSetupSent(true);
+      window.scrollTo({ top: 0, behavior: "smooth" }); // the notice sits above the form
     }
   };
 
   return (
     <Stack maw={480} mx="auto" gap="lg">
       <Title order={2}>{t("shop.account.title")}</Title>
+      {setupSent && (
+        <Alert color="teal" variant="light" icon={<MailCheck size={18} />} title={t("shop.auth.checkInbox")}>
+          <Text fz="sm">{t("shop.account.setPasswordSent")}</Text>
+        </Alert>
+      )}
       {itemCount > 0 && (
         <Alert color="teal" variant="light">
           {t("shop.account.cartMovePrefix")} {itemCount} {itemCount === 1 ? t("shop.account.cartMoveOne") : t("shop.account.cartMoveOther")}
@@ -373,6 +393,15 @@ export function AccountPage() {
                   onChange={(e) => setCompany(e.currentTarget.value)}
                   autoComplete="organization"
                   error={errors.company}
+                />
+                <TextInput
+                  label={t("shop.account.contactPerson")}
+                  placeholder={t("shop.account.contactPersonPlaceholder")}
+                  value={contactPerson}
+                  onChange={(e) => setContactPerson(e.currentTarget.value)}
+                  autoComplete="name"
+                  maxLength={200}
+                  error={errors.contactPerson}
                 />
                 <Select
                   label={t("shop.account.companyCountry")}

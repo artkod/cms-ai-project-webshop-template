@@ -30,7 +30,7 @@ export declare interface Cart {
     locale: string;
     items: CartLine[];
     itemCount: number;
-    /** Applied coupons (L7.7 follow-up — multi-coupon stacking). 0 or 1 for a
+    /** Applied coupons (L7.7 follow-up - multi-coupon stacking). 0 or 1 for a
      *  non-stackable code; ≥1 all-stackable codes otherwise. */
     coupons: CartCoupon[];
     /** Chosen shipping method + resolved cost + COD (L4.4). */
@@ -58,7 +58,7 @@ export declare interface CartCoupon {
     value: number;
     amount: number;
     freeShipping: boolean;
-    /** Combinable with other coupons (L7.7 follow-up — multi-coupon stacking). */
+    /** Combinable with other coupons (L7.7 follow-up - multi-coupon stacking). */
     stackable: boolean;
 }
 
@@ -73,7 +73,7 @@ export declare interface CartLine {
     optionsLabel: string | null;
     image: CatalogImage | null;
     taxClass: string;
-    /** false = inquiry-only — routes the whole cart to a quote (no payment/delivery); the storefront hides the line price (L7.4). */
+    /** false = inquiry-only - routes the whole cart to a quote (no payment/delivery); the storefront hides the line price (L7.4). */
     purchasable: boolean;
     /** true for a physical product (needs a shipment); false for digital/service (delivered on payment). L9.5. */
     requiresShipping: boolean;
@@ -96,7 +96,7 @@ export declare interface CartLine {
 export declare interface CartShipping {
     country: string;
     /** true when the shopper explicitly chose a ship-to country (vs the HOME default).
-     *  `country` alone can't tell "never chosen" from "chose HR" — the server resolves
+     *  `country` alone can't tell "never chosen" from "chose HR" - the server resolves
      *  an unset destination to HOME. Checkout prefill must not override when true. */
     countryChosen: boolean;
     zone: ShippingZone;
@@ -209,7 +209,7 @@ export declare interface CatalogOptionValue {
     id: string;
     value: string;
     label: string;
-    /** Display-only price hint (EUR cents, null = none) — e.g. "Medium — €23,90" in
+    /** Display-only price hint (EUR cents, null = none) - e.g. "Medium - €23,90" in
      *  configurator-style pickers. The matched VARIANT price stays the money authority. */
     price: number | null;
     position: number;
@@ -220,7 +220,7 @@ export declare interface CatalogProduct {
     id: string;
     type: string;
     status: string;
-    /** false = inquiry-only — price on request, no direct purchase (L7.4). */
+    /** false = inquiry-only - price on request, no direct purchase (L7.4). */
     purchasable: boolean;
     locale: string;
     name: string;
@@ -228,10 +228,10 @@ export declare interface CatalogProduct {
     brand: string | null;
     slug: string;
     shortDescription: string | null;
-    /** First-class plain-text description (paragraphs split on blank lines) —
+    /** First-class plain-text description (paragraphs split on blank lines) -
      *  the "About this product" section. Null when unset. */
     description: string | null;
-    /** First-class tabbed details ("Product details") — ordered; `content` is a
+    /** First-class tabbed details ("Product details") - ordered; `content` is a
      *  TipTap doc (or null while empty). */
     detailTabs: CatalogDetailTab[];
     metaTitle: string | null;
@@ -239,7 +239,7 @@ export declare interface CatalogProduct {
     ogImage: CatalogImage | null;
     /** Explicit canonical URL, or null to derive it from the path (L11 parity). */
     canonicalUrl: string | null;
-    /** Per-locale noindex — the storefront head must honour it (L11 parity). */
+    /** Per-locale noindex - the storefront head must honour it (L11 parity). */
     noindex: boolean;
     blocks: CatalogBlock[];
     /** Shop-defined attributes (Catalog → Attributes, #238) this product carries,
@@ -257,7 +257,7 @@ export declare interface CatalogProduct {
         name: string;
     }>;
     /** true → an approved business is logged in and its price list applies (L5.5).
-     *  Prices stay GROSS (VAT-inclusive) like B2C — VAT is itemized only in the cart. */
+     *  Prices stay GROSS (VAT-inclusive) like B2C - VAT is itemized only in the cart. */
     b2b: boolean;
     /** Approved-review aggregate (L9.1): `{ count, average }`; average null when no reviews. */
     reviews: {
@@ -294,7 +294,7 @@ export declare interface CatalogVariant {
     effectivePrice: number;
     onSale: boolean;
     compareAt: number | null;
-    /** Sidrena cijena (#245) — the declared regular price on `anchorDate`, EUR cents. */
+    /** Sidrena cijena (#245) - the declared regular price on `anchorDate`, EUR cents. */
     anchorPrice: number | null;
     /** The reference date the anchor price refers to (`YYYY-MM-DD`), or null. */
     anchorDate: string | null;
@@ -347,13 +347,13 @@ export declare interface CategoryNode {
 }
 
 /**
- * The three PAYABLE checkout modes (L7.4) — the payment method the customer chooses
+ * The three PAYABLE checkout modes (L7.4) - the payment method the customer chooses
  * at checkout. INQUIRY (a quote) is the separate `isQuote` flag. `pay_now` = card,
  * `bank_transfer` = proforma / pay-by-invoice, `cod` = cash on delivery.
  */
 export declare type CheckoutMode = "pay_now" | "bank_transfer" | "cod";
 
-/** `GET /api/commerce/checkout` — the cart recomputed at the destination tax. */
+/** `GET /api/commerce/checkout` - the cart recomputed at the destination tax. */
 export declare interface CheckoutPreview {
     /**
      * True when any item is inquiry-only (or per-product checkout modes conflict) → the
@@ -363,7 +363,7 @@ export declare interface CheckoutPreview {
     /** The full cart view, with totals taxed at the ship-to destination. */
     cart: Cart;
     /**
-     * The payable checkout modes offered for this cart (L7.4) — the intersection of its
+     * The payable checkout modes offered for this cart (L7.4) - the intersection of its
      * products' required modes, with COD kept only for a COD-eligible shipping method.
      * Empty for a quote, or when no payable method can be offered (e.g. a COD-only
      * product without a COD-eligible shipping method).
@@ -379,7 +379,7 @@ export declare function clearLocalWishlist(): void;
 /** Forget the stored decision (re-shows the banner on next load). */
 export declare function clearStoredConsent(): void;
 
-/** `GET /api/commerce/catalog/collections/:codeOrId` — the collection with its members
+/** `GET /api/commerce/catalog/collections/:codeOrId` - the collection with its members
  *  as listing cards in CURATED order. Products that are not visible in the locale
  *  (unpublished, untranslated, locale-hidden) are dropped server-side, so `products`
  *  is always renderable; `total` is the curated member count before that filter. */
@@ -396,7 +396,7 @@ export declare interface CollectionParams {
     signal?: AbortSignal;
 }
 
-/** One active collection as listed by `GET /api/commerce/catalog/collections` —
+/** One active collection as listed by `GET /api/commerce/catalog/collections` -
  *  a hand-curated, ORDERED product list the shop merchandises with (a homepage
  *  "Featured collection", "Gift ideas", …). `code` is the stable identifier a
  *  project references (page editors store it); `name` follows the requested locale. */
@@ -416,6 +416,9 @@ export declare interface CommerceHealth {
     /** The API's commerce contract version (design §22). */
     contractVersion: number;
 }
+
+/** `{site} - {page}`, with the suppressions above. Both halves are trimmed. */
+export declare function composeTabTitle(pageHalf: string, siteTitle: string): string;
 
 export declare const CONSENT_STORAGE_KEY = "cms-consent-v1";
 
@@ -456,7 +459,7 @@ export declare interface CreateAddressInput {
 }
 
 /**
- * Create a typed storefront API client (design §17). Framework-agnostic — uses
+ * Create a typed storefront API client (design §17). Framework-agnostic - uses
  * the global `fetch` (override via `config.fetch`). Headless hooks and the
  * payment-client adapters wrap this client in later phases.
  */
@@ -471,7 +474,7 @@ export declare interface CsrfResponse {
 declare type CustomerApprovalStatus = "none" | "pending" | "approved" | "rejected";
 
 /**
- * A lightweight order summary — one row of the customer's own order history
+ * A lightweight order summary - one row of the customer's own order history
  * (`GET /api/commerce/customers/orders`, L5.8). Includes prior GUEST orders
  * claimed when the email was verified. `token` links to the full order detail
  * (`getOrder`). Summaries only; fetch `getOrder(token)` for line items + totals.
@@ -500,6 +503,9 @@ export declare interface CustomerTokenInfo {
     type: "verification" | "reset";
     email: string;
     expiresAt: string;
+    /** A reset link that FINISHES an account (the email had only guest orders) —
+     *  word the page "create your password" rather than "reset". */
+    setup?: boolean;
 }
 
 /** The banner's Decline: store the refusal. Nothing loads; events keep dropping. */
@@ -576,7 +582,7 @@ export declare interface OptionFacet {
     }[];
 }
 
-/** A placed order — returned by `startCheckout` and `getOrder`. */
+/** A placed order - returned by `startCheckout` and `getOrder`. */
 export declare interface Order {
     id: string;
     orderNumber: number;
@@ -586,12 +592,12 @@ export declare interface Order {
     status: OrderStatus;
     isQuote: boolean;
     /**
-     * Quote sub-state (L7.3/L7.5) — `draft | sent | accepted | declined | expired | cancelled`,
+     * Quote sub-state (L7.3/L7.5) - `draft | sent | accepted | declined | expired | cancelled`,
      * null on a normal order. A `sent` quote is the one a customer can accept/decline;
      * `cancelled` = the admin cancelled the quote order.
      */
     quoteStatus: string | null;
-    /** ISO offer-validity deadline for a quote (L7.3) — null on a normal order. */
+    /** ISO offer-validity deadline for a quote (L7.3) - null on a normal order. */
     validUntil: string | null;
     currency: "EUR";
     shippingAddress: OrderAddress | null;
@@ -604,10 +610,10 @@ export declare interface Order {
     } | null;
     pickupPoint: unknown | null;
     codSelected: boolean;
-    /** Resolved payable checkout mode (L7.4) — null on a quote. */
+    /** Resolved payable checkout mode (L7.4) - null on a quote. */
     paymentMethod: CheckoutMode | null;
     /**
-     * False while a card (`pay_now`) checkout is still PENDING — the customer has
+     * False while a card (`pay_now`) checkout is still PENDING - the customer has
      * not paid yet, so this is not an order: the shop hasn't been told, nothing was
      * emailed. It flips true the moment the payment settles. Bank-transfer / COD /
      * accepted quotes are placed at once. (DECISIONS #217)
@@ -615,10 +621,10 @@ export declare interface Order {
     placed: boolean;
     /**
      * On a SENT quote: the payable modes the customer may accept it with
-     * (DECISIONS #218) — pass one to `acceptQuote`. Absent otherwise.
+     * (DECISIONS #218) - pass one to `acceptQuote`. Absent otherwise.
      */
     offeredPaymentMethods?: CheckoutMode[];
-    /** ISO bank-transfer payment deadline (L7.4) — null otherwise. */
+    /** ISO bank-transfer payment deadline (L7.4) - null otherwise. */
     paymentDueAt: string | null;
     taxDestination: string | null;
     items: OrderItem[];
@@ -628,7 +634,7 @@ export declare interface Order {
     note: string | null;
     placedAt: string;
     /**
-     * Per-line shipped/ordered counts (L7) — present on `getOrder`, so the storefront
+     * Per-line shipped/ordered counts (L7) - present on `getOrder`, so the storefront
      * can show, per item, how much has shipped vs is still to come. Absent on the
      * `startCheckout` response (nothing has shipped yet).
      */
@@ -639,14 +645,30 @@ export declare interface Order {
         delivered: number;
     }[];
     /**
-     * Whether the fiscal receipt/invoice PDF is downloadable (L8.4) — true once the
+     * Whether the fiscal receipt/invoice PDF is downloadable (L8.4) - true once the
      * order has a fiscal invoice document (even while the JIR is still pending; the
      * ZKI receipt is valid). Present on `getOrder`; gate `orderInvoicePdfUrl` links
-     * on it. The proforma PDF needs no flag — it exists for every bank_transfer order.
+     * on it.
      */
     invoiceAvailable?: boolean;
     /**
-     * Digital download entitlements (L9.5) — present on `getOrder` once the order
+     * True while the order's invoice is still being ISSUED (#269) - queued at the
+     * fiscal provider, not downloadable yet. A card order's invoice lands a few
+     * seconds after payment: while this is true, re-`getOrder` until
+     * `invoiceAvailable`. False with no invoice coming (no fiscalization, or a
+     * document staff must look at). Present on `getOrder`.
+     */
+    invoicePending?: boolean;
+    /**
+     * Whether the proforma (predračun) PDF is downloadable (#264) - every
+     * bank_transfer order, AND a sent, still-valid quote that offers bank transfer:
+     * the customer takes that offer by paying its proforma (no `acceptQuote`
+     * needed; staff record the payment). Present on `getOrder`; gate
+     * `orderProformaPdfUrl` links on it.
+     */
+    proformaAvailable?: boolean;
+    /**
+     * Digital download entitlements (L9.5) - present on `getOrder` once the order
      * is paid and contains digital lines. `url` is an API path; build the absolute
      * link with `downloadUrl(...)`. `licenseKeys` are the keys assigned to this
      * line (may be empty when the shop's pool ran dry).
@@ -661,7 +683,7 @@ export declare interface OrderAddress {
     line2?: string;
     city: string;
     postalCode: string;
-    /** ISO-3166 alpha-2 — drives destination VAT (OSS) + the shipping zone. */
+    /** ISO-3166 alpha-2 - drives destination VAT (OSS) + the shipping zone. */
     country: string;
     phone?: string;
 }
@@ -671,7 +693,7 @@ export declare interface OrderDownload {
     orderItemId: string;
     name: string;
     filename: string;
-    /** API path (`/api/commerce/downloads/:token`) — prefix with the API base. */
+    /** API path (`/api/commerce/downloads/:token`) - prefix with the API base. */
     url: string;
     /** ISO; null = the link never expires (shop setting 0 hours). */
     expiresAt: string | null;
@@ -698,7 +720,7 @@ export declare interface OrderItem {
     position: number;
 }
 
-/** `GET /api/commerce/orders/:token/returns` — the storefront returns view. */
+/** `GET /api/commerce/orders/:token/returns` - the storefront returns view. */
 export declare interface OrderReturnsResult {
     eligibility: ReturnEligibility | null;
     returns: ReturnRequest[];
@@ -711,7 +733,7 @@ export declare interface OrderReturnsResult {
 export declare interface OrderStatus {
     /** draft | awaiting_payment | authorized | paid | partially_refunded | refunded | voided */
     paymentStatus: string;
-    /** unfulfilled | reserved | preparing | (partially_)shipped | delivered | returned */
+    /** unfulfilled | preparing | (partially_)shipped | delivered | returned */
     fulfillmentStatus: string;
     /** open | completed | cancelled | quote */
     lifecycle: string;
@@ -724,9 +746,9 @@ export declare interface OwnProductReview extends ProductReview {
 
 /** A payment method the storefront can offer (one enabled, configured provider). */
 export declare interface PaymentMethodInfo {
-    /** Provider id — `"stripe"` (Monri arrives in L6.5). */
+    /** Provider id - `"stripe"` (Monri arrives in L6.5). */
     provider: string;
-    /** The PUBLISHABLE key (not a secret) — needed client-side to mount Elements. */
+    /** The PUBLISHABLE key (not a secret) - needed client-side to mount Elements. */
     publishableKey: string;
     /**
      * Whether confirming charges immediately (`automatic`) or only AUTHORIZES a hold
@@ -755,7 +777,7 @@ export declare interface PaymentView {
 /**
  * A chosen parcel-locker / pickup point as STORED on the cart. For a method with a
  * `pickupProvider` the server resolves every field from its own catalog and
- * discards whatever else was sent — so this is trustworthy shipping data, not
+ * discards whatever else was sent - so this is trustworthy shipping data, not
  * client input. A provider-less method keeps the older free-form shape.
  */
 export declare interface PickupPoint {
@@ -775,7 +797,7 @@ export declare interface PickupPoint {
 
 /** One point from the carrier catalog (`GET /api/commerce/pickup-points`). */
 export declare interface PickupPointOption {
-    /** The CARRIER's id — the only field you send back when choosing a point. */
+    /** The CARRIER's id - the only field you send back when choosing a point. */
     id: string;
     provider: string;
     name: string;
@@ -788,7 +810,7 @@ export declare interface PickupPointOption {
     lat: number | null;
     lon: number | null;
     features: string[];
-    /** `[day, open, close]` with day 1 = Monday … 7 = Sunday. FORMAT CLIENT-SIDE —
+    /** `[day, open, close]` with day 1 = Monday … 7 = Sunday. FORMAT CLIENT-SIDE -
      *  the endpoint is shared-cached, so it must stay locale-independent. */
     hours: Array<[number, string, string]>;
     pickupTime: string | null;
@@ -796,7 +818,7 @@ export declare interface PickupPointOption {
 }
 
 export declare interface PickupPointSearchParams {
-    /** Preferred: the chosen shipping method — the server resolves the carrier from
+    /** Preferred: the chosen shipping method - the server resolves the carrier from
      *  it, so no storefront has to know provider ids. */
     methodId?: string;
     provider?: string;
@@ -816,7 +838,7 @@ export declare interface PickupPointSearchResult {
     limit: number;
     offset: number;
     syncedAt: string | null;
-    /** The cached catalog is old or could not be refreshed — warn, don't block. */
+    /** The cached catalog is old or could not be refreshed - warn, don't block. */
     stale: boolean;
     points: PickupPointOption[];
 }
@@ -826,20 +848,22 @@ export declare type PickupPointType = "parcel-locker" | "parcel-shop";
 /** One published price-list file. */
 export declare interface PricePublicationFile {
     id: string;
-    /** `products` (refreshed daily) or `services` (refreshed on every change). */
+    /** `products` or `services` - both refreshed every morning and on every price change. */
     kind: "products" | "services";
     /** The decree-shaped file name (outlet + broj pohrane + local timestamp). */
     filename: string;
     /** The API-relative path the file is served from. */
     path: string;
-    /** The absolute URL, resolved by the SDK against its `apiUrl` — link this. */
+    /** The absolute URL, resolved by the SDK against its `apiUrl` - link this. */
     url: string;
     format: string;
-    /** "Broj pohrane" — 1-based per kind. */
+    /** "Broj pohrane" - 1-based per kind. */
     sequence: number;
     /** The business day the file is valid for (`YYYY-MM-DD`, Europe/Zagreb). */
     forDate: string;
     generatedAt: string;
+    /** Why it was published: the morning run, a price change, or by hand from the admin. */
+    reason: "daily" | "change" | "manual";
     rowCount: number;
 }
 
@@ -851,10 +875,10 @@ export declare interface ProductCard {
     name: string;
     shortDescription: string | null;
     image: CatalogImage | null;
-    /** false = inquiry-only — the storefront hides the price ("on request") + offers a "send an inquiry" path instead of buy/checkout (L7.4). */
+    /** false = inquiry-only - the storefront hides the price ("on request") + offers a "send an inquiry" path instead of buy/checkout (L7.4). */
     purchasable: boolean;
     currency: "EUR";
-    /** Min effective B2C GROSS price (VAT-inclusive) across variants (EUR cents) — the "from" price. */
+    /** Min effective B2C GROSS price (VAT-inclusive) across variants (EUR cents) - the "from" price. */
     price: number;
     /** Max effective B2C gross price across variants (EUR cents). */
     priceMax: number;
@@ -866,21 +890,21 @@ export declare interface ProductCard {
      *  declared. Croatia requires it next to the retail price (NN 101/2026). */
     anchorPrice: number | null;
     /** The reference date the anchor price refers to (`YYYY-MM-DD`), or null. Always
-     *  render the two together — a bare amount is not the legal disclosure. */
+     *  render the two together - a bare amount is not the legal disclosure. */
     anchorDate: string | null;
     inStock: boolean;
     sellable: boolean;
     variantCount: number;
     primaryCategoryId: string | null;
     /** Shop-defined attributes this product carries (same shape as the detail), locale-resolved,
-     *  definition order — so a grid card can print e.g. the wood a piece is made of. */
+     *  definition order - so a grid card can print e.g. the wood a piece is made of. */
     attributes: CatalogProductAttribute[];
 }
 
 /** Query parameters for {@link StorefrontClient.listProducts}. */
 export declare interface ProductListParams {
     locale?: string;
-    /** Category id or slug — filters to products linked to that category. */
+    /** Category id or slug - filters to products linked to that category. */
     category?: string;
     /** Full-text query (FTS relevance-ranked). */
     q?: string;
@@ -888,7 +912,7 @@ export declare interface ProductListParams {
     type?: string;
     /** Option-value facet filters: `{ Color: ["Red","Blue"], Size: ["M"] }` (AND across axes, OR within). */
     options?: Record<string, string[]>;
-    /** Shop-defined attribute filters (#238): `{ material: ["oak","walnut"], finish: ["oiled"] }` —
+    /** Shop-defined attribute filters (#238): `{ material: ["oak","walnut"], finish: ["oiled"] }` -
      *  AND across codes, OR within a code. Wire form: repeated `attribute=code:key,key`. Unknown
      *  codes/keys are ignored server-side (a stale link shows the unfiltered list, not an empty page). */
     attributes?: Record<string, string[]>;
@@ -926,8 +950,8 @@ export declare interface ProductReviewsResponse {
     summary: ReviewSummary;
     /** The caller's own review (any status); null when none / not logged in. */
     mine: OwnProductReview | null;
-    /** True when the caller may submit: verified customer, no prior review, and —
-     *  in buyers-only mode — a verified purchase of this product. */
+    /** True when the caller may submit: verified customer, no prior review, and -
+     *  in buyers-only mode - a verified purchase of this product. */
     canReview: boolean;
     /** Shop setting: only buyers may review (submit → 403 `not_a_buyer` otherwise). */
     buyersOnly: boolean;
@@ -935,8 +959,8 @@ export declare interface ProductReviewsResponse {
 
 /**
  * Input for `POST /api/commerce/customers/register`. A `business` registration
- * must carry `company` + at least one tax id (`oib` or `vatId`); it is created
- * pending approval and buys at B2C terms until an admin approves it (L5.5).
+ * must carry `company` + `contactPerson` + the tax id its country needs; it is
+ * created pending approval and buys at B2C terms until an admin approves it (L5.5).
  */
 export declare interface RegisterInput {
     email: string;
@@ -953,7 +977,23 @@ export declare interface RegisterInput {
     companyCountry?: string;
     oib?: string;
     vatId?: string;
+    /** The business's contact person — REQUIRED when `type` is `business` (contract v4). */
+    contactPerson?: string;
 }
+
+/**
+ * Result of `register()` (contract v4). Usually the new, logged-in account —
+ * `{ customer }` (HTTP 201). But when the email already has GUEST orders at this
+ * shop, the API creates nothing and logs nobody in: it emails that address a
+ * "finish creating your account — set your password" link (the submitted profile
+ * is applied when the owner sets the password) and answers HTTP 202
+ * `{ status: "set_password_sent" }` — show "check your email".
+ */
+export declare type RegisterResult = {
+    customer: StorefrontCustomer;
+} | {
+    status: "set_password_sent";
+};
 
 /** Remove a product from the guest wishlist (idempotent). Returns the new set. */
 export declare function removeLocalWishlist(productId: string): string[];
@@ -996,10 +1036,10 @@ export declare interface ReturnEligibility {
     eligible: boolean;
     /** When ineligible: not_shipped | window_closed | nothing_returnable. */
     reason: string | null;
-    /** The return-window start (ship/fulfilled date) — null when nothing has shipped. */
+    /** The return-window start (ship/fulfilled date) - null when nothing has shipped. */
     windowStartsAt: string | null;
     windowDays: number;
-    /** ISO deadline (windowStartsAt + windowDays) — null when nothing has shipped. */
+    /** ISO deadline (windowStartsAt + windowDays) - null when nothing has shipped. */
     windowEndsAt: string | null;
     lines: ReturnableLine[];
 }
@@ -1012,7 +1052,7 @@ export declare interface ReturnRequest {
     reason: string | null;
     adminNote: string | null;
     restock: boolean;
-    /** Total cents refunded — items + shipping (null until approved). */
+    /** Total cents refunded - items + shipping (null until approved). */
     refundAmount: number | null;
     /** Portion of `refundAmount` that was delivery cost. */
     shippingRefund: number;
@@ -1063,14 +1103,14 @@ export declare interface SetShippingInput {
     methodId?: string | null;
     country?: string | null;
     /** For a provider-backed method send ONLY `{ id }` (the carrier id from
-     *  `searchPickupPoints`) — the server fills in the rest from its catalog. */
+     *  `searchPickupPoints`) - the server fills in the rest from its catalog. */
     pickupPoint?: PickupPoint | null;
     codSelected?: boolean;
 }
 
 export declare type ShippingKind = "flat" | "weight" | "pickup_point" | "store_pickup";
 
-/** `GET /api/commerce/cart/shipping` — offerable methods + COD config for a zone. */
+/** `GET /api/commerce/cart/shipping` - offerable methods + COD config for a zone. */
 export declare interface ShippingOptions {
     country: string;
     zone: ShippingZone;
@@ -1127,9 +1167,9 @@ export declare function storeConsent(decision: {
     marketing?: boolean;
 }): void;
 
-export declare const STOREFRONT_CONTRACT_VERSION: 3;
+export declare const STOREFRONT_CONTRACT_VERSION: 4;
 
-export declare const STOREFRONT_SDK_VERSION: "0.4.0";
+export declare const STOREFRONT_SDK_VERSION: "0.6.0";
 
 /** A saved postal address (account address book). Fields mirror the checkout address. */
 export declare interface StorefrontAddress {
@@ -1159,12 +1199,12 @@ export declare interface StorefrontClient {
      * doesn't model yet.
      */
     request<T = unknown>(path: string, init?: StorefrontRequestInit): Promise<T>;
-    /** `GET /api/commerce/health` — the public commerce gating probe. */
+    /** `GET /api/commerce/health` - the public commerce gating probe. */
     health(): Promise<CommerceHealth>;
     /**
      * Fetch the API's contract version and compare it against this SDK's pinned
      * version. Use it on boot to surface a skew warning. Never throws on a
-     * mismatch — it reports `{ compatible: false }`.
+     * mismatch - it reports `{ compatible: false }`.
      */
     checkContract(): Promise<ContractCheck>;
     /** Paginated, filtered, sorted product list. `GET …/catalog/products`. */
@@ -1258,7 +1298,14 @@ export declare interface StorefrontClient {
         locale?: string;
         signal?: AbortSignal;
     }): Promise<CheckoutPreview>;
-    /** Place a pending order (before payment). `POST /api/commerce/checkout`. */
+    /**
+     * Place a pending order (before payment). `POST /api/commerce/checkout`.
+     * Errors (`StorefrontError.code`): 400 `phone_required` (contract v4 — the main
+     * address, shipping else billing, must carry a `phone`), `address_required`,
+     * `pickup_point_required`, `validation_error`; 409 `cart_empty`,
+     * `insufficient_stock`, `coupon_exhausted`, `payment_method_unavailable`,
+     * `pickup_point_unavailable`, `too_many_open_orders`.
+     */
     startCheckout(input: StartCheckoutInput, opts?: {
         locale?: string;
         signal?: AbortSignal;
@@ -1268,14 +1315,15 @@ export declare interface StorefrontClient {
         signal?: AbortSignal;
     }): Promise<Order>;
     /**
-     * URL of the fiscal receipt/invoice PDF (`GET …/orders/:token/invoice.pdf`) —
+     * URL of the fiscal receipt/invoice PDF (`GET …/orders/:token/invoice.pdf`) -
      * render as a plain download link. 404s until the order is fiscalized; gate on
      * `Order.invoiceAvailable` (from {@link getOrder}).
      */
     orderInvoicePdfUrl(token: string): string;
     /**
-     * URL of the bank-transfer proforma (predračun) PDF
-     * (`GET …/orders/:token/proforma.pdf`) — bank_transfer orders only (else 404).
+     * URL of the proforma (predračun) PDF (`GET …/orders/:token/proforma.pdf`) -
+     * gate the link on `Order.proformaAvailable` (a bank_transfer order or a sent
+     * quote offering bank transfer, #264; else 404).
      */
     orderProformaPdfUrl(token: string): string;
     /**
@@ -1308,10 +1356,16 @@ export declare interface StorefrontClient {
     getCsrfToken(opts?: {
         signal?: AbortSignal;
     }): Promise<string>;
-    /** Register a new customer. Auto-logs-in on success. */
+    /**
+     * Register a new customer (contract v4). `{ customer }` = created + logged in;
+     * `{ status: "set_password_sent" }` (HTTP 202) = the email already has guest
+     * orders — nothing created, nobody logged in, a "set your password" link was
+     * emailed. 400 `validation_error` (a business needs `company`, `contactPerson` and
+     * its country's tax id) / `invalid_oib`; 409 `email_taken` / `verification_resent`.
+     */
     register(input: RegisterInput, opts?: {
         signal?: AbortSignal;
-    }): Promise<StorefrontCustomer>;
+    }): Promise<RegisterResult>;
     /** Log in an existing customer. Sets cookies + merges guest cart. */
     login(input: LoginInput, opts?: {
         signal?: AbortSignal;
@@ -1388,7 +1442,7 @@ export declare interface StorefrontClient {
         signal?: AbortSignal;
     }): Promise<SubmitReviewResult>;
     /**
-     * Subscribe an email to a variant's restock notification (guests welcome —
+     * Subscribe an email to a variant's restock notification (guests welcome -
      * the email is the identity; no login needed). 409 `in_stock` when the
      * variant is currently available or untracked; `already: true` when this
      * email is already subscribed. `POST …/catalog/products/:id/back-in-stock`.
@@ -1405,7 +1459,7 @@ export declare interface StorefrontClient {
     }>;
     /**
      * Record a LOGGED-IN customer's consent choice server-side (append-only,
-     * source `cookie_banner`). 401 for guests — their banner choice stays
+     * source `cookie_banner`). 401 for guests - their banner choice stays
      * client-side; identifiable capture happens at checkout (`marketingConsent`).
      * `POST /api/commerce/consent`.
      */
@@ -1418,7 +1472,7 @@ export declare interface StorefrontClient {
         ok: boolean;
     }>;
     /**
-     * Absolute URL for a digital download entitlement — pass `OrderDownload.url`
+     * Absolute URL for a digital download entitlement - pass `OrderDownload.url`
      * (an API path from {@link getOrder}'s `downloads`). Expired links serve 410.
      */
     downloadUrl(path: string): string;
@@ -1432,7 +1486,7 @@ export declare interface StorefrontClient {
     }): Promise<OAuthProviderId[]>;
     /**
      * Build the OAuth start URL to navigate the browser to (a full-page redirect,
-     * NOT a fetch — cookies + the provider round-trip need a top-level navigation).
+     * NOT a fetch - cookies + the provider round-trip need a top-level navigation).
      * `GET …/customers/oauth/:provider/start`.
      */
     oauthStartUrl(provider: OAuthProviderId, opts?: OAuthStartOptions): string;
@@ -1449,7 +1503,7 @@ export declare interface StorefrontClient {
         signal?: AbortSignal;
     }): Promise<InitiatePaymentResult>;
     /**
-     * Reconcile + return the order — the server pulls the gateway's payment status
+     * Reconcile + return the order - the server pulls the gateway's payment status
      * (the outbound fallback to the webhook). Poll this on the pending-order page so
      * the status flips even without an inbound webhook tunnel. `POST …/orders/:token/payment/refresh`.
      */
@@ -1466,7 +1520,7 @@ export declare interface StorefrontConfig {
      */
     apiUrl: string;
     /**
-     * The project slug, sent as the `X-Project-Slug` header on every request —
+     * The project slug, sent as the `X-Project-Slug` header on every request -
      * the same header every CMS public endpoint requires.
      */
     projectSlug: string;
@@ -1496,6 +1550,8 @@ export declare interface StorefrontCustomer {
     vatId: string | null;
     /** ISO2 where the company is established (DECISIONS #219). */
     companyCountry: string | null;
+    /** A business account's contact person (typed at registration); null otherwise. */
+    contactPerson?: string | null;
     approvalStatus: CustomerApprovalStatus;
     b2bApproved: boolean;
     emailVerified: boolean;
@@ -1546,6 +1602,8 @@ export declare interface SubmitReviewResult {
     review: OwnProductReview;
 }
 
+export declare const TAB_TITLE_SEPARATOR = " - ";
+
 /** Add-to-cart. */
 export declare function trackAddToCart(item: AnalyticsItem): boolean;
 
@@ -1554,7 +1612,7 @@ export declare function trackBeginCheckout(items: AnalyticsItem[], totalCents?: 
 
 /**
  * Fire a GA4 event. Returns false (and sends NOTHING) unless the visitor
- * granted analytics consent and gtag is loaded — the consent gate every
+ * granted analytics consent and gtag is loaded - the consent gate every
  * storefront event goes through.
  */
 export declare function trackEvent(name: string, params?: Record<string, unknown>): boolean;
@@ -1570,7 +1628,7 @@ export declare interface TypeFacet {
     count: number;
 }
 
-/** Body for `PUT …/customers/addresses/:id` — every field optional (PATCH); `label: null` clears it. */
+/** Body for `PUT …/customers/addresses/:id` - every field optional (PATCH); `label: null` clears it. */
 export declare type UpdateAddressInput = Partial<Omit<CreateAddressInput, "label">> & {
     label?: string | null;
 };
@@ -1581,7 +1639,7 @@ export declare interface VerifyEmailResult {
     email: string;
 }
 
-/** Result of a wishlist add/remove — the full updated id set (newest first). */
+/** Result of a wishlist add/remove - the full updated id set (newest first). */
 export declare interface WishlistMutationResult {
     ok: boolean;
     productIds: string[];
@@ -1589,7 +1647,7 @@ export declare interface WishlistMutationResult {
 
 /**
  * Response of `GET …/customers/wishlist`. `productIds` is the canonical set
- * (newest first) — the source of truth for heart/toggle state — and `products`
+ * (newest first) - the source of truth for heart/toggle state - and `products`
  * is the renderable subset (cards for products still visible in the locale), in
  * the same order. Server-side; a guest's wishlist lives in localStorage (see the
  * `…LocalWishlist` helpers).

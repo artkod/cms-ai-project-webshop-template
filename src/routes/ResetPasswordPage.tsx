@@ -11,7 +11,9 @@ import { useLocaleConfig, useStrings } from "@/lib/locale";
 // /{locale}/account/reset-password/:token. We look the token up first (to render
 // the email + validate it), then let the user set a new password. A successful
 // reset auto-logs-in (and marks the email verified server-side), so we redirect
-// to the account page.
+// to the account page. A `setup` token (contract v4) is the same reset link sent
+// to an email that only has guest orders — it FINISHES the account, so the page
+// says "Set your password" instead of "reset".
 // ─────────────────────────────────────────────────────────────────────────────
 
 export function ResetPasswordPage() {
@@ -24,6 +26,7 @@ export function ResetPasswordPage() {
 
   const [lookup, setLookup] = useState<"pending" | "valid" | "invalid">("pending");
   const [email, setEmail] = useState("");
+  const [setup, setSetup] = useState(false);
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [busy, setBusy] = useState(false);
@@ -46,6 +49,7 @@ export function ResetPasswordPage() {
           return;
         }
         setEmail(info.email);
+        setSetup(info.setup === true);
         setLookup("valid");
       } catch {
         if (alive) setLookup("invalid");
@@ -59,14 +63,14 @@ export function ResetPasswordPage() {
   const onSubmit = async () => {
     if (!token) return;
     setBusy(true);
-    const ok = await resetPassword(token, password);
+    const ok = await resetPassword(token, password, setup ? t("shop.auth.accountReady") : undefined);
     setBusy(false);
     if (ok) navigate(`/${loc}/account`);
   };
 
   return (
     <Stack maw={440} mx="auto" gap="lg" py="xl">
-      <Title order={2}>{t("shop.auth.chooseNewPassword")}</Title>
+      <Title order={2}>{setup ? t("shop.auth.setPasswordTitle") : t("shop.auth.chooseNewPassword")}</Title>
 
       {lookup === "pending" && (
         <Group gap="sm">
@@ -86,7 +90,11 @@ export function ResetPasswordPage() {
 
       {lookup === "valid" && (
         <Stack>
-          <Text c="dimmed" fz="sm">{t("shop.auth.settingPasswordFor")} <b>{email}</b>.</Text>
+          {setup ? (
+            <Text c="dimmed" fz="sm">{t("shop.auth.setPasswordIntro")} {t("shop.auth.email")}: <b>{email}</b></Text>
+          ) : (
+            <Text c="dimmed" fz="sm">{t("shop.auth.settingPasswordFor")} <b>{email}</b>.</Text>
+          )}
           <TextInput
             label={t("shop.auth.newPassword")}
             type="password"
@@ -104,7 +112,7 @@ export function ResetPasswordPage() {
             error={confirm.length > 0 && !match ? t("shop.auth.passwordsDontMatch") : undefined}
           />
           <Button onClick={() => void onSubmit()} loading={busy} disabled={!canSubmit}>
-            {t("shop.auth.setNewPassword")}
+            {setup ? t("shop.auth.setPassword") : t("shop.auth.setNewPassword")}
           </Button>
         </Stack>
       )}

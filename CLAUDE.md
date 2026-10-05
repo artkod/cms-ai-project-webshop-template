@@ -45,7 +45,12 @@ cart is merged into the account cart server-side, and the header badge reflects 
 header gains an **Account** nav item (shows the customer's first name or "Sign in"); `AccountPage.tsx`
 (`/{locale}/account`) is **Sign in / Create account** tabs when logged out (with a banner noting the
 guest cart will move on sign-in) and a profile + **Sign out** when logged in. Guest checkout is never
-blocked — an account is optional. **Address book (L5.4):** `AddressBookPage.tsx`
+blocked — an account is optional. **Contract 4 (core #277):** every order gets a customer by email,
+so `register()` on an email that only has guest orders answers `set_password_sent` —
+`customer.tsx` returns that state and `AccountPage` shows "check your email" (no session);
+the reset landing reads `setup: true` as "Set your password"; a business registration
+requires **Contact person**; the checkout requires a phone on the main address (the API's
+`phone_required` maps back to the field). **Address book (L5.4):** `AddressBookPage.tsx`
 (`/{locale}/account/addresses`, linked from the account view) — list / add / edit / delete saved
 addresses + pick the default shipping/billing (verification-gated, mirrors the API with a friendly
 prompt; calls the SDK's `listAddresses`/`createAddress`/`updateAddress`/`deleteAddress`). `CheckoutPage`

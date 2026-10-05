@@ -26,9 +26,10 @@ function ratePct(bps: number): string {
 }
 
 function checkoutErrorMessage(err: StorefrontError, t: (key: string) => string): string {
-  // The last two are the locker gates (core DECISIONS 235): at placement time the
-  // chosen paketomat must still be in the carrier's catalog.
-  const known = ["cart_empty", "insufficient_stock", "coupon_exhausted", "payment_method_unavailable", "pickup_point_required", "pickup_point_unavailable"];
+  // `pickup_point_*` are the locker gates (core DECISIONS 235): at placement time the
+  // chosen paketomat must still be in the carrier's catalog. `phone_required`
+  // (contract v4): the main address — shipping, else billing — carries no phone.
+  const known = ["cart_empty", "insufficient_stock", "coupon_exhausted", "payment_method_unavailable", "pickup_point_required", "pickup_point_unavailable", "phone_required"];
   return known.includes(err.code ?? "") ? t(`shop.checkout.err.${err.code}`) : t("shop.checkout.err.default");
 }
 
@@ -261,7 +262,11 @@ export function CheckoutPage() {
   // A payable cart with no offered method (e.g. a COD-only product without a COD-eligible
   // shipping method) can't be placed until the shopper changes shipping.
   const noPayableMethod = !!preview && !isQuote && !empty && offeredMethods.length === 0;
-  const addressValid = !!form.name.trim() && !!form.line1.trim() && !!form.city.trim() && !!form.postalCode.trim() && /.+@.+\..+/.test(form.email);
+  // The phone on the MAIN address (this block: shipping, or billing for a
+  // non-shippable cart) is required — the API answers 400 `phone_required` without
+  // it (contract v4). A separate billing block keeps its phone optional.
+  const phoneValid = !!form.phone?.trim();
+  const addressValid = !!form.name.trim() && !!form.line1.trim() && !!form.city.trim() && !!form.postalCode.trim() && phoneValid && /.+@.+\..+/.test(form.email);
   const paymentValid = isQuote || (!!paymentMethod && offeredMethods.includes(paymentMethod));
   // A delivery method is mandatory for a payable order (auto-selected above when one
   // exists; this still blocks a zone where only a pickup-point method is offered until
@@ -331,6 +336,11 @@ export function CheckoutPage() {
       navigate(`/${loc}/order/${order.token}`);
     } catch (e) {
       notifications.show({ color: "red", message: checkoutErrorMessage(e as StorefrontError, t) });
+      // The server's phone gate: back to the form with the field marked.
+      if ((e as StorefrontError)?.code === "phone_required") {
+        setShowErrors(true);
+        setStep("details");
+      }
     } finally {
       setPlacing(false);
     }
@@ -441,7 +451,7 @@ export function CheckoutPage() {
             allowDeselect={false}
             comboboxProps={{ withinPortal: true }}
           />
-          <TextInput label={t("shop.checkout.phone")} value={form.phone} onChange={set("phone")} />
+          <TextInput label={t("shop.checkout.phone")} type="tel" required autoComplete="tel" value={form.phone} onChange={set("phone")} error={showErrors && !phoneValid ? t("shop.checkout.phoneRequired") : undefined} />
 
           {/* Billing address (R2-G) — only meaningful when a shipping address is
               collected; a non-shippable cart's single block is already the billing one. */}
